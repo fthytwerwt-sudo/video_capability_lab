@@ -1,0 +1,34 @@
+# 最新摘要
+
+## 当前状态
+
+- 已确认：video_capability_lab 仓库完成三层协作骨架初始化。
+- 已确认：GPT Project 上传包只承载配合机制，不承载项目事实。
+- 已确认：GitHub 仓库是项目事实源。
+- 已确认：Codex 是执行落库层。
+- 已确认：每轮 Codex 任务执行完必须 push 到仓库。
+- 待验证：Remotion 手写字节奏层。
+- 待验证：HyperFrames apple glass 卡片。
+- 待验证：BGM beat_map 卡点管线。
+- 待验证：10-15 秒技术样片导出能力。
+
+## 本轮完成
+
+- AGENTS.md 已创建。
+- 项目机制源文件已创建。
+- GPT Project 配合机制上传包已创建。
+- 项目事实入口文件已创建。
+- Codex 执行标准文件已创建。
+- 同步脚本和验证脚本已创建。
+- 验证已运行。
+- commit 和 push 已完成。
+
+## 下一个目标
+
+建立第一轮组件级能力 probe 的执行合同，优先验证 Remotion 手写字节奏层、HyperFrames apple glass 卡片、BGM beat_map 卡点管线三者中最适合先做的一项。
+
+## 仍待确认
+
+- 新项目中文名是否最终锁定为：视频能力实验室｜Codex 视频导演能力库。
+- 第一轮能力 probe 先测哪一个组件。
+- 是否需要为 GPT Project 上传包额外生成本地 zip。
