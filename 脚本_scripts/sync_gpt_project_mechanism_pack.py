@@ -37,6 +37,14 @@ FORBIDDEN_PACK_PARTS = {
     "codex_source",
     "运行输出_runs",
 }
+FORBIDDEN_PACK_TEXT_TERMS = [
+    "first-station",
+    "商品池",
+    "商品分级",
+    "商品成立",
+    "厕所清洁剂",
+    "指标驱动的 AI 电商内容生成与商品筛选机制",
+]
 
 
 def readme_text() -> str:
@@ -155,6 +163,14 @@ def check() -> list[str]:
         errors.append(f"unexpected file in pack: {rel}")
     for rel in forbidden_paths_present():
         errors.append(f"forbidden path in pack: {rel}")
+    for path in PACK_DIR.rglob("*"):
+        if not path.is_file():
+            continue
+        rel = path.relative_to(PACK_DIR)
+        text = path.read_text(encoding="utf-8")
+        for term in FORBIDDEN_PACK_TEXT_TERMS:
+            if term in text:
+                errors.append(f"forbidden business term in pack: {rel}: {term}")
     return errors
 
 

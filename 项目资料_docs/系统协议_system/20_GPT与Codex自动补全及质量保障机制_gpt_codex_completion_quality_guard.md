@@ -15,7 +15,7 @@
 1. GPT 补目标、边界、P0/P1/P2、验收和风险。
 2. Codex 补执行字段、输入输出、触发条件、判断流程、阻断条件、降级方案、验证脚本和 tests。
 3. Codex 本轮执行时做二次补全：发现缺口就在当前边界内补齐。
-4. 修改系统机制文件后必须运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py` 刷新 GPT Project 上传包。
+4. 修改系统机制文件或 GPT Project 上传包相关文件后，必须运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py` 刷新 GPT Project 上传包，再运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py --check`。
 5. 修改仓库文件后必须验证、commit、push、远端 HEAD readback。
 
 ## 质量保障清单
@@ -29,6 +29,7 @@
 - 有检查脚本或 tests。
 - 有最新摘要和下一个目标。
 - 有 commit / push / remote HEAD 验证。
+- GPT Project 上传包已确认不包含 `AGENTS.md`、latest、项目事实目录、视频、图片、音频、运行输出或业务事实。
 
 ## 例外 / 停止线
 
@@ -41,6 +42,7 @@
 - 只新增 Markdown，没有验证脚本或 tests。
 - 只刷新同步包，没有检查上传包是否混入项目事实。
 - 系统机制改了但上传包未同步。
+- 上传包混入外部项目业务事实仍写可上传。
 - 本地验证通过但 push 失败仍写完成。
 - capability probe 未跑就写成能力成立。
 

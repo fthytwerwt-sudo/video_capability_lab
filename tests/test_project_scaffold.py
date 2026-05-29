@@ -5,6 +5,22 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+SYSTEM_PROTOCOL_RELS = [
+    "项目资料_docs/系统协议_system/00_协作协议_collaboration_protocol.md",
+    "项目资料_docs/系统协议_system/01_项目态账号记忆强制执行规则_project_mode_account_memory_enforcement.md",
+    "项目资料_docs/系统协议_system/02_P0-P1-P2锚点与抗漂移机制_anchor_priority_anti_drift.md",
+    "项目资料_docs/系统协议_system/05_输出硬规则与中文语义对齐_output_hard_rules.md",
+    "项目资料_docs/系统协议_system/20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md",
+    "项目资料_docs/系统协议_system/21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md",
+]
+FORBIDDEN_UPLOAD_PACK_TERMS = [
+    "first-station",
+    "商品池",
+    "商品分级",
+    "商品成立",
+    "厕所清洁剂",
+    "指标驱动的 AI 电商内容生成与商品筛选机制",
+]
 
 
 class ProjectScaffoldTest(unittest.TestCase):
@@ -55,11 +71,18 @@ class ProjectScaffoldTest(unittest.TestCase):
     def test_ecommerce_agents_rules_are_mechanism_only(self) -> None:
         agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
         execution_rules = (ROOT / "codex_source/01_execution_rules.md").read_text(encoding="utf-8")
+        system_protocol = "\n".join((ROOT / rel).read_text(encoding="utf-8") for rel in SYSTEM_PROTOCOL_RELS)
 
         self.assertIn("电商项目 AGENTS 只作为机制参考", agents)
         self.assertIn("禁止迁移电商项目业务事实", agents)
         self.assertIn("下一个目标", agents)
         self.assertIn("只迁移机制，不迁移业务事实", execution_rules)
+        self.assertIn("外部项目 AGENTS 只作为机制参考", system_protocol)
+        self.assertIn("只迁移协作机制，不迁移业务事实", system_protocol)
+        self.assertIn(
+            "业务身份、当前任务、完成状态、素材路径、模型选择、指标路线、候选对象、业务验收结果必须禁止迁移",
+            system_protocol,
+        )
         for forbidden in [
             "first-station",
             "商品成立",
@@ -87,6 +110,15 @@ class ProjectScaffoldTest(unittest.TestCase):
         for row in rows:
             cells = [cell.strip() for cell in row.strip("|").split("|")]
             self.assertEqual(cells[-1], "否", row)
+
+    def test_upload_pack_syncs_external_agents_mechanism_without_business_facts(self) -> None:
+        pack_dir = ROOT / "GPT项目资料同步包_gpt_project_mechanism_sync"
+        pack_text = "\n".join(path.read_text(encoding="utf-8") for path in pack_dir.rglob("*.md"))
+
+        self.assertIn("外部项目 AGENTS 只作为机制参考", pack_text)
+        self.assertIn("只迁移协作机制，不迁移业务事实", pack_text)
+        for forbidden in FORBIDDEN_UPLOAD_PACK_TERMS:
+            self.assertNotIn(forbidden, pack_text)
 
     def test_codex_execution_template_has_required_sections(self) -> None:
         text = (ROOT / "项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md").read_text(encoding="utf-8")

@@ -53,6 +53,25 @@ POLLUTION_PHRASES = [
     "Wan I2V 已通过",
     "Kling V3 Omni 默认路线",
 ]
+SYSTEM_PROTOCOL_RELS = [
+    "项目资料_docs/系统协议_system/00_协作协议_collaboration_protocol.md",
+    "项目资料_docs/系统协议_system/01_项目态账号记忆强制执行规则_project_mode_account_memory_enforcement.md",
+    "项目资料_docs/系统协议_system/02_P0-P1-P2锚点与抗漂移机制_anchor_priority_anti_drift.md",
+    "项目资料_docs/系统协议_system/05_输出硬规则与中文语义对齐_output_hard_rules.md",
+    "项目资料_docs/系统协议_system/20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md",
+    "项目资料_docs/系统协议_system/21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md",
+]
+SYSTEM_PROTOCOL_REQUIRED_PHRASES = [
+    "外部项目 AGENTS 只作为机制参考",
+    "只迁移协作机制，不迁移业务事实",
+    "业务身份、当前任务、完成状态、素材路径、模型选择、指标路线、候选对象、业务验收结果必须禁止迁移",
+    "系统机制文件或 GPT Project 上传包相关文件",
+    "下一个目标",
+]
+UPLOAD_PACK_REQUIRED_PHRASES = [
+    "外部项目 AGENTS 只作为机制参考",
+    "只迁移协作机制，不迁移业务事实",
+]
 
 
 def read(rel: str) -> str:
@@ -97,6 +116,11 @@ def validate() -> list[str]:
     if "只迁移机制，不迁移业务事实" not in execution_rules:
         errors.append("execution rules missing mechanism-only external AGENTS rule")
 
+    system_protocol_text = "\n".join(read(rel) for rel in SYSTEM_PROTOCOL_RELS)
+    for phrase in SYSTEM_PROTOCOL_REQUIRED_PHRASES:
+        if phrase not in system_protocol_text:
+            errors.append(f"system protocol missing required mechanism phrase: {phrase}")
+
     bridge = read("项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md")
     if "工作目录硬约束" not in bridge or "vlog、odd" not in bridge:
         errors.append("Codex bridge missing vlog、odd workspace hard constraint")
@@ -111,16 +135,25 @@ def validate() -> list[str]:
             errors.append(f"missing status word: {word}")
 
     if PACK_DIR.exists():
+        pack_text_parts: list[str] = []
         for path in PACK_DIR.rglob("*"):
             if path.is_dir():
                 continue
             rel = path.relative_to(PACK_DIR)
+            pack_text_parts.append(path.read_text(encoding="utf-8"))
             if len(rel.parts) != 1:
                 errors.append(f"nested file in upload pack: {rel}")
             if FACT_DIR_NAME in rel.parts or "项目资料_docs" in rel.parts or "执行日志_codex_log" in rel.parts:
                 errors.append(f"project fact path mixed into upload pack: {rel}")
             if rel.name in {"AGENTS.md", "最新摘要_latest.md"}:
                 errors.append(f"forbidden file mixed into upload pack: {rel}")
+        pack_text = "\n".join(pack_text_parts)
+        for phrase in UPLOAD_PACK_REQUIRED_PHRASES:
+            if phrase not in pack_text:
+                errors.append(f"upload pack missing required mechanism phrase: {phrase}")
+        for term in FORBIDDEN_ECOMMERCE_AGENTS_TERMS:
+            if term in pack_text:
+                errors.append(f"upload pack contains forbidden ecommerce or blocked-project term: {term}")
 
     project_fact_text = "\n".join(
         path.read_text(encoding="utf-8")
