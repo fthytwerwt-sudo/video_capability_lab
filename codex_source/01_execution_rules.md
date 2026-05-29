@@ -44,6 +44,20 @@ Codex 必须先在仓库内查找候选。若候选不唯一或不存在，必�
 
 不得猜路径、不得新建目录、不得把能力规划写成已确认事实。
 
+## 外部项目 AGENTS 审计规则
+
+审计其他项目 `AGENTS.md` 时默认只读，不得读取该项目业务文件，不得读取用户明确禁止的项目。
+
+可迁移内容必须标为“机制”。只迁移机制，不迁移业务事实。
+
+业务身份、当前任务、完成状态、素材路径、模型选择、指标路线、候选对象、分层规则、内容生成路线和验收结果必须标为“禁止迁移”。
+
+借鉴机制后，必须同步当前项目 `AGENTS.md`、`codex_source/01_execution_rules.md`、检查标准和 latest，不得把外部项目 AGENTS 写成当前项目事实源。
+
+修改系统机制文件或 GPT Project 上传包相关文件后，必须运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py --check`；需要刷新上传包时，必须运行同步脚本并检查差异。
+
+本地完成不等于远端完成；所有仓库文件改动必须 commit、push，并验证 remote HEAD。
+
 ## 每轮任务必须 push
 
 已确认：每轮 Codex 任务执行完，必须 push 到仓库。只要产生文件改动，就必须 path-limited stage、commit、push、remote HEAD readback。

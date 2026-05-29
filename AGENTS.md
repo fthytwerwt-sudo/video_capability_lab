@@ -51,10 +51,19 @@
 
 ## GPT Project 上传包纪律
 
+电商项目 AGENTS 只作为机制参考，不作为本项目事实源。
+禁止迁移电商项目业务事实。
+当前项目事实只来自 `fthytwerwt-sudo/video_capability_lab` 仓库 `main` 当前文件。
+
 GPT Project 只放配合机制，不放项目事实。  
 项目事实必须回 GitHub 仓库 `main` 当前文件读取。  
 GPT Project 上传包和 GitHub 仓库事实冲突时，以 GitHub 仓库为准。  
 `AGENTS.md`、执行日志、项目事实文件不得放进 GPT Project 上传包。
+`AGENTS.md` 和 `执行日志_codex_log/最新摘要_latest.md` 是 GPT / Codex 接手入口，必须回 GitHub 仓库读取，不复制进 GPT Project 上传包。
+Codex 负责执行、落库、验证、commit 和 push；GPT 负责总控、复审和业务判断。
+修改系统机制文件后，必须运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py --check`，并在需要同步时刷新 GPT Project 上传包。
+旧项目归档资料、历史过渡口径和外部项目 AGENTS 不得高于当前项目事实。
+用户可见回报默认使用“下一个目标”，不默认写“下一步”。
 
 ## Codex 强制 push 规则
 

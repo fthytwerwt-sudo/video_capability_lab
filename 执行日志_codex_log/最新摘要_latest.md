@@ -32,6 +32,14 @@
 - 已确认：路径不明确、候选不唯一或 remote 不匹配时，必须 blocked，不得猜。
 - 已确认：当前 GitHub 仓库仍必须是 `fthytwerwt-sudo/video_capability_lab`。
 
+## 本轮新增｜电商项目 AGENTS 通用机制审计
+
+- 已确认：本轮只读取电商项目 `AGENTS.md` 作为机制参考。
+- 已确认：未读取或迁移 `first-station` 项目内容。
+- 已确认：只迁移 GPT Project 上传包纪律、GitHub 事实源优先、GPT / Codex 分工、状态标记和“下一个目标”口径等通用机制。
+- 已确认：电商项目业务目标、商品池、指标链路、商品测试和业务验收结果不得迁入本项目。
+- 待验证：后续 Codex 任务是否稳定触发本轮补强规则。
+
 ## 下一个目标
 
 建立第一轮组件级能力 probe 的执行合同，优先验证 Remotion 手写字节奏层、HyperFrames apple glass 卡片、BGM beat_map 卡点管线三者中最适合先做的一项。

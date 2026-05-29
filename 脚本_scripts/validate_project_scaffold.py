@@ -36,6 +36,14 @@ FACT_DIR_NAME = "视频能力实验室_video_capability_lab"
 OLD_WRONG_WORKSPACE = "/Users/fan/Documents/video_capability_lab"
 CONFIRMED_WORKSPACE = "/Users/fan/Documents/vlog、odd/video_capability_lab"
 FORBIDDEN_TOP_LEVEL_DIRS = ["vlog", "odd", "vlog_odd"]
+FORBIDDEN_ECOMMERCE_AGENTS_TERMS = [
+    "first-station",
+    "商品成立",
+    "商品池",
+    "指标驱动的 AI 电商内容生成与商品筛选机制",
+    "厕所清洁剂",
+    "商品分级",
+]
 POLLUTION_PHRASES = [
     "厕所清洁剂",
     "切丝器",
@@ -69,6 +77,15 @@ def validate() -> list[str]:
         errors.append("AGENTS.md missing no-new-root-video-capability-lab rule")
     if CONFIRMED_WORKSPACE not in agents:
         errors.append("AGENTS.md missing confirmed workspace path")
+    if "电商项目 AGENTS 只作为机制参考" not in agents:
+        errors.append("AGENTS.md missing ecommerce AGENTS mechanism-only boundary")
+    if "禁止迁移电商项目业务事实" not in agents:
+        errors.append("AGENTS.md missing ecommerce business-fact migration ban")
+    if "下一个目标" not in agents:
+        errors.append("AGENTS.md missing next-goal wording")
+    for term in FORBIDDEN_ECOMMERCE_AGENTS_TERMS:
+        if term in agents:
+            errors.append(f"AGENTS.md contains forbidden ecommerce or blocked-project term: {term}")
 
     execution_rules = read("codex_source/01_execution_rules.md")
     if "vlog、odd 工作范围限制" not in execution_rules:
@@ -77,6 +94,8 @@ def validate() -> list[str]:
         errors.append("execution rules missing wrong-workspace blocker")
     if "blocked_ask_user_confirmation" not in execution_rules:
         errors.append("execution rules missing ask-user-confirmation blocker")
+    if "只迁移机制，不迁移业务事实" not in execution_rules:
+        errors.append("execution rules missing mechanism-only external AGENTS rule")
 
     bridge = read("项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md")
     if "工作目录硬约束" not in bridge or "vlog、odd" not in bridge:

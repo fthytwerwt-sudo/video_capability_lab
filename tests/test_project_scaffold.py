@@ -52,6 +52,24 @@ class ProjectScaffoldTest(unittest.TestCase):
         for dirname in ["vlog", "odd", "vlog_odd"]:
             self.assertFalse((ROOT / dirname).exists(), dirname)
 
+    def test_ecommerce_agents_rules_are_mechanism_only(self) -> None:
+        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        execution_rules = (ROOT / "codex_source/01_execution_rules.md").read_text(encoding="utf-8")
+
+        self.assertIn("电商项目 AGENTS 只作为机制参考", agents)
+        self.assertIn("禁止迁移电商项目业务事实", agents)
+        self.assertIn("下一个目标", agents)
+        self.assertIn("只迁移机制，不迁移业务事实", execution_rules)
+        for forbidden in [
+            "first-station",
+            "商品成立",
+            "商品池",
+            "指标驱动的 AI 电商内容生成与商品筛选机制",
+            "厕所清洁剂",
+            "商品分级",
+        ]:
+            self.assertNotIn(forbidden, agents)
+
     def test_capability_map_initial_status_is_pending_validation(self) -> None:
         text = (ROOT / "项目资料_docs/视频能力实验室_video_capability_lab/05_能力地图_capability_map.md").read_text(encoding="utf-8")
         self.assertNotIn("已确认可用", text)
