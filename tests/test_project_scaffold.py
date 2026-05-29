@@ -35,6 +35,23 @@ class ProjectScaffoldTest(unittest.TestCase):
         self.assertIn("每一轮 Codex 任务执行完，必须 push 到仓库", text)
         self.assertIn("禁止 `git add .`", text)
 
+    def test_workspace_boundary_is_vlog_odd_repo(self) -> None:
+        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        execution_rules = (ROOT / "codex_source/01_execution_rules.md").read_text(encoding="utf-8")
+        bridge = (ROOT / "项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md").read_text(encoding="utf-8")
+
+        self.assertNotIn("/Users/fan/Documents/video_capability_lab", agents)
+        self.assertIn("vlog、odd", agents)
+        self.assertIn("不得在 `/Users/fan/Documents/` 下另建新的 `video_capability_lab`", agents)
+        self.assertIn("vlog、odd 工作范围限制", execution_rules)
+        self.assertIn("blocked_wrong_workspace_or_remote", execution_rules)
+        self.assertIn("工作目录硬约束", bridge)
+        self.assertIn("vlog、odd", bridge)
+
+    def test_no_unconfirmed_vlog_odd_top_level_dirs(self) -> None:
+        for dirname in ["vlog", "odd", "vlog_odd"]:
+            self.assertFalse((ROOT / dirname).exists(), dirname)
+
     def test_capability_map_initial_status_is_pending_validation(self) -> None:
         text = (ROOT / "项目资料_docs/视频能力实验室_video_capability_lab/05_能力地图_capability_map.md").read_text(encoding="utf-8")
         self.assertNotIn("已确认可用", text)

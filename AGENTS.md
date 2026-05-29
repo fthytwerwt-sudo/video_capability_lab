@@ -4,6 +4,19 @@
 已确认：当前项目中文暂定名为 `视频能力实验室｜Codex 视频导演能力库`。  
 已确认：本项目是视频能力实验室，不是直播项目、不是电商项目、不是视频工厂正式运营项目。
 
+## 工作目录硬约束
+
+已确认：本项目只能在用户现有的 `vlog、odd` 文件夹内部的 `video_capability_lab` 仓库中执行。
+已确认：当前已确认本地仓库路径为 `/Users/fan/Documents/vlog、odd/video_capability_lab`。
+已确认：Codex 不得跑出 `vlog、odd` 文件夹执行本项目任务。
+已确认：Codex 不得在 `/Users/fan/Documents/` 下另建新的 `video_capability_lab` 目录。
+已确认：Codex 不得 clone 到其他路径，不得创建 worktree 到其他路径，不得在用户电脑其他位置新建项目目录。
+已确认：当前 GitHub 仓库必须是 `fthytwerwt-sudo/video_capability_lab`。
+已确认：执行前必须检查 `pwd`、`git rev-parse --show-toplevel`、`git branch --show-current`、`git remote -v`。
+已确认：如果当前路径不在 `vlog、odd` 文件夹内部的 `video_capability_lab` 仓库，必须立即 `blocked_wrong_workspace_or_remote`。
+已确认：如果 remote 不指向 `fthytwerwt-sudo/video_capability_lab`，必须立即 `blocked_wrong_workspace_or_remote`。
+已确认：不知道目标文件、目录、素材路径或执行范围时，必须先问或标 `待确认`，不得猜。
+
 ## 项目目标
 
 本项目用于验证、沉淀和复用 Codex 视频执行能力。

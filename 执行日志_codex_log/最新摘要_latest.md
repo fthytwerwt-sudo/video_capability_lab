@@ -23,6 +23,15 @@
 - 验证已运行。
 - commit 和 push 已完成。
 
+## 本轮新增｜修正 video_capability_lab 工作目录规则
+
+- 已确认：`video_capability_lab` 位于用户现有的 `vlog、odd` 文件夹内部。
+- 已确认：当前已确认本地仓库路径为 `/Users/fan/Documents/vlog、odd/video_capability_lab`。
+- 已确认：Codex 不得在 `/Users/fan/Documents/` 下另建新的 `video_capability_lab`。
+- 已确认：Codex 不得跑出 `vlog、odd` 文件夹执行本项目任务。
+- 已确认：路径不明确、候选不唯一或 remote 不匹配时，必须 blocked，不得猜。
+- 已确认：当前 GitHub 仓库仍必须是 `fthytwerwt-sudo/video_capability_lab`。
+
 ## 下一个目标
 
 建立第一轮组件级能力 probe 的执行合同，优先验证 Remotion 手写字节奏层、HyperFrames apple glass 卡片、BGM beat_map 卡点管线三者中最适合先做的一项。

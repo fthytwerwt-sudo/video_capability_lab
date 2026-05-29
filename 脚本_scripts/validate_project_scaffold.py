@@ -33,6 +33,9 @@ REQUIRED_FILES = [
 STATUS_WORDS = ["已确认", "部分成立", "待验证", "推测", "通用建议"]
 PACK_DIR = ROOT / "GPT项目资料同步包_gpt_project_mechanism_sync"
 FACT_DIR_NAME = "视频能力实验室_video_capability_lab"
+OLD_WRONG_WORKSPACE = "/Users/fan/Documents/video_capability_lab"
+CONFIRMED_WORKSPACE = "/Users/fan/Documents/vlog、odd/video_capability_lab"
+FORBIDDEN_TOP_LEVEL_DIRS = ["vlog", "odd", "vlog_odd"]
 POLLUTION_PHRASES = [
     "厕所清洁剂",
     "切丝器",
@@ -58,6 +61,30 @@ def validate() -> list[str]:
     agents = read("AGENTS.md") if (ROOT / "AGENTS.md").exists() else ""
     if "每一轮 Codex 任务执行完，必须 push 到仓库" not in agents:
         errors.append("AGENTS.md missing mandatory push rule")
+    if OLD_WRONG_WORKSPACE in agents:
+        errors.append("AGENTS.md still contains old wrong workspace path")
+    if "vlog、odd" not in agents:
+        errors.append("AGENTS.md missing vlog、odd workspace boundary")
+    if "不得在 `/Users/fan/Documents/` 下另建新的 `video_capability_lab`" not in agents:
+        errors.append("AGENTS.md missing no-new-root-video-capability-lab rule")
+    if CONFIRMED_WORKSPACE not in agents:
+        errors.append("AGENTS.md missing confirmed workspace path")
+
+    execution_rules = read("codex_source/01_execution_rules.md")
+    if "vlog、odd 工作范围限制" not in execution_rules:
+        errors.append("execution rules missing vlog、odd scope section")
+    if "blocked_wrong_workspace_or_remote" not in execution_rules:
+        errors.append("execution rules missing wrong-workspace blocker")
+    if "blocked_ask_user_confirmation" not in execution_rules:
+        errors.append("execution rules missing ask-user-confirmation blocker")
+
+    bridge = read("项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md")
+    if "工作目录硬约束" not in bridge or "vlog、odd" not in bridge:
+        errors.append("Codex bridge missing vlog、odd workspace hard constraint")
+
+    for dirname in FORBIDDEN_TOP_LEVEL_DIRS:
+        if (ROOT / dirname).exists():
+            errors.append(f"forbidden unconfirmed top-level directory exists: {dirname}")
 
     all_text = "\n".join(path.read_text(encoding="utf-8") for path in ROOT.rglob("*.md") if ".git" not in path.parts)
     for word in STATUS_WORDS:

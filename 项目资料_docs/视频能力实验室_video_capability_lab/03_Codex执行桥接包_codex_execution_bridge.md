@@ -1,5 +1,17 @@
 # Codex 执行桥接包
 
+## 工作目录硬约束
+
+- 本项目只能在用户现有的 `vlog、odd` 文件夹内部的 `video_capability_lab` 仓库中执行。
+- 当前已确认本地仓库路径为 `/Users/fan/Documents/vlog、odd/video_capability_lab`。
+- 当前 GitHub 仓库必须是 `fthytwerwt-sudo/video_capability_lab`。
+- 禁止跑出 `vlog、odd` 文件夹。
+- 禁止在 `/Users/fan/Documents/` 下另建 `video_capability_lab`。
+- 禁止 clone 到其他路径。
+- 禁止创建 worktree 到其他路径。
+- 任何文件创建、修改、迁移、同步、commit、push 都只能发生在该目录和该仓库内。
+- 路径不明确时必须先问或 blocked，不得猜。
+
 ## Codex 每轮执行前必须读取
 
 1. `AGENTS.md`

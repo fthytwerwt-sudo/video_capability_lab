@@ -1,5 +1,17 @@
 # 检查标准与完成定义
 
+## 工作范围检查
+
+每轮执行前必须检查：
+
+1. 当前目录是否在用户现有 `vlog、odd` 文件夹内部。
+2. 当前 git 顶层是否为该文件夹内的 `video_capability_lab`。
+3. remote 是否指向 `fthytwerwt-sudo/video_capability_lab`。
+4. 是否没有在 `vlog、odd` 文件夹外创建目录或文件。
+5. 是否没有在 `/Users/fan/Documents/` 下另建新的 `video_capability_lab`。
+6. 是否没有 push 到错误仓库。
+7. 路径不明确、候选不唯一或 remote 不匹配时，是否已 blocked 而不是猜。
+
 ## 项目骨架完整性检查
 
 - `AGENTS.md` 存在。
