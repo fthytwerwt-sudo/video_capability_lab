@@ -79,3 +79,50 @@ remote_head_verified:
 validation:
 next_goal:
 ```
+
+## 本轮新增｜reference_analysis 到 component_probe 桥接
+
+### route_decision
+
+```yaml
+task_type: reference_analysis
+allowed_actions:
+  - 读取当前仓库内 `素材/vlog 参考` 的 2 个本地视频
+  - 使用 ffprobe / ffmpeg 做技术元数据与临时抽帧辅助观察
+  - 输出轻量 Markdown 报告
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 生成正式视频
+  - 调用外部 API
+  - 安装大型依赖
+  - 提交视频、图片、音频、抽帧或运行输出
+  - 复刻平台 UI、品牌资产、账号页、二维码、原字体或原文案
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+expected_validation:
+  - ffprobe metadata
+  - report_non_empty
+  - key_fields_grep
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### reference_outputs
+
+- 已确认：本轮报告路径为 `项目资料_docs/视频能力实验室_video_capability_lab/11_vlog参考视频解析_vlog_reference_analysis.md`。
+- 已确认：`video_01` 和 `video_02` 均已完成技术元数据读取和文字化参考解析。
+- 待验证：所有 Remotion / HyperFrames / BGM 能力仍需独立 component_probe。
+
+### next_component_probe_candidates
+
+| priority | component | status | source_reference | probe_reason |
+|---|---|---|---|---|
+| 1 | Remotion 手写字节奏层 | 待验证 | `02.MP4` | 手写字作为独立 overlay 机制清晰，资产替换成本低。 |
+| 2 | Remotion 分屏 collage | 待验证 | `02.MP4` | 上下分屏结构清楚，适合用原创素材验证布局和时间轴。 |
+| 3 | 自有 CTA end card | 待验证 | `01.MP4` + `02.MP4` | 两个参考视频都有平台尾卡，可迁移为原创回审尾卡。 |
+
+### remaining_confirmation
+
+- 待验证：用户是否希望第一轮 probe 只做 `Remotion 手写字节奏层`，还是把 `分屏 collage` 一起纳入同一轮。
+- 待验证：后续 probe 使用的原创素材、原创短句和画幅比例。
+- 推测：若优先追求最小可验证闭环，先做单组件 `handwriting_beat_layer` 风险最低。

@@ -57,12 +57,24 @@
 - 已确认：不知道怎么命名时，必须先问或标 `待确认`，不得随便创建纯英文文件名。
 - 已确认：该规则已同步到输出硬规则和 GPT Project 配合机制上传包。
 
+## 本轮新增｜vlog reference_analysis 轻量报告
+
+- 已确认：本轮执行路径为 `/Users/fan/Documents/vlog、odd/video_capability_lab`。
+- 已确认：当前 GitHub 仓库为 `fthytwerwt-sudo/video_capability_lab`，分支为 `main`。
+- 部分成立：用户执行单中的 `/Users/fan/Documents/video_capability_lab` 在本机不存在；当前仓库规则已确认不得在 `/Users/fan/Documents/` 下另建同名目录。
+- 部分成立：执行单写 `素材-vlog 参考`，当前仓库实际素材目录为 `素材/vlog 参考`。
+- 已确认：`素材/vlog 参考` 下正好有 2 个视频：`01.MP4`、`02.MP4`。
+- 已确认：本轮产物为 `项目资料_docs/视频能力实验室_video_capability_lab/11_vlog参考视频解析_vlog_reference_analysis.md`。
+- 已确认：本轮只提交轻量 Markdown 文档，不提交视频、图片、音频、抽帧、contact sheet 或运行输出。
+- 已确认：本轮按项目规则进行 path-limited stage、commit、push 和 remote HEAD readback；具体 commit SHA 以本轮最终回报为准。
+- 待验证：Remotion 手写字节奏层、Remotion 分屏 collage、自有 CTA end card 和 BGM beat_map 仍需下一轮 component_probe。
+
 ## 下一个目标
 
-建立第一轮组件级能力 probe 的执行合同，优先验证 Remotion 手写字节奏层、HyperFrames apple glass 卡片、BGM beat_map 卡点管线三者中最适合先做的一项。
+建立第一轮 `component_probe` 执行合同，第一优先验证 `Remotion 手写字节奏层`，第二优先验证 `Remotion 分屏 collage`，第三优先验证 `自有 CTA end card`。
 
 ## 仍待确认
 
 - 新项目中文名是否最终锁定为：视频能力实验室｜Codex 视频导演能力库。
-- 第一轮能力 probe 先测哪一个组件。
+- 第一轮能力 probe 是否只测 `Remotion 手写字节奏层`，还是连同 `Remotion 分屏 collage` 一起设计。
 - 是否需要为 GPT Project 上传包额外生成本地 zip。
