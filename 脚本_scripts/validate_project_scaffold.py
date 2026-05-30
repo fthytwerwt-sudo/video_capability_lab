@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import re
 import sys
 from pathlib import Path
 
@@ -72,10 +73,76 @@ UPLOAD_PACK_REQUIRED_PHRASES = [
     "外部项目 AGENTS 只作为机制参考",
     "只迁移协作机制，不迁移业务事实",
 ]
+ALLOWED_FIXED_NAMES = {
+    "AGENTS.md",
+    "README.md",
+    ".gitignore",
+    "package.json",
+    "tsconfig.json",
+    "vite.config.ts",
+    "vite.config.js",
+    "remotion.config.ts",
+    "remotion.config.js",
+    "Dockerfile",
+    "docker-compose.yml",
+    "pyproject.toml",
+    "requirements.txt",
+    "pytest.ini",
+    "__init__.py",
+}
+LEGACY_FILENAME_EXCEPTIONS = {
+    "codex_source",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/10_remotion_component_execution.md",
+    "codex_source/11_hyperframes_card_execution.md",
+    "codex_source/12_bgm_beat_execution.md",
+    "codex_source/13_reference_analysis_execution.md",
+    "codex_source/14_review_pack_and_export_rules.md",
+    "tests",
+    "tests/test_project_scaffold.py",
+    "脚本_scripts/sync_gpt_project_mechanism_pack.py",
+    "脚本_scripts/validate_project_scaffold.py",
+}
+FILENAME_RULE_REQUIRED = [
+    ("AGENTS.md", "文件命名硬规则"),
+    ("项目资料_docs/系统协议_system/05_输出硬规则与中文语义对齐_output_hard_rules.md", "中文 + 英文"),
+    ("codex_source/01_execution_rules.md", "文件命名规则"),
+    ("项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md", "文件命名要求"),
+    ("项目资料_docs/视频能力实验室_video_capability_lab/04_检查标准与完成定义_check_standards.md", "文件命名检查"),
+]
+CHINESE_RE = re.compile(r"[\u4e00-\u9fff]")
+SNAKE_PART_RE = re.compile(r"[a-z][a-z0-9]*")
 
 
 def read(rel: str) -> str:
     return (ROOT / rel).read_text(encoding="utf-8")
+
+
+def uses_bilingual_name(path: Path) -> bool:
+    name = path.name
+    if name in ALLOWED_FIXED_NAMES:
+        return True
+    stem = name if path.is_dir() else path.stem
+    if "_" not in stem or not CHINESE_RE.search(stem):
+        return False
+    return any(SNAKE_PART_RE.fullmatch(part) for part in stem.split("_"))
+
+
+def filename_rule_violations() -> list[str]:
+    violations: list[str] = []
+    for path in ROOT.rglob("*"):
+        rel = path.relative_to(ROOT)
+        rel_text = rel.as_posix()
+        if ".git" in rel.parts or "素材" in rel.parts:
+            continue
+        if path.name.startswith("."):
+            continue
+        if rel_text in LEGACY_FILENAME_EXCEPTIONS:
+            continue
+        if not uses_bilingual_name(path):
+            violations.append(rel_text)
+    return violations
 
 
 def validate() -> list[str]:
@@ -115,6 +182,12 @@ def validate() -> list[str]:
         errors.append("execution rules missing ask-user-confirmation blocker")
     if "只迁移机制，不迁移业务事实" not in execution_rules:
         errors.append("execution rules missing mechanism-only external AGENTS rule")
+
+    for rel, phrase in FILENAME_RULE_REQUIRED:
+        if phrase not in read(rel):
+            errors.append(f"filename rule missing from {rel}: {phrase}")
+    for rel in filename_rule_violations():
+        errors.append(f"custom file or directory name must be Chinese+English or legacy/fixed exception: {rel}")
 
     system_protocol_text = "\n".join(read(rel) for rel in SYSTEM_PROTOCOL_RELS)
     for phrase in SYSTEM_PROTOCOL_REQUIRED_PHRASES:

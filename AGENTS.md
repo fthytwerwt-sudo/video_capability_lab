@@ -73,6 +73,28 @@ Codex 负责执行、落库、验证、commit 和 push；GPT 负责总控、复�
 已确认：push 失败必须写 `blocked_push_failed`。  
 已确认：禁止 `git add .`，必须 path-limited stage 本轮相关文件。
 
+## 文件命名硬规则
+
+已确认：Codex 在本项目中创建的所有自定义文件和目录，默认必须使用“中文 + 英文”命名。
+
+推荐格式：
+
+`中文说明_english_slug.ext`
+
+示例：
+
+- `能力地图_capability_map.md`
+- `工作范围检查_workspace_guard.md`
+- `手写字节奏层探针_handwriting_beat_layer_probe.md`
+- `上传包同步检查_sync_upload_pack_check.py`
+- `组件验证报告_component_validation_report.json`
+
+已确认：中文部分用于用户理解，英文部分用于脚本、搜索和跨工具识别。
+
+已确认：若文件名属于工具强制约定，例如 `AGENTS.md`、`README.md`、`.gitignore`、`package.json`、`Dockerfile`，可以保留固定原名，但必须是工具约定需要，不得作为偷懒理由。
+
+已确认：不知道怎么命名时，必须先问或标 `待确认`，不得随便创建纯英文文件名。
+
 ## 状态标记
 
 本项目只使用以下状态词表达判断强度：

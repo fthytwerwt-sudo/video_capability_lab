@@ -44,6 +44,18 @@ Codex 必须先在仓库内查找候选。若候选不唯一或不存在，必�
 
 不得猜路径、不得新建目录、不得把能力规划写成已确认事实。
 
+## 文件命名规则
+
+Codex 新建任何自定义文件或目录前，必须检查文件名是否为“中文 + 英文”。
+
+推荐格式：`中文说明_english_slug.ext`。
+
+不符合规则时，不得创建；必须改成中文+英文，或说明属于工具固定文件名例外。
+
+工具固定文件名例外包括 `AGENTS.md`、`README.md`、`.gitignore`、`package.json`、`tsconfig.json`、`vite.config.*`、`remotion.config.*`、`Dockerfile`、`docker-compose.yml`、`pyproject.toml`、`requirements.txt`、`pytest.ini`、`__init__.py` 和其他第三方工具强制要求的固定文件名。
+
+本轮最终回报必须列出新建文件，并说明是否符合命名规则；若使用例外文件名，必须说明原因。
+
 ## 外部项目 AGENTS 审计规则
 
 审计其他项目 `AGENTS.md` 时默认只读，不得读取该项目业务文件，不得读取用户明确禁止的项目。

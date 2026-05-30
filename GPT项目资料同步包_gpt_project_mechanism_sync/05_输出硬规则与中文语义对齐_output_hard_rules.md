@@ -9,6 +9,7 @@
 - 输出最终回报、执行单、日志、上传说明、项目事实或检查标准。
 - 解释命令、路径、字段名、配置键、环境变量、报错原文。
 - 涉及完成度、验证度、能力边界、push 状态或 blocker。
+- Codex 新建自定义文件或目录。
 
 ## 默认动作
 
@@ -17,6 +18,54 @@
 3. 用户可复制内容使用完整 Markdown 代码块。
 4. 最终推进口径使用“下一个目标”，不把动作清单冒充目标判断。
 5. 本地完成、远端完成、技术验证、人审验证必须分开表述。
+
+## 文件命名硬规则
+
+Codex 在本项目中创建的所有自定义文件和目录，默认必须使用“中文 + 英文”命名。
+
+推荐格式：
+
+`中文说明_english_slug.ext`
+
+示例：
+
+- `能力地图_capability_map.md`
+- `工作范围检查_workspace_guard.md`
+- `手写字节奏层探针_handwriting_beat_layer_probe.md`
+- `上传包同步检查_sync_upload_pack_check.py`
+- `组件验证报告_component_validation_report.json`
+
+要求：
+
+1. 中文部分说明文件用途。
+2. 英文部分保留机器、脚本、搜索、跨工具可读性。
+3. 中英文之间使用下划线 `_` 分隔。
+4. 英文部分使用小写 snake_case。
+5. 新建目录也默认遵守中文+英文命名。
+6. 不知道怎么命名时，必须先问或标 `待确认`，不得随便起纯英文名。
+
+例外：
+
+以下工具约定文件可以保持固定英文或固定原名：
+
+- `AGENTS.md`
+- `README.md`
+- `.gitignore`
+- `package.json`
+- `tsconfig.json`
+- `vite.config.*`
+- `remotion.config.*`
+- `Dockerfile`
+- `docker-compose.yml`
+- `pyproject.toml`
+- `requirements.txt`
+- `pytest.ini`
+- `__init__.py`
+- 其他第三方工具强制要求的固定文件名
+
+但如果是 Codex 自己新增的项目文档、脚本、测试、报告、配置模板、review pack、机制文件、能力 probe 文件，必须使用中文+英文命名。
+
+若使用例外文件名，必须在最终回报中说明原因。
 
 ## 例外 / 停止线
 
@@ -30,7 +79,8 @@
 - 把 local-only 写成 remote completed。
 - 把技术样片写成正式交付或 publish-ready。
 - 中文表述让用户误以为视频、Remotion、HyperFrames 或 BGM 已验证。
+- 非工具约定场景下创建纯英文文件名、纯缩写文件名或用户无法理解的文件名。
 
 ## 一句话执行口径
 
-中文先说清，English 原词保关键，状态必须诚实；本地、远端、技术、人审不能混写。
+中文先说清，English 原词保关键，状态必须诚实；本地、远端、技术、人审不能混写；新建文件默认中文+英文命名。

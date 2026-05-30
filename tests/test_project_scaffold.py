@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import unittest
 from pathlib import Path
 
@@ -21,6 +22,49 @@ FORBIDDEN_UPLOAD_PACK_TERMS = [
     "厕所清洁剂",
     "指标驱动的 AI 电商内容生成与商品筛选机制",
 ]
+ALLOWED_FIXED_NAMES = {
+    "AGENTS.md",
+    "README.md",
+    ".gitignore",
+    "package.json",
+    "tsconfig.json",
+    "vite.config.ts",
+    "vite.config.js",
+    "remotion.config.ts",
+    "remotion.config.js",
+    "Dockerfile",
+    "docker-compose.yml",
+    "pyproject.toml",
+    "requirements.txt",
+    "pytest.ini",
+    "__init__.py",
+}
+LEGACY_FILENAME_EXCEPTIONS = {
+    "codex_source",
+    "codex_source/00_codex_readme.md",
+    "codex_source/01_execution_rules.md",
+    "codex_source/10_remotion_component_execution.md",
+    "codex_source/11_hyperframes_card_execution.md",
+    "codex_source/12_bgm_beat_execution.md",
+    "codex_source/13_reference_analysis_execution.md",
+    "codex_source/14_review_pack_and_export_rules.md",
+    "tests",
+    "tests/test_project_scaffold.py",
+    "脚本_scripts/sync_gpt_project_mechanism_pack.py",
+    "脚本_scripts/validate_project_scaffold.py",
+}
+CHINESE_RE = re.compile(r"[\u4e00-\u9fff]")
+SNAKE_PART_RE = re.compile(r"[a-z][a-z0-9]*")
+
+
+def uses_bilingual_name(path: Path) -> bool:
+    name = path.name
+    if name in ALLOWED_FIXED_NAMES:
+        return True
+    stem = name if path.is_dir() else path.stem
+    if "_" not in stem or not CHINESE_RE.search(stem):
+        return False
+    return any(SNAKE_PART_RE.fullmatch(part) for part in stem.split("_"))
 
 
 class ProjectScaffoldTest(unittest.TestCase):
@@ -128,6 +172,7 @@ class ProjectScaffoldTest(unittest.TestCase):
             "Constraints（边界）",
             "Impact check（影响面检查）",
             "Must read（必须读取）",
+            "文件命名要求",
             "Execution steps（执行步骤）",
             "Done when（完成标准）",
             "Blocked if（阻断条件）",
@@ -135,6 +180,36 @@ class ProjectScaffoldTest(unittest.TestCase):
         ]
         for section in required_sections:
             self.assertIn(section, text)
+
+    def test_filename_rule_is_landed_in_project_controls(self) -> None:
+        agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        output_rules = (ROOT / "项目资料_docs/系统协议_system/05_输出硬规则与中文语义对齐_output_hard_rules.md").read_text(encoding="utf-8")
+        execution_rules = (ROOT / "codex_source/01_execution_rules.md").read_text(encoding="utf-8")
+        bridge = (ROOT / "项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md").read_text(encoding="utf-8")
+        check_standards = (ROOT / "项目资料_docs/视频能力实验室_video_capability_lab/04_检查标准与完成定义_check_standards.md").read_text(encoding="utf-8")
+
+        self.assertIn("文件命名硬规则", agents)
+        self.assertIn("中文 + 英文", output_rules)
+        self.assertIn("文件命名规则", execution_rules)
+        self.assertIn("文件命名要求", bridge)
+        self.assertIn("文件命名检查", check_standards)
+
+    def test_current_custom_filenames_are_bilingual_or_legacy(self) -> None:
+        violations = []
+        for path in ROOT.rglob("*"):
+            rel = path.relative_to(ROOT)
+            rel_text = rel.as_posix()
+            if ".git" in rel.parts or "素材" in rel.parts:
+                continue
+            if path.name.startswith("."):
+                continue
+            if rel_text in LEGACY_FILENAME_EXCEPTIONS:
+                continue
+            if not uses_bilingual_name(path):
+                violations.append(rel_text)
+
+        self.assertIn("tests/test_project_scaffold.py", LEGACY_FILENAME_EXCEPTIONS)
+        self.assertEqual([], violations)
 
 
 if __name__ == "__main__":

@@ -48,6 +48,16 @@
 - `codex_source/01_execution_rules.md` 定义 push、状态、route_decision、validation、commit_push_status。
 - Remotion / HyperFrames / BGM / reference / review_pack 边界均存在。
 
+## 文件命名检查
+
+每轮完成前必须检查：
+
+1. 本轮是否新建文件或目录。
+2. 新建文件或目录是否符合 `中文说明_english_slug.ext` 或 `中文说明_english_slug/`。
+3. 是否存在非约定场景下的纯英文文件名。
+4. 如果使用工具固定英文名，是否在回报中说明原因。
+5. 是否没有用模糊缩写、临时名、无语义名，例如 `test1.md`、`new_file.py`、`tmp.md`。
+
 ## 状态标记检查
 
 必须出现并按证据强度使用：

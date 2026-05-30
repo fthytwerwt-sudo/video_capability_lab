@@ -43,11 +43,19 @@ Context（上下文）
 Constraints（边界）
 Impact check（影响面检查）
 Must read（必须读取）
+文件命名要求
 Execution steps（执行步骤）
 Done when（完成标准）
 Blocked if（阻断条件）
 Output（最终回报格式）
 ```
+
+## 文件命名要求
+
+- 本轮新建自定义文件 / 目录必须使用中文+英文命名。
+- 格式：`中文说明_english_slug.ext`。
+- 工具强制约定文件名除外，但必须说明原因。
+- 不知道怎么命名时，必须先问或标 `待确认`，不得随便创建纯英文文件名。
 
 ## 固定边界
 
