@@ -126,3 +126,53 @@ expected_validation:
 - 待验证：用户是否希望第一轮 probe 只做 `Remotion 手写字节奏层`，还是把 `分屏 collage` 一起纳入同一轮。
 - 待验证：后续 probe 使用的原创素材、原创短句和画幅比例。
 - 推测：若优先追求最小可验证闭环，先做单组件 `handwriting_beat_layer` 风险最低。
+
+## 本轮新增｜audio_beat_toolchain_check 到 BGM beat_map probe 桥接
+
+### route_decision
+
+```yaml
+task_type: audio_beat_toolchain_check
+allowed_actions:
+  - 创建或复用项目本地 `.venv`
+  - 安装 librosa / numpy / scipy / soundfile 到 `.venv`
+  - 检测 ffmpeg / ffprobe / Python / audio modules
+  - 运行 synthetic click audio test
+  - 输出轻量检测脚本、requirements 记录和 Markdown 报告
+forbidden_actions:
+  - 全局 pip install
+  - sudo install
+  - Homebrew 安装系统依赖
+  - 安装 OpenCV / torch / tensorflow / demucs / spleeter / whisper
+  - 调用外部 API
+  - 生成视频
+  - 提交 `.venv`、音频、视频、图片或运行输出
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+expected_validation:
+  - import_test
+  - synthetic_audio_test
+  - report_non_empty
+  - no_venv_staged
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### audio_toolchain_outputs
+
+- 已确认：检测脚本为 `脚本_scripts/检查音频卡点工具链_check_audio_beat_toolchain.py`。
+- 已确认：依赖记录为 `依赖_requirements/音频分析_audio_analysis_requirements.txt`。
+- 已确认：检测报告为 `项目资料_docs/视频能力实验室_video_capability_lab/12_音频卡点工具链检测_audio_beat_toolchain_check.md`。
+- 部分成立：音频分析工具链已可运行，并通过 synthetic audio test。
+- 待验证：真实 BGM beat_map 仍需独立 probe。
+
+### next_bgm_probe_candidate
+
+| priority | probe | status | input_candidate | expected_outputs |
+|---|---|---|---|---|
+| 1 | BGM beat_map probe | 待验证 | 真实 BGM 或从 `素材/vlog 参考` 提取的音频 | `beat_map.json`、`onset_map.json`、`rms_peaks.json`、`waveform_review.png`、人工复听清单 |
+
+### remaining_confirmation
+
+- 待验证：下一轮使用用户指定真实 BGM，还是从现有 `01.MP4` / `02.MP4` 提取音频。
+- 待验证：下一轮是否允许提交 JSON / PNG review artifacts，或只提交 Markdown 检测报告。

@@ -134,7 +134,7 @@ def filename_rule_violations() -> list[str]:
     for path in ROOT.rglob("*"):
         rel = path.relative_to(ROOT)
         rel_text = rel.as_posix()
-        if ".git" in rel.parts or "素材" in rel.parts:
+        if ".git" in rel.parts or ".venv" in rel.parts or "素材" in rel.parts:
             continue
         if path.name.startswith("."):
             continue

@@ -69,12 +69,27 @@
 - 已确认：本轮按项目规则进行 path-limited stage、commit、push 和 remote HEAD readback；具体 commit SHA 以本轮最终回报为准。
 - 待验证：Remotion 手写字节奏层、Remotion 分屏 collage、自有 CTA end card 和 BGM beat_map 仍需下一轮 component_probe。
 
+## 本轮新增｜BGM beat_map 工具链体检
+
+- 已确认：本轮执行路径为 `/Users/fan/Documents/vlog、odd/video_capability_lab`。
+- 已确认：FFmpeg / ffprobe 可运行，版本为 `8.1`。
+- 已确认：项目本地 `.venv` 已创建；未全局安装，未使用 sudo，未调用外部 API。
+- 已确认：`librosa 0.11.0`、`numpy 2.0.2`、`scipy 1.13.1`、`soundfile 0.13.1` 已安装到 `.venv` 并通过 import test。
+- 已确认：synthetic audio test 已通过，estimated_tempo 为 `117.454`，beat_count 为 `7`。
+- 部分成立：audio toolchain 已具备进入下一轮 BGM beat_map probe 的基础条件。
+- 待验证：真实 BGM beat_map 仍未验证，不得写成能力成立。
+- 已确认：`.venv` 已加入 `.gitignore`，本轮不提交 `.venv`、音频、视频、图片或运行输出。
+- 已确认：检测脚本为 `脚本_scripts/检查音频卡点工具链_check_audio_beat_toolchain.py`。
+- 已确认：依赖记录为 `依赖_requirements/音频分析_audio_analysis_requirements.txt`。
+- 已确认：检测报告为 `项目资料_docs/视频能力实验室_video_capability_lab/12_音频卡点工具链检测_audio_beat_toolchain_check.md`。
+
 ## 下一个目标
 
-建立第一轮 `component_probe` 执行合同，第一优先验证 `Remotion 手写字节奏层`，第二优先验证 `Remotion 分屏 collage`，第三优先验证 `自有 CTA end card`。
+进入 `BGM beat_map probe（音乐卡点能力探针）`，使用真实 BGM 或从 `素材/vlog 参考` 提取音频生成可回审 `beat_map` / `onset_map` / `rms_peaks`。
 
 ## 仍待确认
 
 - 新项目中文名是否最终锁定为：视频能力实验室｜Codex 视频导演能力库。
-- 第一轮能力 probe 是否只测 `Remotion 手写字节奏层`，还是连同 `Remotion 分屏 collage` 一起设计。
+- 下一轮 `BGM beat_map probe` 使用用户指定真实 BGM，还是从现有 `01.MP4` / `02.MP4` 提取音频。
+- 下一轮是否允许提交 JSON / PNG review artifacts，或只提交 Markdown 检测报告。
 - 是否需要为 GPT Project 上传包额外生成本地 zip。
