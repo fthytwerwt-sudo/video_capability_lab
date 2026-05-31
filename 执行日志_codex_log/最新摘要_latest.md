@@ -242,3 +242,19 @@
 ## 下一个目标
 
 基于新机制，把当前 30 秒样片重写成 `visual_selection_table（画面选择表）` + `video_event_table（视频事件表）`，再进入字幕/贴纸/画面修复。
+
+## 本轮新增｜对标视频底线失败标准
+
+- 已确认：用户最新要求是创建 `reference_bottom_line_fail_gate mechanism`，不是修视频、不是 render、不是加转场、不是调字幕贴纸。
+- 已确认：本轮新增机制文件为 `项目资料_docs/视频能力实验室_video_capability_lab/23_对标视频底线失败标准_reference_bottom_line_fail_gate.md`。
+- 已确认：`reference_bottom_line` 已定义为对标视频最低失败标准，不是装饰性灵感。
+- 已确认：`hard_fail_gate` 已覆盖 `fail_no_reference_function`、`fail_surface_copy_without_function`、`fail_event_quantity_as_quality`、`fail_no_visual_selection_table`、`fail_no_video_event_table`、`fail_no_frame_review`、`fail_reference_mismatch`、`fail_random_patchwork`、`fail_caption_not_reference_like`、`fail_sticker_not_reference_like`、`fail_transition_not_reference_like`、`fail_music_visual_mismatch`、`fail_style_inconsistency`、`fail_reference_asset_copy`。
+- 已确认：后续 transition 必须先写 `transition_role`、`music_moment` 和 `reference_function`，不能把转场当装饰。
+- 已确认：如果用户看不出对标视频的感觉，即使技术 render 成功，也必须判定为内容失败。
+- 已确认：渲染前阻断条件已加入 `reference_learning_checklist`、`visual_selection_table`、`video_event_table`、`failure_checklist`、`frame_level_review_points`。
+- 已确认：本轮未调用外部 API，未安装依赖，未 render 视频，未提交视频、图片、音频、`dist`、`tmp` 或 runtime assets。
+- 当前内容状态：`reference_bottom_line_gate_completed_fix_pending`。
+
+## 下一个目标
+
+基于该底线，重写当前 30 秒样片的 `reference_learning_checklist（对标学习检查清单）` + `visual_selection_table（画面选择表）` + `video_event_table（视频事件表）`，再进入修复。

@@ -638,3 +638,62 @@ expected_validation:
 
 - 待验证：下一轮重写 30 秒样片事件表后，是否能支撑实际 Remotion 修复。
 - 待验证：用户是否认可新机制覆盖“放什么图比较合适”和“不能全是一样的”这两个缺口。
+
+## 本轮新增｜对标视频底线失败标准桥接
+
+### route_decision
+
+```yaml
+task_type: reference_bottom_line_fail_gate
+true_goal: 建立对标视频底线失败标准，防止把表面元素、事件数量或 render 成功误判为对标成立
+render_allowed_this_round: false
+file_change_scope: mechanism_docs_only
+allowed_actions:
+  - 读取当前仓库事实
+  - 读取新参考包审美解析
+  - 读取 30 秒对标样片报告
+  - 读取字幕贴纸对标审计报告
+  - 读取视频事件表与画面选择机制
+  - 新建对标视频底线失败标准文件
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 修改 Remotion 源码
+  - 修复当前视频
+  - render 视频
+  - 新增转场或贴纸素材
+  - 调用外部 API
+  - 安装依赖
+  - 提交视频、图片、音频、dist、tmp 或 runtime assets
+  - 把机制写成当前 30 秒样片已修复
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+mechanism_file: 项目资料_docs/视频能力实验室_video_capability_lab/23_对标视频底线失败标准_reference_bottom_line_fail_gate.md
+expected_validation:
+  - workspace_identity_check
+  - required_files_exist
+  - hard_fail_gate_key_terms_grep
+  - git diff --check
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### reference_bottom_line_outputs
+
+- 已确认：本轮新增机制文件为 `项目资料_docs/视频能力实验室_video_capability_lab/23_对标视频底线失败标准_reference_bottom_line_fail_gate.md`。
+- 已确认：`reference_bottom_line` 定义为对标视频最低失败标准，不是装饰性灵感。
+- 已确认：`hard_fail_gate` 覆盖 `fail_no_reference_function`、`fail_surface_copy_without_function`、`fail_event_quantity_as_quality`、`fail_no_visual_selection_table`、`fail_no_video_event_table`、`fail_no_frame_review`、`fail_reference_mismatch`、`fail_random_patchwork`、`fail_caption_not_reference_like`、`fail_sticker_not_reference_like`、`fail_transition_not_reference_like`、`fail_music_visual_mismatch`、`fail_style_inconsistency`、`fail_reference_asset_copy`。
+- 已确认：后续 transition 必须先写 `transition_role`、`music_moment` 和 `reference_function`，不能把转场当装饰。
+- 已确认：如果用户看不出对标视频的感觉，即使技术 render 成功，也必须判定为内容失败。
+- 当前内容状态：`reference_bottom_line_gate_completed_fix_pending`。
+
+### next_execution_usage
+
+- 后续任何 vlog demo 修复前，必须先生成 `reference_learning_checklist`。
+- 后续任何 vlog demo render 前，必须先通过 `hard_fail_gate`。
+- 后续任何 30 秒样片修复，都必须把 `reference_learning_checklist`、`visual_selection_table` 和 `video_event_table` 放在 Remotion 修改之前。
+- 缺少 `visual_selection_table`、`video_event_table`、`failure_checklist`、`frame_level_review_points` 或 `reference_function` 时，默认 blocked。
+
+### remaining_confirmation
+
+- 待验证：下一轮按新底线重写当前 30 秒样片的 `reference_learning_checklist` 后，能否支撑实际 Remotion 修复。
+- 待验证：用户人工审看修复后，是否认可“对标视频的感觉”已经可见。
