@@ -435,3 +435,82 @@ expected_validation:
 - 待验证：用户是否认可本轮 `sand_bamboo_breath` 的内容方向。
 - 待验证：本轮 demo 不是正式成片，不是 publish candidate。
 - 部分成立：BGM marker 可作粗节奏辅助，但未人工复听，不是精准卡点。
+
+## 本轮新增｜30 秒对标样片重做桥接
+
+### route_decision
+
+```yaml
+task_type: 30s_reference_sample_rebuild
+true_goal: 用户要看到 30 秒对标样片已经明显学习 10 个新参考视频的审美方式，而不是继续看技术可行 demo
+previous_output_duration: 12s
+user_expected_duration: 30s
+not_sticker_patch: true
+not_capability_demo: true
+allowed_actions:
+  - 读取当前仓库内 `素材/剪辑素材/剪辑` 的新本地素材
+  - 沿用 `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`
+  - 使用 ffprobe / ffmpeg 检测、剪取、转码本地 runtime assets
+  - 将 25.4s BGM 本地平滑延展到 30s
+  - 使用 librosa / scipy 生成 BGM 粗 marker
+  - 新增 30 秒 Remotion composition
+  - render 30 秒竖屏 demo
+  - 生成 contact sheet 辅助视觉自检
+  - 输出 Markdown 报告
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 只输出 12 秒 demo
+  - patch 旧 12 秒 demo 当成新样片
+  - 只修字幕或只修贴纸
+  - 调用外部 API
+  - 训练模型
+  - 安装大型依赖
+  - 提交原始视频、导出 demo、音频提取产物、contact sheet、runtime assets、dist、tmp 或 zip
+  - 复刻平台 UI、logo、watermark、账号页、搜索框、二维码
+  - 复刻品牌包装、原字体、原贴纸、原 emoji 样式、原文案或原音乐
+  - 把 render success 写成 content pass
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+source_reference_report: 项目资料_docs/视频能力实验室_video_capability_lab/16_新参考包审美解析_new_reference_aesthetic_pack.md
+visual_source_folder: 素材/剪辑素材/剪辑
+bgm_source: 素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV
+motif: sand_bamboo_sea_breath
+composition_id: 三十秒对标样片-30s-reference-sample
+duration_in_frames: 900
+fps: 30
+expected_validation:
+  - workspace_identity_check
+  - material_audio_and_clip_decode_check
+  - selected_segments_count_at_least_16
+  - caption_events_count_at_least_8
+  - sticker_events_count_at_least_8
+  - marker_generation_counts
+  - python3 脚本_scripts/检查视频能力工具链_check_video_capability_toolchain.py
+  - npx remotion compositions remotion/Root.tsx
+  - npx remotion render
+  - video-metadata-probe
+  - contact_sheet_generation
+  - forbidden_text_check
+  - git diff --check
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### thirty_second_reference_sample_outputs
+
+- 已确认：新增数据清单为 `remotion/数据_data/三十秒对标素材清单_30s_reference_sample_clips.ts`。
+- 已确认：新增 composition 源码为 `remotion/组合_compositions/三十秒对标样片_30s_reference_sample.tsx`。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/20_三十秒对标样片报告_30s_reference_sample_report.md`。
+- 已确认：composition id 为 `三十秒对标样片-30s-reference-sample`。
+- 已确认：durationInFrames 为 `900`，fps 为 `30`。
+- 已确认：本地 demo 输出为 `dist/remotion_demo_三十秒对标样片_30s_reference_sample/demo_30s_reference_sample.mp4`，不得提交。
+- 已确认：contact sheet 输出为 `dist/remotion_demo_三十秒对标样片_30s_reference_sample/contact_sheet_30s_reference_sample.jpg`，不得提交。
+- 已确认：技术元数据为 30.058667s / 1080x1920 / 30fps / h264 / AAC stereo。
+- 已确认：18 个微段落、10 个字幕事件、11 个贴纸事件进入源码数据。
+- 当前内容状态：`rendered_pending_user_review`。
+
+### remaining_confirmation
+
+- 待验证：用户是否认可 30 秒对标样片已经明显学习新参考包审美。
+- 待验证：本轮样片不是正式成片，不是 publish candidate。
+- 部分成立：BGM marker 可作粗节奏辅助，但未人工复听，不是精准卡点。

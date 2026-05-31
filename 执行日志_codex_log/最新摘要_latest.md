@@ -179,3 +179,29 @@
 - 当前内容状态：`rendered_pending_user_review`。
 - completed_remote_verified: 已确认：本轮源码、报告、当前任务、执行桥接包和 latest 已进入 commit / push / remote HEAD readback 闭环；最终 commit SHA 以 Codex final 回报为准。
 - 待验证：用户人工审看后，才能判断本轮内容方向是否通过。
+
+## 本轮新增｜30 秒对标样片重做
+
+- 已确认：本轮执行路径为 `/Users/fan/Documents/vlog、odd/video_capability_lab`。
+- 已确认：当前 GitHub 仓库为 `fthytwerwt-sudo/video_capability_lab`，分支为 `main`。
+- 已确认：用户最新反馈是上一轮只有 12 秒，且没有明显学习 10 个新参考视频；本轮目标升级为 30 秒对标样片。
+- 已确认：本轮不是贴纸小修，不是字幕小修，不是继续做 capability proof。
+- 已确认：审美依据为 `项目资料_docs/视频能力实验室_video_capability_lab/16_新参考包审美解析_new_reference_aesthetic_pack.md`。
+- 已确认：新视觉素材路径唯一，为 `素材/剪辑素材/剪辑`，该路径下 7 个视频均可读取和解码。
+- 已确认：本轮选用 6 个源视频裁出 18 个微段落；排除 `IMG_6985.MOV`，原因是儿童和室内吉祥物场景风险更高。
+- 已确认：本轮 BGM 沿用 `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`。
+- 部分成立：BGM 原始时长 25.4s，本轮已本地平滑延展到 30s；未做人耳复听。
+- 部分成立：BGM marker 已生成自动粗 marker：beat 16、onset 20、rms_peak 12；不是精准 beat tracking。
+- 已确认：本轮 motif 为 `sand_bamboo_sea_breath`。
+- 已确认：新增素材清单为 `remotion/数据_data/三十秒对标素材清单_30s_reference_sample_clips.ts`。
+- 已确认：新增 composition id 为 `三十秒对标样片-30s-reference-sample`。
+- 已确认：该 composition 为 `900` frames / `30` fps / `1080x1920`。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/20_三十秒对标样片报告_30s_reference_sample_report.md`。
+- 已确认：本地 demo 已 render：`dist/remotion_demo_三十秒对标样片_30s_reference_sample/demo_30s_reference_sample.mp4`。
+- 已确认：本地 contact sheet 已生成：`dist/remotion_demo_三十秒对标样片_30s_reference_sample/contact_sheet_30s_reference_sample.jpg`。
+- 已确认：30 秒样片技术元数据为 30.058667s / 1080x1920 / 30fps / h264 / AAC stereo，video-metadata-probe passed。
+- 已确认：源码数据包含 18 个微段落、10 个字幕事件和 11 个贴纸事件。
+- 已确认：本轮未调用外部 API，未训练模型，未安装大型依赖，未提交视频、图片、音频、runtime assets、`dist` 或 `tmp`。
+- 当前内容状态：`rendered_pending_user_review`。
+- completed_remote_verified: 已确认：本轮源码、报告、当前任务、执行桥接包和 latest 已进入 commit / push / remote HEAD readback 闭环；最终 commit SHA 以 Codex final 回报为准。
+- 待验证：用户人工审看后，才能判断 30 秒样片内容方向是否通过。
