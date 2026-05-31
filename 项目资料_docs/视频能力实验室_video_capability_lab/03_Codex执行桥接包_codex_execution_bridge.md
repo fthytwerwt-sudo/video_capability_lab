@@ -179,3 +179,54 @@ expected_validation:
 
 - 待验证：下一轮使用用户指定真实 BGM，还是从现有 `01.MP4` / `02.MP4` 提取音频。
 - 待验证：下一轮是否允许提交 JSON / PNG review artifacts，或只提交 Markdown 检测报告。
+
+## 本轮新增｜Remotion 多组件能力证明 demo 桥接
+
+### route_decision
+
+```yaml
+task_type: technical_sample + capability_proof_demo
+true_goal: 判断 Codex + Remotion + BGM marker 能否基于用户真实素材做出像样 demo
+allowed_actions:
+  - 读取当前仓库内 `素材/剪辑素材/BGM` 与 `素材/剪辑素材/剪辑`
+  - 使用 ffprobe / ffmpeg 检测、提取和转码本地 runtime assets
+  - 使用 librosa / scipy 生成 beat / onset / RMS 粗 marker
+  - 使用 Remotion 渲染 10-15 秒 demo
+  - 生成 contact sheet 和 Markdown 报告
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 提交 BGM 原文件、剪辑原视频、导出 demo、音频提取产物、contact sheet 或 runtime assets
+  - 调用外部 API
+  - 复刻平台 UI、logo、二维码、账号页、品牌资产
+  - 把 demo 成功写成正式成片、发布候选或项目闭环能力成立
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+composition_id: 能力证明Demo-capability-demo
+expected_validation:
+  - ffprobe metadata
+  - marker generation counts
+  - npx remotion compositions
+  - npx remotion render
+  - video-metadata-probe
+  - contact sheet visual self-check
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### remotion_capability_outputs
+
+- 已确认：报告路径为 `项目资料_docs/视频能力实验室_video_capability_lab/14_Remotion能力证明Demo报告_remotion_capability_demo_report.md`。
+- 已确认：Remotion composition id 为 `能力证明Demo-capability-demo`。
+- 已确认：本地 demo 输出为 `dist/remotion_demo_能力证明_capability_demo/demo.mp4`，不得提交。
+- 已确认：contact sheet 输出为 `dist/remotion_demo_能力证明_capability_demo/contact_sheet.jpg`，不得提交。
+- 已确认：marker 运行输出位于 `tmp/remotion_demo_assets/`，不得提交。
+- 部分成立：BGM beat_map quality 仍是自动粗分析，未人工复听确认。
+
+### next_mechanism_design_candidate
+
+| priority | mechanism | status | reason |
+|---:|---|---|---|
+| 1 | runtime asset preparation | 待补全 | 当前 runtime assets 由 FFmpeg 命令生成，下一轮应脚本化。 |
+| 2 | marker quality grading | 待补全 | 自动 marker 可用，但需区分 coarse / reviewed / publish-grade。 |
+| 3 | editing profile | 待补全 | 本轮 demo 像样，但还未沉淀成可复用剪辑参数包。 |
+| 4 | second material regression | 待验证 | 需要第二套素材验证可复用性。 |

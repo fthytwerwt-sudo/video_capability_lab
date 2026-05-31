@@ -40,6 +40,9 @@ ALLOWED_FIXED_NAMES = {
     "requirements.txt",
     "pytest.ini",
     "__init__.py",
+    "public",
+    "remotion",
+    "Root.tsx",
 }
 LEGACY_FILENAME_EXCEPTIONS = {
     "codex_source",
@@ -57,6 +60,7 @@ LEGACY_FILENAME_EXCEPTIONS = {
     "package.json",
     "package-lock.json",
 }
+RUNTIME_DIR_NAMES = {"dist", "tmp", "public/能力证明Demo_assets", "运行输出_runs"}
 CHINESE_RE = re.compile(r"[\u4e00-\u9fff]")
 SNAKE_PART_RE = re.compile(r"[a-z][a-z0-9]*")
 
@@ -207,6 +211,8 @@ class ProjectScaffoldTest(unittest.TestCase):
         for path in ROOT.rglob("*"):
             rel = path.relative_to(ROOT)
             rel_text = rel.as_posix()
+            if any(rel_text == runtime or rel_text.startswith(f"{runtime}/") for runtime in RUNTIME_DIR_NAMES):
+                continue
             if ".git" in rel.parts or ".venv" in rel.parts or "node_modules" in rel.parts or "素材" in rel.parts:
                 continue
             if path.name.startswith("."):

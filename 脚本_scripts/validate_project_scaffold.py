@@ -93,6 +93,9 @@ ALLOWED_FIXED_NAMES = {
     "requirements.txt",
     "pytest.ini",
     "__init__.py",
+    "public",
+    "remotion",
+    "Root.tsx",
 }
 LEGACY_FILENAME_EXCEPTIONS = {
     "codex_source",
@@ -110,6 +113,7 @@ LEGACY_FILENAME_EXCEPTIONS = {
     "package.json",
     "package-lock.json",
 }
+RUNTIME_DIR_NAMES = {"dist", "tmp", "public/能力证明Demo_assets", "运行输出_runs"}
 FILENAME_RULE_REQUIRED = [
     ("AGENTS.md", "文件命名硬规则"),
     ("项目资料_docs/系统协议_system/05_输出硬规则与中文语义对齐_output_hard_rules.md", "中文 + 英文"),
@@ -147,6 +151,8 @@ def filename_rule_violations() -> list[str]:
     for path in ROOT.rglob("*"):
         rel = path.relative_to(ROOT)
         rel_text = rel.as_posix()
+        if any(rel_text == runtime or rel_text.startswith(f"{runtime}/") for runtime in RUNTIME_DIR_NAMES):
+            continue
         if ".git" in rel.parts or ".venv" in rel.parts or "node_modules" in rel.parts or "素材" in rel.parts:
             continue
         if path.name.startswith("."):

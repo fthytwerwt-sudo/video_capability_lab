@@ -93,14 +93,29 @@
 - 待验证：Remotion 多组件 demo 是否通过真实回审。
 - 待验证：真实 BGM beat_map 是否通过真实音乐 probe。
 
+## 本轮新增｜Remotion 多组件能力证明 demo
+
+- 已确认：本轮执行路径为 `/Users/fan/Documents/vlog、odd/video_capability_lab`。
+- 已确认：当前 GitHub 仓库为 `fthytwerwt-sudo/video_capability_lab`，分支为 `main`。
+- 部分成立：用户描述素材路径为 `素材-剪辑素材`，当前仓库实际路径为 `素材/剪辑素材`。
+- 已确认：`素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV` 有音轨，已提取为本地运行音频。
+- 已确认：`素材/剪辑素材/剪辑` 下 4 个剪辑素材均可读取和 decode。
+- 已确认：BGM marker 已生成：beat 16、onset 20、rms_peak 12。
+- 部分成立：BGM beat_map quality 仍是自动粗 marker，未人工复听确认，不是精准 beat tracking。
+- 已确认：Remotion composition id 为 `能力证明Demo-capability-demo`，原因是 Remotion 不允许 composition id 使用 `_`。
+- 已确认：Remotion 12 秒竖屏 demo render 成功，技术元数据为 1080x1920 / 30fps / h264 / AAC stereo。
+- 已确认：contact sheet 已生成并做本地视觉自检；手写字节奏层、分屏 collage、标题叠画面、自有 CTA end card 均出现。
+- 已确认：本轮未调用外部 API，未提交视频、图片、音频、runtime assets 或原始素材。
+- 当前最终判断：`pass_continue_to_mechanism_design`。
+
 ## 下一个目标
 
-先通过真实意图澄清闸门确认下一轮真实目标：优先做 `Remotion 多组件能力证明 demo`，还是优先做 `BGM beat_map probe`。
+把本轮 `Remotion 多组件能力证明 demo` 沉淀为可复用机制设计，包括 runtime asset 准备、marker 质量分级、editing profile、复跑命令和第二套素材回归标准。
 
 ## 仍待确认
 
 - 新项目中文名是否最终锁定为：视频能力实验室｜Codex 视频导演能力库。
-- 下一轮先做 `Remotion 多组件能力证明 demo`，还是先做 `BGM beat_map probe`。
-- 如果做 `BGM beat_map probe`，使用用户指定真实 BGM，还是从现有 `01.MP4` / `02.MP4` 提取音频。
-- 下一轮是否允许提交 JSON / PNG review artifacts，或只提交 Markdown 检测报告。
+- 待验证：是否需要把 runtime asset 准备过程脚本化。
+- 待验证：marker quality 是否需要人工复听闸门和 publish-grade 标准。
+- 待验证：下一轮是否使用第二套素材做 regression。
 - 是否需要为 GPT Project 上传包额外生成本地 zip。

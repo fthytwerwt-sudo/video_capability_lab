@@ -8,6 +8,7 @@ node_modules/
 dist/
 tmp/
 运行输出_runs/
+public/能力证明Demo_assets/
 *.mp4
 *.mov
 *.wav
