@@ -55,9 +55,9 @@
 
 ## 当前最终判断
 
-`new_reference_aesthetic_analysis_completed_pending_remote_verification`
+`completed_remote_verified`
 
-本轮只能说明新参考包已解析并转成 v2 可执行规则；不能写成 Remotion 审美能力已成立，不能写成 v2 demo 已通过。
+本轮只说明新参考包已解析、已转成 v2 可执行规则，并完成 commit / push / remote HEAD readback；不能写成 Remotion 审美能力已成立，不能写成 v2 demo 已通过。
 
 ## 下一个目标
 

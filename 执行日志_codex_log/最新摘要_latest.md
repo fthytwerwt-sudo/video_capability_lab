@@ -142,6 +142,7 @@
 - 已确认：临时 contact sheet 位于 `tmp/new_reference_aesthetic_analysis/contact_sheets/`，属于 ignored 临时观察产物，不得提交。
 - 已确认：合格审美标准已落成规则：真实镜头先行、1.5-3 秒微段落、情绪词 overlay、motif 回环、黑底 scrapbook 呼吸、自有尾卡收束。
 - 已确认：不合格审美标准已落成 hard fail：内部项目语言、PPT/card 感、组件展示、无 motif、overlay 过载、长时间 layout、平台/品牌复刻、把音轨存在写成精准卡点。
+- completed_remote_verified: 已确认：本轮报告、当前任务、执行桥接包和 latest 已进入 commit / push / remote HEAD readback 闭环；最终 commit SHA 以 Codex final 回报为准。
 - 待验证：下一轮 v2 内容方向必须基于新报告另行生成并等待用户人审。
 - 待验证：音乐卡点仍未做人耳复听或 beat tracking。
 
