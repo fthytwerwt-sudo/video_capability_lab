@@ -697,3 +697,63 @@ expected_validation:
 
 - 待验证：下一轮按新底线重写当前 30 秒样片的 `reference_learning_checklist` 后，能否支撑实际 Remotion 修复。
 - 待验证：用户人工审看修复后，是否认可“对标视频的感觉”已经可见。
+
+## 本轮新增｜通用 vlog 剪辑机制桥接
+
+### route_decision
+
+```yaml
+task_type: vlog_director_capability_mechanism
+true_goal: 修正项目目标层，把三张表从当前 demo 修复表升级为未来所有 vlog 样片的通用前置机制
+render_allowed_this_round: false
+file_change_scope: mechanism_docs_only
+allowed_actions:
+  - 读取当前仓库事实
+  - 更新项目总说明
+  - 新建通用 vlog 剪辑机制文件
+  - 修正 22/23 机制定位
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 修改 Remotion 源码
+  - 修复当前 demo
+  - render 视频
+  - 调用外部 API
+  - 安装依赖
+  - 提交视频、图片、音频、dist、tmp 或 runtime assets
+  - 把当前 demo 写成项目目标
+  - 绕过三张表直接 render
+  - 用数量达标判断通过
+  - 把机制完成写成能力已验证
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+mechanism_file: 项目资料_docs/视频能力实验室_video_capability_lab/24_通用vlog剪辑机制_vlog_director_capability_mechanism.md
+expected_validation:
+  - workspace_identity_check
+  - required_files_exist
+  - mechanism_generalization_key_terms_grep
+  - git diff --check
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### required_future_reads
+
+所有未来 vlog demo、当前 30 秒样片修复、未来不同 BGM / 不同素材 / 不同参考视频任务，都必须先读：
+
+1. `项目资料_docs/视频能力实验室_video_capability_lab/24_通用vlog剪辑机制_vlog_director_capability_mechanism.md`
+2. `项目资料_docs/视频能力实验室_video_capability_lab/22_视频事件表与画面选择机制_video_event_table_visual_selection.md`
+3. `项目资料_docs/视频能力实验室_video_capability_lab/23_对标视频底线失败标准_reference_bottom_line_fail_gate.md`
+
+### generalized_execution_rules
+
+- 已确认：当前 demo 只是验证材料，不是项目目标。
+- 已确认：项目目标是让 Codex 稳定形成 vlog 剪辑判断能力。
+- 已确认：三张表是未来所有 vlog 剪辑任务的通用前置，不是当前 demo 专用表。
+- 已确认：失败标准长期不变；BGM 可以变，素材包可以变，参考视频可以变，风格锚点可以变，但判断关系不变。
+- 已确认：不允许绕过 `reference_learning_checklist`、`visual_selection_table`、`video_event_table` 直接 render。
+- 已确认：不允许用 caption/sticker/transition 数量达标判断通过。
+- 待验证：通用机制是否能在多素材、多 BGM、多参考视频下稳定产出接近对标视频观感的样片。
+
+### next_execution_usage
+
+下一轮若处理当前 30 秒样片，必须先基于通用机制重新生成三张表；三张表通过 `hard_fail_gate` 后，才允许进入 Remotion 修复。

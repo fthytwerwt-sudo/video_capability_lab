@@ -258,3 +258,22 @@
 ## 下一个目标
 
 基于该底线，重写当前 30 秒样片的 `reference_learning_checklist（对标学习检查清单）` + `visual_selection_table（画面选择表）` + `video_event_table（视频事件表）`，再进入修复。
+
+## 本轮新增｜项目目标重锚与通用 vlog 剪辑机制
+
+- 已确认：当前 demo 只是验证材料，不是项目目标。
+- 已确认：项目目标是让 Codex 稳定形成 vlog 剪辑判断能力。
+- 已确认：前几轮机制从 demo 失败中抽象出来，但必须升级为通用机制，不能围绕当前 demo 打转。
+- 已确认：三张表是未来所有 vlog 剪辑任务的通用前置，不是当前 demo 专用表。
+- 已确认：新增通用机制文件为 `项目资料_docs/视频能力实验室_video_capability_lab/24_通用vlog剪辑机制_vlog_director_capability_mechanism.md`。
+- 已确认：`reference_learning_checklist`、`visual_selection_table`、`video_event_table` 已被定义为通用前置机制。
+- 已确认：失败标准长期不变。
+- 已确认：BGM 可以变，素材包可以变，参考视频可以变，风格锚点可以变，但判断关系不变。
+- 已确认：本轮未调用外部 API，未安装依赖，未 render 视频，未提交视频、图片、音频、`dist`、`tmp` 或 runtime assets。
+- content_status: `goal_anchor_reframed_mechanism_generalized_completed`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 待验证：Codex 是否能在不同素材、不同 BGM、不同参考视频下稳定产出接近对标视频观感的样片。
+
+## 下一个目标
+
+基于通用 vlog 剪辑机制，为当前 30 秒样片重新生成 `reference_learning_checklist（对标学习检查清单）` + `visual_selection_table（画面选择表）` + `video_event_table（视频事件表）`，三表通过 hard fail gate（硬失败闸门）后，再进入 Remotion 修复。
