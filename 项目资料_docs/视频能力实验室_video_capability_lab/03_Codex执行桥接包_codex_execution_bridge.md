@@ -579,3 +579,62 @@ expected_validation:
 
 - 待验证：下一轮修复后，用户是否认可字幕和贴纸更像参考视频的情绪/语气层。
 - 待验证：若后续进入 `api_generated_sticker_pack_probe`，必须先补 sticker spec，不得直接调用 API 抽卡。
+
+## 本轮新增｜视频事件表与画面选择机制桥接
+
+### route_decision
+
+```yaml
+task_type: video_event_table_visual_selection_mechanism
+true_goal: 建立可复用的视频事件表与画面选择标准，让后续 vlog demo 先判断画面、风格、母题、字幕贴纸锚点，再进入 Remotion 执行
+render_allowed_this_round: false
+file_change_scope: mechanism_docs_only
+allowed_actions:
+  - 读取当前仓库事实
+  - 读取新参考包审美解析
+  - 读取 30 秒对标样片报告
+  - 读取字幕贴纸对标审计报告
+  - 新建视频事件表与画面选择机制文件
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 修改 Remotion 视频表现层
+  - render 视频
+  - 调用外部 API
+  - 安装依赖
+  - 提交视频、图片、音频、dist、tmp 或 runtime assets
+  - 把机制写成已验证能力
+  - 把事件表机制写成当前视频已经通过
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+mechanism_file: 项目资料_docs/视频能力实验室_video_capability_lab/22_视频事件表与画面选择机制_video_event_table_visual_selection.md
+expected_validation:
+  - workspace_identity_check
+  - required_files_exist
+  - mechanism_key_fields_grep
+  - git diff --check
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### video_event_table_visual_selection_outputs
+
+- 已确认：本轮新增机制文件为 `项目资料_docs/视频能力实验室_video_capability_lab/22_视频事件表与画面选择机制_video_event_table_visual_selection.md`。
+- 已确认：该机制不是固定审美模板，不要求所有 vlog 按同一个流程剪。
+- 已确认：该机制补齐 `visual_selection_table`、`video_event_table`、`failure_checklist`、`frame_level_review_points`。
+- 已确认：后续 30 秒样片修复必须读取 `21_字幕贴纸对标审计_caption_sticker_reference_audit.md` 和 `22_视频事件表与画面选择机制_video_event_table_visual_selection.md`。
+- 已确认：下一轮不能直接改 x/y、fontSize、SVG 尺寸或贴纸数量，必须先改事件表字段。
+- 已确认：当前真正缺口是“事件表 + 画面选择标准”，不是单纯字幕贴纸问题。
+- 当前内容状态：`mechanism_completed_fix_pending`。
+
+### next_execution_usage
+
+- 后续任何 vlog demo 下发给 Codex 前，必须先生成 `visual_selection_table（画面选择表）`。
+- 后续任何 vlog demo 进入 Remotion 前，必须先生成 `video_event_table（视频事件表）`。
+- 渲染前必须检查 `failure_checklist（失败检查清单）`，避免 PPT、组件展示、随机拼贴、画面同质。
+- 渲染后必须按 `frame_level_review_points（逐帧回审点）` 抽帧，检查字幕/贴纸是否真的成立。
+- 如果缺少这些表，默认 blocked，不允许直接 render。
+
+### remaining_confirmation
+
+- 待验证：下一轮重写 30 秒样片事件表后，是否能支撑实际 Remotion 修复。
+- 待验证：用户是否认可新机制覆盖“放什么图比较合适”和“不能全是一样的”这两个缺口。

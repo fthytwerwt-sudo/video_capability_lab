@@ -224,3 +224,21 @@
 ## 下一个目标
 
 基于 `21_字幕贴纸对标审计_caption_sticker_reference_audit.md` 修复 30 秒样片字幕和贴纸层，不允许再只用事件数量判断达标。
+
+## 本轮新增｜视频事件表与画面选择机制
+
+- 已确认：用户最新反馈是后续做别的 vlog 风格视频时，需要更多锚定和判断标准，尤其缺少“放什么图比较合适”，不能全是一样的，必须符合画面和整体视频风格。
+- 已确认：本轮任务为 `video_event_table_visual_selection_mechanism`，不是修视频，不是重新 render，不是继续加字幕或贴纸。
+- 已确认：本轮已读取 `16_新参考包审美解析_new_reference_aesthetic_pack.md`、`20_三十秒对标样片报告_30s_reference_sample_report.md`、`21_字幕贴纸对标审计_caption_sticker_reference_audit.md`。
+- 已确认：新增机制文件为 `项目资料_docs/视频能力实验室_video_capability_lab/22_视频事件表与画面选择机制_video_event_table_visual_selection.md`。
+- 已确认：本机制不是固定审美模板，不让所有 vlog 按同一个流程剪；它锁住判断关系，不锁死风格。
+- 已确认：当前真正缺口是“事件表 + 画面选择标准”，不是单纯字幕贴纸问题。
+- 已确认：后续任何 vlog demo 直接进入 Remotion render 前，必须先生成 `visual_selection_table` 和 `video_event_table`。
+- 已确认：后续 30 秒样片修复不能直接改 x/y、fontSize、SVG 尺寸或贴纸数量，必须先改事件表字段。
+- 已确认：新机制补齐 `image_fit_reason`、`style_fit`、`motif_tag`、`variety_role`、`anchor_target`、`placement_rule`、`minimum_visible_size`、`failure_rule`、`frame_level_review_points` 等字段。
+- 已确认：本轮未调用外部 API，未安装依赖，未 render 视频，未提交视频、图片、音频、`dist`、`tmp` 或 runtime assets。
+- 当前内容状态：`mechanism_completed_fix_pending`。
+
+## 下一个目标
+
+基于新机制，把当前 30 秒样片重写成 `visual_selection_table（画面选择表）` + `video_event_table（视频事件表）`，再进入字幕/贴纸/画面修复。
