@@ -13,6 +13,7 @@ SYSTEM_PROTOCOL_RELS = [
     "项目资料_docs/系统协议_system/05_输出硬规则与中文语义对齐_output_hard_rules.md",
     "项目资料_docs/系统协议_system/20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md",
     "项目资料_docs/系统协议_system/21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md",
+    "项目资料_docs/系统协议_system/22_真实意图澄清闸门机制_true_intent_clarification_gate.md",
 ]
 FORBIDDEN_UPLOAD_PACK_TERMS = [
     "first-station",
@@ -30,6 +31,7 @@ ALLOWED_FIXED_NAMES = {
     "tsconfig.json",
     "vite.config.ts",
     "vite.config.js",
+    "package-lock.json",
     "remotion.config.ts",
     "remotion.config.js",
     "Dockerfile",
@@ -52,6 +54,8 @@ LEGACY_FILENAME_EXCEPTIONS = {
     "tests/test_project_scaffold.py",
     "脚本_scripts/sync_gpt_project_mechanism_pack.py",
     "脚本_scripts/validate_project_scaffold.py",
+    "package.json",
+    "package-lock.json",
 }
 CHINESE_RE = re.compile(r"[\u4e00-\u9fff]")
 SNAKE_PART_RE = re.compile(r"[a-z][a-z0-9]*")
@@ -72,8 +76,11 @@ class ProjectScaffoldTest(unittest.TestCase):
         required = [
             "AGENTS.md",
             "项目资料_docs/系统协议_system/00_协作协议_collaboration_protocol.md",
+            "项目资料_docs/系统协议_system/22_真实意图澄清闸门机制_true_intent_clarification_gate.md",
             "项目资料_docs/视频能力实验室_video_capability_lab/00_项目总说明_project_brief.md",
+            "项目资料_docs/视频能力实验室_video_capability_lab/13_工具链补齐与意图闸门同步_toolchain_gate_sync.md",
             "codex_source/00_codex_readme.md",
+            "脚本_scripts/检查视频能力工具链_check_video_capability_toolchain.py",
             "执行日志_codex_log/最新摘要_latest.md",
             "GPT项目资料同步包_gpt_project_mechanism_sync/00_GPT_Project上传说明_readme.md",
             "GPT项目资料同步包_gpt_project_mechanism_sync/上传清单_manifest.md",
@@ -161,6 +168,7 @@ class ProjectScaffoldTest(unittest.TestCase):
 
         self.assertIn("外部项目 AGENTS 只作为机制参考", pack_text)
         self.assertIn("只迁移协作机制，不迁移业务事实", pack_text)
+        self.assertIn("真实意图澄清闸门", pack_text)
         for forbidden in FORBIDDEN_UPLOAD_PACK_TERMS:
             self.assertNotIn(forbidden, pack_text)
 
@@ -199,7 +207,7 @@ class ProjectScaffoldTest(unittest.TestCase):
         for path in ROOT.rglob("*"):
             rel = path.relative_to(ROOT)
             rel_text = rel.as_posix()
-            if ".git" in rel.parts or ".venv" in rel.parts or "素材" in rel.parts:
+            if ".git" in rel.parts or ".venv" in rel.parts or "node_modules" in rel.parts or "素材" in rel.parts:
                 continue
             if path.name.startswith("."):
                 continue
@@ -210,6 +218,20 @@ class ProjectScaffoldTest(unittest.TestCase):
 
         self.assertIn("tests/test_project_scaffold.py", LEGACY_FILENAME_EXCEPTIONS)
         self.assertEqual([], violations)
+
+    def test_true_intent_gate_is_landed_in_execution_chain(self) -> None:
+        files = [
+            "AGENTS.md",
+            "项目资料_docs/系统协议_system/00_协作协议_collaboration_protocol.md",
+            "项目资料_docs/系统协议_system/20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md",
+            "项目资料_docs/系统协议_system/21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md",
+            "项目资料_docs/系统协议_system/22_真实意图澄清闸门机制_true_intent_clarification_gate.md",
+            "项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md",
+            "codex_source/01_execution_rules.md",
+        ]
+        text = "\n".join((ROOT / rel).read_text(encoding="utf-8") for rel in files)
+        for phrase in ["真实意图澄清闸门", "用户真实目标", "成功标准", "失败标准", "停止条件"]:
+            self.assertIn(phrase, text)
 
 
 if __name__ == "__main__":

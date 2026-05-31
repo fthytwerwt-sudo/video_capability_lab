@@ -6,6 +6,7 @@ __pycache__/
 .env.*
 node_modules/
 dist/
+tmp/
 运行输出_runs/
 *.mp4
 *.mov

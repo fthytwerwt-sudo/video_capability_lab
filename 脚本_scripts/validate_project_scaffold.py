@@ -19,13 +19,16 @@ REQUIRED_FILES = [
     "项目资料_docs/系统协议_system/06_原感稿锁定与双层并存机制_locked_original_feel_bridge.md",
     "项目资料_docs/系统协议_system/20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md",
     "项目资料_docs/系统协议_system/21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md",
+    "项目资料_docs/系统协议_system/22_真实意图澄清闸门机制_true_intent_clarification_gate.md",
     "项目资料_docs/视频能力实验室_video_capability_lab/00_项目总说明_project_brief.md",
     "项目资料_docs/视频能力实验室_video_capability_lab/01_执行合同与验收_execution_contract.md",
     "项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md",
     "项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md",
     "项目资料_docs/视频能力实验室_video_capability_lab/04_检查标准与完成定义_check_standards.md",
+    "项目资料_docs/视频能力实验室_video_capability_lab/13_工具链补齐与意图闸门同步_toolchain_gate_sync.md",
     "codex_source/00_codex_readme.md",
     "codex_source/01_execution_rules.md",
+    "脚本_scripts/检查视频能力工具链_check_video_capability_toolchain.py",
     "执行日志_codex_log/最新摘要_latest.md",
     "GPT项目资料同步包_gpt_project_mechanism_sync/00_GPT_Project上传说明_readme.md",
     "GPT项目资料同步包_gpt_project_mechanism_sync/上传清单_manifest.md",
@@ -81,6 +84,7 @@ ALLOWED_FIXED_NAMES = {
     "tsconfig.json",
     "vite.config.ts",
     "vite.config.js",
+    "package-lock.json",
     "remotion.config.ts",
     "remotion.config.js",
     "Dockerfile",
@@ -103,6 +107,8 @@ LEGACY_FILENAME_EXCEPTIONS = {
     "tests/test_project_scaffold.py",
     "脚本_scripts/sync_gpt_project_mechanism_pack.py",
     "脚本_scripts/validate_project_scaffold.py",
+    "package.json",
+    "package-lock.json",
 }
 FILENAME_RULE_REQUIRED = [
     ("AGENTS.md", "文件命名硬规则"),
@@ -110,6 +116,13 @@ FILENAME_RULE_REQUIRED = [
     ("codex_source/01_execution_rules.md", "文件命名规则"),
     ("项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md", "文件命名要求"),
     ("项目资料_docs/视频能力实验室_video_capability_lab/04_检查标准与完成定义_check_standards.md", "文件命名检查"),
+]
+TRUE_INTENT_REQUIRED_PHRASES = [
+    "真实意图澄清闸门",
+    "用户真实目标",
+    "成功标准",
+    "失败标准",
+    "停止条件",
 ]
 CHINESE_RE = re.compile(r"[\u4e00-\u9fff]")
 SNAKE_PART_RE = re.compile(r"[a-z][a-z0-9]*")
@@ -134,7 +147,7 @@ def filename_rule_violations() -> list[str]:
     for path in ROOT.rglob("*"):
         rel = path.relative_to(ROOT)
         rel_text = rel.as_posix()
-        if ".git" in rel.parts or ".venv" in rel.parts or "素材" in rel.parts:
+        if ".git" in rel.parts or ".venv" in rel.parts or "node_modules" in rel.parts or "素材" in rel.parts:
             continue
         if path.name.startswith("."):
             continue
@@ -193,6 +206,19 @@ def validate() -> list[str]:
     for phrase in SYSTEM_PROTOCOL_REQUIRED_PHRASES:
         if phrase not in system_protocol_text:
             errors.append(f"system protocol missing required mechanism phrase: {phrase}")
+    true_intent_paths = [
+        "AGENTS.md",
+        "项目资料_docs/系统协议_system/00_协作协议_collaboration_protocol.md",
+        "项目资料_docs/系统协议_system/20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md",
+        "项目资料_docs/系统协议_system/21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md",
+        "项目资料_docs/系统协议_system/22_真实意图澄清闸门机制_true_intent_clarification_gate.md",
+        "项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md",
+        "codex_source/01_execution_rules.md",
+    ]
+    true_intent_text = "\n".join(read(rel) for rel in true_intent_paths)
+    for phrase in TRUE_INTENT_REQUIRED_PHRASES:
+        if phrase not in true_intent_text:
+            errors.append(f"true intent gate missing required phrase: {phrase}")
 
     bridge = read("项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md")
     if "工作目录硬约束" not in bridge or "vlog、odd" not in bridge:
@@ -202,7 +228,11 @@ def validate() -> list[str]:
         if (ROOT / dirname).exists():
             errors.append(f"forbidden unconfirmed top-level directory exists: {dirname}")
 
-    all_text = "\n".join(path.read_text(encoding="utf-8") for path in ROOT.rglob("*.md") if ".git" not in path.parts)
+    all_text = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in ROOT.rglob("*.md")
+        if ".git" not in path.parts and ".venv" not in path.parts and "node_modules" not in path.parts
+    )
     for word in STATUS_WORDS:
         if word not in all_text:
             errors.append(f"missing status word: {word}")
@@ -224,6 +254,8 @@ def validate() -> list[str]:
         for phrase in UPLOAD_PACK_REQUIRED_PHRASES:
             if phrase not in pack_text:
                 errors.append(f"upload pack missing required mechanism phrase: {phrase}")
+        if "真实意图澄清闸门" not in pack_text:
+            errors.append("upload pack missing true intent clarification gate")
         for term in FORBIDDEN_ECOMMERCE_AGENTS_TERMS:
             if term in pack_text:
                 errors.append(f"upload pack contains forbidden ecommerce or blocked-project term: {term}")

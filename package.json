@@ -1,0 +1,35 @@
+{
+  "name": "video_capability_lab",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fthytwerwt-sudo/video_capability_lab.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/fthytwerwt-sudo/video_capability_lab/issues"
+  },
+  "homepage": "https://github.com/fthytwerwt-sudo/video_capability_lab#readme",
+  "dependencies": {
+    "@remotion/cli": "4.0.469",
+    "@remotion/media-utils": "4.0.469",
+    "@remotion/renderer": "4.0.469",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "remotion": "4.0.469"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}

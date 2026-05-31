@@ -83,13 +83,24 @@
 - 已确认：依赖记录为 `依赖_requirements/音频分析_audio_analysis_requirements.txt`。
 - 已确认：检测报告为 `项目资料_docs/视频能力实验室_video_capability_lab/12_音频卡点工具链检测_audio_beat_toolchain_check.md`。
 
+## 本轮新增｜工具链补齐与真实意图澄清闸门
+
+- 已确认：Node.js / npm / FFmpeg / ffprobe / Python 工具链已检测。
+- 已确认：Remotion 依赖已安装到当前仓库，未全局安装。
+- 已确认：`.venv` 中 `librosa`、`numpy`、`scipy`、`soundfile` 可 import。
+- 已确认：真实意图澄清闸门已进入系统机制源文件和 GPT Project 配合机制上传包。
+- 已确认：本轮未生成视频，未调用外部 API，未提交 `.venv` 或 `node_modules`。
+- 待验证：Remotion 多组件 demo 是否通过真实回审。
+- 待验证：真实 BGM beat_map 是否通过真实音乐 probe。
+
 ## 下一个目标
 
-进入 `BGM beat_map probe（音乐卡点能力探针）`，使用真实 BGM 或从 `素材/vlog 参考` 提取音频生成可回审 `beat_map` / `onset_map` / `rms_peaks`。
+先通过真实意图澄清闸门确认下一轮真实目标：优先做 `Remotion 多组件能力证明 demo`，还是优先做 `BGM beat_map probe`。
 
 ## 仍待确认
 
 - 新项目中文名是否最终锁定为：视频能力实验室｜Codex 视频导演能力库。
-- 下一轮 `BGM beat_map probe` 使用用户指定真实 BGM，还是从现有 `01.MP4` / `02.MP4` 提取音频。
+- 下一轮先做 `Remotion 多组件能力证明 demo`，还是先做 `BGM beat_map probe`。
+- 如果做 `BGM beat_map probe`，使用用户指定真实 BGM，还是从现有 `01.MP4` / `02.MP4` 提取音频。
 - 下一轮是否允许提交 JSON / PNG review artifacts，或只提交 Markdown 检测报告。
 - 是否需要为 GPT Project 上传包额外生成本地 zip。

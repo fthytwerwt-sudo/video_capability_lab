@@ -14,15 +14,16 @@
 
 ## 默认动作
 
-1. 先判断执行类型：`component_probe`、`technical_sample`、`reference_analysis`、`review_pack`、`mechanism_sync`。
-2. 为每类任务补齐输入字段、输出字段、字段来源、缺字段处理。
-3. 明确执行入口、复跑命令、验证方式、结果文件、失败判定。
-4. 没跑过真实 probe 的能力必须写 `待验证`。
-5. 若当前任务禁止生成视频或调用外部 API，只补执行合同和检查层。
-6. 外部项目 AGENTS 审计必须输出 `sync_scope_decision`，区分 `AGENTS_only`、`system_protocol`、`project_fact`、`upload_pack`、`do_not_sync`。
-7. 可迁移清单只包含协作机制；禁止迁移清单必须覆盖业务身份、当前任务、完成状态、素材路径、模型选择、指标路线、候选对象、业务验收结果。
-8. 需要长期生效的通用机制必须先抽象进 `项目资料_docs/系统协议_system/` 源文件，再通过同步脚本进入 GPT Project 上传包。
-9. `AGENTS.md`、latest 和项目事实目录只作为仓库接手入口或事实源，不得直接复制进 GPT Project 上传包。
+1. 先执行真实意图澄清闸门，确认用户真实目标、成功标准、失败标准和停止条件。
+2. 再判断执行类型：`component_probe`、`technical_sample`、`reference_analysis`、`review_pack`、`mechanism_sync`、`toolchain_completion`。
+3. 为每类任务补齐输入字段、输出字段、字段来源、缺字段处理。
+4. 明确执行入口、复跑命令、验证方式、结果文件、失败判定。
+5. 没跑过真实 probe 的能力必须写 `待验证`。
+6. 若当前任务禁止生成视频或调用外部 API，只补执行合同和检查层。
+7. 外部项目 AGENTS 审计必须输出 `sync_scope_decision`，区分 `AGENTS_only`、`system_protocol`、`project_fact`、`upload_pack`、`do_not_sync`。
+8. 可迁移清单只包含协作机制；禁止迁移清单必须覆盖业务身份、当前任务、完成状态、素材路径、模型选择、指标路线、候选对象、业务验收结果。
+9. 需要长期生效的通用机制必须先抽象进 `项目资料_docs/系统协议_system/` 源文件，再通过同步脚本进入 GPT Project 上传包。
+10. `AGENTS.md`、latest 和项目事实目录只作为仓库接手入口或事实源，不得直接复制进 GPT Project 上传包。
 
 ## 固定执行模板
 
@@ -31,6 +32,7 @@
 | `Goal（目标）` | 本轮要达成的状态 |
 | `Context（上下文）` | 项目身份、事实来源、阶段 |
 | `Constraints（边界）` | 允许和禁止事项 |
+| `真实意图澄清` | 用户真实目标、成功标准、失败标准、停止条件 |
 | `Impact check（影响面检查）` | 仓库、dirty、依赖、风险 |
 | `Must read（必须读取）` | 入口、协议、项目事实、日志 |
 | `Execution steps（执行步骤）` | 可复跑步骤 |

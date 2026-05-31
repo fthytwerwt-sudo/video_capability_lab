@@ -12,15 +12,17 @@
 
 ## 默认动作
 
-1. GPT 补目标、边界、P0/P1/P2、验收和风险。
-2. Codex 补执行字段、输入输出、触发条件、判断流程、阻断条件、降级方案、验证脚本和 tests。
-3. Codex 本轮执行时做二次补全：发现缺口就在当前边界内补齐。
-4. 修改系统机制文件或 GPT Project 上传包相关文件后，必须运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py` 刷新 GPT Project 上传包，再运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py --check`。
-5. 修改仓库文件后必须验证、commit、push、远端 HEAD readback。
+1. GPT 先执行真实意图澄清闸门，补清用户真实目标、成功标准、失败标准和停止条件。
+2. GPT 补目标、边界、P0/P1/P2、验收和风险。
+3. Codex 补执行字段、输入输出、触发条件、判断流程、阻断条件、降级方案、验证脚本和 tests。
+4. Codex 本轮执行时做二次补全：发现缺口就在当前边界内补齐。
+5. 修改系统机制文件或 GPT Project 上传包相关文件后，必须运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py` 刷新 GPT Project 上传包，再运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py --check`。
+6. 修改仓库文件后必须验证、commit、push、远端 HEAD readback。
 
 ## 质量保障清单
 
 - 有目标和边界。
+- 有用户真实目标、成功标准、失败标准和停止条件。
 - 有输入字段和输出字段。
 - 有字段来源和缺字段处理。
 - 有触发条件和判断流程。

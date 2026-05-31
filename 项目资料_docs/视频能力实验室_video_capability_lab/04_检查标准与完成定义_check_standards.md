@@ -27,7 +27,7 @@
 ## 项目骨架完整性检查
 
 - `AGENTS.md` 存在。
-- `项目资料_docs/系统协议_system/` 下 9 个系统机制文件存在。
+- `项目资料_docs/系统协议_system/` 下 10 个系统机制文件存在。
 - `项目资料_docs/视频能力实验室_video_capability_lab/` 下项目事实入口存在。
 - `codex_source/` 下 Codex 执行标准存在。
 - `执行日志_codex_log/最新摘要_latest.md` 存在。
@@ -35,7 +35,7 @@
 
 ## GPT Project 上传包检查
 
-- 上传包只包含 readme、manifest 和 9 个系统机制文件副本。
+- 上传包只包含 readme、manifest 和 10 个系统机制文件副本。
 - 上传清单所有“是否允许放项目事实”均为 `否`。
 - 不包含 `AGENTS.md`。
 - 不包含执行日志。

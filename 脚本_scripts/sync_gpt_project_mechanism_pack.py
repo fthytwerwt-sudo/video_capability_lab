@@ -22,6 +22,7 @@ MECHANISM_FILES = [
     ("06_原感稿锁定与双层并存机制_locked_original_feel_bridge.md", "原感参考层与执行桥接层并存"),
     ("20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md", "GPT / Codex 补全和质量保障"),
     ("21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md", "方向型输入到可执行机制补全"),
+    ("22_真实意图澄清闸门机制_true_intent_clarification_gate.md", "真实意图澄清闸门和 Codex 下发前置条件"),
 ]
 
 GENERATED_FILES = {"00_GPT_Project上传说明_readme.md", "上传清单_manifest.md"}
