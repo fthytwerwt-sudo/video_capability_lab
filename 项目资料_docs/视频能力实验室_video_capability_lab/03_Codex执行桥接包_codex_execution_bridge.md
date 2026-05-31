@@ -514,3 +514,68 @@ expected_validation:
 - 待验证：用户是否认可 30 秒对标样片已经明显学习新参考包审美。
 - 待验证：本轮样片不是正式成片，不是 publish candidate。
 - 部分成立：BGM marker 可作粗节奏辅助，但未人工复听，不是精准卡点。
+
+## 本轮新增｜字幕贴纸对标审计桥接
+
+### route_decision
+
+```yaml
+task_type: caption_sticker_reference_audit
+true_goal: 按新参考学习报告和当前 30 秒样片逐条检测字幕/贴纸为什么不像参考视频，禁止把事件数量写成审美达标
+allowed_actions:
+  - 读取新参考学习报告
+  - 读取 30 秒样片报告
+  - 读取 30 秒样片 Remotion 源码和数据文件
+  - 读取本地 contact sheet
+  - 从当前本地视频抽取 sticker start / mid 关键帧到 ignored tmp 目录
+  - 对 caption events 逐条审计
+  - 对 sticker events 逐条审计
+  - 输出 Markdown 审计报告
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 修改 Remotion 源码
+  - 重新 render 新视频
+  - 调用外部 API
+  - 安装大型依赖
+  - 提交视频、图片、音频、dist、tmp 或 runtime assets
+  - 把代码里有贴纸写成贴纸审美成立
+  - 把数量达标写成对标达标
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+source_video: dist/remotion_demo_三十秒对标样片_30s_reference_sample/demo_30s_reference_sample.mp4
+source_report: 项目资料_docs/视频能力实验室_video_capability_lab/16_新参考包审美解析_new_reference_aesthetic_pack.md
+sample_report: 项目资料_docs/视频能力实验室_video_capability_lab/20_三十秒对标样片报告_30s_reference_sample_report.md
+audit_report: 项目资料_docs/视频能力实验室_video_capability_lab/21_字幕贴纸对标审计_caption_sticker_reference_audit.md
+expected_validation:
+  - workspace_identity_check
+  - required_files_exist
+  - video-metadata-probe
+  - sticker_keyframe_extraction
+  - report_key_fields_grep
+  - git diff --check
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### caption_sticker_reference_audit_outputs
+
+- 已确认：本轮报告路径为 `项目资料_docs/视频能力实验室_video_capability_lab/21_字幕贴纸对标审计_caption_sticker_reference_audit.md`。
+- 已确认：审计报告必须作为下一轮字幕/贴纸修复的必读文件。
+- 已确认：下一轮修复不得只读取 `20_三十秒对标样片报告_30s_reference_sample_report.md` 后直接改视频。
+- 已确认：下一轮修复必须先建立每个 sticker 的 `anchor target`、`minimum visible size`、`reference function`、`shot_binding_reason` 和 frame-level check。
+- 已确认：下一轮修复必须先建立每个 caption 的 `semantic role`、动作绑定和位置理由。
+- 已确认：当前不是插件缺失优先。
+- 已确认：当前不建议直接 API；API 不解决放置、大小、时机和语气问题。
+- 当前内容状态：`audit_completed_fix_pending`。
+
+### next_fix_gate
+
+- 必须先读取 `项目资料_docs/视频能力实验室_video_capability_lab/21_字幕贴纸对标审计_caption_sticker_reference_audit.md`。
+- 必须拒绝只用 caption/sticker event 数量作为完成标准。
+- 必须输出下一轮可执行的 caption/sticker spec 后再改 Remotion。
+- 必须在修复后重新抽取 sticker start / mid frame，并重新做 frame-level check。
+
+### remaining_confirmation
+
+- 待验证：下一轮修复后，用户是否认可字幕和贴纸更像参考视频的情绪/语气层。
+- 待验证：若后续进入 `api_generated_sticker_pack_probe`，必须先补 sticker spec，不得直接调用 API 抽卡。

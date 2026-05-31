@@ -205,3 +205,22 @@
 - 当前内容状态：`rendered_pending_user_review`。
 - completed_remote_verified: 已确认：本轮源码、报告、当前任务、执行桥接包和 latest 已进入 commit / push / remote HEAD readback 闭环；最终 commit SHA 以 Codex final 回报为准。
 - 待验证：用户人工审看后，才能判断 30 秒样片内容方向是否通过。
+
+## 本轮新增｜字幕贴纸对标审计
+
+- 已确认：用户最新反馈是 30 秒样片“有了”，但字幕和贴纸与对标视频差距太大，贴纸位置有问题，贴纸大小和判断标准基本为零。
+- 已确认：本轮任务为 `caption_sticker_reference_audit`，不是继续改视频，不是重新 render，不是调用外部 API，不是安装插件。
+- 已确认：本轮已读取新参考学习报告、30 秒样片报告、30 秒样片源码、30 秒样片数据和 contact sheet。
+- 已确认：30 秒样片技术元数据仍为 30.058667s / 1080x1920 / 30fps / h264 / AAC stereo，video-metadata-probe passed。
+- 已确认：源码数据包含 10 个 caption events 和 11 个 sticker events，但事件数量不等于审美达标。
+- 已确认：原 contact sheet 不足以覆盖全部 sticker event，本轮已抽取所有 sticker start / mid frame 到 `tmp/三十秒贴纸字幕审计_caption_sticker_audit/`，该目录不得提交。
+- 已确认：新增审计报告为 `项目资料_docs/视频能力实验室_video_capability_lab/21_字幕贴纸对标审计_caption_sticker_reference_audit.md`。
+- 已确认：当前核心问题不是缺插件，而是对标检测标准缺失 + 贴纸执行标准不足。
+- 已确认：不允许再用数量达标代替审美达标；“代码里有贴纸”不等于“贴纸审美成立”。
+- 已确认：当前不建议直接 API；API 不解决放置、大小、时机和语气问题。
+- 已确认：下一轮修复必须先读取 `21_字幕贴纸对标审计_caption_sticker_reference_audit.md`，并建立 `anchor target`、`minimum visible size`、`reference function`、`shot_binding_reason`、frame-level check、caption `semantic role`。
+- 当前内容状态：`audit_completed_fix_pending`。
+
+## 下一个目标
+
+基于 `21_字幕贴纸对标审计_caption_sticker_reference_audit.md` 修复 30 秒样片字幕和贴纸层，不允许再只用事件数量判断达标。
