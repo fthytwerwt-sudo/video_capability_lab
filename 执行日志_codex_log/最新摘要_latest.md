@@ -157,3 +157,25 @@
 - 待验证：marker quality 是否需要人工复听闸门和 publish-grade 标准。
 - 待验证：后续是否需要把 runtime asset 准备过程脚本化。
 - 是否需要为 GPT Project 上传包额外生成本地 zip。
+
+## 本轮新增｜新素材参考重做 Demo
+
+- 已确认：本轮执行路径为 `/Users/fan/Documents/vlog、odd/video_capability_lab`。
+- 已确认：当前 GitHub 仓库为 `fthytwerwt-sudo/video_capability_lab`，分支为 `main`。
+- 已确认：本轮不是 patch 旧 v2，而是新增完整 Remotion demo。
+- 已确认：审美规则来源为 `项目资料_docs/视频能力实验室_video_capability_lab/16_新参考包审美解析_new_reference_aesthetic_pack.md`。
+- 已确认：新视觉素材路径为 `素材/剪辑素材/剪辑`，该路径下 7 个视频均可读取和解码。
+- 已确认：本轮 BGM 沿用 `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`。
+- 已确认：本轮 motif 为 `sand_bamboo_breath`，由沙纹、熊猫/竹叶、海雾和云层组成。
+- 已确认：本轮排除 `IMG_6985.MOV`，原因是儿童与室内吉祥物场景对 demo 风险和审美干扰更高。
+- 已确认：新增素材清单为 `remotion/数据_data/新素材重做清单_new_reference_rebuild_clips.ts`。
+- 已确认：新增 composition id 为 `新素材参考重做Demo-new-reference-rebuild-demo`。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/18_新素材参考重做Demo报告_new_reference_rebuild_demo_report.md`。
+- 已确认：本地 demo 已 render：`dist/remotion_demo_新素材参考重做_new_reference_rebuild/demo_new_reference_rebuild.mp4`。
+- 已确认：本地 contact sheet 已生成：`dist/remotion_demo_新素材参考重做_new_reference_rebuild/contact_sheet_new_reference_rebuild.jpg`。
+- 已确认：新 demo 技术元数据为 12.053333s / 1080x1920 / 30fps / h264 / AAC stereo，video-metadata-probe passed。
+- 已确认：本轮未调用外部 API，未训练模型，未安装大型依赖，未提交视频、图片、音频、runtime assets、`dist` 或 `tmp`。
+- 部分成立：BGM marker 已生成自动粗 marker：beat 16、onset 20、rms_peak 12；未做人耳复听，不是精准 beat tracking。
+- 当前内容状态：`rendered_pending_user_review`。
+- completed_remote_verified: 已确认：本轮源码、报告、当前任务、执行桥接包和 latest 已进入 commit / push / remote HEAD readback 闭环；最终 commit SHA 以 Codex final 回报为准。
+- 待验证：用户人工审看后，才能判断本轮内容方向是否通过。

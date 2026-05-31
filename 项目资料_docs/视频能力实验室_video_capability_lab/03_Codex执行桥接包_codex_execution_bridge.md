@@ -367,3 +367,71 @@ expected_validation:
 - 待验证：下一轮 v2 使用哪个 motif：`city_object_diary`、`glass_light_walk` 或用户另定主题。
 - 待验证：下一轮可用原创/允许素材清单。
 - 待验证：是否允许下一轮生成 contact sheet 或仅提交 Markdown report。
+
+## 本轮新增｜新素材参考重做 Demo 桥接
+
+### route_decision
+
+```yaml
+task_type: new_reference_rebuild_demo
+true_goal: 按新参考包解析报告和新素材重做一个完整 Remotion demo，不 patch 旧 v2
+allowed_actions:
+  - 读取当前仓库内 `素材/剪辑素材/剪辑` 的新本地素材
+  - 沿用 `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`
+  - 使用 ffprobe / ffmpeg 检测、剪取和转码本地 runtime assets
+  - 使用 librosa / scipy 生成 BGM 粗 marker
+  - 新增 Remotion composition
+  - render 12 秒竖屏 demo
+  - 生成 contact sheet 辅助视觉自检
+  - 输出 Markdown 报告
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - patch 旧 v2 当成新 demo
+  - 调用外部 API
+  - 训练模型
+  - 安装大型依赖
+  - 提交原始视频、导出 demo、音频提取产物、contact sheet、runtime assets、dist、tmp 或 zip
+  - 复刻平台 UI、logo、watermark、账号页、搜索框、二维码
+  - 复刻品牌包装、原字体、原贴纸、原文案或原音乐
+  - 把 render success 写成 content pass
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+source_reference_report: 项目资料_docs/视频能力实验室_video_capability_lab/16_新参考包审美解析_new_reference_aesthetic_pack.md
+visual_source_folder: 素材/剪辑素材/剪辑
+bgm_source: 素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV
+motif: sand_bamboo_breath
+composition_id: 新素材参考重做Demo-new-reference-rebuild-demo
+expected_validation:
+  - workspace_identity_check
+  - material_audio_and_clip_decode_check
+  - marker_generation_counts
+  - python3 脚本_scripts/检查视频能力工具链_check_video_capability_toolchain.py
+  - npx remotion compositions remotion/Root.tsx
+  - npx remotion render
+  - video-metadata-probe
+  - contact_sheet_generation
+  - forbidden_text_check
+  - git diff --check
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### new_reference_rebuild_outputs
+
+- 已确认：新素材路径为 `素材/剪辑素材/剪辑`。
+- 已确认：该路径下 7 个视频均可读取和解码。
+- 已确认：本轮选用 6 个片段进入 demo，排除 `IMG_6985.MOV`。
+- 已确认：本轮沿用同一个 BGM 文件。
+- 已确认：新增素材清单为 `remotion/数据_data/新素材重做清单_new_reference_rebuild_clips.ts`。
+- 已确认：新增 composition 源码为 `remotion/组合_compositions/新素材参考重做Demo_new_reference_rebuild_demo.tsx`。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/18_新素材参考重做Demo报告_new_reference_rebuild_demo_report.md`。
+- 已确认：本地 demo 输出为 `dist/remotion_demo_新素材参考重做_new_reference_rebuild/demo_new_reference_rebuild.mp4`，不得提交。
+- 已确认：contact sheet 输出为 `dist/remotion_demo_新素材参考重做_new_reference_rebuild/contact_sheet_new_reference_rebuild.jpg`，不得提交。
+- 已确认：技术元数据为 12.053333s / 1080x1920 / 30fps / h264 / AAC stereo。
+- 当前内容状态：`rendered_pending_user_review`。
+
+### remaining_confirmation
+
+- 待验证：用户是否认可本轮 `sand_bamboo_breath` 的内容方向。
+- 待验证：本轮 demo 不是正式成片，不是 publish candidate。
+- 部分成立：BGM marker 可作粗节奏辅助，但未人工复听，不是精准卡点。
