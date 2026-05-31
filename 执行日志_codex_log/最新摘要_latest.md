@@ -93,7 +93,7 @@
 - 待验证：Remotion 多组件 demo 是否通过真实回审。
 - 待验证：真实 BGM beat_map 是否通过真实音乐 probe。
 
-## 本轮新增｜Remotion 多组件能力证明 demo
+## 本轮新增｜Remotion 多组件能力证明 demo v1 回审
 
 - 已确认：本轮执行路径为 `/Users/fan/Documents/vlog、odd/video_capability_lab`。
 - 已确认：当前 GitHub 仓库为 `fthytwerwt-sudo/video_capability_lab`，分支为 `main`。
@@ -102,20 +102,42 @@
 - 已确认：`素材/剪辑素材/剪辑` 下 4 个剪辑素材均可读取和 decode。
 - 已确认：BGM marker 已生成：beat 16、onset 20、rms_peak 12。
 - 部分成立：BGM beat_map quality 仍是自动粗 marker，未人工复听确认，不是精准 beat tracking。
-- 已确认：Remotion composition id 为 `能力证明Demo-capability-demo`，原因是 Remotion 不允许 composition id 使用 `_`。
-- 已确认：Remotion 12 秒竖屏 demo render 成功，技术元数据为 1080x1920 / 30fps / h264 / AAC stereo。
-- 已确认：contact sheet 已生成并做本地视觉自检；手写字节奏层、分屏 collage、标题叠画面、自有 CTA end card 均出现。
+- 已确认：Remotion v1 composition id 为 `能力证明Demo-capability-demo`，原因是 Remotion 不允许 composition id 使用 `_`。
+- 已确认：Remotion v1 12 秒竖屏 demo render 成功，技术元数据为 1080x1920 / 30fps / h264 / AAC stereo。
+- 已确认：v1 contact sheet 已生成；手写字节奏层、分屏 collage、标题叠画面、自有 CTA end card 均出现。
+- 已确认：用户人审反馈为：`效果还行，但不是我想要的那种`。
+- 已确认：用户人审反馈覆盖 Codex 原自评。
+- 当前最终判断已降级为：`technical_pass_content_mismatch`。
+- 已确认：v1 只能作为技术链路证明，不能作为审美方向通过。
+
+## 本轮新增｜demo 不合格审美标准与 v2 方向
+
+- 已确认：新增审美回审文件：`项目资料_docs/视频能力实验室_video_capability_lab/15_demo审美回审与v2方向_aesthetic_review_retarget.md`。
+- 已确认：不合格标准覆盖内部项目语言、组件展示感、网页 / PPT / 卡片感、无故事情绪、overlay 抢主体、分屏太久、项目管理尾卡、未人工复听却宣称精准卡点、复刻参考资产。
+- 已确认：v2 下一个目标为 `demo_v2_aesthetic_retarget`。
+- 待验证：v2 demo 是否方向对，必须等待用户人审。
+- 已确认：未经用户确认 v2 方向对，不得写 `pass_continue_to_mechanism_design`。
+
+## 本轮新增｜审美重定 Demo v2 本地 render
+
+- 已确认：新增 v2 composition id 为 `审美重定Demo-aesthetic-retarget-demo`。
+- 已确认：保留 v1 composition `能力证明Demo-capability-demo`，未删除。
+- 已确认：v2 本地 demo 已 render：`dist/remotion_demo_审美重定_aesthetic_retarget/demo_v2.mp4`。
+- 已确认：v2 contact sheet 已生成：`dist/remotion_demo_审美重定_aesthetic_retarget/contact_sheet_v2.jpg`。
+- 已确认：v2 技术元数据为 12.053333s / 1080x1920 / 30fps / h264 / AAC stereo，video-metadata-probe passed。
+- 已确认：v2 源码不使用 v1 的内部验收式 overlay 文案。
 - 已确认：本轮未调用外部 API，未提交视频、图片、音频、runtime assets 或原始素材。
-- 当前最终判断：`pass_continue_to_mechanism_design`。
+- 当前 v2 内容状态：`rendered_pending_user_review`。
+- 待验证：v2 是否方向对，仍需用户人审。
 
 ## 下一个目标
 
-把本轮 `Remotion 多组件能力证明 demo` 沉淀为可复用机制设计，包括 runtime asset 准备、marker 质量分级、editing profile、复跑命令和第二套素材回归标准。
+等用户人审 v2；只有用户确认“方向对”，才允许进入机制设计。
 
 ## 仍待确认
 
 - 新项目中文名是否最终锁定为：视频能力实验室｜Codex 视频导演能力库。
-- 待验证：是否需要把 runtime asset 准备过程脚本化。
+- 待验证：v2 是否通过用户人审。
 - 待验证：marker quality 是否需要人工复听闸门和 publish-grade 标准。
-- 待验证：下一轮是否使用第二套素材做 regression。
+- 待验证：后续是否需要把 runtime asset 准备过程脚本化。
 - 是否需要为 GPT Project 上传包额外生成本地 zip。

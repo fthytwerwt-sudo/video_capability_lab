@@ -230,3 +230,78 @@ expected_validation:
 | 2 | marker quality grading | 待补全 | 自动 marker 可用，但需区分 coarse / reviewed / publish-grade。 |
 | 3 | editing profile | 待补全 | 本轮 demo 像样，但还未沉淀成可复用剪辑参数包。 |
 | 4 | second material regression | 待验证 | 需要第二套素材验证可复用性。 |
+
+## 本轮新增｜demo v1 回审与审美重定 v2 桥接
+
+### route_decision
+
+```yaml
+task_type: demo_v1_review_and_aesthetic_retarget
+true_goal: 先写入 v1 用户人审反馈和不合格审美标准，再产出一个更接近对标 vlog montage 机制的 v2 可展示 demo
+allowed_actions:
+  - 读取当前仓库内 `素材/vlog 参考` 的解析结论
+  - 读取当前仓库内 `素材/剪辑素材/BGM` 与 `素材/剪辑素材/剪辑`
+  - 更新项目事实文档、v1 报告、最新摘要和执行桥接包
+  - 新建 `15_demo审美回审与v2方向_aesthetic_review_retarget.md`
+  - 保留 v1 composition，并新增 v2 composition
+  - 使用当前仓库已有 Remotion / FFmpeg / Python 工具链 render 本地 v2 demo
+  - 生成 v2 contact sheet
+forbidden_actions:
+  - 调用外部 API
+  - 安装大型依赖
+  - 提交视频、图片、音频、runtime assets、`.venv`、`node_modules`、`dist` 或 `tmp`
+  - 复刻平台 UI、logo、二维码、账号页、搜索框
+  - 复刻品牌包装、原字体、原贴图、原文案或原音乐
+  - 把 render success 写成 content pass
+  - 把自动 BGM marker 写成精准卡点
+  - 写 `pass_continue_to_mechanism_design`
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+v1_old_decision: pass_continue_to_mechanism_design
+v1_new_decision: technical_pass_content_mismatch
+v2_composition_id: 审美重定Demo-aesthetic-retarget-demo
+expected_validation:
+  - workspace_identity_check
+  - material_audio_and_clip_decode_check
+  - python3 脚本_scripts/检查视频能力工具链_check_video_capability_toolchain.py
+  - npx remotion compositions
+  - npx remotion render
+  - video-metadata-probe
+  - contact_sheet_generation
+  - forbidden_text_check
+  - git diff --check
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### v1_review_outputs
+
+- 已确认：用户人审反馈为 `效果还行，但不是我想要的那种`。
+- 已确认：v1 技术验证通过，但内容方向未通过。
+- 已确认：v1 状态必须降级为 `technical_pass_content_mismatch`。
+- 已确认：v1 可作为技术链路证明，不得作为审美方向通过。
+- 已确认：未经用户人审确认 v2 方向对，不得进入机制设计。
+
+### v2_acceptance
+
+- v2 不出现内部项目说明文案。
+- v2 不解释技术链路。
+- v2 不用组件名称当观众文案。
+- v2 先给真实镜头、运动、生活切片和情绪推进，再使用文字或分屏。
+- v2 必须包含短手写字、短分屏 collage、标题叠真实画面和自有尾卡收束。
+- v2 最终状态只允许写 `rendered_pending_user_review` 或 `technical_render_completed_pending_user_review`。
+
+### v2_outputs
+
+- 已确认：v2 composition id 为 `审美重定Demo-aesthetic-retarget-demo`。
+- 已确认：v2 本地 demo 输出为 `dist/remotion_demo_审美重定_aesthetic_retarget/demo_v2.mp4`，不得提交。
+- 已确认：v2 contact sheet 输出为 `dist/remotion_demo_审美重定_aesthetic_retarget/contact_sheet_v2.jpg`，不得提交。
+- 已确认：v2 技术元数据为 12.053333s / 1080x1920 / 30fps / h264 / AAC stereo。
+- 已确认：video-metadata-probe passed。
+- 待验证：v2 内容方向是否通过，必须等待用户人审。
+
+### remaining_confirmation
+
+- 待验证：v2 是否方向对，必须等待用户人审。
+- 部分成立：BGM marker 可作粗节奏辅助，但未人工复听，不是精准卡点。
+- 待验证：v2 不是正式成片，不是 publish candidate。
