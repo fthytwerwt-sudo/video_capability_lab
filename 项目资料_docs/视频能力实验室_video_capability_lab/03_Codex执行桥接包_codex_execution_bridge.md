@@ -305,3 +305,65 @@ expected_validation:
 - 待验证：v2 是否方向对，必须等待用户人审。
 - 部分成立：BGM marker 可作粗节奏辅助，但未人工复听，不是精准卡点。
 - 待验证：v2 不是正式成片，不是 publish candidate。
+
+## 本轮新增｜新参考包审美解析与 v2 demo 桥接
+
+### route_decision
+
+```yaml
+task_type: reference_analysis + aesthetic_rule_extraction + demo_v2_bridge
+true_goal: 读取用户新增的 10 个参考视频，提炼合格审美标准、不合格审美标准，并转成下一轮 v2 demo 可执行规则
+allowed_actions:
+  - 在当前仓库内读取 `素材/vlog 参考/新参考+解析` 的 10 个本地参考视频
+  - 使用 ffprobe / ffmpeg 读取元数据与解码状态
+  - 生成 ignored 临时 contact sheet 辅助观察
+  - 输出 Markdown 报告
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 生成 v2 demo
+  - 生成正式视频
+  - 训练模型
+  - 调用外部 API
+  - 安装大型依赖
+  - 提交参考视频、抽帧、contact sheet、音频、zip、dist、tmp、runtime assets
+  - 复刻平台 UI、logo、watermark、账号页、搜索框、二维码
+  - 复刻品牌包装、原字体、原贴纸、原文案或原音乐
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+source_folder_user_text: 素材-vlog 参考-新参考+解析
+source_folder_resolved: 素材/vlog 参考/新参考+解析
+expected_validation:
+  - workspace_identity_check
+  - source_folder_exists
+  - source_video_count_is_10
+  - video-metadata-probe_all_passed
+  - report_non_empty
+  - key_fields_grep
+  - git diff --check
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### new_reference_outputs
+
+- 已确认：真实参考路径为 `素材/vlog 参考/新参考+解析`。
+- 已确认：该路径下正好 10 个 `.MP4`。
+- 已确认：10 个视频均有 AAC stereo 音轨，且 `ffmpeg` decode passed。
+- 已确认：本轮报告路径为 `项目资料_docs/视频能力实验室_video_capability_lab/16_新参考包审美解析_new_reference_aesthetic_pack.md`。
+- 已确认：本轮没有生成 v2 demo，没有调用外部 API，没有训练模型。
+- 待验证：音乐卡点未做人耳复听或 beat tracking。
+- 待验证：下一轮 v2 内容方向必须用户人审后才能升级。
+
+### v2_bridge_rules
+
+- v2 必须先有真实镜头、物件、手部、脚步、城市纹理或运动，再出现文字/组件。
+- v2 文案只允许情绪词、拟声词或原创短词，不允许内部项目语言。
+- v2 可以迁移 `object_pov_opening`、`micro_montage_chain`、`emotion_word_overlay`、`scrapbook_black_canvas`、`short_split_or_screen_within_screen`、`own_cta_end_card`。
+- v2 不得迁移平台 UI、品牌 logo、账号页、二维码、原字体、原贴纸、原文案、原音乐、可识别人脸、车牌、地标。
+- v2 输出后只能写 `rendered_pending_user_review` 或 `technical_render_completed_pending_user_review`，不得写 content pass。
+
+### remaining_confirmation
+
+- 待验证：下一轮 v2 使用哪个 motif：`city_object_diary`、`glass_light_walk` 或用户另定主题。
+- 待验证：下一轮可用原创/允许素材清单。
+- 待验证：是否允许下一轮生成 contact sheet 或仅提交 Markdown report。

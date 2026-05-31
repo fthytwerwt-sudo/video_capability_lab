@@ -130,14 +130,29 @@
 - 当前 v2 内容状态：`rendered_pending_user_review`。
 - 待验证：v2 是否方向对，仍需用户人审。
 
+## 本轮新增｜10 个新参考视频审美解析
+
+- 已确认：本轮执行路径为 `/Users/fan/Documents/vlog、odd/video_capability_lab`。
+- 已确认：当前 GitHub 仓库为 `fthytwerwt-sudo/video_capability_lab`，分支为 `main`。
+- 部分成立：用户口述路径为 `素材-vlog 参考-新参考+解析`，仓库真实路径为 `素材/vlog 参考/新参考+解析`。
+- 已确认：真实路径下正好有 10 个 `.MP4` 参考视频。
+- 已确认：10 个视频均可 `ffprobe` 读取，均可 `ffmpeg` 解码，均有 AAC stereo 音轨。
+- 已确认：本轮报告为 `项目资料_docs/视频能力实验室_video_capability_lab/16_新参考包审美解析_new_reference_aesthetic_pack.md`。
+- 已确认：本轮只生成 Markdown 报告和项目状态更新；未生成 v2 demo，未训练模型，未调用外部 API。
+- 已确认：临时 contact sheet 位于 `tmp/new_reference_aesthetic_analysis/contact_sheets/`，属于 ignored 临时观察产物，不得提交。
+- 已确认：合格审美标准已落成规则：真实镜头先行、1.5-3 秒微段落、情绪词 overlay、motif 回环、黑底 scrapbook 呼吸、自有尾卡收束。
+- 已确认：不合格审美标准已落成 hard fail：内部项目语言、PPT/card 感、组件展示、无 motif、overlay 过载、长时间 layout、平台/品牌复刻、把音轨存在写成精准卡点。
+- 待验证：下一轮 v2 内容方向必须基于新报告另行生成并等待用户人审。
+- 待验证：音乐卡点仍未做人耳复听或 beat tracking。
+
 ## 下一个目标
 
-等用户人审 v2；只有用户确认“方向对”，才允许进入机制设计。
+基于 `16_新参考包审美解析_new_reference_aesthetic_pack.md` 设计或执行下一轮 `demo_v2_reference_retarget`。只有用户确认新的 v2 方向对，才允许进入机制设计。
 
 ## 仍待确认
 
 - 新项目中文名是否最终锁定为：视频能力实验室｜Codex 视频导演能力库。
-- 待验证：v2 是否通过用户人审。
+- 待验证：基于新参考包规则生成的下一轮 v2 是否通过用户人审。
 - 待验证：marker quality 是否需要人工复听闸门和 publish-grade 标准。
 - 待验证：后续是否需要把 runtime asset 准备过程脚本化。
 - 是否需要为 GPT Project 上传包额外生成本地 zip。
