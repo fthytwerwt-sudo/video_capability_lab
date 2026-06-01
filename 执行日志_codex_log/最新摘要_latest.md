@@ -341,3 +341,22 @@
 ## 下一个目标
 
 用户人审 limited fix 视频和 `27_贴纸图形适配与有限修复报告_sticker_visual_fit_limited_remotion_report.md`。若方向更接近，则继续局部表现层修正；若仍不像对标，则回到 `reference_layer` / `material_layer` / `bgm_layer` 重判。
+
+## 本轮新增｜对标视觉语言失败重判
+
+- 已确认：用户最新反馈是位置基本不是主问题；贴纸 UI、图片大小 / 样式、字幕 + 贴纸气氛失败，视频看起来仍像基础剪辑。
+- 已确认：当前任务为 `reference_visual_language_replan`。
+- 已确认：当前判断为 `reference_structure_partial_ui_language_failed`。
+- 已确认：本轮不是继续调 x/y、fontSize、SVG 尺寸或贴纸数量。
+- 已确认：本轮不是 render，不修改 Remotion 源码，不修改视频数据文件，不调用外部 API，不生成 sticker assets。
+- 已确认：新增重判报告为 `项目资料_docs/视频能力实验室_video_capability_lab/28_对标视觉语言失败重判_reference_visual_language_replan.md`。
+- 已确认：当前失败层包括 `sticker_ui_layer`、`caption_atmosphere_layer`、`motion_language_layer`、`visual_mood_layer`、`bgm_dependency_layer`。
+- 已确认：当前失败代码包括 `sticker_ui_language_failure`、`caption_sticker_mood_failure`、`reference_visual_language_not_loaded`、`bgm_over_dependency`、`basic_editing_only`。
+- 已确认：新失败标准包括 `fail_sticker_asset_quality_low`、`fail_caption_sticker_mood_flat`、`fail_visual_language_not_reference_like`、`fail_bgm_carries_all_mood`、`fail_basic_editing_only`。
+- 主路线：`sticker_style_system + sticker_asset_pack_spec`。
+- 辅助路线：`API-generated sticker pack`，只能补充图形风格，不能替代 sticker spec。
+- 不推荐继续让 Codex 用基础 SVG 硬画全部贴纸；pure code SVG/CSS 只适合最小线条、箭头、圈注、呼吸线和低复杂度标点。
+
+## 下一个目标
+
+进入 `sticker_style_system_and_asset_pack_spec`，先定义 `sticker_family`、`visual_reference`、`graphic_shape`、`material_feel`、`color_palette`、`size_range`、`use_case`、`do_not_use_when`、`motion_rule`、`failure_rule`，再决定是否进入 Remotion、手工 asset pack 或 API 补充生成。

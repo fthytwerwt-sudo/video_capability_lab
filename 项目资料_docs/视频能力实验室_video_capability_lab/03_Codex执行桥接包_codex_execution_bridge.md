@@ -932,3 +932,74 @@ expected_validation:
 - 已确认：frame-level review 报告为 `项目资料_docs/视频能力实验室_video_capability_lab/27_贴纸图形适配与有限修复报告_sticker_visual_fit_limited_remotion_report.md`。
 - 已确认：BGM 仍未人工复听，PeakFlash 仍只能标 `rough_peak_candidate`。
 - 当前内容状态：`limited_remotion_fix_rendered_pending_user_review`。
+
+## 本轮新增｜reference_visual_language_replan 桥接
+
+### route_decision
+
+```yaml
+task_type: reference_visual_language_replan
+true_goal: 承认当前问题是贴纸 UI、字幕贴纸氛围、motion language、visual mood 和 BGM 依赖失败，而不是继续修位置
+trigger_when:
+  - 用户说位置没错但很丑
+  - 用户说 UI 很丑
+  - 用户说不像参考
+  - 用户说气氛靠 BGM
+render_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+external_api_call_allowed_this_round: false
+file_change_scope: markdown_docs_only
+allowed_actions:
+  - 读取 16/21/22/23/24/25/26/27
+  - 读取当前 30 秒样片数据和 composition 作为事实背景
+  - 新建对标视觉语言失败重判报告
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 直接调 x/y、fontSize、SVG 尺寸或贴纸数量
+  - 修改 Remotion 源码
+  - 修改视频数据文件
+  - render 视频
+  - 调用外部 API
+  - 生成 sticker assets
+  - 安装依赖
+  - 提交视频、图片、音频、dist、tmp 或 runtime assets
+  - 写成视觉语言已解决
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+output_file: 项目资料_docs/视频能力实验室_video_capability_lab/28_对标视觉语言失败重判_reference_visual_language_replan.md
+expected_status: reference_structure_partial_ui_language_failed
+next_status: sticker_style_system_and_asset_pack_spec_pending
+expected_validation:
+  - workspace_identity_check
+  - required_files_exist
+  - report_required_terms_grep
+  - forbidden_status_grep
+  - git diff --check
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### execution_rules
+
+- 触发该 route 时，不得把问题降级成坐标、大小或数量修补。
+- 第一判断必须是 `sticker_ui_layer`、`caption_atmosphere_layer`、`motion_language_layer`、`visual_mood_layer`、`bgm_dependency_layer`。
+- 下一步优先进入 `sticker_style_system_and_asset_pack_spec`，不是直接 render。
+- pure code SVG/CSS 只能作为低复杂度标点路线，不作为默认主路线。
+- `API-generated sticker pack` 只能作为补充路线，不能替代 sticker spec。
+
+### required_reads_for_next_round
+
+下一轮若继续当前 30 秒样片，必须先读：
+
+1. `项目资料_docs/视频能力实验室_video_capability_lab/28_对标视觉语言失败重判_reference_visual_language_replan.md`
+2. `项目资料_docs/视频能力实验室_video_capability_lab/27_贴纸图形适配与有限修复报告_sticker_visual_fit_limited_remotion_report.md`
+3. `项目资料_docs/视频能力实验室_video_capability_lab/24_通用vlog剪辑机制_vlog_director_capability_mechanism.md`
+4. `项目资料_docs/视频能力实验室_video_capability_lab/23_对标视频底线失败标准_reference_bottom_line_fail_gate.md`
+
+### next_execution_gate
+
+- 已确认：下一步不是继续让 Codex 用基础 SVG 硬画全部贴纸。
+- 已确认：下一步不是继续位置微调。
+- 已确认：下一步不是直接 render。
+- 已确认：下一步应先形成 `sticker_style_system_and_asset_pack_spec`。
+- 待验证：完成 spec 后，才判断走 pure code SVG/CSS、导入手工 asset pack，还是补充 API-generated transparent sticker。
