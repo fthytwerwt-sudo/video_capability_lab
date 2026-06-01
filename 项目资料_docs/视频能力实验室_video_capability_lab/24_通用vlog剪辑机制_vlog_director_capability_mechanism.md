@@ -34,6 +34,7 @@
 
 | input（输入） | 中文备注 |
 |---|---|
+| `reference_judgement_library（对标判断库）` | 长期沉淀的对标判断标准；每轮必须先读。 |
 | `reference_pack（参考视频包）` | 用户提供的对标视频或参考视频集合。 |
 | `material_pack（素材包）` | 用户提供的可剪辑素材。 |
 | `bgm（背景音乐）` | 当前视频使用的音乐，未来每轮都可能不同。 |
@@ -53,21 +54,50 @@
 | `frame_level_review_points（逐帧回审点）` | 渲染后必须抽帧检查的关键点。 |
 | `remotion_output（Remotion 输出）` | 只有前面机制表通过后，才允许生成的视频。 |
 
+## 4.1 对标判断库执行入口
+
+已确认：本机制不再把每轮任务理解为从零学习当前对标视频。
+
+执行入口 A：本轮有新增对标视频。
+
+1. 读取 `reference_judgement_library`。
+2. 解析新增对标视频。
+3. 提取新增判断项。
+4. 将新增判断项合并进判断库，并标注来源、适用场景和不适用场景。
+5. 再基于判断库、本轮素材、BGM 和风格锚点生成三张表。
+
+执行入口 B：本轮没有新增对标视频。
+
+1. 读取 `reference_judgement_library`。
+2. 读取本轮 `style_anchor`、`material_pack`、`bgm` 和 `duration_target`。
+3. 从判断库中选择适用判断。
+4. 生成本轮三张表，并标注 `judgement_source=library_derived`。
+5. 不得编造 `reference_timecode`。
+
+已确认：无新增对标视频不等于无法执行。
+
+已确认：新对标视频用于扩充和校准判断库，不是替代旧判断。
+
+已确认：失败标准不变，判断库持续积累。
+
 ## 5. 三张表的通用定义
 
 ### 5.1 `reference_learning_checklist（对标学习检查清单）`
 
 - 不绑定当前 demo。
-- 每次换参考视频都要重新生成。
+- 每次先读 `reference_judgement_library`，再判断是否有新增对标视频。
+- 有新增对标视频时，先更新判断库，再生成本轮 checklist。
+- 无新增对标视频时，使用已有判断库生成 checklist。
 - 但字段和失败标准不变。
 - 必须说明 `reference_function（参考功能）` 和 `not_to_copy（禁止复制项）`。
 - 必须把每个参考点绑定到 `target_event_id`，避免“看过参考但没有学到功能”。
+- 必须标注 `judgement_source` 和 `judgement_type`。
 
 最小字段：
 
-| reference_id | reference_timecode | reference_function | not_to_copy | target_event_id | function_match | style_match | failure_if_missing |
-|---|---|---|---|---|---|---|---|
-| `ref_XX` | `00:00-00:02` | `待填写` | `待填写` | `event_XX` | `待验证` | `待验证` | `fail_no_reference_function` |
+| reference_id | reference_timecode | judgement_source | judgement_type | reference_function | not_to_copy | target_event_id | function_match | style_match | failure_if_missing |
+|---|---|---|---|---|---|---|---|---|---|
+| `ref_XX` | `not_applicable_library_derived` | `library_derived` | `待填写` | `待填写` | `待填写` | `event_XX` | `待验证` | `待验证` | `fail_no_reference_function` |
 
 ### 5.2 `visual_selection_table（画面选择表）`
 
@@ -148,7 +178,7 @@
 
 但判断关系不变：
 
-1. 每次都必须解释学了参考视频的什么功能。
+1. 每次都必须解释学了判断库或新增参考视频里的什么功能。
 2. 每次都必须解释为什么选这个画面。
 3. 每次都必须解释字幕/贴纸/转场为什么出现。
 4. 每次都必须通过硬失败闸门。
@@ -166,10 +196,13 @@ BGM 可以变，但音乐判断关系不变。
 
 参考视频可以变，但参考学习关系不变。
 
-- 每次换 `reference_pack`，必须重新生成 `reference_learning_checklist`。
+- 每次先读取 `reference_judgement_library`。
+- 每次换 `reference_pack`，必须先判断新增参考能扩充或校准哪些判断，再生成 `reference_learning_checklist`。
 - 每个参考点必须写 `reference_function`，不能只写“学这个风格”。
 - 每个参考点必须写 `not_to_copy`，避免复刻平台 UI、品牌资产、原文案、原音乐、原贴纸。
 - 如果目标事件和参考功能不匹配，触发 `fail_reference_mismatch`。
+- 如果未读取判断库，触发 `fail_reference_judgement_missing`。
+- 如果无新增对标视频，必须使用已有判断库，不得把缺少新增对标写成 blocked。
 
 ## 10. 不同素材包可变时的处理方式
 
@@ -184,12 +217,15 @@ BGM 可以变，但音乐判断关系不变。
 
 进入 Remotion render 前，必须同时满足：
 
-1. `reference_learning_checklist` 已生成并通过检查。
-2. `visual_selection_table` 已生成并通过检查。
-3. `video_event_table` 已生成并通过检查。
-4. `failure_checklist` 已覆盖参考功能、画面选择、字幕、贴纸、转场、音乐、风格和复刻风险。
-5. `frame_level_review_points` 已列出关键抽帧点。
-6. `hard_fail_gate` 未触发阻断项。
+1. `reference_judgement_library` 已读取。
+2. 本轮是否有新增对标视频已判断。
+3. 有新增对标视频时，新增判断已合并进判断库；无新增对标视频时，已标注 `library_derived`。
+4. `reference_learning_checklist` 已生成并通过检查。
+5. `visual_selection_table` 已生成并通过检查。
+6. `video_event_table` 已生成并通过检查。
+7. `failure_checklist` 已覆盖参考功能、画面选择、字幕、贴纸、转场、音乐、风格和复刻风险。
+8. `frame_level_review_points` 已列出关键抽帧点。
+9. `hard_fail_gate` 未触发阻断项。
 
 缺任一项，默认 blocked，不允许 render。
 

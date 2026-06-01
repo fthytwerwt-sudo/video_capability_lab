@@ -968,7 +968,7 @@ repository: /Users/fan/Documents/vlog、odd/video_capability_lab
 branch: main
 output_file: 项目资料_docs/视频能力实验室_video_capability_lab/28_对标视觉语言失败重判_reference_visual_language_replan.md
 expected_status: reference_structure_partial_ui_language_failed
-next_status: sticker_style_system_and_asset_pack_spec_pending
+next_status: reference_visual_language_to_asset_spec_pending
 expected_validation:
   - workspace_identity_check
   - required_files_exist
@@ -983,7 +983,7 @@ expected_validation:
 
 - 触发该 route 时，不得把问题降级成坐标、大小或数量修补。
 - 第一判断必须是 `sticker_ui_layer`、`caption_atmosphere_layer`、`motion_language_layer`、`visual_mood_layer`、`bgm_dependency_layer`。
-- 下一步优先进入 `sticker_style_system_and_asset_pack_spec`，不是直接 render。
+- 下一步优先进入 `reference_visual_language_to_asset_spec`，不是直接 render。
 - pure code SVG/CSS 只能作为低复杂度标点路线，不作为默认主路线。
 - `API-generated sticker pack` 只能作为补充路线，不能替代 sticker spec。
 
@@ -1001,5 +1001,79 @@ expected_validation:
 - 已确认：下一步不是继续让 Codex 用基础 SVG 硬画全部贴纸。
 - 已确认：下一步不是继续位置微调。
 - 已确认：下一步不是直接 render。
-- 已确认：下一步应先形成 `sticker_style_system_and_asset_pack_spec`。
+- 已确认：下一步应先形成 `reference_visual_language_to_asset_spec`。
 - 待验证：完成 spec 后，才判断走 pure code SVG/CSS、导入手工 asset pack，还是补充 API-generated transparent sticker。
+
+## 本轮新增｜reference_learning_execution_logic_cascade_refactor 桥接
+
+### route_decision
+
+```yaml
+task_type: reference_learning_execution_logic_cascade_refactor
+true_goal: 回审并修正对标学习执行逻辑的上游错误，建立 reference_judgement_library 并级联修正触发、流程、判断、反馈和路由
+render_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+external_api_call_allowed_this_round: false
+sticker_asset_generation_allowed_this_round: false
+file_change_scope: mechanism_docs + current_task + bridge + latest
+allowed_actions:
+  - 只读检查当前仓库事实
+  - 新建 reference_judgement_library 机制文件
+  - 新建全链路级联修正报告
+  - 更新对标学习逻辑相关机制文件
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 修视频
+  - render
+  - 修改 Remotion 源码
+  - 修改 Remotion 数据文件
+  - 调用外部 API
+  - 生成贴纸素材
+  - 安装依赖
+  - 提交视频、图片、音频、dist、tmp 或 runtime assets
+  - 把 reference_judgement_library 写成充分完备
+  - 把机制修正写成稳定 vlog 导演能力已成立
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+new_library_file: 项目资料_docs/视频能力实验室_video_capability_lab/29_对标判断库机制_reference_judgement_library.md
+cascade_report: 项目资料_docs/视频能力实验室_video_capability_lab/30_对标学习执行逻辑级联修正_reference_learning_execution_cascade_refactor.md
+expected_status: reference_learning_logic_cascade_refactored_pending_validation
+next_goal: reference_visual_language_to_asset_spec
+expected_validation:
+  - workspace_identity_check
+  - required_files_exist
+  - required_terms_grep
+  - staged_media_guard
+  - remotion_diff_guard
+  - git diff --check
+  - commit_push_remote_head
+```
+
+### future_vlog_task_entry
+
+所有未来 vlog demo、当前 30 秒样片修复、不同 BGM / 不同素材 / 不同参考视频任务，都必须先读：
+
+1. `项目资料_docs/视频能力实验室_video_capability_lab/29_对标判断库机制_reference_judgement_library.md`
+2. `项目资料_docs/视频能力实验室_video_capability_lab/24_通用vlog剪辑机制_vlog_director_capability_mechanism.md`
+3. `项目资料_docs/视频能力实验室_video_capability_lab/22_视频事件表与画面选择机制_video_event_table_visual_selection.md`
+4. `项目资料_docs/视频能力实验室_video_capability_lab/23_对标视频底线失败标准_reference_bottom_line_fail_gate.md`
+
+未来执行顺序：
+
+1. 读取 `reference_judgement_library`。
+2. 判断本轮是否有新增对标视频。
+3. 有新增对标视频：先更新判断库。
+4. 无新增对标视频：使用已有判断库。
+5. 再生成三张表。
+6. 三张表过 `hard_fail_gate`。
+7. 才允许 Remotion 执行。
+
+### cascade_rules
+
+- 不允许把“无新增对标视频”当作 blocked。
+- 不允许每次从零学习。
+- 不允许用当前参考覆盖历史判断库。
+- 不允许没有判断库来源就编造 `reference_function`。
+- 不允许伪造 `reference_timecode`。
+- 旧的 `sticker_style_system_and_asset_pack_spec` 入口升级为 `reference_visual_language_to_asset_spec`。
+- 新对标视频用于扩充和校准判断库，不是替代旧判断。

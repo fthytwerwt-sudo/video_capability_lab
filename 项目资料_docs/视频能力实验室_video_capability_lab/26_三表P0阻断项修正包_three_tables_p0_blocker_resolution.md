@@ -20,6 +20,20 @@
 
 待验证：当前视频内容仍未通过。当前 30 秒样片仍是验证材料，不是项目目标。
 
+## 1.1 对标判断库级联修正定位
+
+已确认：本文件是当前 30 秒样片的 P0 阻断项修正包，不是长期对标判断库。
+
+已确认：本文件中的 caption / sticker / transition / BGM 关系可以作为 `reference_judgement_library` 的初始沉淀来源，但未来任务不能直接复制本文件作为执行标准。
+
+后续执行必须：
+
+1. 先读取 `29_对标判断库机制_reference_judgement_library.md`。
+2. 再判断本轮是否有新增对标视频。
+3. 有新增对标视频时，先扩充和校准判断库。
+4. 无新增对标视频时，使用已有判断库，不得把无新增参考写成 blocked。
+5. 三张表中的 `reference_function` 必须补 `judgement_source`。
+
 ## 2. 错误路径修正记录
 
 | item | status | evidence | fix |

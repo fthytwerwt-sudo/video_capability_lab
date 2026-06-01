@@ -38,6 +38,24 @@
 4. 不固定所有 vlog 都用同一种素材，但每个画面必须符合当前视频的整体风格。
 5. 不允许只凭素材可用、事件数量达标或 render 成功进入完成判断。
 
+## 2.1 对标判断库前置
+
+已确认：生成 `visual_selection_table` 和 `video_event_table` 前，必须先读取 `29_对标判断库机制_reference_judgement_library.md`。
+
+已确认：`reference_function` 应优先来自 `reference_judgement_library`；如果本轮有新增对标视频，可以来自新增解析结果，但必须合并回判断库。
+
+已确认：无新增对标视频不等于无法执行；此时三张表必须标注依据来自已有沉淀。
+
+已确认：如果 `reference_function` 没有判断库来源，也没有新增对标解析来源，必须标 `needs_reference_judgement`，不得编造 reference timecode。
+
+新增字段：
+
+| field | 用途 |
+|---|---|
+| `judgement_source` | 标注本行依据来自 `library_derived`、`new_reference_derived`、`user_feedback_derived` 还是 `needs_reference_judgement`。 |
+| `judgement_type` | 标注调用的判断类型，如 `sticker_graphic_judgement`、`caption_mood_judgement`。 |
+| `reference_timecode_status` | 标注 `verified`、`pending_review`、`not_applicable_library_derived`，防止伪造参考时间点。 |
+
 ## 3. 触发条件
 
 以下情况必须先使用本机制：
@@ -80,8 +98,8 @@
 ### 4.1 事件表最小模板
 
 ```markdown
-| event_id | time_range | visual_moment | shot_role | image_type | image_fit_reason | style_fit | motif_tag | music_moment | overlay_role | semantic_role | anchor_target | placement_rule | minimum_visible_size | reference_function | variety_role | failure_rule |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| event_id | time_range | visual_moment | shot_role | image_type | image_fit_reason | style_fit | motif_tag | music_moment | overlay_role | semantic_role | anchor_target | placement_rule | minimum_visible_size | reference_function | judgement_source | judgement_type | reference_timecode_status | variety_role | failure_rule |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 ```
 
 ## 5. 画面选择标准
@@ -286,6 +304,7 @@ visual_selection_table -> video_event_table -> failure_checklist -> Remotion imp
 
 - 每个镜头有 `image_fit_reason`、`style_fit`、`motif_tag`、`variety_role`。
 - 每个字幕/贴纸有 `semantic_role`、`anchor_target`、`placement_rule`、`minimum_visible_size`、`reference_function`。
+- 每个 `reference_function` 有 `judgement_source`；没有来源时标 `needs_reference_judgement`。
 - 每个贴纸至少有 start / mid frame review point。
 - 渲染后仍必须等用户人审，不能把技术验证写成内容通过。
 

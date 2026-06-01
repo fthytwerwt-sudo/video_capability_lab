@@ -55,6 +55,9 @@
 | fail_code | 触发条件 | 判定结果 | 修复方向 |
 |---|---|---|---|
 | `fail_no_reference_function` | 参考点只写了“学某个视频”，没有说明学习功能。 | blocked before render | 补 `reference_function`，说明它服务情绪、节奏、信息、停顿、幽默、尾卡还是视觉呼吸。 |
+| `fail_reference_judgement_missing` | 没有读取 `reference_judgement_library`，也没有新增对标解析，却声称学了对标。 | blocked before render | 先读取或补全判断库；无新增对标视频时使用已有沉淀并标注来源。 |
+| `fail_reference_judgement_unused` | 判断库已有相关标准，但三张表没有调用或标注来源。 | blocked before render | 回到三张表补 `judgement_source` 和 `judgement_type`。 |
+| `fail_reference_timecode_fabricated` | 无新增对标视频或未人工复核，却编造 `reference_timecode`。 | blocked / fail | 改为 `library_derived`，并将 `reference_timecode_status` 标为 `not_applicable_library_derived`。 |
 | `fail_surface_copy_without_function` | 只复制贴纸、文字、黑底、分屏、字体感等表面，没有说明为什么用。 | blocked before render / fail after render | 改成函数式学习，先写功能，再设计原创表达。 |
 | `fail_event_quantity_as_quality` | 用 caption/sticker/clip/transition 数量证明审美达标。 | fail | 改用功能匹配、风格匹配和 frame-level review。 |
 | `fail_no_visual_selection_table` | 没有 `visual_selection_table` 就进入剪辑或 render。 | blocked before render | 先写画面选择表，说明画面为什么合适、为什么不能全一样。 |
@@ -72,12 +75,14 @@
 
 ## 5. 对标学习判断表
 
-后续任何对标学习都必须先生成 `reference_learning_checklist`，并至少包含以下字段。
+后续任何对标学习都必须先读取 `29_对标判断库机制_reference_judgement_library.md`，再生成 `reference_learning_checklist`。本轮有新增对标视频时，新增判断用于扩充和校准判断库；本轮无新增对标视频时，必须使用已有判断库执行，不得伪造本轮参考 timecode。
 
 | field | required | 用途 |
 |---|---:|---|
 | `reference_id` | yes | 指向具体参考视频或参考片段。 |
-| `reference_timecode` | yes | 标出被学习的参考时间段，避免泛泛说“像参考”。 |
+| `reference_timecode` | conditional | 有新增对标视频或人工复核时填写；无新增对标视频时标 `not_applicable_library_derived`。 |
+| `judgement_source` | yes | 标注 `library_derived`、`new_reference_derived`、`user_feedback_derived` 或 `needs_reference_judgement`。 |
+| `judgement_type` | yes | 标注调用的判断类型，如 `sticker_style_judgement` 或 `caption_mood_judgement`。 |
 | `reference_function` | yes | 说明该参考点的真实功能，例如情绪停顿、动作强调、信息节奏、转场缓冲、尾卡收束。 |
 | `not_to_copy` | yes | 明确不可复制的平台 UI、品牌资产、字体、贴图、原文案、账号页、二维码、原音乐。 |
 | `target_event_id` | yes | 绑定本片目标事件，避免参考点悬空。 |
@@ -87,9 +92,9 @@
 
 示例空表：
 
-| reference_id | reference_timecode | reference_function | not_to_copy | target_event_id | function_match | style_match | failure_if_missing |
-|---|---|---|---|---|---|---|---|
-| `ref_XX` | `00:00-00:02` | `待填写` | `待填写` | `event_XX` | `待验证` | `待验证` | `fail_no_reference_function` |
+| reference_id | reference_timecode | judgement_source | judgement_type | reference_function | not_to_copy | target_event_id | function_match | style_match | failure_if_missing |
+|---|---|---|---|---|---|---|---|---|---|
+| `ref_XX` | `not_applicable_library_derived` | `library_derived` | `待填写` | `待填写` | `待填写` | `event_XX` | `待验证` | `待验证` | `fail_no_reference_function` |
 
 ## 6. 字幕/贴纸底线
 
@@ -162,6 +167,8 @@
 
 进入 Remotion render 前，必须具备以下文件或结构；缺任一项默认 blocked：
 
+- `reference_judgement_library` 已读取，或本轮新增对标视频解析已合并进判断库。
+- `fail_reference_judgement_missing` 未触发。
 - `reference_bottom_line` 已写入本轮执行标准。
 - `hard_fail_gate` 已逐项检查。
 - `reference_learning_checklist` 已填完，不存在悬空参考点。

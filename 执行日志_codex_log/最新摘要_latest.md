@@ -359,4 +359,23 @@
 
 ## 下一个目标
 
-进入 `sticker_style_system_and_asset_pack_spec`，先定义 `sticker_family`、`visual_reference`、`graphic_shape`、`material_feel`、`color_palette`、`size_range`、`use_case`、`do_not_use_when`、`motion_rule`、`failure_rule`，再决定是否进入 Remotion、手工 asset pack 或 API 补充生成。
+历史口径曾指向 `sticker_style_system_and_asset_pack_spec`；本轮已升级为 `reference_visual_language_to_asset_spec`，先从 `reference_judgement_library` 和本轮 `style_anchor` 生成资产规格，再决定是否进入 Remotion、手工 asset pack 或 API 补充生成。
+
+## 本轮新增｜对标学习执行逻辑级联修正
+
+- 已确认：用户最新 P0 输入指出，不能只修“必须先看对标视频”一句；如果上游执行逻辑错，执行流程、判断标准和反馈回路也会错。
+- 已确认：本轮任务为 `reference_learning_execution_logic_cascade_refactor`。
+- 已确认：本轮新增 `reference_judgement_library（对标判断库）`，文件为 `项目资料_docs/视频能力实验室_video_capability_lab/29_对标判断库机制_reference_judgement_library.md`。
+- 已确认：本轮新增级联修正报告，文件为 `项目资料_docs/视频能力实验室_video_capability_lab/30_对标学习执行逻辑级联修正_reference_learning_execution_cascade_refactor.md`。
+- 已确认：未来执行必须先读判断库；有新增对标视频时先扩充和校准判断库；无新增对标视频时也可以基于已有判断库执行。
+- 已确认：无新增对标视频不等于无法执行。
+- 已确认：新对标视频用于扩充和校准判断库，不是替代旧判断。
+- 已确认：失败标准仍然不变，判断库持续积累。
+- 已确认：旧的 `sticker_style_system_and_asset_pack_spec` 已升级为 `reference_visual_language_to_asset_spec`，不能理解为固定一套贴纸样式。
+- 已确认：本轮不修视频、不 render、不修改 Remotion 源码或数据、不调用 API、不生成贴纸素材。
+- 当前内容状态：`reference_learning_logic_cascade_refactored_pending_validation`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+
+## 下一个目标
+
+基于 `reference_judgement_library（对标判断库）` 生成 `reference_visual_language_to_asset_spec（对标视觉语言到资产规格）`；然后再决定是否手工整理资产包、使用纯代码 SVG，或辅助 API 生成透明贴纸。

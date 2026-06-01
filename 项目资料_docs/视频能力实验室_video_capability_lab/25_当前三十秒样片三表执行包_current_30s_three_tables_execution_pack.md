@@ -24,6 +24,19 @@
 
 待验证：三张表完成后，下一轮是否进入 Remotion 修复，必须由 `hard_fail_summary` 和 `next_fix_route` 决定。
 
+## 1.2 对标判断库级联修正定位
+
+已确认：本文件是当前 30 秒样片的一次三表执行包，不是未来所有 vlog 任务的对标学习入口。
+
+已确认：本文件生成时尚未建立 `29_对标判断库机制_reference_judgement_library.md`，因此其中 `reference_learning_checklist` 的 `reference_function` 主要来自当轮参考解析和审计材料。
+
+后续复用本文件时必须先读取 `reference_judgement_library`：
+
+1. 有新增对标视频时，先把新增判断合并进判断库，再生成新的三表。
+2. 无新增对标视频时，使用已有判断库，并标注 `judgement_source=library_derived`。
+3. 不得把本文件的 `reference_timecode=待人工复核` 扩写成已验证 timecode。
+4. 不得把当前样片三表复制成未来任务的固定模板。
+
 ## 1.1 贴纸图形适配补充
 
 已确认：本包原先已覆盖 `anchor_target`、`placement_rule`、`minimum_visible_size` 和 `reference_function`，但仍不足以判断贴纸本身是否适合当前镜头。

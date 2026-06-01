@@ -6,7 +6,7 @@
 - target_sample: `三十秒对标样片-30s-reference-sample`
 - source_review_report: `27_贴纸图形适配与有限修复报告_sticker_visual_fit_limited_remotion_report.md`
 - content_status: `reference_structure_partial_ui_language_failed`
-- next_status: `sticker_style_system_and_asset_pack_spec_pending`
+- next_status: `reference_visual_language_to_asset_spec_pending`
 - render_allowed_this_round: `false`
 - remotion_edit_allowed_this_round: `false`
 - external_api_call_allowed_this_round: `false`
@@ -53,7 +53,7 @@
 
 1. SVG/CSS 可以做 overlay，但不会自动得到参考级 sticker UI。
 2. 当前基础 SVG 只证明形状能被画出来，不证明贴纸视觉语言成立。
-3. 如果继续使用纯代码 SVG，必须先有 `sticker_style_system`。
+3. 如果继续使用纯代码 SVG，必须先有 `reference_visual_language_to_asset_spec`。
 4. 要更接近参考观感，可能需要 `sticker_asset_pack` 或 `API-generated transparent sticker`。
 5. API 只能辅助生成图形资产；如果没有 `sticker spec`，仍然解决不了 placement、size、timing、tone。
 
@@ -81,7 +81,7 @@
 
 不适用：需要参考视频那种成套贴纸、纸感、手绘感、emoji-like 情绪感或复杂图形时。
 
-### Route B: sticker_style_system + sticker_asset_pack
+### Route B: reference_visual_language_to_asset_spec + sticker_asset_pack
 
 状态：`recommended_main_route`
 
@@ -89,11 +89,11 @@
 
 原因：
 
-- 先定义贴纸家族、大小、材质、颜色、使用场景和失败规则，再进入实现。
+- 先从 `reference_judgement_library` 和本轮 `style_anchor` 生成资产规格，再定义贴纸家族、大小、材质、颜色、使用场景和失败规则。
 - 能把“UI 很丑”转成可执行字段，而不是继续靠 Codex 临场画 SVG。
 - 可以同时约束字幕贴纸 mood、motion rule 和视觉风格统一性。
 
-下一步应进入：`sticker_style_system_and_asset_pack_spec`
+下一步应进入：`reference_visual_language_to_asset_spec`
 
 ### Route C: API-generated sticker pack
 
@@ -109,10 +109,14 @@
 
 ## 7. 下一步规格字段
 
-`sticker_style_system_and_asset_pack_spec` 至少必须包含：
+`reference_visual_language_to_asset_spec` 不是固定一套贴纸样式。它必须从 `reference_judgement_library` 与本轮 `style_anchor` 生成；如果本轮有新增对标视频，则用新增对标校准资产规格；如果本轮无新增对标视频，则从已有判断库生成资产规格。
+
+`reference_visual_language_to_asset_spec` 至少必须包含：
 
 | field | required_judgment |
 |---|---|
+| `judgement_source` | 标注来自 `library_derived`、`new_reference_derived` 还是 `user_feedback_derived`。 |
+| `judgement_type` | 标注调用 `sticker_graphic_judgement`、`sticker_size_judgement`、`sticker_style_judgement` 或 `caption_mood_judgement`。 |
 | `sticker_family` | 本片贴纸属于哪一组视觉家族，例如轻手绘、纸签、呼吸线、动作标点。 |
 | `visual_reference` | 参考视频中要学习的是大小、材质、留白、节奏还是 mood，不复制原资产。 |
 | `graphic_shape` | 允许的形状类型，例如 arrow、circle、wave、tag、spark、emoji-like mark。 |
@@ -130,8 +134,10 @@
 
 已确认：当前状态为 `reference_structure_partial_ui_language_failed`。
 
-已确认：下一步不是继续 Remotion/render，而是先写 `sticker_style_system_and_asset_pack_spec`。
+已确认：下一步不是继续 Remotion/render，而是先写 `reference_visual_language_to_asset_spec`。
 
 已确认：API 可以作为补充路线，但不能取代 sticker style/spec。
 
-待验证：下一轮完成 sticker style system 和 asset pack spec 后，才能决定是否走纯代码 SVG、导入手工资产，或辅助生成透明 sticker。
+待验证：下一轮完成 `reference_visual_language_to_asset_spec` 后，才能决定是否走纯代码 SVG、导入手工资产，或辅助生成透明 sticker。
+
+已确认：旧的 `sticker_style_system_and_asset_pack_spec` 不能被理解为固定一套贴纸样式；它已升级为 `reference_visual_language_to_asset_spec`。
