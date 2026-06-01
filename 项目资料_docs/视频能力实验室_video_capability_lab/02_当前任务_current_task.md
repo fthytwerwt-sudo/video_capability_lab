@@ -1,30 +1,29 @@
 # 当前任务
 
-当前任务：`reference_visual_language_to_asset_spec`。
+当前任务：`api_sticker_env_setup`。
 
-当前目标：基于 `reference_judgement_library（对标判断库）`，生成当前 30 秒样片的 `reference_visual_language_to_asset_spec（对标视觉语言到资产规格）`。
+当前目标：为后续 `api_generated_sticker_candidate_probe（API 贴纸候选探针）` 创建安全的本地环境变量入口。
 
-当前状态：`asset_spec_completed_asset_generation_pending`。
+当前状态：`api_sticker_env_created_pending_user_key`。
 
-下一状态：`asset_generation_route_decision_pending`。
+下一状态：`api_generated_sticker_candidate_probe_pending_user_key`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
 
 ## 本轮输入
 
-- task_type: `reference_visual_language_to_asset_spec`
-- true_goal: 把已有对标判断库和当前样片风格锚点，翻译成可执行的 sticker / caption / motion / asset route 规格。
-- source_library: `项目资料_docs/视频能力实验室_video_capability_lab/29_对标判断库机制_reference_judgement_library.md`
-- source_replan: `项目资料_docs/视频能力实验室_video_capability_lab/28_对标视觉语言失败重判_reference_visual_language_replan.md`
-- output_file: `项目资料_docs/视频能力实验室_video_capability_lab/31_对标视觉语言到资产规格_reference_visual_language_to_asset_spec.md`
-- new_reference_pack_this_round: `false`
-- judgement_source: `library_derived`
-- reference_timecode_policy: `not_applicable_library_derived`
+- task_type: `api_sticker_env_setup`
+- true_goal: 让用户可以在本地 `.env` 中手动填写图片生成 API key，为下一轮 API 贴纸候选探针做准备。
+- previous_completed_input: `项目资料_docs/视频能力实验室_video_capability_lab/31_对标视觉语言到资产规格_reference_visual_language_to_asset_spec.md`
+- env_example_path: `.env.example`
+- local_env_path: `.env`
+- gitignore_path: `.gitignore`
+- env_status: `local_ignored_pending_user_key`
 - render_allowed_this_round: `false`
 - remotion_edit_allowed_this_round: `false`
 - external_api_call_allowed_this_round: `false`
 - sticker_asset_generation_allowed_this_round: `false`
-- file_change_scope: `asset_spec_markdown + current_task + bridge + latest`
+- file_change_scope: `.gitignore + .env.example + local .env + current_task + bridge + latest`
 
 ## 本轮边界
 
@@ -36,27 +35,35 @@
 - 已确认：当前不是生成贴纸、下载素材或提交贴纸图片。
 - 已确认：当前不是修改 Remotion 源码。
 - 已确认：当前不是修改 Remotion 数据文件。
-- 已确认：当前不是把 `31` 当成资产已生成、视觉语言已通过或内容已通过。
+- 已确认：当前不是验证智谱 AI / MiniMax / 阶跃星辰 API 是否可用。
+- 已确认：当前不是把 `.env` 创建写成 API 可用、贴纸候选已生成、资产已生成或视频已修好。
+- 已确认：`.env` 是本地密钥文件，只能本地存在，不提交 Git，不打印真实值。
+- 已确认：`.env.example` 只包含空占位和安全默认开关，不包含真实 API key。
 - 已确认：本轮不提交视频、图片、音频、`dist`、`tmp` 或 runtime assets。
 - 已确认：本轮必须 path-limited stage，不允许 `git add .`。
 
-## 本轮规格结果
+## 本轮 env 结果
 
-- 已确认：`31` 已从判断库选出 7 类本轮适用判断。
-- 已确认：`31` 已明确本轮没有新增对标视频，判断来源为 `library_derived`。
-- 已确认：`31` 已定义临时风格锚点 `soft_vlog_breath_with_light_comic_object_moments`。
-- 已确认：`31` 已生成 5 个当前样片可用 sticker asset spec。
-- 已确认：`31` 已生成 `caption_mood_spec`、`motion_spec` 和 `asset_route_decision`。
-- 已确认：`31` 已明确本轮不生成资产、不 render、不调用 API、不修改 Remotion。
+- 已确认：上一轮 `31` 已完成，当前仍是 `asset_spec_completed_asset_generation_pending` 的后续准备阶段。
+- 已确认：`.env.example` 是可提交模板，只包含 provider 字段、输出目录字段和安全限制字段。
+- 已确认：`.env` 是本地 ignored file，用于用户手动填写 key；`.env` 不属于 remote verified 文件。
+- 已确认：下一轮 API probe 必须先读取 `.env` 的 key 是否存在，但不得打印 key。
+- 待验证：用户是否已经在 `.env` 填写真实 API key。
+- 待验证：任一图片生成 provider 是否可用。
 
 ## 下一个目标
 
-根据 `31` 的 `asset_route_decision` 决定下一轮路线：
+用户在本地 `.env` 填写 key 后，进入 `api_generated_sticker_candidate_probe（API 贴纸候选探针）`。
 
-1. `pure_code_svg`：只用于简单箭头、圈注、轨迹线、呼吸边缘线，并必须服从视觉规格。
-2. `local_asset_pack`：用于纸感、胶贴感、复杂纹理或纯代码容易变丑的资产。
-3. `api_generated_candidate`：只作为透明背景候选资产辅助，必须经过人审或 frame review。
+下一轮仍必须遵守：
+
+1. API 只能生成透明背景候选资产，不能绕过审美判断。
+2. API probe 不等于 sticker assets 已通过。
+3. API probe 不等于当前视频已修好。
+4. API probe 不等于 `vlog_director_capability` 已成立。
 
 ## 本轮完成定义
 
-本轮只有在 `31`、当前任务、执行桥接包、latest 更新后，完成验证、path-limited stage、commit 成功、push 成功、远端 HEAD 验证成功，才可写 `completed_remote_verified`。
+本轮只有在 `.env.example`、`.gitignore`、当前任务、执行桥接包、latest 更新后，`.env` 已被忽略且未 staged，完成验证、path-limited stage、commit 成功、push 成功、远端 HEAD 验证成功，才可写 `completed_remote_verified`。
+
+已确认：`.env` 是 local ignored file，不属于 remote verified 文件。

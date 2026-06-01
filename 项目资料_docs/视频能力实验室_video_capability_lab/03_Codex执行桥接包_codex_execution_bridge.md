@@ -1156,3 +1156,65 @@ expected_validation:
 - 已确认：API 只能生成透明背景候选资产，不能绕过审美判断。
 - 已确认：纯代码 SVG 只能用于低复杂度标点，并必须服从 `31` 的材质、颜色、大小、动效和失败规则。
 - 待验证：`31` 能否转成真实资产并通过 frame review 和用户人审。
+
+## 本轮新增｜API 贴纸候选前置 env 桥接
+
+### route_decision
+
+```yaml
+task_type: api_sticker_env_setup
+true_goal: 为后续 api_generated_sticker_candidate_probe 创建安全的本地 API key 填写入口
+api_call_allowed_this_round: false
+asset_generation_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+render_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+env_example_path: .env.example
+local_env_path: .env
+expected_status: api_sticker_env_created_pending_user_key
+file_change_scope: .gitignore + .env.example + current_task + bridge + latest + local .env ignored
+allowed_actions:
+  - 创建或更新 .env.example
+  - 创建本地 .env 空占位文件
+  - 确认 .env 被 .gitignore 忽略
+  - 确认 .env.example 不被 .gitignore 忽略
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 调用外部 API
+  - 生成 sticker candidates
+  - 生成透明 PNG
+  - 生成图片、视频或音频
+  - 修改 Remotion 源码
+  - 修改 Remotion 数据文件
+  - render
+  - 打印 .env 真实值
+  - 提交 .env
+  - 把 env 创建写成 API 可用
+  - 把 env 创建写成贴纸候选已生成
+  - 把 env 创建写成视频已修好
+expected_validation:
+  - workspace_identity_check
+  - gitignore_env_check
+  - env_example_not_ignored_check
+  - env_not_staged_check
+  - staged_secret_scan
+  - git_diff_check
+  - path_limited_stage
+  - commit_push_remote_head
+```
+
+### execution_rules
+
+1. `.env` 只作为本地 ignored key 文件，不进入 Git，不进入 remote verified 文件。
+2. `.env.example` 只允许出现空 API key 占位和安全默认开关，不得出现真实 key。
+3. 下一轮 `api_generated_sticker_candidate_probe` 必须先读取 `.env` 中 key 是否存在，但不得打印 key。
+4. 下一轮即使调用 API，也只能生成候选贴纸，不得跳过 frame review 或用户人审。
+5. 本轮不调用 API、不生成贴纸、不修视频、不 render。
+
+### next_execution_gate
+
+- 已确认：当前状态为 `api_sticker_env_created_pending_user_key`。
+- 已确认：用户填 key 前不得进入真实 API probe。
+- 待验证：用户是否已在本地 `.env` 填写任一 provider 的 API key。
+- 待验证：智谱 AI / MiniMax / 阶跃星辰任一图片生成 provider 是否可用。

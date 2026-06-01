@@ -398,3 +398,21 @@
 ## 下一个目标
 
 读取 `31_对标视觉语言到资产规格_reference_visual_language_to_asset_spec.md`，根据 `asset_route_decision` 决定下一轮是否整理 `local_asset_pack`、实现 `pure_code_svg`，或生成透明背景 `api_generated_candidate`。下一轮不得把 `31` 写成资产已生成、视觉语言已通过或当前视频已修好。
+
+## 本轮新增｜API 贴纸候选前置 env
+
+- 已确认：当前任务为 `api_sticker_env_setup`。
+- 已确认：本轮目标是为下一轮 `api_generated_sticker_candidate_probe` 创建安全的本地 API key 填写入口。
+- 已确认：`.env.example` 已作为可提交模板准备，只包含空 key 占位、provider 字段、输出目录字段和安全限制字段。
+- 已确认：本地 `.env` 已准备为用户手动填写 key 的入口；`.env` 是 local ignored file，不提交 Git，不属于 remote verified 文件。
+- 已确认：`.gitignore` 已补充 `.env.local`、`.env.*.local` 和 `!.env.example`，避免 `.env.example` 被误忽略。
+- 已确认：本轮未调用外部 API，未生成贴纸候选，未生成透明 PNG，未修改 Remotion，未 render 视频。
+- 已确认：本轮不得把 env 创建写成 API 可用、贴纸候选已生成、资产已生成或视频已修好。
+- 当前状态：`api_sticker_env_created_pending_user_key`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 待验证：用户是否已在本地 `.env` 填写真实 API key。
+- 待验证：智谱 AI / MiniMax / 阶跃星辰任一图片生成 provider 是否可用。
+
+## 下一个目标
+
+用户在本地 `.env` 填写 key 后，进入 `api_generated_sticker_candidate_probe（API 贴纸候选探针）`。下一轮必须先读取 `.env` 中 key 是否存在，但不得打印 key；API 输出仍只能作为候选资产，必须经过 frame review 或用户人审。
