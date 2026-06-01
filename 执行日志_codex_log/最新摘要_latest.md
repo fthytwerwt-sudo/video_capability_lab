@@ -416,3 +416,26 @@
 ## 下一个目标
 
 用户在本地 `.env` 填写 key 后，进入 `api_generated_sticker_candidate_probe（API 贴纸候选探针）`。下一轮必须先读取 `.env` 中 key 是否存在，但不得打印 key；API 输出仍只能作为候选资产，必须经过 frame review 或用户人审。
+
+## 本轮新增｜API 单图贴纸候选探针
+
+- 已确认：当前任务为 `api_generated_sticker_candidate_probe`。
+- 已确认：本轮 provider 为 `zhipu`，模型为 `glm-image`。
+- 已确认：本轮根据智谱官方图像生成文档选择 `glm-image`，并只写入本地 `.env`，不提交。
+- 已确认：本轮 `.env` key 存在，key 未打印，`.env` 未提交。
+- 已确认：本轮真实发起 1 次图片生成请求，API 调用成功。
+- 已确认：本轮只生成 1 张 `paper_sound_tag（纸感拟声标签）` 测试候选。
+- 已确认：候选本地路径为 `tmp/api贴纸候选_api_sticker_candidates/纸感拟声标签测试_paper_sound_tag_probe_01.png`。
+- 已确认：候选图片和 metadata 都在 ignored `tmp/` 目录，不提交 Git。
+- 已确认：报告为 `项目资料_docs/视频能力实验室_video_capability_lab/32_API贴纸候选探针报告_api_sticker_candidate_probe_report.md`。
+- 部分成立：候选有纸贴轮廓、软边、暖纸色和灰咖文字。
+- 已确认：候选无 alpha 通道，背景不透明，需要背景去除或重新生成透明背景候选。
+- 已确认：候选右下角可见 `AI生成` 标识，不能直接作为合格贴纸资产。
+- 当前状态：`api_sticker_single_candidate_generated_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 待验证：用户是否认可该候选方向。
+- 待验证：下一轮是否做背景去除、去标识、改 prompt、换 provider，或回到本地资产包。
+
+## 下一个目标
+
+用户人审 `paper_sound_tag（纸感拟声标签）` 测试候选。通过后再决定是否批量生成候选、做透明 PNG 后处理，或进入 Remotion 前的 frame review。

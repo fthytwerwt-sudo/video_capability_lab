@@ -1218,3 +1218,74 @@ expected_validation:
 - 已确认：用户填 key 前不得进入真实 API probe。
 - 待验证：用户是否已在本地 `.env` 填写任一 provider 的 API key。
 - 待验证：智谱 AI / MiniMax / 阶跃星辰任一图片生成 provider 是否可用。
+
+## 本轮新增｜API 单图贴纸候选探针结果
+
+### route_decision
+
+```yaml
+task_type: api_generated_sticker_candidate_probe
+true_goal: 真实连接图片模型并生成 1 张 paper_sound_tag 测试候选
+provider: zhipu
+model: glm-image
+api_call_allowed_this_round: true
+asset_generation_allowed_this_round: true
+remotion_edit_allowed_this_round: false
+render_allowed_this_round: false
+batch_generation_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+report_file: 项目资料_docs/视频能力实验室_video_capability_lab/32_API贴纸候选探针报告_api_sticker_candidate_probe_report.md
+local_output_path: tmp/api贴纸候选_api_sticker_candidates/纸感拟声标签测试_paper_sound_tag_probe_01.png
+candidate_status: generated_pending_user_review_with_self_check_failures
+expected_content_status: api_sticker_single_candidate_generated_pending_user_review
+allowed_actions:
+  - 读取 .env 的 provider、model、key 存在状态
+  - 按 zhipu provider 调用 1 次图片生成 API
+  - 生成 1 张 paper_sound_tag 测试候选
+  - 保存到 ignored 本地 tmp 目录
+  - 创建 32_API贴纸候选探针报告_api_sticker_candidate_probe_report.md
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 打印 API key
+  - 提交 .env
+  - 提交图片、视频、音频、tmp、dist 或 runtime assets
+  - 批量生成贴纸
+  - 修改 Remotion 源码
+  - 修改 Remotion 数据文件
+  - render 视频
+  - 把候选写成资产已通过
+  - 把 API 跑通写成视觉语言通过
+  - 把候选存在写成用户已认可
+expected_validation:
+  - workspace_identity_check
+  - env_ignored_check
+  - output_ignored_check
+  - image_file_check
+  - report_required_terms_check
+  - no_env_or_image_staged
+  - staged_secret_scan
+  - git_diff_check
+  - path_limited_stage
+  - commit_push_remote_head
+```
+
+### execution_result
+
+- 已确认：本轮只发起 1 次图片生成请求。
+- 已确认：API 返回图片 URL，并已保存到 ignored 本地目录。
+- 已确认：本轮未提交图片，未提交 `.env`。
+- 已确认：本轮候选图尺寸为 `1280x1280`。
+- 已确认：本轮候选图保存为 PNG，但无 alpha 通道。
+- 部分成立：候选有纸贴轮廓、软边、暖纸色和灰咖文字。
+- 已确认：候选右下角可见 `AI生成` 标识，不能直接作为合格贴纸资产。
+- 已确认：候选背景不透明，仍需背景去除或重新生成透明背景候选。
+
+### next_execution_gate
+
+下一轮不得直接接 Remotion。必须先由用户人审该候选，并决定：
+
+1. 接受方向后做背景去除 / 去标识后处理。
+2. 修改 prompt 重新单图或小批量生成。
+3. 更换 provider 或模型。
+4. 放弃 API 候选，回到 `local_asset_pack` 或 `pure_code_svg`。
