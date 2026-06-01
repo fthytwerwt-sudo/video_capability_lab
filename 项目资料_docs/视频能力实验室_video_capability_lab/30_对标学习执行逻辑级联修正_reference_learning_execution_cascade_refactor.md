@@ -126,3 +126,11 @@
 ## 10. 下一步
 
 下一个目标：基于 `reference_judgement_library（对标判断库）` 生成 `reference_visual_language_to_asset_spec（对标视觉语言到资产规格）`；然后再决定是否手工整理资产包、使用纯代码 SVG，或辅助 API 生成透明贴纸。
+
+## 11. 后续承接状态
+
+已确认：`reference_visual_language_to_asset_spec` 已由 `31_对标视觉语言到资产规格_reference_visual_language_to_asset_spec.md` 承接。
+
+已确认：`31` 仍是规格文件，不是资产包，不是 render 结果，不是内容通过判断。
+
+下一个目标：读取 `31` 的 `asset_route_decision`，再决定 `pure_code_svg`、`local_asset_pack` 或 `api_generated_candidate` 路线。

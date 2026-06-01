@@ -1077,3 +1077,82 @@ expected_validation:
 - 不允许伪造 `reference_timecode`。
 - 旧的 `sticker_style_system_and_asset_pack_spec` 入口升级为 `reference_visual_language_to_asset_spec`。
 - 新对标视频用于扩充和校准判断库，不是替代旧判断。
+
+## 本轮新增｜reference_visual_language_to_asset_spec 桥接
+
+### route_decision
+
+```yaml
+task_type: reference_visual_language_to_asset_spec
+true_goal: 基于 reference_judgement_library 生成当前 30 秒样片的对标视觉语言到资产规格
+render_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+external_api_call_allowed_this_round: false
+asset_generation_allowed_this_round: false
+new_reference_pack_this_round: false
+judgement_source: library_derived
+reference_timecode_policy: not_applicable_library_derived
+file_change_scope: asset_spec_markdown + current_task + bridge + latest
+allowed_actions:
+  - 读取 16/21/22/23/24/25/26/27/28/29/30
+  - 读取当前 30 秒样片数据和 composition 作为事实背景
+  - 从 29 选择本轮适用判断
+  - 新建 31_对标视觉语言到资产规格_reference_visual_language_to_asset_spec.md
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 生成资产
+  - 生成视频
+  - render
+  - 修改 Remotion 源码
+  - 修改 Remotion 数据文件
+  - 调用外部 API
+  - 下载或提交 sticker images
+  - 安装依赖
+  - 提交视频、图片、音频、dist、tmp 或 runtime assets
+  - 把 31 写成资产已生成
+  - 把 31 写成视觉语言已通过
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+output_file: 项目资料_docs/视频能力实验室_video_capability_lab/31_对标视觉语言到资产规格_reference_visual_language_to_asset_spec.md
+expected_content_status: asset_spec_completed_asset_generation_pending
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+expected_validation:
+  - workspace_identity_check
+  - required_files_exist
+  - required_terms_grep
+  - forbidden_status_grep_new_file
+  - remotion_diff_guard
+  - staged_media_guard
+  - git_diff_check
+  - path_limited_stage
+  - commit_push_remote_head
+```
+
+### execution_rules
+
+1. 必须先读 `29_对标判断库机制_reference_judgement_library.md`。
+2. 必须确认本轮是否有新增对标视频。
+3. 本轮无新增对标视频时，使用已有判断库生成规格，并标注 `library_derived`。
+4. 本轮不得生成资产、不得 render、不得调用 API、不得修改 Remotion。
+5. 下一轮实现必须读取 `31_对标视觉语言到资产规格_reference_visual_language_to_asset_spec.md`。
+6. 不允许把 `31` 当成资产已生成。
+7. 不允许把 `31` 当成视觉语言已通过。
+8. 不允许把 `31` 固化成未来所有视频的通用贴纸模板。
+
+### required_reads_for_next_round
+
+下一轮若要整理本地资产包、实现纯代码 SVG 或生成 API 候选贴纸，必须先读：
+
+1. `项目资料_docs/视频能力实验室_video_capability_lab/31_对标视觉语言到资产规格_reference_visual_language_to_asset_spec.md`
+2. `项目资料_docs/视频能力实验室_video_capability_lab/29_对标判断库机制_reference_judgement_library.md`
+3. `项目资料_docs/视频能力实验室_video_capability_lab/28_对标视觉语言失败重判_reference_visual_language_replan.md`
+4. `项目资料_docs/视频能力实验室_video_capability_lab/25_当前三十秒样片三表执行包_current_30s_three_tables_execution_pack.md`
+5. `项目资料_docs/视频能力实验室_video_capability_lab/26_三表P0阻断项修正包_three_tables_p0_blocker_resolution.md`
+6. `项目资料_docs/视频能力实验室_video_capability_lab/27_贴纸图形适配与有限修复报告_sticker_visual_fit_limited_remotion_report.md`
+
+### next_execution_gate
+
+- 已确认：下一步根据 `asset_route_decision` 决定本地资产包、纯代码 SVG 或 API 候选路线。
+- 已确认：API 只能生成透明背景候选资产，不能绕过审美判断。
+- 已确认：纯代码 SVG 只能用于低复杂度标点，并必须服从 `31` 的材质、颜色、大小、动效和失败规则。
+- 待验证：`31` 能否转成真实资产并通过 frame review 和用户人审。

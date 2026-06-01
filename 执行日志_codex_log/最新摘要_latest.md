@@ -379,3 +379,22 @@
 ## 下一个目标
 
 基于 `reference_judgement_library（对标判断库）` 生成 `reference_visual_language_to_asset_spec（对标视觉语言到资产规格）`；然后再决定是否手工整理资产包、使用纯代码 SVG，或辅助 API 生成透明贴纸。
+
+## 本轮新增｜对标视觉语言到资产规格
+
+- 已确认：当前任务为 `reference_visual_language_to_asset_spec`。
+- 已确认：新增资产规格文件为 `项目资料_docs/视频能力实验室_video_capability_lab/31_对标视觉语言到资产规格_reference_visual_language_to_asset_spec.md`。
+- 已确认：本轮基于判断库生成资产规格，不是直接生成贴纸。
+- 已确认：本轮没有新增对标视频，判断来源为 `library_derived`。
+- 已确认：本轮从 `29_对标判断库机制_reference_judgement_library.md` 选用 7 类判断：贴纸图案、贴纸大小、贴纸风格、字幕气氛、转场功能、画面素材适配、音乐画面关系。
+- 已确认：当前临时风格锚点为 `soft_vlog_breath_with_light_comic_object_moments`，不是未来所有视频固定风格。
+- 已确认：`31` 已生成 5 个当前样片可用 sticker asset spec：`soft_hand_arrow`、`soft_focus_circle`、`trace_wave_line`、`paper_sound_tag`、`breath_edge_line`。
+- 已确认：`31` 已生成 `caption_mood_spec`、`motion_spec`、`asset_route_decision` 和 `do_not_generate_yet`。
+- 已确认：本轮没有 render、没有调用 API、没有生成资产、没有修改 Remotion 源码或数据。
+- 已确认：下一步根据 `asset_route_decision` 决定本地资产包 / 纯代码 SVG / API 候选路线。
+- 内容状态：`asset_spec_completed_asset_generation_pending`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+
+## 下一个目标
+
+读取 `31_对标视觉语言到资产规格_reference_visual_language_to_asset_spec.md`，根据 `asset_route_decision` 决定下一轮是否整理 `local_asset_pack`、实现 `pure_code_svg`，或生成透明背景 `api_generated_candidate`。下一轮不得把 `31` 写成资产已生成、视觉语言已通过或当前视频已修好。
