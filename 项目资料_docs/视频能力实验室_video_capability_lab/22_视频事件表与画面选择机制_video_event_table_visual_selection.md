@@ -67,6 +67,11 @@
 | `semantic_role（语义角色）` | 字幕文字的语义作用：情绪词、拟声词、歌词碎片、注意力提示、呼吸词。 |
 | `anchor_target（锚定对象）` | 字幕/贴纸要贴住谁或什么动作，比如熊猫脸、脚印、云洞、手部、画面留白。 |
 | `placement_rule（放置规则）` | 放在哪、离主体多远、朝哪个方向、不能遮挡什么。 |
+| `sticker_visual_fit（贴纸图形适配度）` | 贴纸图形、颜色、质感和画面主体 / 整体 vlog 风格是否匹配。 |
+| `graphic_role（图形作用）` | 图形是箭头、圈注、波纹、短标签还是峰值候选；必须服务一个可见动作或情绪。 |
+| `color_fit（颜色适配）` | 贴纸颜色是否融入当前镜头，不像随机素材包或电商模板。 |
+| `texture_fit（质感适配）` | 贴纸线条、边缘、透明度和阴影是否接近手绘轻语气，而不是硬质 UI。 |
+| `style_conflict（风格冲突）` | 是否出现儿童模板、电商爆炸贴、赛博 UI、随机 SVG 库感等冲突。 |
 | `minimum_visible_size（最小可见尺寸）` | 贴纸或字幕在 1080x1920 画面里至少多大，用户才能肉眼看见。 |
 | `reference_function（参考功能）` | 这个设计学的是参考视频里的哪种功能，比如语气标点、注意力提示、降速呼吸、高潮提示。 |
 | `variety_role（画面差异作用）` | 这个画面是否和前后画面形成差异，避免全片都是同一种图。 |
@@ -146,6 +151,11 @@
 | `placement_rule` | yes | 离主体多远、在哪个方向、避开什么主体。 |
 | `minimum_visible_size` | yes | 在 1080x1920 中的最小宽高或画面占比。 |
 | `reference_function` | yes | 学的是参考视频的功能，不复制参考贴纸样式。 |
+| `sticker_visual_fit` | yes | 贴纸图形、颜色、质感和当前画面 / 整片风格匹配。 |
+| `graphic_role` | yes | 说明这个图形为什么必须出现，是指向、圈注、轨迹、呼吸还是短动作标签。 |
+| `color_fit` | yes | 说明颜色是否贴合画面明暗、主体和当前 motif。 |
+| `texture_fit` | yes | 说明线条、边缘、阴影和透明度是否像轻手绘语气。 |
+| `style_conflict` | yes | 明确是否存在随机素材包、儿童模板、电商爆炸贴、赛博 UI 或硬 SVG 冲突。 |
 | `shot_binding_reason` | yes | 为什么这个镜头需要这条字幕/贴纸。 |
 | `frame_level_review_points` | yes | 渲染后要抽哪些帧检查 start / mid / end 是否成立。 |
 
@@ -156,6 +166,22 @@
 - 只有 text，没有 `semantic_role`，失败。
 - 只说“肉眼可见”，没有 `minimum_visible_size` 和抽帧证据，失败。
 - 贴纸离主体太远、贴在空天空/空树叶/无意义边缘，失败。
+- 有 `anchor_target` 和 `placement_rule`，但 `sticker_visual_fit` 不成立，仍然失败。
+- 贴纸图形像随机素材包、儿童模板、电商爆炸贴、赛博 UI 或硬 SVG 展示，触发 `fail_sticker_graphic_mismatch`。
+
+### 6.1 贴纸图形适配闸门
+
+`anchor_target` 和 `placement_rule` 只说明贴纸指向哪里，不说明贴纸本身是否成立。贴纸必须继续通过 `sticker_visual_fit` 检查；如果图形、颜色、质感和整体风格不配，即使锚点正确也判失败。
+
+| field | required | pass rule | fail rule |
+|---|---:|---|---|
+| `sticker_visual_fit` | yes | 图形像当前镜头里的语气标点，和主体、运动、情绪、vlog 风格同一套语言。 | 贴纸像随机素材包、儿童模板、电商爆炸贴、赛博 UI 或纯 SVG 展示。 |
+| `graphic_role` | yes | 箭头指动作，圈注圈主体，波纹贴轨迹，短标签贴小动作。 | 只因为有图形就放进画面，观众不知道它为什么出现。 |
+| `color_fit` | yes | 颜色降低饱和、贴合镜头明暗和背景，不抢主体。 | 高饱和色块压过画面，或浅到看不清。 |
+| `texture_fit` | yes | 线条、透明度、阴影接近手绘 / 胶贴 / 轻喜剧语气。 | 质感像硬 UI、商业促销模板或平台原贴纸。 |
+| `style_conflict` | yes | 没有和当前 motif、字幕、尾卡产生语气冲突。 | 和画面主体、BGM 粗情绪或整体 vlog 风格冲突。 |
+
+触发 `fail_sticker_graphic_mismatch` 后不能只调 x/y，必须删除、换图形语气、降低颜色强度或回到事件表重写 `graphic_role`。
 
 ## 7. 画面多样性规则
 
@@ -224,6 +250,11 @@
 
 9. `frame_review_missing（逐帧回审缺失失败）`
    - 渲染后没有抽 `frame_level_review_points` 检查字幕/贴纸真实画面表现。
+
+10. `fail_sticker_graphic_mismatch（贴纸图形不匹配失败）`
+    - 贴纸虽然有 `anchor_target` 和 `placement_rule`，但图形作用、颜色、质感或风格和当前镜头不匹配。
+    - 典型表现：随机素材包感、儿童模板感、电商爆炸贴感、赛博 UI 感、纯 SVG 库展示感。
+    - 修复方向：先删掉无功能贴纸，再为保留贴纸补 `sticker_visual_fit`、`graphic_role`、`color_fit`、`texture_fit`、`style_conflict`。
 
 ## 10. 下一轮如何用于 Codex 执行
 

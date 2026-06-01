@@ -347,28 +347,18 @@ export const thirtySecondSegments: ThirtySecondSegment[] = [
 ];
 
 export const thirtySecondCaptionEvents: ThirtySecondCaptionEvent[] = [
-  { id: "caption_wind_first", text: "风先到", fromSec: 2.22, durationSec: 1.2, tone: "hand", x: 86, y: 1184 },
-  { id: "caption_ka", text: "咔", fromSec: 4.88, durationSec: 0.9, tone: "small", x: 756, y: 386 },
-  { id: "caption_look", text: "看这", fromSec: 7.18, durationSec: 1, tone: "hand", x: 78, y: 948 },
-  { id: "caption_tiny", text: "tiny thing", fromSec: 9.36, durationSec: 1.35, tone: "serif", x: 72, y: 220 },
-  { id: "caption_slow", text: "慢一点", fromSec: 12.52, durationSec: 1.25, tone: "small", x: 112, y: 832 },
-  { id: "caption_hidden", text: "藏在路上", fromSec: 15.52, durationSec: 1.35, tone: "impact", x: 74, y: 1210 },
-  { id: "caption_just", text: "刚好", fromSec: 18.82, durationSec: 1, tone: "hand", x: 682, y: 1074 },
-  { id: "caption_blink", text: "别眨眼", fromSec: 20.18, durationSec: 1.35, tone: "impact", x: 82, y: 988 },
-  { id: "caption_breathe", text: "呼", fromSec: 24.4, durationSec: 1.2, tone: "small", x: 830, y: 320 },
-  { id: "caption_second", text: "one more second", fromSec: 26.72, durationSec: 1.4, tone: "serif", x: 78, y: 1160 },
+  { id: "caption_wind_first", text: "风动了", fromSec: 2.22, durationSec: 1.15, tone: "hand", x: 92, y: 1118 },
+  { id: "caption_look", text: "藏这儿", fromSec: 7.02, durationSec: 1.05, tone: "hand", x: 92, y: 930 },
+  { id: "caption_tiny", text: "咬一口", fromSec: 9.28, durationSec: 1.22, tone: "hand", x: 644, y: 1034 },
+  { id: "caption_slow", text: "慢一点", fromSec: 12.52, durationSec: 1.25, tone: "small", x: 132, y: 812 },
+  { id: "caption_hidden", text: "藏一下", fromSec: 15.52, durationSec: 1.18, tone: "hand", x: 94, y: 1138 },
+  { id: "caption_breathe", text: "呼", fromSec: 24.4, durationSec: 1.25, tone: "hand", x: 754, y: 362 },
 ];
 
 export const thirtySecondStickerEvents: ThirtySecondStickerEvent[] = [
-  { id: "sticker_open_arrow", kind: "arrow", fromSec: 2.38, durationSec: 1.05, x: 710, y: 1098, color: "#ffe15a", rotate: -8 },
-  { id: "sticker_cloud_spark", kind: "spark", fromSec: 4.98, durationSec: 1.15, x: 800, y: 498, color: "#f8ff74", rotate: 8 },
-  { id: "sticker_bamboo_circle", kind: "circle", fromSec: 6.8, durationSec: 1.05, x: 514, y: 564, color: "#ffcf5b", rotate: -5 },
-  { id: "sticker_sand_wave", kind: "wave", fromSec: 8.12, durationSec: 1, x: 120, y: 1320, color: "#9fe8ff", rotate: -4 },
-  { id: "sticker_panda_tag", kind: "tag", text: "小重点", fromSec: 9.7, durationSec: 1.2, x: 688, y: 302, color: "#ff8c7a", rotate: 5 },
-  { id: "sticker_scrap_under", kind: "underline", fromSec: 12.78, durationSec: 1.1, x: 132, y: 902, color: "#fff0a6", rotate: -2 },
-  { id: "sticker_reprise_dottrail", kind: "dottrail", fromSec: 15.86, durationSec: 1.2, x: 730, y: 1098, color: "#c2ff8a", rotate: 0 },
-  { id: "sticker_peak_burst", kind: "burst", fromSec: 20.42, durationSec: 1.25, x: 804, y: 924, color: "#ffdd45", rotate: 9 },
-  { id: "sticker_peak_circle", kind: "circle", fromSec: 21.46, durationSec: 1.05, x: 130, y: 472, color: "#ff9ec4", rotate: 6 },
-  { id: "sticker_slow_wave", kind: "wave", fromSec: 24.86, durationSec: 1.35, x: 626, y: 436, color: "#d7f6ff", rotate: 4 },
-  { id: "sticker_end_arrow", kind: "arrow", fromSec: 27.1, durationSec: 1, x: 710, y: 1220, color: "#ffe15a", rotate: -12 },
+  { id: "sticker_open_arrow", kind: "arrow", fromSec: 2.38, durationSec: 1.05, x: 610, y: 1018, color: "#f4d56a", rotate: -13 },
+  { id: "sticker_bamboo_circle", kind: "circle", fromSec: 6.82, durationSec: 1.05, x: 388, y: 612, color: "#f0c96a", rotate: -7 },
+  { id: "sticker_sand_wave", kind: "wave", fromSec: 8.08, durationSec: 1.05, x: 328, y: 1228, color: "#82d9e8", rotate: -7 },
+  { id: "sticker_panda_tag", kind: "tag", text: "咬", fromSec: 9.7, durationSec: 1.18, x: 612, y: 986, color: "#f6d7a8", rotate: 4 },
+  { id: "sticker_slow_wave", kind: "wave", fromSec: 24.86, durationSec: 1.35, x: 410, y: 520, color: "#8fd7e2", rotate: 3 },
 ];

@@ -24,6 +24,22 @@
 
 待验证：三张表完成后，下一轮是否进入 Remotion 修复，必须由 `hard_fail_summary` 和 `next_fix_route` 决定。
 
+## 1.1 贴纸图形适配补充
+
+已确认：本包原先已覆盖 `anchor_target`、`placement_rule`、`minimum_visible_size` 和 `reference_function`，但仍不足以判断贴纸本身是否适合当前镜头。
+
+已确认：后续修复当前 30 秒样片时，贴纸事件必须补查以下字段：
+
+| field | 用途 |
+|---|---|
+| `sticker_visual_fit` | 判断贴纸图形、颜色、质感和当前镜头 / 整片 vlog 语气是否相配。 |
+| `graphic_role` | 判断图形到底是指向、圈注、轨迹、呼吸、动作短标签还是粗峰值候选。 |
+| `color_fit` | 判断颜色是否融入画面，不抢主体，也不弱到看不清。 |
+| `texture_fit` | 判断线条、阴影、边缘和透明度是否接近轻手绘 / 胶贴语气。 |
+| `style_conflict` | 判断是否像随机素材包、儿童模板、电商爆炸贴、赛博 UI 或硬 SVG 展示。 |
+
+新增失败代码：`fail_sticker_graphic_mismatch`。有 `anchor_target` 不等于贴纸成立；如果贴纸图形与画面主体、颜色、运动、情绪或整体 vlog 风格冲突，必须删除、换图形语气、降低颜色强度或回到事件表重写 `graphic_role`。
+
 ## 2. 输入依据
 
 | source | status | use_in_this_pack |
@@ -200,6 +216,6 @@
 
 - 已确认：本轮三张表已完成，且 P0 阻断项修正包已创建，当前内容状态为 `three_tables_pack_completed_p0_resolution_created`。
 - 已确认：这不是视频修复，不是 render，不是 Remotion 执行。
-- 已确认：当前视频仍不能写成 `content_pass`、`30s_sample_passed` 或 `vlog_director_capability_verified`。
+- 已确认：当前视频仍不能写成内容已过、30 秒样片已过或 Codex vlog 导演能力已验证。
 - 已确认：下一轮必须先读取 `26_三表P0阻断项修正包_three_tables_p0_blocker_resolution.md`，按其中 `next_fix_route` 判断是否进入有限 Remotion implementation，不能直接跳到 Remotion 改参数。
 - 待验证：多案例验证前，能力状态仍为 `vlog_director_capability_still_pending_multi_case_validation`。

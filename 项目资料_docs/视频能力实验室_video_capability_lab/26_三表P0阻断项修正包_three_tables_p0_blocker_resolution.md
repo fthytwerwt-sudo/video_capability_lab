@@ -63,6 +63,24 @@
 | `sticker_slow_wave` | `wave` | 概念接近呼吸，但贴空天且颜色过浅。 | `cloud_edge / sea_edge` | 沿云/海边缘，不贴纯空 sky。 | 主贴纸宽度至少 14%-18%，stroke 对比需可见。 | slowdown breath 轻标点。 | silver sky close 是呼吸段，可保留一条轻 wave。 | `needs_marker_source_after_20.828; needs_review` | 保留 wave，但重设边缘锚点和对比。 | `revise` | `fail_sticker_not_reference_like` | `partial` |
 | `sticker_end_arrow` | `arrow` | 与 EndCard 争夺视线，指向不清。 | `end_card_primary_line` 或 `panda_background`，二选一。 | 结尾只允许一个视觉引导；不压 EndCard 主文字。 | 若保留，宽度至少 10%-14% 画面宽；但当前建议删除。 | 结尾注意力引导。 | EndCard 已有主文案，箭头不是必要事件。 | `needs_marker_source_after_20.828; needs_review` | 删除，EndCard 承担收束。 | `remove` | `fail_style_inconsistency` | `partial` |
 
+### 4.1 Sticker 图形适配修正表
+
+说明：本表补齐 `sticker_visual_fit`、`graphic_role`、`color_fit`、`texture_fit`、`style_conflict`。有 `anchor_target` 和 `placement_rule` 不等于贴纸成立；如果图形像随机素材包、儿童模板、电商爆炸贴、赛博 UI 或硬 SVG 展示，触发 `fail_sticker_graphic_mismatch`。
+
+| sticker_id | sticker_visual_fit | graphic_role | color_fit | texture_fit | style_conflict | updated_action |
+|---|---|---|---|---|---|---|
+| `sticker_open_arrow` | `partial` | 指向熊猫动作的注意力箭头。 | 当前黄色偏强，需要降低饱和并避开熊猫脸。 | 线条可保留，但要更像手绘标点。 | 低冲突；位置不准时会像临时箭头。 | 保留并重定位，降低颜色强度。 |
+| `sticker_cloud_spark` | `fail` | 原本想做云层亮点标点。 | 高亮黄在远景天空里像随机星星。 | 实心星形偏素材包。 | 随机素材包 / 儿童模板感。 | 删除。 |
+| `sticker_bamboo_circle` | `partial` | 圈出竹叶遮挡里的小主体。 | 黄色可降饱和，避免像告示圈。 | 手绘圈可保留。 | 锚点错时像 SVG 库展示。 | 保留并重定位到 `panda_face / leaf_hide_edge`。 |
+| `sticker_sand_wave` | `partial` | 沿脚印 / 沙纹轨迹的轻波纹。 | 蓝色需更贴沙面，不要过亮。 | 手绘线条可保留。 | 贴空地时像装饰线。 | 保留并重定位到 `footprint_trace / sand_curve`。 |
+| `sticker_panda_tag` | `partial` | 熊猫咬竹动作旁的短拟声 / 动作标签。 | 原粉橙偏电商标签；需要改为纸感浅暖色。 | 原 pill 标签太模板，改为轻纸签。 | “小重点”说明感强。 | 文案改为 `咬`，换轻纸签语气并贴近动作。 |
+| `sticker_scrap_under` | `fail` | 想做 scrapbook 下划强调。 | 颜色不构成问题，但没有被强调对象。 | 无对象线条像装饰。 | 随机线条感。 | 删除。 |
+| `sticker_reprise_dottrail` | `fail` | 想做 motif 路径。 | 绿色与云海 / 竹叶关系弱。 | 点线像素材包。 | 随机 SVG 库感。 | 删除。 |
+| `sticker_peak_burst` | `blocked` | 粗峰值候选爆点。 | 黄色强度高，若峰值未确认会抢画面。 | 爆炸图形偏模板化。 | 电商爆炸贴风险。 | 未复听前不用于证明峰值；本轮删除或只在报告标 `rough_peak_candidate`。 |
+| `sticker_peak_circle` | `fail` | 想圈峰值主体。 | 粉色与 bamboo peak 冲突。 | 手绘圈可用，但当前无主体。 | 边缘漂浮感。 | 删除。 |
+| `sticker_slow_wave` | `partial` | 呼吸段云 / 海边缘轻线条。 | 原色太浅，需要增强可见但保持低饱和。 | 手绘波纹可保留。 | 贴空天时像装饰。 | 保留并贴 `cloud_edge / sea_edge`，降低空贴风险。 |
+| `sticker_end_arrow` | `fail` | 结尾注意力箭头。 | 黄色会和 EndCard 主语言竞争。 | 手绘箭头本身可用，但结尾不需要。 | 与 EndCard 风格冲突。 | 删除。 |
+
 ## 5. Transition / cut / fade / flash 关系补全表
 
 说明：本表覆盖 18 个 visual segments 之间的 17 条主要切换，并额外标出 `PeakFlash` 与 `EndCard` 结构事件。即使是普通切镜，也必须定义作用。

@@ -89,13 +89,28 @@
 - 每次换 BGM、素材、参考都要重新生成。
 - 但字段和失败标准不变。
 - 必须说明 `visual_moment（画面时刻）`、`music_moment（音乐时刻）`、`semantic_role（语义角色）`、`anchor_target（锚定对象）`、`placement_rule（放置规则）`、`reference_function（参考功能）`、`failure_rule（失败规则）`。
+- 贴纸事件还必须说明 `sticker_visual_fit（贴纸图形适配度）`、`graphic_role（图形作用）`、`color_fit（颜色适配）`、`texture_fit（质感适配）`、`style_conflict（风格冲突）`。
 - 必须把画面、音乐、字幕、贴纸、转场和尾卡放到同一条可回审的事件链里。
 
 最小字段：
 
-| event_id | time_range | visual_moment | music_moment | semantic_role | anchor_target | placement_rule | reference_function | failure_rule |
-|---|---|---|---|---|---|---|---|---|
-| `event_XX` | `00:00-00:02` | `待填写` | `待填写` | `待填写` | `待填写` | `待填写` | `待填写` | `fail_no_video_event_table` |
+| event_id | time_range | visual_moment | music_moment | semantic_role | anchor_target | placement_rule | sticker_visual_fit | graphic_role | color_fit | texture_fit | style_conflict | reference_function | failure_rule |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `event_XX` | `00:00-00:02` | `待填写` | `待填写` | `待填写` | `待填写` | `待填写` | `待验证` | `待填写` | `待验证` | `待验证` | `待验证` | `待填写` | `fail_no_video_event_table` |
+
+### 5.4 `sticker_visual_fit（贴纸图形适配度）`
+
+贴纸不是只靠 `anchor_target` 和 `placement_rule` 成立。每次换素材、参考或风格锚点时，贴纸图形本身都要重新判断。
+
+| field | required | 通用判断 |
+|---|---:|---|
+| `sticker_visual_fit` | yes | 贴纸图形是否和当前镜头主体、运动、情绪、整片 vlog 语气相配。 |
+| `graphic_role` | yes | 图形是否承担明确作用：指向动作、圈主体、贴轨迹、呼吸线、动作短标签或粗峰值候选。 |
+| `color_fit` | yes | 颜色是否贴合画面明暗和 motif，不抢主体，也不弱到看不清。 |
+| `texture_fit` | yes | 线条、阴影、透明度是否像轻手绘 / 胶贴语气，不像硬 UI 或促销模板。 |
+| `style_conflict` | yes | 明确是否存在随机素材包、儿童模板、电商爆炸贴、赛博 UI、平台原贴纸或 SVG 库展示感。 |
+
+触发 `fail_sticker_graphic_mismatch` 时，优先删除无功能贴纸；保留项必须换成更轻的图形语气或降低颜色强度。
 
 ## 6. 不变失败标准
 
@@ -111,9 +126,10 @@
 8. 随机拼贴，失败。
 9. 字幕不像对标，失败。
 10. 贴纸不像对标，失败。
-11. 转场不像对标，失败。
-12. 音乐和画面不匹配，失败。
-13. 复刻参考资产，失败。
+11. 贴纸图形、颜色、质感和当前镜头不匹配，失败。
+12. 转场不像对标，失败。
+13. 音乐和画面不匹配，失败。
+14. 复刻参考资产，失败。
 
 这些失败标准不随当前 demo、BGM、素材包、参考视频或风格变化而改变。
 
@@ -186,6 +202,7 @@ render 后即使技术 metadata 正常，也必须回审：
 - caption / sticker / transition 是否真的服务 `reference_function`。
 - `music_moment` 是否和画面、字幕、贴纸、转场相互配合。
 - 是否出现随机拼贴、数量冒充质量、复刻参考资产、PPT/card/component showcase。
+- 是否出现 `fail_sticker_graphic_mismatch`：贴纸虽有位置和锚点，但图形、颜色、质感或风格像随机素材包、儿童模板、电商爆炸贴、赛博 UI 或硬 SVG 展示。
 
 待验证：只有经过用户人工审看和多案例回归，才能把 vlog 导演能力从 `待验证` 升级。
 

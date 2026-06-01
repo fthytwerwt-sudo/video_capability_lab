@@ -66,7 +66,7 @@ Output（最终回报格式）
 - Codex 每轮必须 push。
 - Codex 不能把本地完成写成远端完成。
 - Codex 不能把技术预览写成能力成立。
-- Codex 不能把 `technical_sample` 写成 `publish_candidate_ready`。
+- Codex 不能把 `technical_sample` 写成正式发布候选。
 
 ## 固定回报字段
 
@@ -871,3 +871,64 @@ expected_validation:
 - 已确认：当前结论不是“允许直接进入 Remotion 修复”。
 - 部分成立：下一轮可拆 `remotion_allowed_with_bgm_review_pending` 的有限实现，只处理 `26` 已明确的 caption/sticker 删改和非精准卡点转场关系。
 - 仍阻断：BGM 精准卡点、PeakFlash 峰值、20.828s 后 marker source、render 后 frame-level review、用户人工审看。
+
+## 本轮新增｜sticker_visual_fit_limited_remotion_fix 桥接
+
+### route_decision
+
+```yaml
+task_type: sticker_visual_fit_limited_remotion_fix
+true_goal: 补齐贴纸图形适配标准，并基于 25 + 26 做有限 Remotion 修复
+render_allowed_this_round: true
+remotion_edit_allowed_this_round: limited
+allowed_actions:
+  - 读取 25 和 26
+  - 先补 sticker_visual_fit 机制
+  - 更新 22 / 23 / 24 / 25 / 26
+  - 修改当前 30 秒样片数据和当前 composition 的有限表现层
+  - render limited fix 版
+  - 生成 contact sheet
+  - 生成 frame-level review Markdown
+forbidden_actions:
+  - 调用外部 API
+  - 生成 AI sticker image
+  - 安装大型依赖
+  - 重做整条结构
+  - 提交视频、图片、音频、dist、tmp 或 runtime assets
+  - 写精准 BGM 卡点声明
+  - 写内容通过声明
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+composition_id: 三十秒对标样片-30s-reference-sample
+source_file: remotion/组合_compositions/三十秒对标样片_30s_reference_sample.tsx
+data_file: remotion/数据_data/三十秒对标素材清单_30s_reference_sample_clips.ts
+expected_status: limited_remotion_fix_rendered_pending_user_review
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+expected_validation:
+  - npx remotion compositions
+  - npx remotion render
+  - video-metadata-probe
+  - contact_sheet_generated
+  - frame_level_review_markdown
+  - git diff --check
+  - key_fields_grep
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### execution_rules
+
+- 必须先读 `25_当前三十秒样片三表执行包_current_30s_three_tables_execution_pack.md` 和 `26_三表P0阻断项修正包_three_tables_p0_blocker_resolution.md`。
+- 必须先补 `sticker_visual_fit`、`graphic_role`、`color_fit`、`texture_fit`、`style_conflict`、`fail_sticker_graphic_mismatch`。
+- 本轮允许有限 Remotion 修改，范围只限 caption / sticker 删改、贴纸轻视觉语气、scrapbook 重复文字删除和普通 cut/fade 关系保持。
+- 本轮不允许精准 BGM 卡点声明。
+- 本轮不允许内容通过声明。
+- 下一轮必须读取 `27_贴纸图形适配与有限修复报告_sticker_visual_fit_limited_remotion_report.md` 的 frame-level review。
+
+### current_outputs
+
+- 已确认：limited fix video 输出到 `dist/remotion_demo_三十秒对标样片_30s_reference_sample/demo_30s_reference_sample_limited_fix.mp4`，不得提交。
+- 已确认：contact sheet 输出到 `dist/remotion_demo_三十秒对标样片_30s_reference_sample/contact_sheet_limited_fix.jpg`，不得提交。
+- 已确认：frame-level review 报告为 `项目资料_docs/视频能力实验室_video_capability_lab/27_贴纸图形适配与有限修复报告_sticker_visual_fit_limited_remotion_report.md`。
+- 已确认：BGM 仍未人工复听，PeakFlash 仍只能标 `rough_peak_candidate`。
+- 当前内容状态：`limited_remotion_fix_rendered_pending_user_review`。

@@ -50,7 +50,7 @@
 
 ## 4. hard fail gate（硬失败闸门）
 
-`hard_fail_gate` 是渲染前和渲染后共同使用的硬失败列表。任何一项触发，都不得写成 `content_pass`。
+`hard_fail_gate` 是渲染前和渲染后共同使用的硬失败列表。任何一项触发，都不得写成内容通过判断。
 
 | fail_code | 触发条件 | 判定结果 | 修复方向 |
 |---|---|---|---|
@@ -64,6 +64,7 @@
 | `fail_random_patchwork` | 字幕、贴纸、画面、转场像拼贴补丁，没有统一事件逻辑。 | fail after render | 重写事件关系，减少无功能元素。 |
 | `fail_caption_not_reference_like` | 字幕只是在解释画面，没有对标参考视频的语气、停顿、轻重和出现时机。 | blocked / fail | 给每条 caption 补 `semantic_role`、`reference_function`、placement reason。 |
 | `fail_sticker_not_reference_like` | 贴纸只是“可见”，但不服务情绪、动作、节奏或画面锚点。 | blocked / fail | 给每个 sticker 补 `anchor_target`、`minimum_visible_size`、`shot_binding_reason`。 |
+| `fail_sticker_graphic_mismatch` | 贴纸有锚点和位置，但图形、颜色、质感或风格与镜头 / 整片 vlog 语气冲突。 | blocked / fail | 补 `sticker_visual_fit`、`graphic_role`、`color_fit`、`texture_fit`、`style_conflict`，删除或换掉不匹配图形。 |
 | `fail_transition_not_reference_like` | 转场只为了炫技或补动效，没有对标视频里的切换功能。 | blocked / fail | 给每个 transition 补 `transition_role`、`music_moment`、`reference_function`。 |
 | `fail_music_visual_mismatch` | 音乐重拍、停顿、呼吸点与画面/字幕/转场不匹配。 | blocked / fail | 先标 `music_moment`，再决定 clip change、caption in/out、transition。 |
 | `fail_style_inconsistency` | 同一条视频内风格、语气、贴纸、字幕、转场像来自多个模板。 | fail after render | 统一 motif、色彩、字体层级、运动节奏和留白。 |
@@ -104,7 +105,12 @@
 - 每个 sticker 必须有 `anchor_target`，说明贴的是哪个动作、主体、情绪或节拍。
 - 每个 sticker 必须有 `minimum_visible_size`，不能“代码里有但肉眼弱到无意义”。
 - 每个 sticker 必须有 `shot_binding_reason`，说明为什么这张画面需要它。
+- 每个 sticker 必须有 `sticker_visual_fit`，说明贴纸图形、颜色、质感和整体 vlog 风格是否相配。
+- 每个 sticker 必须有 `graphic_role`，说明它是指向、圈注、轨迹、呼吸、动作短标签还是粗峰值候选。
+- 每个 sticker 必须有 `color_fit` 和 `texture_fit`，避免高饱和模板感、过浅不可见、硬 UI 质感或随机 SVG 库感。
+- 每个 sticker 必须有 `style_conflict` 判断；像随机素材包、儿童模板、电商爆炸贴或赛博 UI，直接触发 `fail_sticker_graphic_mismatch`。
 - 触发 `fail_sticker_not_reference_like` 时，不允许只加数量；必须先删掉无功能贴纸，再补功能明确的贴纸。
+- 有 `anchor_target` 不等于贴纸成立；如果 `sticker_visual_fit` 不成立，必须删除、换图形语气或降低颜色强度。
 
 ## 7. 转场底线
 

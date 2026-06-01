@@ -316,3 +316,28 @@
 ## 下一个目标
 
 读取 `25_当前三十秒样片三表执行包_current_30s_three_tables_execution_pack.md` 和 `26_三表P0阻断项修正包_three_tables_p0_blocker_resolution.md`，判断是否拆一个有限 Remotion implementation；若拆，只允许执行 `26` 已明确的表层删改，不得把它写成视频内容通过。
+
+## 本轮新增｜贴纸图形适配与有限 Remotion 修复
+
+- 已确认：本轮任务为 `sticker_visual_fit_limited_remotion_fix`。
+- 已确认：本轮先补齐贴纸图形适配标准，再基于 `25 + 26` 做有限 Remotion 修复。
+- 已确认：`22`、`23`、`24` 已补入 `sticker_visual_fit`、`graphic_role`、`color_fit`、`texture_fit`、`style_conflict` 和 `fail_sticker_graphic_mismatch`。
+- 已确认：`25` 已补当前三表缺口说明。
+- 已确认：`26` 已为 11 条 sticker 补图形适配判断。
+- 已确认：当前 30 秒样片 caption events 从 10 条收缩为 6 条，删除 / 替换无功能 caption。
+- 已确认：当前 30 秒样片 sticker events 从 11 条收缩为 5 条，删除 / 重定位无锚点或风格冲突 sticker。
+- 已确认：scrapbook 中重复硬编码 `慢一点` 已删除，只保留一个 caption event。
+- 已确认：本轮执行有限 Remotion 修复，不重做整条结构。
+- 已确认：本轮输出 limited fix 视频：`dist/remotion_demo_三十秒对标样片_30s_reference_sample/demo_30s_reference_sample_limited_fix.mp4`，不得提交。
+- 已确认：本轮输出 contact sheet：`dist/remotion_demo_三十秒对标样片_30s_reference_sample/contact_sheet_limited_fix.jpg`，不得提交。
+- 已确认：本轮输出 frame-level review 报告：`项目资料_docs/视频能力实验室_video_capability_lab/27_贴纸图形适配与有限修复报告_sticker_visual_fit_limited_remotion_report.md`。
+- 已确认：limited fix 视频技术元数据为 30.058667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true，video-metadata-probe passed。
+- 已确认：本轮未调用外部 API，未生成 AI sticker image，未安装大型依赖，未提交视频、图片、音频、`dist`、`tmp` 或 runtime assets。
+- 已确认：BGM 仍未人工复听，所有音乐相关判断仍为 `auto_marker_only` / `needs_review`。
+- 已确认：PeakFlash 仍不得写精准卡点，只能标 `rough_peak_candidate`。
+- 当前内容状态：`limited_remotion_fix_rendered_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+
+## 下一个目标
+
+用户人审 limited fix 视频和 `27_贴纸图形适配与有限修复报告_sticker_visual_fit_limited_remotion_report.md`。若方向更接近，则继续局部表现层修正；若仍不像对标，则回到 `reference_layer` / `material_layer` / `bgm_layer` 重判。

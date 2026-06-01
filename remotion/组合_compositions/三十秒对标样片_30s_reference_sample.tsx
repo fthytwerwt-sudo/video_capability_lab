@@ -187,16 +187,17 @@ const StickerSvg: React.FC<{ event: ThirtySecondStickerEvent; scale: number }> =
     return (
       <div
         style={{
-          backgroundColor: stroke,
-          borderRadius: 999,
-          boxShadow: "0 10px 24px rgba(0,0,0,0.22)",
-          color: "#151712",
+          backgroundColor: "rgba(246, 215, 168, 0.84)",
+          border: "2px solid rgba(42, 34, 22, 0.34)",
+          borderRadius: 16,
+          boxShadow: "0 8px 18px rgba(0,0,0,0.18)",
+          color: "#1f1a12",
           fontFamily: '"Marker Felt", "Bradley Hand", cursive',
-          fontSize: 38,
+          fontSize: 36,
           fontWeight: 800,
           letterSpacing: 0,
-          padding: "18px 28px 16px",
-          transform: `scale(${scale})`,
+          padding: "14px 22px 12px",
+          transform: `scale(${0.96 + (scale - 1) * 0.22}) rotate(-1deg)`,
           whiteSpace: "nowrap",
         }}
       >
@@ -249,8 +250,9 @@ const Sticker: React.FC<{ event: ThirtySecondStickerEvent }> = ({ event }) => {
   return (
     <div
       style={{
+        filter: "drop-shadow(0 7px 14px rgba(0,0,0,0.24))",
         left: event.x,
-        opacity,
+        opacity: opacity * 0.88,
         position: "absolute",
         top: event.y,
         transform: `translateY(${drift}px) rotate(${event.rotate ?? 0}deg) scale(${scale})`,
@@ -298,20 +300,6 @@ const ScrapbookLayer: React.FC = () => {
         </div>
         <div style={{ ...panel, height: 560, left: 208, top: 908, width: 664 }}>
           <OffthreadVideo loop muted src={staticFile(thirtySecondSegments[10].src)} style={fullVideo} />
-        </div>
-        <div
-          style={{
-            bottom: 206,
-            color: "#fff1c2",
-            fontFamily: '"Marker Felt", "Bradley Hand", cursive',
-            fontSize: 44,
-            left: 86,
-            letterSpacing: 0,
-            position: "absolute",
-            transform: "rotate(-2deg)",
-          }}
-        >
-          慢一点
         </div>
       </AbsoluteFill>
     </Sequence>
