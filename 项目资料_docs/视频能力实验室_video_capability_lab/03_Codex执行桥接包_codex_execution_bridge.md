@@ -814,3 +814,60 @@ expected_validation:
 - 已确认：只有当问题降级为具体执行参数，如 x/y、fontSize、SVG 尺寸、opacity、EndCard 排版时，才允许进入 `remotion_layer`。
 - 已确认：本轮内容状态为 `three_tables_pack_completed_fix_pending`。
 - 待验证：下一轮修复后仍需用户人工审看，不能由技术 metadata 代替内容验收。
+
+## 本轮新增｜三表 P0 阻断项修正桥接
+
+### route_decision
+
+```yaml
+task_type: three_tables_p0_blocker_resolution
+true_goal: 修正 25 三表执行包暴露的 P0 阻断项，把 caption、sticker、transition、BGM marker 关系补到下一轮可判断执行的状态
+source_pack: 项目资料_docs/视频能力实验室_video_capability_lab/25_当前三十秒样片三表执行包_current_30s_three_tables_execution_pack.md
+output_file: 项目资料_docs/视频能力实验室_video_capability_lab/26_三表P0阻断项修正包_three_tables_p0_blocker_resolution.md
+render_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+file_change_scope: markdown_docs_only
+allowed_actions:
+  - 读取 25 三表执行包
+  - 修正错误源码路径
+  - 新建 26 P0 阻断项修正包
+  - 读取 BGM marker JSON 并整理为 auto marker 对照表
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 修改 Remotion 源码
+  - 修改视频数据文件
+  - render 视频
+  - 调用外部 API
+  - 安装依赖
+  - 提交视频、图片、音频、dist、tmp 或 runtime assets
+  - 把自动 marker 写成精准卡点
+  - 把 P0 表层修正写成当前视频已修好
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+expected_validation:
+  - workspace_identity_check
+  - required_files_exist
+  - wrong_path_absent
+  - p0_pack_required_terms_grep
+  - table_count_check
+  - git diff --check
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### required_reads_for_next_round
+
+下一轮若继续当前 30 秒样片，必须先读：
+
+1. `项目资料_docs/视频能力实验室_video_capability_lab/25_当前三十秒样片三表执行包_current_30s_three_tables_execution_pack.md`
+2. `项目资料_docs/视频能力实验室_video_capability_lab/26_三表P0阻断项修正包_three_tables_p0_blocker_resolution.md`
+3. `remotion/数据_data/三十秒对标素材清单_30s_reference_sample_clips.ts`
+4. `remotion/组合_compositions/三十秒对标样片_30s_reference_sample.tsx`
+
+### next_execution_gate
+
+- 已确认：下一轮是否允许进入 Remotion，由 `26` 的 `next_fix_route` 决定。
+- 已确认：下一轮 Remotion 修复必须读取 `25` 和 `26`。
+- 已确认：当前结论不是“允许直接进入 Remotion 修复”。
+- 部分成立：下一轮可拆 `remotion_allowed_with_bgm_review_pending` 的有限实现，只处理 `26` 已明确的 caption/sticker 删改和非精准卡点转场关系。
+- 仍阻断：BGM 精准卡点、PeakFlash 峰值、20.828s 后 marker source、render 后 frame-level review、用户人工审看。

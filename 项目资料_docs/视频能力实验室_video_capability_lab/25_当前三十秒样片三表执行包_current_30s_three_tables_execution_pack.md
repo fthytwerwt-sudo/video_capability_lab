@@ -6,11 +6,11 @@
 - target_sample: `三十秒对标样片-30s-reference-sample`
 - target_sample_video: `dist/remotion_demo_三十秒对标样片_30s_reference_sample/demo_30s_reference_sample.mp4`
 - source_data: `remotion/数据_data/三十秒对标素材清单_30s_reference_sample_clips.ts`
-- source_composition: `remotion/src/ThirtySecondReferenceSample.tsx`
+- source_composition: `remotion/组合_compositions/三十秒对标样片_30s_reference_sample.tsx`
 - render_allowed_this_round: `false`
 - remotion_edit_allowed_this_round: `false`
 - output_type: `three_tables_markdown_pack`
-- content_status: `tables_completed_fix_pending`
+- content_status: `three_tables_pack_completed_p0_resolution_created`
 - capability_status: `vlog_director_capability_still_pending_multi_case_validation`
 - generated_at: `2026-06-01`
 
@@ -35,7 +35,7 @@
 | `23_对标视频底线失败标准_reference_bottom_line_fail_gate.md` | 已确认 | 提供 `hard_fail_gate` 和失败代码。 |
 | `24_通用vlog剪辑机制_vlog_director_capability_mechanism.md` | 已确认 | 提供通用三表机制和项目目标重锚边界。 |
 | `remotion/数据_data/三十秒对标素材清单_30s_reference_sample_clips.ts` | 已确认 | 提供当前 18 个 visual segment、10 个 caption、11 个 sticker 的执行数据。 |
-| `remotion/src/ThirtySecondReferenceSample.tsx` | 已确认 | 提供 scrapbook、end card、fade / peak flash 等结构事件。 |
+| `remotion/组合_compositions/三十秒对标样片_30s_reference_sample.tsx` | 已确认 | 提供 scrapbook、end card、fade / peak flash 等结构事件。 |
 
 ## 3. `reference_learning_checklist`
 
@@ -155,6 +155,14 @@
 |---|---|---|---|---|
 | `transition_gap_analysis` | `triggered` | `ThirtySecondReferenceSample.tsx` 里存在 SceneLayer opacity / ordinary clip overlap / PeakFlash，但没有逐条 `transition_role`、`music_moment`、`reference_function` 表。 | 触发 `fail_transition_not_reference_like`；不能直接进入 Remotion 改动。 | 下一轮先为每个 clip change 建 `from_visual -> to_visual -> transition_role -> music_moment -> reference_function`，再决定是否改 transition。 |
 
+## 5.6 P0 阻断项修正包
+
+已确认：P0 阻断项已迁移到 `项目资料_docs/视频能力实验室_video_capability_lab/26_三表P0阻断项修正包_three_tables_p0_blocker_resolution.md`。
+
+已确认：`26` 已进一步补齐 caption / sticker / transition / BGM marker 的关系表，并更新 hard fail 与 next fix route。
+
+待验证：`26` 创建不等于当前视频已修复，不等于允许直接进入 Remotion，也不等于 BGM 精准卡点成立。
+
 ## 6. `hard_fail_summary`
 
 说明：本表检查的是当前 30 秒样片在三表视角下的状态。`not_triggered_after_this_pack` 只表示本轮已经创建对应表，不表示表内事件全部通过。
@@ -190,9 +198,8 @@
 
 ## 8. 结论
 
-- 已确认：本轮三张表已完成，当前内容状态为 `tables_completed_fix_pending`。
+- 已确认：本轮三张表已完成，且 P0 阻断项修正包已创建，当前内容状态为 `three_tables_pack_completed_p0_resolution_created`。
 - 已确认：这不是视频修复，不是 render，不是 Remotion 执行。
 - 已确认：当前视频仍不能写成 `content_pass`、`30s_sample_passed` 或 `vlog_director_capability_verified`。
-- 已确认：下一轮应按 `next_fix_route` 先处理 `reference_layer`、`event_layer`、`transition_layer`、`bgm_layer`，不能直接跳到 Remotion 改参数。
+- 已确认：下一轮必须先读取 `26_三表P0阻断项修正包_three_tables_p0_blocker_resolution.md`，按其中 `next_fix_route` 判断是否进入有限 Remotion implementation，不能直接跳到 Remotion 改参数。
 - 待验证：多案例验证前，能力状态仍为 `vlog_director_capability_still_pending_multi_case_validation`。
-

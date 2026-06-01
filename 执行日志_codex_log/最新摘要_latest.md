@@ -298,3 +298,21 @@
 ## 下一个目标
 
 读取 `25_当前三十秒样片三表执行包_current_30s_three_tables_execution_pack.md`，先处理 `reference_layer`、`event_layer`、`transition_layer` 与 `bgm_layer` 的阻断项；只有当问题降级到具体执行参数层时，才允许进入 Remotion 修复。
+
+## 本轮新增｜三表 P0 阻断项修正
+
+- 已确认：`25_当前三十秒样片三表执行包_current_30s_three_tables_execution_pack.md` 暴露出 P0 阻断项。
+- 已确认：`25` 中错误源码路径已修正为 `remotion/组合_compositions/三十秒对标样片_30s_reference_sample.tsx`。
+- 已确认：本轮新增 P0 阻断项修正包为 `项目资料_docs/视频能力实验室_video_capability_lab/26_三表P0阻断项修正包_three_tables_p0_blocker_resolution.md`。
+- 已确认：本轮修正 caption / sticker / transition / BGM 的表层关系。
+- 已确认：`26` 覆盖 10 条 caption、11 条 sticker、17 条 visual cut 关系、PeakFlash、EndCard 和 BGM marker 对照。
+- 已确认：BGM marker 对照只使用 auto marker，未做人耳复听，不能写成精准卡点。
+- 已确认：本轮不修视频，不 render，不修改 Remotion 源码，不修改视频数据文件，不调用外部 API，不安装依赖，不提交视频、图片、音频、`dist`、`tmp` 或 runtime assets。
+- content_status: `p0_blocker_tables_updated_fix_pending`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 待验证：下一轮是否进入 Remotion 由 `26` 的 `next_fix_route` 决定。
+- 待验证：即使下一轮进入有限 Remotion implementation，BGM 峰值、PeakFlash、精准卡点、frame-level review 和用户人审仍未通过。
+
+## 下一个目标
+
+读取 `25_当前三十秒样片三表执行包_current_30s_three_tables_execution_pack.md` 和 `26_三表P0阻断项修正包_three_tables_p0_blocker_resolution.md`，判断是否拆一个有限 Remotion implementation；若拆，只允许执行 `26` 已明确的表层删改，不得把它写成视频内容通过。
