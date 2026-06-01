@@ -757,3 +757,60 @@ expected_validation:
 ### next_execution_usage
 
 下一轮若处理当前 30 秒样片，必须先基于通用机制重新生成三张表；三张表通过 `hard_fail_gate` 后，才允许进入 Remotion 修复。
+
+## 本轮新增｜当前 30 秒样片三表执行包桥接
+
+### route_decision
+
+```yaml
+task_type: current_30s_three_tables_execution_pack
+true_goal: 为当前 30 秒样片生成三张执行表，供下一轮按 hard_fail_summary 和 next_fix_route 决定修复路线
+target_sample: 三十秒对标样片-30s-reference-sample
+render_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+file_change_scope: markdown_docs_only
+allowed_actions:
+  - 读取 16/20/21/22/23/24 机制与审计资料
+  - 读取当前 30 秒样片数据表和 composition
+  - 新建三表执行包 Markdown
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 修改 Remotion 源码
+  - 修复当前视频
+  - render 视频
+  - 调用外部 API
+  - 安装依赖
+  - 提交视频、图片、音频、dist、tmp 或 runtime assets
+  - 把当前 30 秒样片写成内容通过
+  - 把三表完成写成 Codex 稳定 vlog 导演能力成立
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+output_file: 项目资料_docs/视频能力实验室_video_capability_lab/25_当前三十秒样片三表执行包_current_30s_three_tables_execution_pack.md
+expected_validation:
+  - workspace_identity_check
+  - required_files_exist
+  - video_metadata_probe_technical_only
+  - required_key_terms_grep
+  - table_count_check
+  - git diff --check
+  - no_binary_artifacts_staged
+  - commit_push_remote_head
+```
+
+### required_reads_for_next_round
+
+下一轮若继续处理当前 30 秒样片，必须先读：
+
+1. `项目资料_docs/视频能力实验室_video_capability_lab/25_当前三十秒样片三表执行包_current_30s_three_tables_execution_pack.md`
+2. `项目资料_docs/视频能力实验室_video_capability_lab/24_通用vlog剪辑机制_vlog_director_capability_mechanism.md`
+3. `项目资料_docs/视频能力实验室_video_capability_lab/23_对标视频底线失败标准_reference_bottom_line_fail_gate.md`
+4. `项目资料_docs/视频能力实验室_video_capability_lab/22_视频事件表与画面选择机制_video_event_table_visual_selection.md`
+
+### next_execution_gate
+
+- 已确认：下一轮不得跳过 `hard_fail_summary`。
+- 已确认：下一轮不得跳过 `next_fix_route`。
+- 已确认：如果 `reference_layer`、`visual_selection_layer`、`event_layer`、`transition_layer` 或 `bgm_layer` 仍有 `triggered` / `needs_review`，不得直接进入 Remotion 参数修复。
+- 已确认：只有当问题降级为具体执行参数，如 x/y、fontSize、SVG 尺寸、opacity、EndCard 排版时，才允许进入 `remotion_layer`。
+- 已确认：本轮内容状态为 `three_tables_pack_completed_fix_pending`。
+- 待验证：下一轮修复后仍需用户人工审看，不能由技术 metadata 代替内容验收。

@@ -277,3 +277,24 @@
 ## 下一个目标
 
 基于通用 vlog 剪辑机制，为当前 30 秒样片重新生成 `reference_learning_checklist（对标学习检查清单）` + `visual_selection_table（画面选择表）` + `video_event_table（视频事件表）`，三表通过 hard fail gate（硬失败闸门）后，再进入 Remotion 修复。
+
+## 本轮新增｜当前 30 秒样片三表执行包
+
+- 已确认：本轮任务为 `current_30s_three_tables_execution_pack`。
+- 已确认：当前 30 秒样片是验证材料，不是项目目标。
+- 已确认：当前资料已经足够形成第一版 demo 形态，但 Codex 稳定 vlog 导演能力仍需多案例验证。
+- 已确认：当前真正缺失层是面向当前样片的三表执行包，而不是继续盲修字幕、贴纸或转场。
+- 已确认：新增三表执行包为 `项目资料_docs/视频能力实验室_video_capability_lab/25_当前三十秒样片三表执行包_current_30s_three_tables_execution_pack.md`。
+- 已确认：`reference_learning_checklist` 已覆盖 opening、captions、stickers、scrapbook / split、transition、end card、music-visual alignment、slowdown breath、motif reprise。
+- 已确认：`visual_selection_table` 已覆盖当前 30 秒样片全部 18 个 visual segment。
+- 已确认：`video_event_table` 已覆盖 18 个 visual segment、10 个 caption events、11 个 sticker events、scrapbook / split、end card、transition / cut / clip changes、BGM key sections。
+- 已确认：`hard_fail_summary` 与 `next_fix_route` 已写入三表执行包。
+- 部分成立：30 秒样片技术元数据为 30.058667s / 1080x1920 / 30fps / h264 / AAC stereo，video-metadata-probe passed；这只代表 technical validation，不代表 content pass。
+- 已确认：本轮没有修视频，没有 render，没有修改 Remotion 源码，没有调用外部 API，没有提交视频、图片、音频、`dist`、`tmp` 或 runtime assets。
+- content_status: `three_tables_pack_completed_fix_pending`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 待验证：下一轮必须依据 `25_当前三十秒样片三表执行包_current_30s_three_tables_execution_pack.md` 的 `hard_fail_summary` 与 `next_fix_route` 决定路线，不能跳过表层直接进 Remotion。
+
+## 下一个目标
+
+读取 `25_当前三十秒样片三表执行包_current_30s_three_tables_execution_pack.md`，先处理 `reference_layer`、`event_layer`、`transition_layer` 与 `bgm_layer` 的阻断项；只有当问题降级到具体执行参数层时，才允许进入 Remotion 修复。
