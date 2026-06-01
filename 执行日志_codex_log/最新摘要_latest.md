@@ -439,3 +439,23 @@
 ## 下一个目标
 
 用户人审 `paper_sound_tag（纸感拟声标签）` 测试候选。通过后再决定是否批量生成候选、做透明 PNG 后处理，或进入 Remotion 前的 frame review。
+
+## 本轮新增｜无水印图片生成策略配置
+
+- 已确认：用户反馈是后续图片需要无水印、无 `AI生成` 标识；本轮不要求带出新产物。
+- 已确认：本轮任务为 `watermark_free_image_policy_config`。
+- 已确认：本轮没有调用 API，没有生成新图片，没有去水印，没有修改 Remotion，没有 render。
+- 已确认：`32_API贴纸候选探针报告_api_sticker_candidate_probe_report.md` 中的 `zhipu + glm-image` 单图链路只保留为连通性证据。
+- 已确认：`zhipu + glm-image` 已降级为 `connection_probe_only`，不再作为正式贴纸候选默认 provider。
+- 已确认：新增策略配置为 `配置_configs/图片生成策略_image_generation_policy.json`。
+- 已确认：`.env.example` 已增加 `IMAGE_REQUIRE_NO_WATERMARK`、`IMAGE_REQUIRE_NO_GENERATED_LABEL`、`IMAGE_WATERMARKED_OUTPUT_ACTION=reject_candidate` 等策略字段。
+- 已确认：未来贴纸候选必须满足 no watermark、no generated label、no logo、no brand mark。
+- 已确认：带水印或 `AI生成` 标识的输出默认 `reject_candidate`，不是后处理去水印。
+- 已确认：新增记录为 `项目资料_docs/视频能力实验室_video_capability_lab/33_无水印图片生成配置修正_watermark_free_image_policy_config.md`。
+- 当前状态：`watermark_policy_config_updated_no_new_asset`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 待验证：下一个可用的无水印 provider / model。
+
+## 下一个目标
+
+进入 `watermark_free_provider_probe（无水印 provider 探针）`。在 provider / model 通过 no watermark、no generated label、no logo / brand mark、transparent PNG 或 clean cutout source 检查前，不允许批量生成贴纸候选或接入 Remotion。

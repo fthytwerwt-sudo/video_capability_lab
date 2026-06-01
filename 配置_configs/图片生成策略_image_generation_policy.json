@@ -1,0 +1,47 @@
+{
+  "image_generation_policy": {
+    "policy_version": "2026-06-02-watermark-free-sticker-candidate-gate",
+    "default_use_case": "sticker_candidate",
+    "require_no_watermark": true,
+    "require_no_generated_label": true,
+    "require_no_logo": true,
+    "require_no_brand_mark": true,
+    "require_transparent_background_or_clean_background_for_cutout": true,
+    "watermarked_output_action": "reject_candidate",
+    "generated_label_output_action": "reject_candidate",
+    "logo_or_brand_mark_output_action": "reject_candidate",
+    "do_not_remove_watermark": true,
+    "do_not_crop_watermark": true,
+    "do_not_inpaint_watermark": true,
+    "do_not_treat_watermark_removal_as_default_route": true
+  },
+  "providers": {
+    "zhipu_glm_image": {
+      "provider": "zhipu",
+      "model": "glm-image",
+      "status": "connection_probe_only",
+      "reason": "last_probe_returned_visible_AI_generated_label_and_non_transparent_background",
+      "last_probe_report": "项目资料_docs/视频能力实验室_video_capability_lab/32_API贴纸候选探针报告_api_sticker_candidate_probe_report.md",
+      "last_probe_failures": [
+        "transparent_background_status_not_transparent",
+        "visible_AI_generated_label"
+      ],
+      "allowed_for_sticker_candidate": false,
+      "allowed_for_connection_test": true,
+      "requires_reverification_before_sticker_candidate": true
+    }
+  },
+  "next_provider_requirements": {
+    "must_support_watermark_free_output": true,
+    "must_support_no_visible_generated_label": true,
+    "must_support_no_logo_or_brand_mark": true,
+    "must_support_transparent_png_or_clean_cutout_source": true,
+    "must_be_verified_before_batch_generation": true
+  },
+  "blocked_routes": {
+    "watermark_removal_as_primary_strategy": true,
+    "crop_or_inpaint_generated_label": true,
+    "batch_generation_before_watermark_free_probe": true,
+    "remotion_integration_before_user_review": true
+  }
+}

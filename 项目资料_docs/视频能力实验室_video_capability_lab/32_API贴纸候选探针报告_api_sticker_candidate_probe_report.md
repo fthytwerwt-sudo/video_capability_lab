@@ -111,19 +111,39 @@
 
 ## 7. next_goal
 
-用户人审 `paper_sound_tag（纸感拟声标签）` 测试候选。
+本报告的后续判断已被本轮策略修正覆盖：先选择或验证 `watermark_free_provider_probe（无水印 provider 探针）`。
 
-通过后再决定：
+在无水印 provider / model 通过前，不进入批量生成或 Remotion 接入。
 
-1. 是否批量生成更多候选。
-2. 是否先做背景去除和透明 PNG 后处理。
-3. 是否改 prompt 或换 provider。
-4. 是否进入 Remotion 前的 frame review。
+## 8. post_probe_policy_update（探针后策略修正）
 
-## 8. do_not_claim
+- policy_update_status: `watermark_policy_config_updated_no_new_asset`
+- policy_config_file: `配置_configs/图片生成策略_image_generation_policy.json`
+- followup_report: `33_无水印图片生成配置修正_watermark_free_image_policy_config.md`
+- zhipu_glm_image_status: `connection_probe_only`
+- allowed_for_sticker_candidate: `false`
+- allowed_for_connection_test: `true`
+- watermarked_output_action: `reject_candidate`
+- generated_label_output_action: `reject_candidate`
+- do_not_remove_watermark: `true`
+
+已确认：`zhipu + glm-image` 单图链路已跑通，但本轮候选存在 `transparent_background_status=not_transparent` 和可见 `AI生成` 标识。
+
+已确认：带水印、带 `AI生成` 标识、带 logo 或 brand mark 的输出不得进入正式贴纸候选路线。
+
+已确认：本轮没有去水印，没有裁掉水印，没有修补水印，没有生成新图片，没有调用 API。
+
+已确认：未来若 provider 返回带水印或生成标识的图片，必须写 `rejected_candidate` 或 `blocked_provider_watermark`，不能写成可后处理通过。
+
+## 9. next_goal
+
+选择或验证 `watermark_free_provider_probe（无水印 provider 探针）`，确认 provider / model 能输出无水印、无生成标识、无 logo、无 brand mark，且具备透明 PNG 或干净抠图来源。
+
+## 10. do_not_claim
 
 本轮不得声明：
 
+- no-watermark provider verified
 - sticker asset approved
 - sticker asset pack completed
 - video fixed

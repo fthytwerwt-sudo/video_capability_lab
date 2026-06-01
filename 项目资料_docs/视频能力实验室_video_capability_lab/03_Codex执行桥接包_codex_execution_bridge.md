@@ -1289,3 +1289,76 @@ expected_validation:
 2. 修改 prompt 重新单图或小批量生成。
 3. 更换 provider 或模型。
 4. 放弃 API 候选，回到 `local_asset_pack` 或 `pure_code_svg`。
+
+## 本轮新增｜无水印图片生成 provider gate
+
+### route_decision
+
+```yaml
+task_type: watermark_free_image_policy_config
+true_goal: 把 no watermark / no generated label 升级为未来贴纸候选硬门槛
+api_call_allowed_this_round: false
+asset_generation_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+render_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+policy_config_file: 配置_configs/图片生成策略_image_generation_policy.json
+policy_report_file: 项目资料_docs/视频能力实验室_video_capability_lab/33_无水印图片生成配置修正_watermark_free_image_policy_config.md
+source_probe_report: 项目资料_docs/视频能力实验室_video_capability_lab/32_API贴纸候选探针报告_api_sticker_candidate_probe_report.md
+expected_status: watermark_policy_config_updated_no_new_asset
+allowed_actions:
+  - 新增图片生成策略配置
+  - 更新 .env.example 的无水印策略字段
+  - 更新 32 报告的 post_probe_policy_update
+  - 更新当前任务、执行桥接包和最新摘要
+forbidden_actions:
+  - 调用外部 API
+  - 生成新图片
+  - 去水印
+  - 裁切或修补已有水印
+  - 修改 Remotion 源码或数据
+  - render 视频
+  - 提交 .env、图片、视频、音频、tmp、dist 或 runtime assets
+  - 把配置修正写成 provider 已可用
+  - 把无水印要求写成后处理去水印
+expected_validation:
+  - workspace_identity_check
+  - required_report_32_exists
+  - policy_json_valid
+  - required_policy_terms_grep
+  - no_api_or_generated_asset_this_round
+  - no_env_or_media_staged
+  - staged_secret_scan
+  - git_diff_check
+  - path_limited_stage
+  - commit_push_remote_head
+```
+
+### future_provider_gate
+
+未来进入正式 `sticker_candidate` 的图片 provider / model 必须满足：
+
+1. `require_no_watermark=true`
+2. `require_no_generated_label=true`
+3. `require_no_logo=true`
+4. `require_no_brand_mark=true`
+5. `require_transparent_background_or_clean_background_for_cutout=true`
+
+### provider_route_decision
+
+| provider_model | status | allowed_for_sticker_candidate | allowed_for_connection_test | reason |
+|---|---|---:|---:|---|
+| `zhipu + glm-image` | `connection_probe_only` | `false` | `true` | `32` 显示候选图无 alpha 通道且右下角可见 `AI生成` 标识。 |
+
+### rejection_rules
+
+- 已确认：带水印输出必须 `reject_candidate`。
+- 已确认：带 `AI生成` 或其他 generated label 的输出必须 `reject_candidate`。
+- 已确认：带 logo / brand mark 的输出必须 `reject_candidate`。
+- 已确认：不得把去水印、裁水印或 inpaint 水印作为默认方案。
+- 已确认：无水印 provider 未验证前，不允许批量生成候选，也不得接入 Remotion。
+
+### next_execution_gate
+
+下一轮目标为 `watermark_free_provider_probe`。只有 provider / model 通过 no watermark、no generated label、no logo / brand mark、transparent PNG 或 clean cutout source 检查后，才允许进入批量候选或 frame review。
