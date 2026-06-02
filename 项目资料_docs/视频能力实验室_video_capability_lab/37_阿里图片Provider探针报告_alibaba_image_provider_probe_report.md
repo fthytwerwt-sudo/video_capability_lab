@@ -14,7 +14,9 @@
 - final_http_status: `200`
 - generation_count: `1`
 - output_status: `local_ignored_only`
-- candidate_status: `watermark_free_single_candidate_generated_pending_user_review`
+- candidate_status: `user_review_style_mismatch_not_remotion_ready`
+- user_review_status: `style_mismatch_not_remotion_ready`
+- next_route: `remotion_svg_reaction_sticker_probe`
 - capability_status: `vlog_director_capability_still_pending_multi_case_validation`
 
 已确认：本轮只调用阿里 `alibaba_dashscope` 一个 provider，未调用 zhipu、MiniMax 或第二个 provider。
@@ -122,21 +124,37 @@
 
 待验证：用户是否认可该图作为 `paper_sound_tag` 候选风格。
 
-## 8. provider_route_decision
+## 8. user_review
+
+- user_review_quote: `我们要的是贴纸，这个是对标视频上面的，我们要的也是类似这种。`
+- user_review_decision: `style_mismatch_not_remotion_ready`
+- current_candidate_route: `paper_sound_tag_api_generated_candidate`
+- revised_sticker_route: `hand_drawn_reaction_sticker_system`
+- current_candidate_remotion_ready: `false`
+
+已确认：用户人审反馈覆盖 `pending_user_review` 状态；当前阿里单图候选应降级为 `user_review_style_mismatch_not_remotion_ready`。
+
+已确认：候选未见明显水印、`AI生成` 标识、logo 或 brand mark，但这只说明水印 / 生成标识维度部分成立，不等于贴纸风格通过。
+
+已确认：当前问题不是 provider 没跑通，而是 sticker 目标理解错位：用户要的是对标视频里的手绘反应符号 / 视觉情绪标点，不是承载拟声字的纸签图。
+
+已确认：当前候选不得接入 Remotion，不得写成 `sticker asset approved`，不得作为当前贴纸资产通过。
+
+## 9. provider_route_decision
 
 | provider_model | status | allowed_for_sticker_candidate | reason |
 |---|---|---:|---|
-| `alibaba_dashscope + qwen-image-2.0-pro` | `watermark_free_single_probe_passed_pending_user_review` | `pending_user_review` | 单图无明显水印 / 生成标识 / logo / brand mark，但无 alpha，需要用户人审。 |
+| `alibaba_dashscope + qwen-image-2.0-pro` | `watermark_free_single_probe_passed_user_review_style_mismatch` | `false_for_current_candidate` | 单图无明显水印 / 生成标识 / logo / brand mark，但无 alpha，且用户人审认为风格不是对标贴纸方向。 |
 
 已确认：阿里路线优于本项目上一张 `zhipu + glm-image` 候选的关键点是未见明显 `AI生成` 标识。
 
-部分成立：阿里路线仍未证明可直接输出透明贴纸资产。
+部分成立：阿里路线仍可作为 future image provider 候选，但当前这张图不能作为贴纸资产通过。
 
-## 9. next_goal
+## 10. next_goal
 
-用户人审该本地候选图；若认可风格，再决定是否进入 frame review / 抠图测试 / 第二张受控探针。
+下一轮优先执行 `remotion_svg_reaction_sticker_probe（Remotion SVG 反应贴纸组件探针）`，验证原创 `black_white_reaction_mark（黑白反应标记）` 与 `yellow_attention_burst（黄色注意力爆点）`，不继续 API 图片抽卡。
 
-## 10. do_not_claim
+## 11. do_not_claim
 
 本轮不得声明：
 

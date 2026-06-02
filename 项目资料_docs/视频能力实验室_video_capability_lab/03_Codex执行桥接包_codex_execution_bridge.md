@@ -404,7 +404,7 @@ confidence: high_for_contract_medium_for_output_quality
 
 ### alibaba_probe_result
 
-- 当前状态：`watermark_free_single_candidate_generated_pending_user_review`。
+- 当前状态：`user_review_style_mismatch_not_remotion_ready`。
 - output_path: `tmp/无水印贴纸候选_watermark_free_sticker_candidates/阿里无水印纸感拟声标签测试_alibaba_watermark_free_paper_sound_tag_probe_01.png`。
 - image_format: `PNG`。
 - image_size: `1024x1024`。
@@ -413,7 +413,7 @@ confidence: high_for_contract_medium_for_output_quality
 - watermark_check: `pass`。
 - generated_label_check: `pass`。
 - logo_brand_mark_check: `pass`。
-- candidate_status: `watermark_free_single_candidate_generated_pending_user_review`。
+- candidate_status: `user_review_style_mismatch_not_remotion_ready`。
 
 已确认：图片只保存在 ignored 本地 `tmp/` 目录，不提交 Git。
 
@@ -421,7 +421,7 @@ confidence: high_for_contract_medium_for_output_quality
 
 部分成立：候选未见明显水印 / `AI生成` / logo / brand mark，但不是 transparent PNG。
 
-待验证：用户人审该候选是否接受；下一轮不能直接接 Remotion，必须先用户人审或 frame review。
+已确认：用户人审不接受该候选作为当前对标贴纸方向；下一轮不能直接接 Remotion，必须改走原创 SVG / Remotion vector 反应贴纸组件探针。
 
 ## 本轮新增｜Remotion 多组件能力证明 demo 桥接
 
@@ -1605,3 +1605,65 @@ expected_validation:
 ### next_execution_gate
 
 下一轮目标为 `watermark_free_provider_probe`。只有 provider / model 通过 no watermark、no generated label、no logo / brand mark、transparent PNG 或 clean cutout source 检查后，才允许进入批量候选或 frame review。
+
+## 本轮新增｜贴纸人审反馈与参考风格重判桥接
+
+### route_decision
+
+```yaml
+task_type: sticker_user_review_reference_style_replan
+true_goal: 把用户对阿里单图候选的最新人审反馈落库，并将 sticker 主路线改为原创手绘反应贴纸系统
+source_candidate_task: alibaba_image_contract_and_watermark_free_sticker_probe
+previous_candidate_status: watermark_free_single_candidate_generated_pending_user_review
+current_candidate_status: alibaba_candidate_user_review_style_mismatch_not_remotion_ready
+route_revision: paper_sound_tag_api_generated_candidate_to_hand_drawn_reaction_sticker_system
+api_call_allowed_this_round: false
+asset_generation_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+render_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+new_report_file: 项目资料_docs/视频能力实验室_video_capability_lab/39_贴纸人审反馈与参考风格重判_sticker_user_review_reference_style_replan.md
+updated_files:
+  - 项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/31_对标视觉语言到资产规格_reference_visual_language_to_asset_spec.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/37_阿里图片Provider探针报告_alibaba_image_provider_probe_report.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/39_贴纸人审反馈与参考风格重判_sticker_user_review_reference_style_replan.md
+  - 执行日志_codex_log/最新摘要_latest.md
+expected_validation:
+  - workspace_identity_check
+  - required_files_exist
+  - report_required_terms_grep
+  - no_approved_status_for_alibaba_candidate
+  - remotion_diff_guard
+  - no_api_or_generated_asset_this_round
+  - no_env_or_media_staged
+  - git_diff_check
+  - path_limited_stage
+  - commit_push_remote_head
+```
+
+### user_review_result
+
+- user_review_quote: `我们要的是贴纸，这个是对标视频上面的，我们要的也是类似这种。`
+- 已确认：阿里单图候选未见明显水印 / `AI生成` 标识 / logo / brand mark，但用户人审认为风格方向不匹配。
+- 已确认：当前候选是 `paper_sound_tag（纸感拟声标签）` 路线，不是用户要的对标视频反应贴纸路线。
+- 已确认：当前候选不得接入 Remotion，不得写成 `sticker asset approved`。
+- 部分成立：阿里路线可保留为 future image provider 候选，但当前这张图不能作为贴纸资产通过。
+
+### revised_sticker_system
+
+下一轮主线为 `hand_drawn_reaction_sticker_system（手绘反应贴纸系统）`，优先验证：
+
+1. `black_white_reaction_mark（黑白反应标记）`：黑色主体线条 / 小块面 + 厚白描边，用于动作点、情绪点、轻喜剧反应。
+2. `yellow_attention_burst（黄色注意力爆点）`：3 个左右不规则黄色短笔触，用于提示主体动作或注意力切换。
+
+### next_execution_gate
+
+- 下一轮目标：`remotion_svg_reaction_sticker_probe（Remotion SVG 反应贴纸组件探针）`。
+- 下一轮允许范围：小范围原创 SVG / Remotion vector component probe。
+- 下一轮不得复制第三方截图贴纸原图，只能抽象视觉机制。
+- 下一轮不得继续 API 图片抽卡作为主线。
+- 下一轮不得把 `paper_sound_tag（纸感拟声标签）` 继续作为唯一优先 sticker 目标。
+- 下一轮即使进入 Remotion probe，也只能验证组件，不得写成当前视频已修好或视觉语言已通过。

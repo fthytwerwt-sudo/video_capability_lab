@@ -1,14 +1,39 @@
 # 当前任务
 
-当前任务：`alibaba_image_contract_and_watermark_free_sticker_probe`。
+当前任务：`sticker_user_review_reference_style_replan`。
 
-当前目标：使用本地 `.env` 中的 `DASHSCOPE_API_KEY`，通过阿里 DashScope `qwen-image-2.0-pro` 生成 1 张 `paper_sound_tag` 无水印贴纸候选。
+当前目标：把用户对阿里单图候选的最新人审反馈落库，并将贴纸主路线从 `paper_sound_tag / API generated image` 重判为 `hand_drawn_reaction_sticker_system（手绘反应贴纸系统）`。
 
-当前状态：`watermark_free_single_candidate_generated_pending_user_review`。
+当前状态：`alibaba_candidate_user_review_style_mismatch_not_remotion_ready`。
 
-下一状态：`user_review_alibaba_single_candidate`。
+下一目标：`remotion_svg_reaction_sticker_probe`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜贴纸人审反馈与参考风格重判
+
+- task_type: `sticker_user_review_reference_style_replan`
+- source_candidate_task: `alibaba_image_contract_and_watermark_free_sticker_probe`
+- user_review_quote: `我们要的是贴纸，这个是对标视频上面的，我们要的也是类似这种。`
+- previous_candidate_status: `watermark_free_single_candidate_generated_pending_user_review`
+- current_candidate_status: `alibaba_candidate_user_review_style_mismatch_not_remotion_ready`
+- route_revision: `paper_sound_tag_api_generated_candidate_to_hand_drawn_reaction_sticker_system`
+- next_goal: `remotion_svg_reaction_sticker_probe`
+- new_report_file: `项目资料_docs/视频能力实验室_video_capability_lab/39_贴纸人审反馈与参考风格重判_sticker_user_review_reference_style_replan.md`
+- api_call_allowed_this_round: `false`
+- sticker_image_generation_allowed_this_round: `false`
+- remotion_edit_allowed_this_round: `false`
+- render_allowed_this_round: `false`
+
+已确认：阿里候选图未见明显水印、`AI生成` 标识、logo 或 brand mark，但这只说明 watermark / generated label 自检通过，不等于贴纸风格通过。
+
+已确认：用户人审认为当前阿里候选不是想要的对标贴纸方向；用户要的是对标视频里的手绘反应符号 / 视觉情绪标点，不是纸签拟声字图。
+
+已确认：当前阿里候选不得接入 Remotion，不得写成 `sticker asset approved`，不得作为当前贴纸资产通过。
+
+已确认：阿里路线可保留为 future image provider 候选，但本轮主线应改为原创 SVG / Remotion vector 贴纸组件探针。
+
+下一个目标：执行 `remotion_svg_reaction_sticker_probe（Remotion SVG 反应贴纸组件探针）`，优先验证 `black_white_reaction_mark（黑白反应标记）` 与 `yellow_attention_burst（黄色注意力爆点）` 两类原创矢量贴纸组件。
 
 ## 本轮新增｜阿里图片 API 契约解析与单图探针
 
@@ -33,7 +58,7 @@
 - watermark_check: `pass`
 - generated_label_check: `pass`
 - logo_brand_mark_check: `pass`
-- candidate_status: `watermark_free_single_candidate_generated_pending_user_review`
+- candidate_status: `user_review_style_mismatch_not_remotion_ready`
 - report_file: `项目资料_docs/视频能力实验室_video_capability_lab/37_阿里图片Provider探针报告_alibaba_image_provider_probe_report.md`
 - contract_file: `项目资料_docs/视频能力实验室_video_capability_lab/38_阿里图片API契约解析_alibaba_image_api_contract.md`
 
@@ -51,7 +76,7 @@
 
 已确认：本轮未修改 Remotion，未 render，未接入视频，未提交图片、`tmp`、`.env` 或 runtime assets。
 
-待验证：用户是否认可该阿里单图候选进入后续 frame review 或抠图处理；不能直接接入 Remotion。
+已确认：用户人审不认可该阿里单图候选作为当前对标贴纸方向；不能进入 frame review / 抠图处理作为主线，不能直接接入 Remotion。
 
 不得声明：`Alibaba no-watermark provider verified`、`sticker asset approved`、`sticker asset pack completed`、`video fixed`、`visual language passed`、`Remotion integration completed`、`vlog director capability verified`。
 

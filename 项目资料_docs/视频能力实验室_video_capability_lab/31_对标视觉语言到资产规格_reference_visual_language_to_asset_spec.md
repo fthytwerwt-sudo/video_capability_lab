@@ -177,3 +177,32 @@
 - content_status: `asset_spec_completed_asset_generation_pending`
 - capability_status: `vlog_director_capability_still_pending_multi_case_validation`
 - next_goal: 根据 `asset_route_decision` 决定 `local_asset_pack`、`pure_code_svg` 或 `api_generated_candidate` 的下一轮实现路线。
+
+## 11. addendum｜贴纸人审反馈后的路线重判
+
+- addendum_type: `sticker_user_review_reference_style_replan`
+- source_review_file: `项目资料_docs/视频能力实验室_video_capability_lab/39_贴纸人审反馈与参考风格重判_sticker_user_review_reference_style_replan.md`
+- previous_primary_sticker_route: `paper_sound_tag_api_generated_candidate`
+- revised_primary_sticker_route: `hand_drawn_reaction_sticker_system`
+- next_goal: `remotion_svg_reaction_sticker_probe`
+
+已确认：用户人审阿里 `paper_sound_tag（纸感拟声标签）` 单图候选后，认为当前方向不是想要的对标贴纸风格。
+
+已确认：用户要的是对标视频里的手绘反应符号 / 视觉情绪标点，而不是承载拟声字或说明文字的纸签图。
+
+部分成立：`paper_sound_tag（纸感拟声标签）` 仍可作为小动作拟声的辅助资产类型保留，但本轮不再作为唯一优先 sticker 主线；后续不能继续用 API 纸签图抽卡替代反应贴纸系统。
+
+### 11.1 revised_sticker_asset_directions（修正后的贴纸资产方向）
+
+| asset_id（资产编号） | sticker_family（贴纸家族） | visual_role（视觉作用） | shape_rule（形状规则） | color_stroke_rule（颜色与描边） | size_range（尺寸范围） | use_case（使用场景） | do_not_use_when（禁用场景） | motion_rule（动效规则） | implementation_route（实现路线） | failure_rule（失败规则） |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `black_white_reaction_mark（黑白反应标记）` | `hand_drawn_reaction_sticker_system` | 作为动作点、情绪点附近的视觉情绪标点，类似轻喜剧里的怒气 / 爆点 / 反应符号。 | 3-5 个不规则短叉、尖角或圆头笔画组成；必须低复杂度、手绘、短促，不承载文字。 | 黑色主体线条或小块面，厚白描边；允许轻阴影；禁用电商爆炸贴、硬 UI icon、复杂漫画字。 | min `72x72`; preferred `96-148`; max `170x170`。 | 狗头、熊猫脸、手部动作、突然转头、咬竹、遮挡显露等明确动作 / 情绪点。 | 主体不清、动作不明显、画面已经有强 caption / sticker、会遮脸或复制参考贴纸原图时。 | 4-6 frames 快速 pop in，停留 10-18 frames，轻微 rotate / scale wobble，快速淡出。 | `pure_code_svg` / `remotion_vector_component` 优先。 | 像纸签、PPT 图标、儿童模板、电商爆炸贴、或可识别复刻第三方贴纸时，触发 `fail_sticker_reference_style_mismatch`。 |
+| `yellow_attention_burst（黄色注意力爆点）` | `hand_drawn_reaction_sticker_system` | 用 2-4 个黄色短笔触提示注意力，让观众看见主体动作点。 | 3 个左右不规则圆角短笔触 / 小豆形，围绕主体边缘分布；不形成完整太阳、星星或 UI badge。 | 主色低饱和亮黄 `#f3c84a`；可用浅白边或轻阴影；禁用荧光黄、促销黄、品牌色复刻。 | min `50x46`; preferred `70-110`; max `130x120`。 | 主体出现、突然动作、轻惊讶、注意力切换、动作峰值附近。 | 没有明确 anchor target、只装饰空处、同场已有强黑白反应标记、或视觉噪音过高时。 | 3-5 frames staggered pop，三个笔触略错帧出现，停留短，不做大幅弹跳。 | `pure_code_svg` / `remotion_vector_component` 优先。 | 像 emoji、meme 表情、促销爆点、贴纸包模板，或和主体动作无关时失败。 |
+
+### 11.2 revised_route_rules（修正后的路线规则）
+
+1. 已确认：下一轮优先做原创 SVG / Remotion vector sticker probe，不优先继续 API 生成图。
+2. 已确认：`paper_sound_tag（纸感拟声标签）` 若继续保留，只能作为辅助标签，不得覆盖 `reaction_mark_sticker（反应标记贴纸）` 与 `yellow_attention_burst（黄色注意力爆点）`。
+3. 已确认：不得复制第三方截图里的贴纸原图，只能抽象其视觉机制、形状关系、颜色关系、使用位置和动效功能。
+4. 已确认：任何 API 输出仍只能作为候选素材，不能绕过 frame review 或用户人审。
+5. 待验证：`remotion_svg_reaction_sticker_probe` 是否能在实际 frame review 中比纸签图更接近对标视频观感。

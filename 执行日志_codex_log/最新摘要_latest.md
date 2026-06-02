@@ -12,6 +12,17 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜贴纸人审反馈与参考风格重判
+
+- 已确认：用户人审阿里单图候选后反馈：`我们要的是贴纸，这个是对标视频上面的，我们要的也是类似这种。`
+- 已确认：阿里候选未见明显水印、`AI生成` 标识、logo 或 brand mark，但这不等于贴纸风格通过。
+- 已确认：当前候选状态从 `watermark_free_single_candidate_generated_pending_user_review` 降级为 `alibaba_candidate_user_review_style_mismatch_not_remotion_ready`。
+- 已确认：当前问题不是 provider 没跑通，而是 sticker 目标理解错位；用户要的是手绘反应符号 / 视觉情绪标点，不是纸签拟声字图。
+- 已确认：当前阿里候选不得接入 Remotion，不得写成 `sticker asset approved`。
+- 已确认：本轮新增重判报告为 `项目资料_docs/视频能力实验室_video_capability_lab/39_贴纸人审反馈与参考风格重判_sticker_user_review_reference_style_replan.md`。
+- 已确认：`31_对标视觉语言到资产规格_reference_visual_language_to_asset_spec.md` 已追加 addendum，新增 `black_white_reaction_mark（黑白反应标记）` 与 `yellow_attention_burst（黄色注意力爆点）` 两类资产方向。
+- 下一个目标：`remotion_svg_reaction_sticker_probe（Remotion SVG 反应贴纸组件探针）`，优先用原创 SVG / Remotion vector 组件验证手绘反应贴纸系统，不继续 API 图片抽卡。
+
 ## 本轮新增｜阿里图片 API env setup
 
 - 已确认：用户要求从 MiniMax key 阻断路线切换到阿里图片 API 路线。
@@ -38,11 +49,11 @@
 - 已确认：候选图是 `PNG 1024x1024 RGB`，没有 alpha 透明通道。
 - 已确认：视觉自检未见明显水印、`AI生成` 标识、logo 或 brand mark。
 - 部分成立：当前只可写 `clean_cutout_source_pending_user_review`，不能写 transparent PNG 或 approved。
-- 待验证：用户是否认可该阿里候选图进入 frame review / 抠图测试 / 后续单图复探。
+- 已确认：用户人审认为该阿里候选图风格方向不匹配，不进入 Remotion，也不作为当前贴纸资产通过。
 
 ## 本轮下一个目标
 
-用户人审阿里单图候选；若认可风格，再决定是否进入 frame review / 抠图测试 / 第二张受控探针。
+执行 `remotion_svg_reaction_sticker_probe（Remotion SVG 反应贴纸组件探针）`，优先做原创手绘反应标记和黄色注意力爆点，不继续 API 图片抽卡。
 
 ## 本轮完成
 
