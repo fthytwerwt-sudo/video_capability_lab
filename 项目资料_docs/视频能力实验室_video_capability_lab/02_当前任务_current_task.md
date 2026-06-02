@@ -1,12 +1,12 @@
 # 当前任务
 
-当前任务：`minimax_image_contract_and_watermark_free_sticker_probe`。
+当前任务：`minimax_watermark_free_sticker_rerun`。
 
-当前目标：先解析 MiniMax 静态图片生成 API 契约，再用 1 次 MiniMax 请求验证是否能生成无水印 `paper_sound_tag` 贴纸候选。
+当前目标：使用修正后的 MiniMax key 复用 `image-01` 契约，重跑 1 次 `paper_sound_tag` 无水印贴纸候选探针。
 
-当前状态：`blocked_minimax_api_call_failed_invalid_api_key`。
+当前状态：`blocked_minimax_api_call_failed_invalid_api_key_after_rerun`。
 
-下一状态：`minimax_valid_key_reprobe_pending`。
+下一状态：`minimax_valid_key_reprobe_pending_or_next_provider_pending`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
 
@@ -34,6 +34,27 @@
 已确认：`.env` 和 `tmp/` 均为 ignored；`.env`、失败响应和运行产物不得提交。
 
 待验证：更换或修正 MiniMax official API Platform 可用 key 后，才能重新执行单图候选并判断 no watermark / no generated label / no logo / transparent or clean cutout source。
+
+## 本轮新增｜MiniMax key 修正后单图重跑
+
+- task_type: `minimax_watermark_free_sticker_rerun`
+- selected_provider: `minimax`
+- selected_model: `image-01`
+- endpoint: `https://api.minimax.io/v1/image_generation`
+- api_call_status: `failed`
+- blocked_status: `blocked_minimax_api_call_failed_invalid_api_key_after_rerun`
+- generation_count: `0`
+- local_failure_response: `tmp/无水印贴纸候选_watermark_free_sticker_candidates/MiniMax重跑请求失败_minimax_rerun_request_failed.json`
+
+已确认：本轮已使用修正后写入 `.env` 的 MiniMax key，但未打印 key。
+
+已确认：本轮只调用 MiniMax，只发起 1 次图片生成请求，未调用 zhipu 或第二个 provider。
+
+已确认：MiniMax API 仍返回 `base_resp.status_code=2049` / `status_msg=invalid api key`，因此未生成图片。
+
+已确认：本轮没有图片可检查，不能判断 no watermark / no generated label / no logo / transparent background。
+
+待验证：需要更换为 MiniMax official API Platform 可用 key，或改走下一个未被策略禁用的无水印图片 provider。
 
 ## 本轮输入
 

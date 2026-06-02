@@ -2,15 +2,15 @@
 
 ## 1. status
 
-- task_type: `minimax_image_contract_and_watermark_free_sticker_probe`
+- task_type: `minimax_watermark_free_sticker_rerun`
 - selected_provider: `minimax`
 - selected_model: `image-01`
 - endpoint: `https://api.minimax.io/v1/image_generation`
 - api_call_status: `failed`
-- blocked_status: `blocked_minimax_api_call_failed_invalid_api_key`
+- blocked_status: `blocked_minimax_api_call_failed_invalid_api_key_after_rerun`
 - generation_count: `0`
 - output_status: `no_image_generated`
-- candidate_status: `blocked_minimax_api_call_failed_invalid_api_key`
+- candidate_status: `blocked_minimax_api_call_failed_invalid_api_key_after_rerun`
 - content_status: `watermark_free_provider_probe_blocked_before_candidate_generation`
 - capability_status: `vlog_director_capability_still_pending_multi_case_validation`
 
@@ -27,6 +27,21 @@
 已确认：本轮未修改 Remotion，未 render，未接入视频。
 
 已确认：`.env` 是本地 ignored file，未提交；报告未记录 API key 或 group id。
+
+## 1.1 rerun_status
+
+- rerun_task_type: `minimax_watermark_free_sticker_rerun`
+- rerun_goal: 使用修正后的 MiniMax key 复用 `image-01` 契约，只重跑 1 次单图探针。
+- rerun_api_call_status: `failed`
+- rerun_blocked_status: `blocked_minimax_api_call_failed_invalid_api_key_after_rerun`
+- rerun_generation_count: `0`
+- rerun_local_failure_response: `tmp/无水印贴纸候选_watermark_free_sticker_candidates/MiniMax重跑请求失败_minimax_rerun_request_failed.json`
+
+已确认：本轮重跑只发起 1 次 MiniMax 图片生成请求。
+
+已确认：MiniMax API 仍返回 `base_resp.status_code=2049` / `status_msg=invalid api key`。
+
+已确认：本轮未生成图片，因此没有候选图可进入 watermark / generated label / logo / alpha 检查。
 
 ## 2. env_check
 
@@ -119,7 +134,7 @@ minimax_contract_resolution:
 | group id required | `pass` | 官方图片 API 未要求 group id。 |
 | one-provider-only | `pass` | 本轮只调用 MiniMax。 |
 | one-request-only | `pass` | 本轮只发起 1 次 MiniMax 图片生成请求。 |
-| API request succeeded | `fail` | MiniMax 返回 `invalid api key`。 |
+| API request succeeded | `fail` | MiniMax 首次请求和本轮重跑均返回 `invalid api key`。 |
 | one-candidate-only | `not_applicable` | API 未返回图片。 |
 | file readable | `not_applicable` | API 未返回图片。 |
 | transparent background | `not_applicable` | API 未返回图片。 |
@@ -133,7 +148,7 @@ minimax_contract_resolution:
 
 1. MiniMax 静态图片生成契约已解析。
 2. MiniMax API key 在本地存在。
-3. MiniMax API 返回 `invalid api key`，未生成图片。
+3. MiniMax API 重跑仍返回 `invalid api key`，未生成图片。
 4. 未生成图片，因此无法判断 watermark、generated label、logo、brand mark 或透明背景。
 
 已确认：不得把本轮写成 MiniMax 无水印路线通过。
@@ -144,13 +159,13 @@ minimax_contract_resolution:
 
 | provider_model | status | allowed_for_sticker_candidate | reason |
 |---|---|---:|---|
-| `minimax + image-01` | `contract_resolved_api_call_failed_invalid_api_key` | `false` | API key invalid，未生成图片，不能判断输出质量。 |
+| `minimax + image-01` | `contract_resolved_api_call_failed_invalid_api_key_after_rerun` | `false` | 修正后重跑仍返回 API key invalid，未生成图片，不能判断输出质量。 |
 
 待验证：更换为 MiniMax 官方可用 API key 后，才能重跑单图候选并判断是否无水印。
 
 ## 9. next_goal
 
-更换或修正本地 `.env` 中 `MINIMAX_API_KEY`，确认该 key 可用于 MiniMax official API Platform 的 image generation 后，再重跑 `minimax_image_contract_and_watermark_free_sticker_probe`。
+更换为 MiniMax official API Platform 可用的 `MINIMAX_API_KEY` 后再重跑；如果仍不可用，进入下一个未被策略禁用的无水印图片 provider 探针。
 
 ## 10. do_not_claim
 

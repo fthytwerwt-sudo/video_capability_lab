@@ -256,6 +256,18 @@ confidence: high_for_contract_low_for_watermark_quality
 - 当前状态：`blocked_minimax_api_call_failed_invalid_api_key`。
 - 下一个目标：更换或修正 MiniMax official API Platform 可用 key 后，重跑 1 次单图探针。
 
+### minimax_rerun_result
+
+- 已确认：本轮任务为 `minimax_watermark_free_sticker_rerun`。
+- 已确认：本轮复用已解析契约：endpoint `https://api.minimax.io/v1/image_generation`，model `image-01`，requires_group_id `false`。
+- 已确认：`.env` 中 MiniMax key 存在，但 key 未打印，`.env` 未提交。
+- 已确认：本轮只调用 MiniMax，只发起 1 次图片生成请求。
+- 已确认：MiniMax API 重跑仍返回 `base_resp.status_code=2049` / `status_msg=invalid api key`。
+- 已确认：本轮未生成图片，无法判断 watermark、generated label、logo、brand mark 或透明背景。
+- 已确认：重跑失败响应保存在 ignored `tmp/无水印贴纸候选_watermark_free_sticker_candidates/MiniMax重跑请求失败_minimax_rerun_request_failed.json`，不得提交。
+- 当前状态：`blocked_minimax_api_call_failed_invalid_api_key_after_rerun`。
+- 下一个目标：更换为 MiniMax official API Platform 可用 key，或改走下一个未被策略禁用的无水印图片 provider。
+
 ## 本轮新增｜Remotion 多组件能力证明 demo 桥接
 
 ### route_decision

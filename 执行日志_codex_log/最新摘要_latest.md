@@ -475,3 +475,17 @@
 - 已确认：新增契约解析为 `项目资料_docs/视频能力实验室_video_capability_lab/35_MiniMax图片API契约解析_minimax_image_api_contract.md`。
 - 当前状态：`blocked_minimax_api_call_failed_invalid_api_key`。
 - 待验证：更换或修正 MiniMax official API Platform 可用 key 后，才能重跑单图候选并判断 no watermark / no generated label / no logo / transparent or clean cutout source。
+
+## 本轮新增｜MiniMax key 修正后单图重跑仍 blocked
+
+- 已确认：本轮任务为 `minimax_watermark_free_sticker_rerun`。
+- 已确认：本轮执行路径为 `/Users/fan/Documents/vlog、odd/video_capability_lab`。
+- 已确认：当前 GitHub 仓库为 `fthytwerwt-sudo/video_capability_lab`，分支为 `main`。
+- 已确认：本轮复用 MiniMax 已解析契约：endpoint `https://api.minimax.io/v1/image_generation`，model `image-01`，requires_group_id `false`。
+- 已确认：`.env` 中 `MINIMAX_API_KEY` 存在，但 key 未打印，`.env` 未提交。
+- 已确认：本轮只调用 MiniMax，只发起 1 次图片生成请求，未调用 zhipu 或第二个 provider。
+- 已确认：MiniMax API 重跑仍返回 `base_resp.status_code=2049` / `status_msg=invalid api key`。
+- 已确认：本轮未生成图片，因此不能判断 no watermark / no generated label / no logo / transparent background。
+- 已确认：重跑失败响应位于 ignored `tmp/无水印贴纸候选_watermark_free_sticker_candidates/`，不得提交。
+- 当前状态：`blocked_minimax_api_call_failed_invalid_api_key_after_rerun`。
+- 待验证：需要更换 MiniMax official API Platform 可用 key，或进入下一个未被策略禁用的无水印图片 provider 探针。
