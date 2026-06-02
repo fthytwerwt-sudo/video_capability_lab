@@ -12,6 +12,16 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜目标样片贴纸锚点事件表与执行机制
+
+- 已确认：用户纠偏为“贴纸不是每个视频都一样，而是根据视频锚点来”。
+- 已确认：本轮任务为 `video_anchor_driven_sticker_system_spec_before_remotion_probe`。
+- 已确认：本轮新增文件为 `项目资料_docs/视频能力实验室_video_capability_lab/41_目标样片贴纸锚点事件表与执行机制_target_sample_sticker_anchor_event_system.md`。
+- 已确认：`41` 的目标样片来源为 `project_tables_and_prior_frame_review`，主要读取 `25/26/27/31/40`，没有新增抽帧或 render。
+- 已确认：`41` 建立了 10 个贴纸锚点候选事件，其中 `sticker_needed=true` 为 5 个，`sticker_needed=false` 为 5 个。
+- 已确认：本轮没有调用 API、没有生成贴纸、没有修改 Remotion、没有 render、没有提交视频/图片/音频/tmp/dist/runtime assets。
+- 下一目标：`gpt_review_target_sample_sticker_anchor_event_system`，先回审 `41`，不是直接进入 Remotion。
+
 ## 本轮新增｜对标视频贴纸锚点审计
 
 - 已确认：本轮任务为 `reference_video_sticker_anchor_audit`。

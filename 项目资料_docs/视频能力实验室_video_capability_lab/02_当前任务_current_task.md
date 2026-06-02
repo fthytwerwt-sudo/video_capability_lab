@@ -1,14 +1,39 @@
 # 当前任务
 
-当前任务：`reference_video_sticker_anchor_audit`。
+当前任务：`video_anchor_driven_sticker_system_spec_before_remotion_probe`。
 
-当前目标：从唯一对标视频中审计贴纸如何绑定视频主体、动作、物件和留白，避免把贴纸固化成固定组件模板。
+当前目标：为目标样片建立 `sticker_anchor_event_table（贴纸锚点事件表）`，并补齐进入 Remotion probe 前的视频锚点驱动贴纸机制。
 
-当前状态：`reference_video_sticker_anchor_audit_completed_no_asset_generated`。
+当前状态：`target_sample_sticker_anchor_event_system_completed_pending_gpt_review`。
 
-下一目标：`video_anchor_driven_sticker_system_spec_before_remotion_probe`。
+下一目标：`gpt_review_target_sample_sticker_anchor_event_system`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜目标样片贴纸锚点事件表与执行机制
+
+- task_type: `video_anchor_driven_sticker_system_spec_before_remotion_probe`
+- target_sample: `三十秒对标样片-30s-reference-sample`
+- target_sample_source: `project_tables_and_prior_frame_review`
+- source_reference_audit: `项目资料_docs/视频能力实验室_video_capability_lab/40_对标视频贴纸锚点审计_reference_sticker_anchor_audit.md`
+- new_report_file: `项目资料_docs/视频能力实验室_video_capability_lab/41_目标样片贴纸锚点事件表与执行机制_target_sample_sticker_anchor_event_system.md`
+- sticker_anchor_event_count: `10`
+- sticker_needed_true_count: `5`
+- sticker_needed_false_count: `5`
+- current_status: `target_sample_sticker_anchor_event_system_completed_pending_gpt_review`
+- next_goal: `gpt_review_target_sample_sticker_anchor_event_system`
+- api_call_allowed_this_round: `false`
+- sticker_image_generation_allowed_this_round: `false`
+- remotion_edit_allowed_this_round: `false`
+- render_allowed_this_round: `false`
+
+已确认：本轮用户纠偏为“贴纸不是每个视频都一样，而是根据视频锚点来”。
+
+已确认：`41` 已把目标样片的贴纸候选拆成 `sticker_needed=true` 与 `sticker_needed=false`，不为了凑数量硬塞贴纸。
+
+已确认：下一目标是 GPT / 用户回审 `41`，不是直接进入 Remotion。
+
+待验证：`41` 中 5 个 `sticker_needed=true` 事件是否适合下一轮小范围 Remotion probe，仍需 GPT / 用户回审。
 
 ## 本轮新增｜对标视频贴纸锚点审计
 

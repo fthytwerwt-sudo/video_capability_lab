@@ -1721,3 +1721,95 @@ expected_validation:
 - 禁止直接把所有镜头套用两类固定贴纸组件。
 - 禁止复制第三方贴纸原图、平台 UI、原字体、原文案、包装或账号信息。
 - 进入 Remotion probe 后必须抽 start / mid / exit frames 做 frame-level review。
+
+## 本轮新增｜目标样片贴纸锚点事件表与执行机制桥接
+
+### route_decision
+
+```yaml
+task_type: video_anchor_driven_sticker_system_spec_before_remotion_probe
+true_goal: 为目标样片建立 sticker_anchor_event_table，并补齐进入 Remotion probe 前的视频锚点驱动贴纸机制
+target_sample: 三十秒对标样片-30s-reference-sample
+target_sample_source: project_tables_and_prior_frame_review
+source_reference_audit: 项目资料_docs/视频能力实验室_video_capability_lab/40_对标视频贴纸锚点审计_reference_sticker_anchor_audit.md
+new_report_file: 项目资料_docs/视频能力实验室_video_capability_lab/41_目标样片贴纸锚点事件表与执行机制_target_sample_sticker_anchor_event_system.md
+content_status: target_sample_sticker_anchor_event_system_completed_pending_gpt_review
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+sticker_anchor_event_count: 10
+sticker_needed_true_count: 5
+sticker_needed_false_count: 5
+api_call_allowed_this_round: false
+asset_generation_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+render_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+updated_files:
+  - 项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/41_目标样片贴纸锚点事件表与执行机制_target_sample_sticker_anchor_event_system.md
+  - 执行日志_codex_log/最新摘要_latest.md
+expected_validation:
+  - workspace_identity_check
+  - required_files_read
+  - report_required_sections_grep
+  - no_api_call
+  - no_remotion_edit
+  - no_render
+  - no_env_or_media_staged
+  - git_diff_check
+  - path_limited_stage
+  - commit_push_remote_head
+```
+
+### allowed_actions
+
+- 新建 `41_目标样片贴纸锚点事件表与执行机制_target_sample_sticker_anchor_event_system.md`。
+- 更新 `02_当前任务_current_task.md`、`03_Codex执行桥接包_codex_execution_bridge.md`、`执行日志_codex_log/最新摘要_latest.md`。
+- 只读取目标样片相关项目表、已有 frame review 和本地视频技术探针结果。
+
+### forbidden_actions
+
+- 禁止调用图片 API 或任何外部生成 provider。
+- 禁止生成新贴纸图。
+- 禁止修改 Remotion 源码或数据。
+- 禁止 render 视频。
+- 禁止提交 `.env`、`tmp/`、`dist/`、视频、图片、音频、抽帧或 runtime assets。
+- 禁止把 `black_white_reaction_mark` / `yellow_attention_burst` 写成所有视频通用固定组件。
+- 禁止把本轮机制规格写成贴纸系统已验证或视觉语言已通过。
+
+### judgement_standards
+
+- `anchor_validity`: 有明确对象、动作、轨迹、留白或切点；没有锚点就不贴。
+- `role_fit`: 贴纸作用必须和锚点匹配，不能为了装饰而贴。
+- `shape_event_fit`: 形状必须来自动作、物件、情绪或画面关系。
+- `placement_fit`: 不压脸、不挡动作、不抢字幕，与主体保持合理呼吸距离。
+- `motion_fit`: 动效服务事件；BGM 未人工复听前不得写精准卡点。
+- `copy_risk_safe`: 不复制对标贴纸原图、平台 UI、品牌、包装、原字形、原文案。
+- `human_feel_pass`: 必须像自然贴上去的情绪标点，不像 PPT 图标、儿童模板、电商爆炸贴或工程 SVG 展示。
+
+### failure_feedback_routing
+
+- `fail_no_video_anchor`: 回到镜头选择；该镜头不贴或换锚点。
+- `fail_wrong_sticker_role`: 回到 `sticker_role_taxonomy` 重选作用。
+- `fail_fixed_template_usage`: 回到 `shape_derived_from_event`，禁止继续复用两个固定贴纸。
+- `fail_bad_placement`: 回到 `placement_relation`，检查压脸、挡动作、抢字幕、贴空处。
+- `fail_motion_not_event_based`: 回到 `motion_rule` 和 `duration_rule`。
+- `fail_copy_reference_asset`: 抽象机制并重画原创形状。
+- `fail_visual_clutter`: 减少贴纸、缩短时长、改成字幕或不贴。
+- `fail_frame_review_mismatch`: 回到单个 event，不重写全系统。
+- `fail_user_review_style_mismatch`: 回到 reference audit 和 style abstraction，需要 GPT 回审。
+- `fail_remotion_technical_error`: 只修组件实现，不改机制判断或素材事实。
+
+### remotion_entry_gate
+
+- 至少有 3 个 `sticker_needed=true` 事件。
+- 每个事件都有完整锚点、作用、形状、位置、动效、持续时间和复制风险字段。
+- 每个事件都能转成原创 SVG / Remotion vector。
+- 没有复制第三方贴纸资产。
+- 用户或 GPT 已回审 `41`。
+- 下一轮 Remotion probe 只允许小范围组件验证，不能写成视频已修好。
+
+### next_goal
+
+`gpt_review_target_sample_sticker_anchor_event_system`
