@@ -211,3 +211,19 @@
 已确认：后续 sticker task 必须先经过 `video_anchor -> attachment_relation -> shape_grammar -> stroke_outline -> scale_distance -> reaction_motion -> material_compositing -> style_sheet_acceptance_gate`，再决定是否进入 Remotion 小范围 probe。
 
 待验证：`44` 仍需 GPT / 用户回审；回审通过后才允许进入 `sticker_attachment_relation_style_sheet_probe（贴纸附属关系风格板探针）`。
+
+## L. universal_mechanism_gap_fix_addendum（通用机制缺口修补补充）
+
+- addendum_type: `universal_mechanism_gap_fix_addendum`
+- updated_mechanism_file: `项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md`
+- gap_fix_status: `bad_pattern_library_and_style_sheet_bridge_completed`
+- next_goal: `gpt_review_universal_sticker_visual_language_mechanism`
+- after_review_next_allowed_task: `sticker_attachment_relation_style_sheet_probe`
+
+已确认：`44` 已补齐 `bad_sticker_pattern_library`，后续贴纸风格板不得只用标准箭头、完整圈注、通用波纹、矩形纸签或浮动 UI 层来替代贴纸视觉语言。
+
+已确认：`44` 已补齐下一轮风格板探针所需的 `style_sheet_minimum_input`、`style_sheet_output_fields` 和 `style_sheet_acceptance_method`。
+
+已确认：后续不应直接回到 18 秒候选里调颜色、坐标、线宽、动画参数或贴纸数量；必须先通过 `44` 的 GPT / 用户回审，再进入小范围风格板探针。
+
+待验证：风格板方案、贴纸形状语法、人感验收和 vlog director capability 仍未验证通过。

@@ -454,6 +454,100 @@ attachment_relation
 | `material_compositing_rule` | 已定义阴影、纸感、粗糙边、透明度和融合规则。 | 贴纸需要压在真实画面上时适用。 | 禁止平面 UI、PPT、工程 SVG 质感。 | `human_feel_gate`。 | `fail_material_flat_or_svg_like`。 | 回到材质融合规则。 |
 | `style_sheet_acceptance_gate` | 已定义 Remotion 前的静态风格板验收。 | 进入任何 Remotion probe 前必须适用。 | 风格板不可选时禁止进 Remotion。 | 用户 / GPT 能选出方向。 | `fail_style_sheet_not_selectable`。 | 回到风格板重做。 |
 
+### N.2 style_sheet_minimum_input（风格板最小输入）
+
+下一轮风格板至少需要以下输入；缺任一项，默认不进入风格板生成。
+
+| field | requirement | blocked_if_missing |
+|---|---|---|
+| `source_frame（原始帧）` | 原始帧或可回审截图，必须能看见主体、动作点、边缘或留白。 | `blocked_style_sheet_input_missing_source_frame` |
+| `source_event_id（来源事件编号）` | 来自 `41` 或后续事件表的 event / shot id。 | `blocked_style_sheet_input_missing_event_id` |
+| `anchor_target（锚点对象）` | 主体、动作点、物件、边缘、接触点、轨迹、留白或字幕关系。 | `blocked_style_sheet_input_missing_anchor_target` |
+| `anchor_reason（锚点理由）` | 说明为什么这个贴纸应该出现，不贴会少什么。 | `blocked_style_sheet_input_missing_anchor_reason` |
+| `attachment_relation（附属关系）` | 先选 `sticker_attachment_relation` 中的一类，不允许只有 x/y。 | `blocked_style_sheet_input_missing_attachment_relation` |
+| `background_complexity（背景复杂度）` | 标出背景是复杂纹理、干净留白、暗背景、亮背景或高反差。 | `blocked_style_sheet_input_missing_background_complexity` |
+| `caption_relation（字幕关系）` | 说明 caption 是否已承担语义，贴纸是否会重复字幕。 | `blocked_style_sheet_input_missing_caption_relation` |
+| `copy_risk（复制风险）` | 标出第三方贴纸原图、原字、平台 UI、包装、品牌或账号信息风险。 | `blocked_style_sheet_input_missing_copy_risk` |
+| `current_bad_pattern（当前错误模式）` | 从 `bad_sticker_pattern_library` 中选当前最可能复发的错误。 | `blocked_style_sheet_input_missing_bad_pattern` |
+| `desired_visual_role（期望视觉作用）` | 说明方案要承担 attention、touch reaction、peek、surface face、breath 等哪种视觉作用。 | `blocked_style_sheet_input_missing_visual_role` |
+
+最小输入判断：
+
+- pass: 3 个候选事件均有上述 10 个字段。
+- partial: 只有 1-2 个候选事件字段齐全，可以先缩小风格板范围。
+- fail: 只有原始帧和想法，没有锚点、附属关系或错误模式。
+- blocked: 缺 `source_frame`、`anchor_target`、`attachment_relation` 或 `copy_risk`。
+
+### N.3 style_sheet_output_fields（风格板输出字段）
+
+每个 style option 必须输出以下字段，字段不齐不得进入 GPT / 用户回审。
+
+| field | requirement | related_gate |
+|---|---|---|
+| `style_option_id（风格方案编号）` | 唯一编号，例如 `shot_01_option_A`。 | `style_sheet_acceptance_gate` |
+| `source_event_id（来源事件编号）` | 回指事件表，不允许脱离事件做漂亮方案。 | `anchor_gate` |
+| `attachment_relation（附属关系）` | 明确贴纸附属于谁或什么关系。 | `attachment_gate` |
+| `shape_grammar（形状语法）` | 从 `shape_grammar` 中选形状，并说明为何来自事件。 | `shape judgement` |
+| `stroke_outline（描边系统）` | 写 `inner_stroke`、`outer_stroke`、`stroke_variation`、`shadow` 或不用的理由。 | `stroke judgement` |
+| `scale_distance（比例距离）` | 写主体比例、边缘距离、safe area、attention weight。 | `scale judgement` |
+| `reaction_motion_signature（反应动效签名）` | 写建议动效，但本轮不实现，不写精准 BGM 卡点。 | `motion judgement` |
+| `material_compositing（材质融合）` | 写纸感、胶贴感、粗糙边、透明度和背景融合策略。 | `material judgement` |
+| `bad_pattern_avoided（规避的错误模式）` | 至少写 1 个本方案规避的 `bad_sticker_pattern_library` 项。 | `bad_pattern_library` |
+| `copy_risk_check（复制风险检查）` | 明确 safe / partial / unsafe；unsafe 不得进入 Remotion。 | `copy risk judgement` |
+| `expected_human_feel（预期人感）` | 说明它应像自然反应、轻喜剧标点、触点反应还是呼吸线。 | `human feel judgement` |
+| `why_this_is_not_template（为什么不是模板）` | 说明它为什么不是固定箭头 / 圈 / 波浪线 / 标签模板。 | `shape judgement` |
+| `pass_partial_fail_self_check（自检结论）` | Codex 自检只能写 pass / partial / fail / blocked，并给证据。 | `style_sheet_acceptance_gate` |
+
+输出失败规则：
+
+1. 如果 `bad_pattern_avoided` 为空，触发 `fail_style_sheet_bad_pattern_unchecked`。
+2. 如果 `why_this_is_not_template` 只能写“因为颜色不同”，触发 `fail_color_only_iteration`。
+3. 如果 `copy_risk_check=unsafe`，触发 `fail_copy_reference_asset`，该方案删除。
+4. 如果 `pass_partial_fail_self_check=pass` 但无法回指 `attachment_relation`，降级为 `fail_wrong_attachment_relation`。
+
+### N.4 style_sheet_acceptance_method（风格板验收方式）
+
+GPT / 用户回审风格板时，只判断 5 件事：
+
+1. 第一眼是否知道贴纸附属于谁。
+2. 形状是否从画面事件长出来，而不是模板。
+3. 描边和材质是否让它像贴在真实画面上。
+4. 是否比 18 秒候选明显少一点工程 SVG / PPT 感。
+5. 是否有至少 1 个方案值得进入 Remotion 小范围 probe。
+
+验收状态定义：
+
+| status | definition | next_action |
+|---|---|---|
+| `pass（通过）` | 至少 1 个事件有 1 个方案通过；方案能追溯到 attachment relation；不是错误模式库里的模式；用户 / GPT 能说出为什么选它。 | 进入小范围 Remotion probe，但仍只验证 3-5 个事件。 |
+| `partial（部分成立）` | 有方向接近，但仍有局部描边、材质、比例或 copy risk 风险。 | 回到 style option 局部重画，不进完整视频。 |
+| `fail（失败）` | 所有方案都是换色、换大小、换箭头 / 圈 / 波浪线；或需要大量文字解释才知道附属于谁。 | 重做风格板，回到 `style_sheet_minimum_input`。 |
+| `blocked（阻断）` | 原始帧、锚点、附属关系或复制风险缺失；或方案看起来仍像 UI / SVG / PPT / 贴纸包素材；或 copy risk 不安全。 | 不允许进入 Remotion，先补输入或删除方案。 |
+
+通过条件：
+
+1. 至少 1 个事件有 1 个方案通过。
+2. 方案能追溯到 `attachment_relation`。
+3. 方案不是 `bad_sticker_pattern_library` 里的错误模式。
+4. 用户 / GPT 能说出为什么选它。
+
+失败条件：
+
+1. 所有方案都是换色、换大小、换箭头 / 圈 / 波浪线。
+2. 需要大量文字解释才知道附属于谁。
+3. 看起来仍像 UI / SVG / PPT / 贴纸包素材。
+4. 复制风险不安全。
+
+验收输出必须写：
+
+| field | requirement |
+|---|---|
+| `selected_option_id` | 选中的方案；没有则写 `none`。 |
+| `acceptance_status` | `pass / partial / fail / blocked`。 |
+| `selection_reason` | 为什么选或为什么不选。 |
+| `route_back_to` | 失败时回到输入、形状、描边、材质、比例、附属关系或 copy risk。 |
+| `remotion_probe_allowed` | 只有 `acceptance_status=pass` 时才可写 `true`。 |
+
 ## O. do_not_claim（禁止声明）
 
 不得声明：
@@ -470,3 +564,27 @@ attachment_relation
 `universal_sticker_visual_language_mechanism_completed_pending_probe_validation`
 
 待验证：本机制是否能在后续不同 vlog / odd / 对标样片中稳定复用，必须等待多案例 style sheet、Remotion probe、frame review 和用户 / GPT 回审。
+
+## P. bad_sticker_pattern_library（错误贴纸模式库）
+
+本库用于防止 Codex 重复上一轮已经发生过的贴纸错误。下一轮风格板的每个方案都必须声明它规避了哪些错误模式。
+
+| bad_pattern | symptom（症状） | root_cause（根因） | why_it_fails（为什么失败） | fix_route（修正路由） | forbidden_response（禁止反应） | related_failure_code（关联失败代码） |
+|---|---|---|---|---|---|---|
+| `bad_standard_arrow（标准箭头感）` | 像教学标注、UI 指示、方向箭头。 | 没有从动作方向 / 接触点长出来，只把箭头当注意力默认模板。 | 观众看到的是“指示符”，不是动作旁边冒出的反应贴纸。 | 回到 `attachment_relation + shape_grammar`，改成短促笔触或动作反应符号。 | 只缩短箭头、只换黄颜色、只移动箭头尖。 | `fail_shape_not_event_derived` |
+| `bad_full_circle_annotation（完整圈注标注感）` | 像审片圈注或检查标记。 | 完整圈住空叶子 / 空背景，而不是附属于显露边界。 | 圈注把画面变成审核标记，不像自然贴纸。 | 改成半圈、peek mark、边缘短线，或删除。 | 只把圆圈画得更歪、只调透明度。 | `fail_wrong_attachment_relation` |
+| `bad_generic_wave_decoration（通用波浪装饰线）` | 像装饰海浪 / 素材包波纹。 | 没有真实轨迹、边缘或运动方向。 | 波浪线无法解释它附着在哪里，只是在填空。 | 回到 `edge_attached / motion_direction_attached`；找不到轨迹则 `no_shape`。 | 继续加波浪段数或换蓝色。 | `fail_no_anchor` |
+| `bad_rectangle_paper_tag（矩形纸签说明牌）` | 像说明牌、PPT 标签、caption 替代品。 | 没有附属于接触点或表面，只是漂浮文字。 | 贴纸承担了字幕说明功能，失去动作反应感。 | 改成 `contact_spark`、`micro_word_bubble` 或直接由 caption 承担。 | 继续写更短的矩形标签。 | `fail_shape_not_event_derived` |
+| `bad_floating_ui_overlay（漂浮 UI 层）` | 贴纸像浮在画面上，不像附着在主体上。 | 只有 x/y 坐标，没有 attachment relation。 | 贴纸与真实画面没有空间关系，像后期 UI。 | 回到 `sticker_attachment_relation` 和 `scale_distance_rule`。 | 只微调 x/y、scale、opacity。 | `fail_scale_distance_floaty` |
+| `bad_clean_svg_path（干净工程 SVG 路径）` | 线条太平滑、太均匀、没有手绘粗细变化。 | 只实现了 shape，没有 `stroke_variation` / `material_compositing`。 | 能证明代码画出来了，但不像贴在 vlog 画面上的自然贴纸。 | 回到 `stroke_outline_system` 和 `material_compositing_rule`。 | 只增加 strokeWidth 或 blur。 | `fail_stroke_too_thin_or_ui_like` |
+| `bad_color_only_iteration（只换颜色的假迭代）` | 贴纸不像时只改颜色或透明度。 | 没有修形状、描边、比例、附属关系。 | 失败层没有变化，只是换皮。 | 先定位失败层，不允许直接改色作为主修复。 | 把颜色调整写成风格升级。 | `fail_style_sheet_not_selectable` |
+| `bad_too_many_stickers（贴纸数量冒充质量）` | 为了热闹每个镜头都贴。 | 没有允许 `sticker_needed=false`。 | 贴纸数量增加视觉噪音，掩盖锚点不成立。 | 回到 event table，减少贴纸。 | 继续补更多装饰贴纸。 | `fail_visual_clutter` |
+| `bad_caption_duplicate_sticker（贴纸重复字幕）` | 字幕说什么，贴纸又写一遍。 | 没有区分 caption role 和 sticker role。 | 贴纸变成字幕复读，不能承担视觉反应。 | 回到 `caption_relation_attached`，必要时只留 caption。 | 把同一句话做成更小贴纸。 | `fail_visual_clutter` |
+| `bad_reference_asset_copy（参考资产复刻风险）` | 过度接近对标贴纸原图、原字、平台 UI、包装或品牌信息。 | 把 reference 当资产，而不是机制。 | 有版权 / 平台 / 品牌风险，也不能证明 Codex 形成原创机制。 | 删除复刻部分，只保留机制重新原创。 | 临摹原图、套原字、复刻包装符号。 | `fail_copy_reference_asset` |
+
+错误模式库使用规则：
+
+1. 每个 style option 必须写 `bad_pattern_avoided`。
+2. 如果方案命中任一 bad pattern 且无法修正，必须写 `acceptance_status=fail` 或 `blocked`。
+3. 不能把“换颜色、放大、缩小、移动一点”写成脱离 bad pattern 的修复。
+4. 如果用户 / GPT 认为方案仍像上述错误模式，必须回到对应 `fix_route`，不得直接进入 Remotion。

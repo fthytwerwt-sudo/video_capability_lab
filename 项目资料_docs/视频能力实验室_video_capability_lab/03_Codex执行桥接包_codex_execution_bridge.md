@@ -2033,4 +2033,71 @@ expected_validation:
 
 ### next_goal
 
-`gpt_review_target_sample_sticker_anchor_event_system`
+`gpt_review_universal_sticker_visual_language_mechanism`
+
+## 本轮新增｜通用贴纸视觉语言机制桥接补齐
+
+### route_decision
+
+```yaml
+task_type: sticker_mechanism_bridge_gap_fix
+true_goal: 补齐 44 的错误贴纸模式库和下一轮风格板执行桥接，并把 03 尾部 next goal 同步到当前 44 回审目标
+source_mechanism_file: 项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md
+fixed_gap:
+  - bridge_next_goal_outdated
+  - missing_bad_sticker_pattern_library
+  - missing_style_sheet_minimum_input_output_acceptance
+next_goal: gpt_review_universal_sticker_visual_language_mechanism
+after_review_next_allowed_task: sticker_attachment_relation_style_sheet_probe
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+api_call_allowed_this_round: false
+asset_generation_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+render_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+updated_files:
+  - 项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/43_十八秒候选与对标贴纸差距审计_18s_candidate_reference_sticker_gap_audit.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md
+  - 执行日志_codex_log/最新摘要_latest.md
+expected_validation:
+  - workspace_identity_check
+  - required_files_read
+  - bridge_next_goal_check
+  - bad_pattern_library_check
+  - style_sheet_bridge_check
+  - no_api_call
+  - no_remotion_edit
+  - no_render
+  - no_env_or_runtime_assets_staged
+  - git_diff_check
+  - path_limited_stage
+  - commit_push_remote_head
+```
+
+### fixed_gap
+
+| gap | fix |
+|---|---|
+| `bridge_next_goal_outdated` | 本段落追加在 `03` 尾部，当前 next goal 明确为 `gpt_review_universal_sticker_visual_language_mechanism`。 |
+| `missing_bad_sticker_pattern_library` | `44` 已追加 `P. bad_sticker_pattern_library（错误贴纸模式库）`，覆盖标准箭头感、完整圈注标注感、通用波浪装饰线、矩形纸签说明牌、漂浮 UI 层、干净工程 SVG 路径、只换颜色假迭代、贴纸数量冒充质量、贴纸重复字幕和参考资产复刻风险。 |
+| `missing_style_sheet_minimum_input_output_acceptance` | `44` 已在 `N. next_execution_bridge` 中追加 `N.2 style_sheet_minimum_input`、`N.3 style_sheet_output_fields`、`N.4 style_sheet_acceptance_method`。 |
+
+### next_goal
+
+`gpt_review_universal_sticker_visual_language_mechanism`
+
+### after_review_next_allowed_task
+
+`sticker_attachment_relation_style_sheet_probe（贴纸附属关系风格板探针）`
+
+进入该任务前必须确认：
+
+1. GPT / 用户已回审 `44`。
+2. 下一轮至少有 `source_frame`、`source_event_id`、`anchor_target`、`anchor_reason`、`attachment_relation`、`background_complexity`、`caption_relation`、`copy_risk`、`current_bad_pattern`、`desired_visual_role`。
+3. 每个 style option 必须输出 `style_option_id`、`shape_grammar`、`stroke_outline`、`scale_distance`、`reaction_motion_signature`、`material_compositing`、`bad_pattern_avoided`、`copy_risk_check`、`why_this_is_not_template` 和 `pass_partial_fail_self_check`。
+4. 风格板验收只判断附属关系、事件生长形状、真实画面压层、工程 SVG / PPT 感是否减少，以及是否有至少 1 个方案值得小范围 Remotion probe。
+
+不得把本轮桥接补齐写成贴纸系统已验证、视觉语言已通过、视频已修好或 Remotion integration completed。

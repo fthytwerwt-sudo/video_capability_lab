@@ -1,14 +1,38 @@
 # 当前任务
 
-当前任务：`universal_sticker_visual_language_mechanism_completion`。
+当前任务：`sticker_mechanism_bridge_gap_fix`。
 
-当前目标：把贴纸视觉语言从单片差距审计升级为后续所有 vlog / odd / 对标样片可复用的通用机制、流程、判断标准和失败反馈路由。
+当前目标：补齐 `44` 的错误贴纸模式库和风格板最小输入 / 输出 / 验收桥接，并同步 `03` 尾部 next goal。
 
-当前状态：`universal_sticker_visual_language_mechanism_completed_pending_gpt_review`。
+当前状态：`sticker_mechanism_bridge_gap_fix_completed_pending_gpt_review`。
 
 下一目标：`gpt_review_universal_sticker_visual_language_mechanism`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜贴纸机制桥接缺口修补
+
+- task_type: `sticker_mechanism_bridge_gap_fix`
+- source_mechanism_file: `项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md`
+- bridge_file: `项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md`
+- current_status: `sticker_mechanism_bridge_gap_fix_completed_pending_gpt_review`
+- next_goal: `gpt_review_universal_sticker_visual_language_mechanism`
+- after_review_next_allowed_task: `sticker_attachment_relation_style_sheet_probe`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- api_call_allowed_this_round: `false`
+- remotion_edit_allowed_this_round: `false`
+- render_allowed_this_round: `false`
+- asset_generation_allowed_this_round: `false`
+
+已确认：本轮不是直接生成贴纸、不是直接做风格板图片、不是继续改 18 秒候选视频，而是先修补贴纸机制到下一轮可执行风格板之间的桥接缺口。
+
+已确认：`03` 尾部 next goal 已同步为 `gpt_review_universal_sticker_visual_language_mechanism`，不再停留在旧的 `gpt_review_target_sample_sticker_anchor_event_system`。
+
+已确认：`44` 已补齐 `bad_sticker_pattern_library`，用于阻断标准箭头、完整圈注、通用波纹、矩形纸签、浮动 UI 叠层、clean SVG path、只改颜色、贴纸过量、字幕复述和复制参考资产等错误模式。
+
+已确认：`44` 已补齐下一轮风格板探针所需的 `style_sheet_minimum_input`、`style_sheet_output_fields` 和 `style_sheet_acceptance_method`。
+
+待验证：`44` 和本轮桥接修补仍需 GPT / 用户回审；回审通过后才允许进入 `sticker_attachment_relation_style_sheet_probe`。
 
 ## 本轮新增｜通用贴纸视觉语言机制补全
 
