@@ -1,14 +1,40 @@
 # 当前任务
 
-当前任务：`remotion_18s_anchor_sticker_review_candidate`。
+当前任务：`sticker_visual_gap_audit`。
 
-当前目标：基于 `41` 的视频锚点贴纸事件表，生成 18 秒本地 Remotion 审片候选，并输出每个贴纸 start / mid / exit frame review。
+当前目标：对比 18 秒候选视频和对标视频，审计贴纸视觉语言差距，判断下一轮应回到哪一层修正。
 
-当前状态：`18s_anchor_sticker_review_candidate_rendered_pending_user_review`。
+当前状态：`18s_candidate_sticker_gap_audit_completed_pending_gpt_review`。
 
-下一目标：`user_gpt_review_18s_anchor_sticker_candidate`。
+下一目标：`gpt_review_18s_candidate_sticker_gap_audit`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜18 秒候选与对标贴纸差距审计
+
+- task_type: `sticker_visual_gap_audit`
+- user_review_quote: `我看了贴纸，没得啊，和之前比就是锚点更清晰了，但是还是和对标视频的差距很大啊。`
+- candidate_video_path: `dist/十八秒锚点贴纸候选_18s_anchor_sticker_candidate/十八秒锚点贴纸候选_18s_anchor_sticker_candidate.mp4`
+- reference_video_path: `素材/vlog 参考/新参考+解析/v2700fgi0000d85e6c7og65uq46kpmu0.MP4`
+- new_report_file: `项目资料_docs/视频能力实验室_video_capability_lab/43_十八秒候选与对标贴纸差距审计_18s_candidate_reference_sticker_gap_audit.md`
+- audit_status: `18s_candidate_sticker_gap_audit_completed_pending_gpt_review`
+- recommended_next_route: `sticker_style_sheet_probe`
+- api_call_allowed_this_round: `false`
+- remotion_edit_allowed_this_round: `false`
+- render_allowed_this_round: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+
+已确认：本轮只做差距审计，没有修改 Remotion，没有重新 render，没有调用图片 / 视频 / 音频 API，没有生成新贴纸图。
+
+已确认：18 秒候选视频和对标视频均可读取、可解码、有音轨；候选视频技术元数据为 `18.048000s / 1080x1920 / 30fps / h264 / AAC stereo`，对标视频技术元数据为 `25.911995s / 720x1280 / 60fps / h264 / AAC stereo`。
+
+已确认：本轮抽取候选贴纸 start / mid / exit 帧 `12` 张，对标贴纸机制参考帧 `14` 张，均位于 ignored `tmp/`，不提交。
+
+部分成立：锚点层比上一轮更清楚，4 个候选贴纸事件都能回到 `41`；但贴纸视觉语言仍未过线。
+
+已确认：主失败层为 `shape_layer`、`stroke_layer`、`visual_material_feel`、`placement / integration` 和 `human_feel`；当前贴纸仍像 Remotion / SVG 组件展示，而不是对标视频那种自然贴在主体、物件、动作旁边的反应贴纸。
+
+待验证：43 报告需 GPT / 用户回审；不得声明贴纸已通过、视觉语言已通过、视频已修好或 vlog director capability 已验证。
 
 ## 本轮新增｜18 秒锚点贴纸审片候选
 

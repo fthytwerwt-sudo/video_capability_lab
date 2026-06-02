@@ -12,6 +12,20 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜18 秒候选与对标贴纸差距审计
+
+- 已确认：用户人审反馈为：`我看了贴纸，没得啊，和之前比就是锚点更清晰了，但是还是和对标视频的差距很大啊。`
+- 已确认：本轮任务为 `sticker_visual_gap_audit`，只做差距审计，不修改 Remotion，不重新 render，不调用 API，不生成新贴纸图。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/43_十八秒候选与对标贴纸差距审计_18s_candidate_reference_sticker_gap_audit.md`。
+- 已确认：候选视频为 `dist/十八秒锚点贴纸候选_18s_anchor_sticker_candidate/十八秒锚点贴纸候选_18s_anchor_sticker_candidate.mp4`，技术验证通过：`18.048000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+- 已确认：对标视频为 `素材/vlog 参考/新参考+解析/v2700fgi0000d85e6c7og65uq46kpmu0.MP4`，技术验证通过：`25.911995s / 720x1280 / 60fps / h264 / AAC stereo / decodable=true`。
+- 已确认：本轮临时抽取候选贴纸帧 `12` 张、对标贴纸机制参考帧 `14` 张，均位于 ignored `tmp/十八秒候选贴纸差距审计_18s_candidate_sticker_gap_audit/`，不提交。
+- 部分成立：锚点层更清楚，4 个候选贴纸事件均能回到 `41`。
+- 已确认：主失败层不是继续加锚点，而是 `shape_layer`、`stroke_layer`、`visual_material_feel`、`placement / integration` 和 `human_feel`；当前贴纸仍像 Remotion / SVG 组件展示，不像对标视频里自然附着在主体、物件和动作旁边的反应贴纸。
+- 下一目标：`gpt_review_18s_candidate_sticker_gap_audit`。
+- 推荐下一路线：`sticker_style_sheet_probe`，先做贴纸风格板探针，不直接重改 18 秒候选。
+- 待验证：43 报告需 GPT / 用户回审；不得声明贴纸通过、视觉语言通过、视频已修好或 vlog director capability verified。
+
 ## 本轮新增｜18 秒锚点贴纸审片候选
 
 - 已确认：本轮任务为 `remotion_18s_anchor_sticker_review_candidate`。

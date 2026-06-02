@@ -83,6 +83,70 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜18 秒候选与对标贴纸差距审计桥接
+
+### route_decision
+
+```yaml
+task_type: sticker_visual_gap_audit
+user_review_input: 我看了贴纸，没得啊，和之前比就是锚点更清晰了，但是还是和对标视频的差距很大啊。
+allowed_actions:
+  - 读取当前仓库项目事实
+  - ffprobe / ffmpeg 只读检查 18 秒候选和对标视频
+  - 临时抽取候选贴纸 start / mid / exit frames
+  - 临时抽取对标视频贴纸机制参考帧
+  - 输出 43 差距审计报告
+  - 更新 02 / 03 / latest
+  - 可选在 42 追加 user_review / gap_audit_link
+forbidden_actions:
+  - 修改 remotion/ 下任何文件
+  - 重新 render 视频
+  - 调用图片 / 视频 / 音频 API
+  - 生成新贴纸图
+  - 提交视频、图片、音频、抽帧、tmp、dist、runtime assets 或 .env
+  - 复制对标贴纸原图、原字体、原文案、平台 UI、包装、账号信息或品牌资产
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+expected_validation:
+  - video-metadata-probe for candidate and reference videos
+  - candidate sticker start/mid/exit frame extraction
+  - reference sticker mechanism frame extraction
+  - report contains user quote and layered gap table
+  - git diff --check
+  - no remotion diff
+  - no env/runtime assets staged
+  - path-limited stage
+  - commit_push_remote_head
+```
+
+### audit_inputs
+
+| input | path | status |
+|---|---|---|
+| candidate_video | `dist/十八秒锚点贴纸候选_18s_anchor_sticker_candidate/十八秒锚点贴纸候选_18s_anchor_sticker_candidate.mp4` | `validation_status=passed` |
+| reference_video | `素材/vlog 参考/新参考+解析/v2700fgi0000d85e6c7og65uq46kpmu0.MP4` | `validation_status=passed` |
+| candidate_report | `项目资料_docs/视频能力实验室_video_capability_lab/42_十八秒锚点贴纸正片候选报告_18s_anchor_sticker_candidate_report.md` | read |
+| reference_audit | `项目资料_docs/视频能力实验室_video_capability_lab/40_对标视频贴纸锚点审计_reference_sticker_anchor_audit.md` | read |
+
+### audit_outputs
+
+| artifact | path | status |
+|---|---|---|
+| gap audit report | `项目资料_docs/视频能力实验室_video_capability_lab/43_十八秒候选与对标贴纸差距审计_18s_candidate_reference_sticker_gap_audit.md` | committed source |
+| candidate frames | `tmp/十八秒候选贴纸差距审计_18s_candidate_sticker_gap_audit/candidate_frames/` | ignored runtime, not committed |
+| reference frames | `tmp/十八秒候选贴纸差距审计_18s_candidate_sticker_gap_audit/reference_frames/` | ignored runtime, not committed |
+
+### current_status
+
+- 部分成立：锚点层更清晰，4 个候选 sticker events 都能回到 `41`。
+- 已确认：主失败不在“继续加锚点”，而在 `shape_layer`、`stroke_layer`、`visual_material_feel`、`placement / integration` 和 `human_feel`。
+- 已确认：当前贴纸仍像 Remotion / SVG 组件展示，不像对标视频里附着在主体、物件、动作旁边的自然反应贴纸。
+- 待验证：43 报告需 GPT / 用户回审，不得声明 sticker passed、visual language passed、video fixed 或 vlog director capability verified。
+
+### next_goal
+
+下一个目标：GPT / 用户回审 `43` 差距报告；若认可判断，先执行 `sticker_style_sheet_probe`，不要直接重改 18 秒候选。
+
 ## 本轮新增｜18 秒锚点贴纸候选桥接
 
 ### route_decision

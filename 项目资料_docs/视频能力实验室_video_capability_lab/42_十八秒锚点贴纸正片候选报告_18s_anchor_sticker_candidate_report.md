@@ -111,3 +111,13 @@
 | 贴纸太多或抢镜 | `stickerPolicy` 减法，不新增贴纸 |
 | BGM 节奏不贴 | BGM 复听 / marker review，不声明精准卡点 |
 | 整体不像参考 | `29/31/40/41` 的判断层重判，不盲目调参 |
+
+## 9. user_review_and_gap_audit（用户人审与差距审计）
+
+- user_review_quote: `我看了贴纸，没得啊，和之前比就是锚点更清晰了，但是还是和对标视频的差距很大啊。`
+- gap_audit_report: `项目资料_docs/视频能力实验室_video_capability_lab/43_十八秒候选与对标贴纸差距审计_18s_candidate_reference_sticker_gap_audit.md`
+- gap_audit_status: `18s_candidate_sticker_gap_audit_completed_pending_gpt_review`
+
+已确认：用户反馈说明锚点层有进步，但贴纸视觉语言仍未过线。
+
+待验证：不得把 18 秒候选写成视觉语言通过、贴纸机制通过、视频已修好或 vlog director capability verified。
