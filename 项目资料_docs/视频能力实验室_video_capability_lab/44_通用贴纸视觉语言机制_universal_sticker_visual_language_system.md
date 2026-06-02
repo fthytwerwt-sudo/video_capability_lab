@@ -588,3 +588,9 @@ GPT / 用户回审风格板时，只判断 5 件事：
 2. 如果方案命中任一 bad pattern 且无法修正，必须写 `acceptance_status=fail` 或 `blocked`。
 3. 不能把“换颜色、放大、缩小、移动一点”写成脱离 bad pattern 的修复。
 4. 如果用户 / GPT 认为方案仍像上述错误模式，必须回到对应 `fix_route`，不得直接进入 Remotion。
+
+## Q. latest_style_sheet_probe_link（最新风格板探针链接）
+
+- latest_probe_file: `项目资料_docs/视频能力实验室_video_capability_lab/45_贴纸附属关系风格板探针_sticker_attachment_relation_style_sheet_probe.md`
+- style_sheet_output_path: `tmp/贴纸附属关系风格板_sticker_attachment_relation_style_sheet/贴纸附属关系风格板_sticker_attachment_relation_style_sheet.jpg`
+- next_goal: `gpt_user_review_sticker_attachment_relation_style_sheet`

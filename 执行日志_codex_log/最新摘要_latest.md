@@ -12,6 +12,23 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜贴纸附属关系风格板探针
+
+- 已确认：本轮任务为 `sticker_attachment_relation_style_sheet_probe`。
+- 已确认：本轮基于 `44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md` 执行，不重改 18 秒视频，不 render 正片，不调用图片 / 视频 / 音频 API，不生成第三方贴纸图。
+- 已确认：本轮候选视频技术探针通过：`18.048000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+- 已确认：本轮对标视频技术探针通过：`25.911995s / 720x1280 / 60fps / h264 / AAC stereo / decodable=true`。
+- 已确认：本轮从 18 秒候选视频抽取 3 个 source frames 到 ignored `tmp/贴纸附属关系风格板_sticker_attachment_relation_style_sheet/source_frames/`，分别为 `shot_01=2.92s`、`shot_03=7.38s`、`shot_05=10.26s`。
+- 已确认：本轮生成静态风格板到 ignored `tmp/贴纸附属关系风格板_sticker_attachment_relation_style_sheet/贴纸附属关系风格板_sticker_attachment_relation_style_sheet.jpg`，该图片不提交 Git。
+- 已确认：选用 3 个事件：`shot_01_panda_open_arrow`、`shot_03_bamboo_hide_circle`、`shot_05_panda_bite_tag`。
+- 已确认：每个事件生成 3 个静态风格方案，共 `9` 个方案；每个方案均写入 `attachment_relation`、`shape_grammar`、`stroke_outline`、`scale_distance`、`reaction_motion_signature`、`material_compositing`、`bad_pattern_avoided`、`copy_risk_check` 和 `why_this_is_not_template`。
+- 部分成立：Codex 自评最值得 GPT / 用户先回审的是 `shot_05_option_A`，原因是它直接附着到熊猫嘴 / 竹子的接触点，规避上一版矩形纸签说明牌问题。
+- 当前状态：`sticker_attachment_relation_style_sheet_generated_pending_gpt_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`gpt_user_review_sticker_attachment_relation_style_sheet`。
+- 待验证：风格板仍等待 GPT / 用户回审；不得声明贴纸通过、视觉语言通过、视频已修好、Remotion completed、sticker system verified 或 vlog director capability verified。
+- 已确认：本轮没有提交视频、图片、音频、抽帧、`tmp/`、`dist/` 或 runtime assets。
+
 ## 本轮新增｜贴纸机制桥接缺口修补
 
 - 已确认：本轮任务为 `sticker_mechanism_bridge_gap_fix`。

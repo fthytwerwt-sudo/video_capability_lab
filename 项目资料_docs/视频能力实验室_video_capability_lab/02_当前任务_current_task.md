@@ -1,14 +1,43 @@
 # 当前任务
 
-当前任务：`sticker_mechanism_bridge_gap_fix`。
+当前任务：`sticker_attachment_relation_style_sheet_probe`。
 
-当前目标：补齐 `44` 的错误贴纸模式库和风格板最小输入 / 输出 / 验收桥接，并同步 `03` 尾部 next goal。
+当前目标：基于 `44` 生成 3 个代表性候选镜头的静态贴纸附属关系风格板，让 GPT / 用户先判断哪种 `attachment_relation + shape_grammar + stroke_outline + material_compositing + human_feel` 更接近对标视频。
 
-当前状态：`sticker_mechanism_bridge_gap_fix_completed_pending_gpt_review`。
+当前状态：`sticker_attachment_relation_style_sheet_generated_pending_gpt_user_review`。
 
-下一目标：`gpt_review_universal_sticker_visual_language_mechanism`。
+下一目标：`gpt_user_review_sticker_attachment_relation_style_sheet`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜贴纸附属关系风格板探针
+
+- task_type: `sticker_attachment_relation_style_sheet_probe`
+- source_mechanism_file: `项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md`
+- source_candidate_video: `dist/十八秒锚点贴纸候选_18s_anchor_sticker_candidate/十八秒锚点贴纸候选_18s_anchor_sticker_candidate.mp4`
+- source_reference_video: `素材/vlog 参考/新参考+解析/v2700fgi0000d85e6c7og65uq46kpmu0.MP4`
+- new_report_file: `项目资料_docs/视频能力实验室_video_capability_lab/45_贴纸附属关系风格板探针_sticker_attachment_relation_style_sheet_probe.md`
+- local_style_sheet_output: `tmp/贴纸附属关系风格板_sticker_attachment_relation_style_sheet/贴纸附属关系风格板_sticker_attachment_relation_style_sheet.jpg`
+- source_frame_output_dir: `tmp/贴纸附属关系风格板_sticker_attachment_relation_style_sheet/source_frames/`
+- selected_events: `shot_01_panda_open_arrow`, `shot_03_bamboo_hide_circle`, `shot_05_panda_bite_tag`
+- style_options_count: `9`
+- current_status: `sticker_attachment_relation_style_sheet_generated_pending_gpt_user_review`
+- next_goal: `gpt_user_review_sticker_attachment_relation_style_sheet`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- api_call_allowed_this_round: `false`
+- remotion_edit_allowed_this_round: `false`
+- render_allowed_this_round: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+
+已确认：本轮只做静态风格板 probe 和报告，不重改 18 秒视频，不 render 正片，不调用图片 / 视频 / 音频 API，不生成第三方贴纸图。
+
+已确认：本轮从 18 秒候选视频抽取 3 个 mid source frames：`shot_01=2.92s`、`shot_03=7.38s`、`shot_05=10.26s`，均位于 ignored `tmp/`，不提交。
+
+已确认：本轮每个事件生成 3 个静态风格方案，共 `9` 个；每个方案均回到 `attachment_relation`、`shape_grammar`、`stroke_outline`、`scale_distance`、`reaction_motion_signature`、`material_compositing`、`bad_pattern_avoided`、`copy_risk_check` 和 `why_this_is_not_template`。
+
+部分成立：Codex 自评最值得 GPT / 用户先回审的方案为 `shot_05_option_A`，因为它直接附着到熊猫嘴 / 竹子的接触点，规避 `bad_rectangle_paper_tag`；但该判断仍是静态自检，不是 approved。
+
+待验证：风格板仍需 GPT / 用户回审；不得声明贴纸通过、视觉语言通过、视频已修好、Remotion completed、sticker system verified 或 vlog director capability verified。
 
 ## 本轮新增｜贴纸机制桥接缺口修补
 

@@ -2101,3 +2101,87 @@ expected_validation:
 4. 风格板验收只判断附属关系、事件生长形状、真实画面压层、工程 SVG / PPT 感是否减少，以及是否有至少 1 个方案值得小范围 Remotion probe。
 
 不得把本轮桥接补齐写成贴纸系统已验证、视觉语言已通过、视频已修好或 Remotion integration completed。
+
+## 本轮新增｜贴纸附属关系风格板探针桥接
+
+### route_decision
+
+```yaml
+task_type: sticker_attachment_relation_style_sheet_probe
+true_goal: 基于 44 的通用贴纸视觉语言机制，先生成静态风格板，让 GPT / 用户判断贴纸附属关系、形状语法、描边、材质和人感是否接近对标视频
+source_mechanism_file: 项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md
+source_gap_audit: 项目资料_docs/视频能力实验室_video_capability_lab/43_十八秒候选与对标贴纸差距审计_18s_candidate_reference_sticker_gap_audit.md
+source_event_system: 项目资料_docs/视频能力实验室_video_capability_lab/41_目标样片贴纸锚点事件表与执行机制_target_sample_sticker_anchor_event_system.md
+new_report_file: 项目资料_docs/视频能力实验室_video_capability_lab/45_贴纸附属关系风格板探针_sticker_attachment_relation_style_sheet_probe.md
+style_sheet_output: tmp/贴纸附属关系风格板_sticker_attachment_relation_style_sheet/贴纸附属关系风格板_sticker_attachment_relation_style_sheet.jpg
+source_frame_output_dir: tmp/贴纸附属关系风格板_sticker_attachment_relation_style_sheet/source_frames/
+content_status: sticker_attachment_relation_style_sheet_generated_pending_gpt_user_review
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+api_call_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+render_allowed_this_round: false
+runtime_asset_commit_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+created_files:
+  - 项目资料_docs/视频能力实验室_video_capability_lab/45_贴纸附属关系风格板探针_sticker_attachment_relation_style_sheet_probe.md
+  - 脚本_scripts/生成贴纸附属关系风格板_generate_sticker_attachment_relation_style_sheet.py
+updated_files:
+  - 项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md
+  - 执行日志_codex_log/最新摘要_latest.md
+expected_validation:
+  - workspace_identity_check
+  - required_files_read
+  - candidate_and_reference_video_probe
+  - source_frame_extract_check
+  - style_sheet_generation_check
+  - no_api_call
+  - no_render
+  - no_remotion_timeline_edit
+  - no_env_or_runtime_assets_staged
+  - forbidden_claims_grep
+  - git_diff_check
+  - path_limited_stage
+  - commit_push_remote_head
+```
+
+### selected_events
+
+| event_id | source_time | current_bad_pattern | style_options_count |
+|---|---:|---|---:|
+| `shot_01_panda_open_arrow` | `2.92s` | `bad_standard_arrow` | `3` |
+| `shot_03_bamboo_hide_circle` | `7.38s` | `bad_full_circle_annotation` | `3` |
+| `shot_05_panda_bite_tag` | `10.26s` | `bad_rectangle_paper_tag` | `3` |
+
+### style_options
+
+- `shot_01_option_A`: `motion_direction_attached + short_stroke_cluster`
+- `shot_01_option_B`: `contact_point_attached + contact_spark`
+- `shot_01_option_C`: `edge_attached + edge_wiggle`
+- `shot_03_option_A`: `reveal_boundary_attached + half_ring_peek_mark`
+- `shot_03_option_B`: `edge_attached + short_stroke_cluster`
+- `shot_03_option_C`: `caption_relation_attached + micro_word_bubble`
+- `shot_05_option_A`: `contact_point_attached + contact_spark`
+- `shot_05_option_B`: `contact_point_attached + micro_word_bubble`
+- `shot_05_option_C`: `surface_attached + surface_face_mark`
+
+### candidate_route_decision
+
+- candidate_best_option: `shot_05_option_A`
+- reason: 该方案最直接附着到熊猫嘴 / 竹子的接触点，规避 `bad_rectangle_paper_tag` 和 `bad_caption_duplicate_sticker`。
+- risk: 接触点精度仍需下一轮 Remotion still / start-mid-exit frame review。
+- gpt_user_review_required: `true`
+
+### next_goal
+
+`gpt_user_review_sticker_attachment_relation_style_sheet`
+
+### next_remotion_entry_gate
+
+只有 GPT / 用户从风格板中选出至少 1 个方向，并能说清该方案为什么附属于视频事件，下一轮才允许进入 `small_scope_remotion_probe_for_selected_sticker_attachment_relation`。
+
+### forbidden_claims
+
+不得把本轮写成 `sticker passed`、`visual language passed`、`video fixed`、`Remotion completed`、`sticker system verified`、`vlog director capability verified` 或 `publish_candidate_ready`。
