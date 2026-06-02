@@ -1,14 +1,43 @@
 # 当前任务
 
-当前任务：`minimax_new_key_watermark_free_sticker_probe`。
+当前任务：`alibaba_image_env_setup`。
 
-当前目标：使用用户新建的 MiniMax key 复用 `image-01` 契约，验证 1 次 `paper_sound_tag` 无水印贴纸候选探针。
+当前目标：为阿里图片 API 建立本地 `.env` 填写入口，等待用户手动填写 `DASHSCOPE_API_KEY`。
 
-当前状态：`blocked_minimax_api_call_failed_invalid_api_key_after_new_key`。
+当前状态：`alibaba_image_env_created_pending_user_key`。
 
-下一状态：`minimax_valid_key_reprobe_pending_or_next_provider_pending`。
+下一状态：`alibaba_image_contract_probe_pending_user_key`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜阿里图片 API env 配置
+
+- task_type: `alibaba_image_env_setup`
+- true_goal: 用户想切换到阿里图片 API；Codex 本轮只建立安全的本地 env 填写入口。
+- selected_provider: `alibaba_dashscope`
+- key_field: `DASHSCOPE_API_KEY`
+- alias_field: `ALIBABA_DASHSCOPE_API_KEY`
+- env_template_file: `.env.example`
+- local_env_file: `.env`
+- env_status: `env_prepared_pending_user_key`
+- policy_provider_status: `env_prepared_pending_user_key`
+- next_probe: `alibaba_image_contract_and_watermark_free_sticker_probe`
+- api_call_allowed_this_round: `false`
+- asset_generation_allowed_this_round: `false`
+- remotion_edit_allowed_this_round: `false`
+- render_allowed_this_round: `false`
+
+已确认：本轮只创建 / 更新阿里图片 API 的 env 字段，不调用阿里 API。
+
+已确认：本轮不调用任何图片生成 API，不生成图片，不修改 Remotion，不 render。
+
+已确认：`.env.example` 只保存空字段和默认策略值，不允许写入真实 API key。
+
+已确认：本地 `.env` 已补齐 `DASHSCOPE_API_KEY` 等阿里字段，等待用户手动填写；`.env` 是 ignored 本地密钥文件，不提交 Git。
+
+待验证：阿里图片 API 的真实 endpoint、model、请求字段、返回字段、无水印能力、透明 PNG 或 clean cutout 能力，必须等用户填写 key 后由下一轮读取官方文档并做单图探针。
+
+不得声明：`Alibaba API verified`、`Alibaba model resolved`、`Alibaba no-watermark provider verified`、`sticker asset approved`、`sticker asset pack completed`、`video fixed`、`visual language passed`、`Remotion integration completed`、`vlog director capability verified`。
 
 ## 本轮新增｜MiniMax 图片契约解析与单图探针
 

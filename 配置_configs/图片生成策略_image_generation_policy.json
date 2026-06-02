@@ -60,6 +60,21 @@
       "minimax_probe_status": "blocked_invalid_api_key_after_new_key",
       "candidate_probe_status": "not_generated_api_key_invalid_after_new_key",
       "watermark_quality_judgement": "not_applicable_no_image_generated"
+    },
+    "alibaba_dashscope": {
+      "provider": "alibaba_dashscope",
+      "status": "env_prepared_pending_user_key",
+      "contract_status": "pending_contract_probe",
+      "allowed_for_sticker_candidate": "pending_contract_probe",
+      "allowed_for_connection_test": true,
+      "requires_key": "DASHSCOPE_API_KEY",
+      "model": "pending_codex_contract_resolution",
+      "endpoint": "pending_codex_contract_resolution",
+      "must_support_watermark_free_output": true,
+      "must_support_no_visible_generated_label": true,
+      "must_support_no_logo_or_brand_mark": true,
+      "must_support_transparent_png_or_clean_cutout_source": true,
+      "next_probe": "alibaba_image_contract_and_watermark_free_sticker_probe"
     }
   },
   "next_provider_requirements": {

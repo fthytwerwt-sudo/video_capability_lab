@@ -12,6 +12,21 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜阿里图片 API env setup
+
+- 已确认：用户要求从 MiniMax key 阻断路线切换到阿里图片 API 路线。
+- 已确认：本轮任务为 `alibaba_image_env_setup`，真实目标是建立本地 `.env` 填写入口，等待用户手动填写 `DASHSCOPE_API_KEY`。
+- 已确认：`.env.example` 已加入 Alibaba / DashScope 图片 API 字段；模板不包含真实 key。
+- 已确认：ignored 本地 `.env` 已补齐同名字段；`.env` 不提交 Git，不打印真实值。
+- 已确认：`配置_configs/图片生成策略_image_generation_policy.json` 已新增 `alibaba_dashscope` provider route，状态为 `env_prepared_pending_user_key`。
+- 已确认：新增说明文件为 `项目资料_docs/视频能力实验室_video_capability_lab/36_阿里图片API环境变量配置_alibaba_image_env_setup.md`。
+- 已确认：本轮未调用阿里 API，未调用任何图片生成 API，未生成图片，未修改 Remotion，未 render。
+- 待验证：阿里图片 API 的 endpoint、model、请求字段、返回字段、无水印能力、透明 PNG 或 clean cutout 能力，必须等用户填写 key 后由下一轮探针确认。
+
+## 本轮下一个目标
+
+用户填写本地 `.env` 的 `DASHSCOPE_API_KEY` 后，执行 `alibaba_image_contract_and_watermark_free_sticker_probe（阿里图片 API 契约解析 + 单图无水印贴纸探针）`。
+
 ## 本轮完成
 
 - AGENTS.md 已创建。

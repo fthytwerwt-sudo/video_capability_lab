@@ -281,6 +281,60 @@ confidence: high_for_contract_low_for_watermark_quality
 - 当前状态：`blocked_minimax_api_call_failed_invalid_api_key_after_new_key`。
 - 下一个目标：回到 MiniMax 控制台确认该 key 是否真的是 API Platform 的 API key，不是网页端、Token Plan 或其他产品线 key；若仍不可用，改走下一个未被策略禁用的无水印图片 provider。
 
+## 本轮新增｜阿里图片 API env setup 桥接
+
+### route_decision
+
+```yaml
+task_type: alibaba_image_env_setup
+true_goal: 为阿里图片 API 建立本地 env 填写入口，等待用户手动填写 DASHSCOPE_API_KEY
+selected_provider: alibaba_dashscope
+allowed_actions:
+  - 更新 `.env.example` 的阿里图片 API 空字段和默认策略值
+  - 在 ignored 本地 `.env` 中追加缺失阿里字段，不覆盖已有值
+  - 在图片生成策略配置中新增 `alibaba_dashscope` provider route
+  - 更新 current_task、bridge、latest 和阿里 env 说明文档
+forbidden_actions:
+  - 调用阿里 API 或任何图片生成 API
+  - 生成贴纸候选或图片
+  - 修改 Remotion 源码或数据
+  - render 视频
+  - 提交 `.env`、图片、视频、音频、`dist`、`tmp` 或 runtime assets
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+expected_validation:
+  - workspace_identity_check
+  - env_ignored_check
+  - env_example_secret_scan
+  - local_env_field_presence_sanitized_check
+  - python3 -m json.tool 配置_configs/图片生成策略_image_generation_policy.json
+  - git diff --check
+  - no_env_staged
+  - no_runtime_artifacts_staged
+  - staged_secret_scan
+  - commit_push_remote_head
+```
+
+### alibaba_env_setup_result
+
+- 当前状态：`alibaba_image_env_created_pending_user_key`。
+- provider_status: `env_prepared_pending_user_key`。
+- key_field: `DASHSCOPE_API_KEY`。
+- alias_field: `ALIBABA_DASHSCOPE_API_KEY`。
+- next_probe: `alibaba_image_contract_and_watermark_free_sticker_probe`。
+
+已确认：本轮只建立 env 入口，没有调用阿里 API，没有调用任何图片生成 API。
+
+已确认：`.env.example` 不包含真实 API key；真实 key 只能由用户填写到 ignored 本地 `.env`。
+
+已确认：Codex 不能把 `DASHSCOPE_API_KEY` 或任何真实 key 写入可提交文件、报告、latest、current_task、bridge、脚本或 commit message。
+
+已确认：下一轮必须先读取阿里 / DashScope 官方图片 API 文档，解析 endpoint、model、鉴权方式、请求字段和返回字段，再只生成 1 张 `paper_sound_tag` 无水印贴纸候选。
+
+blocked_if：如果下一轮 `.env` 没有 `DASHSCOPE_API_KEY`，必须写 `blocked_missing_dashscope_api_key`，不得调用 API，不得生成图片。
+
+待验证：阿里图片 API 是否支持 no watermark、no generated label、no logo / brand mark、transparent PNG 或 clean cutout source。
+
 ## 本轮新增｜Remotion 多组件能力证明 demo 桥接
 
 ### route_decision
