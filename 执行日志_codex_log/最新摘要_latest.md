@@ -23,9 +23,26 @@
 - 已确认：本轮未调用阿里 API，未调用任何图片生成 API，未生成图片，未修改 Remotion，未 render。
 - 待验证：阿里图片 API 的 endpoint、model、请求字段、返回字段、无水印能力、透明 PNG 或 clean cutout 能力，必须等用户填写 key 后由下一轮探针确认。
 
-## 本轮下一个目标
+## 上一轮承接目标
 
 用户填写本地 `.env` 的 `DASHSCOPE_API_KEY` 后，执行 `alibaba_image_contract_and_watermark_free_sticker_probe（阿里图片 API 契约解析 + 单图无水印贴纸探针）`。
+
+## 本轮新增｜阿里图片 API 契约解析 + 单图探针
+
+- 已确认：本轮任务为 `alibaba_image_contract_and_watermark_free_sticker_probe`。
+- 已确认：官方文档确认 `qwen-image-2.0-pro` 可通过 DashScope HTTP 同步接口调用，endpoint 为 `https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation`。
+- 已确认：`.env` 中 `DASHSCOPE_API_KEY` 存在，但没有打印 key，`.env` 仍是 ignored 本地密钥文件。
+- 已确认：用户修正额度状态后，Codex 按最新指令重新发起 1 次阿里图片生成请求，最终返回 `http_status=200`。
+- 已确认：本轮只调用阿里一个 provider，未调用 zhipu、MiniMax 或第二个 provider。
+- 已确认：本地候选图为 `tmp/无水印贴纸候选_watermark_free_sticker_candidates/阿里无水印纸感拟声标签测试_alibaba_watermark_free_paper_sound_tag_probe_01.png`，该路径属于 ignored `tmp/`，不得提交。
+- 已确认：候选图是 `PNG 1024x1024 RGB`，没有 alpha 透明通道。
+- 已确认：视觉自检未见明显水印、`AI生成` 标识、logo 或 brand mark。
+- 部分成立：当前只可写 `clean_cutout_source_pending_user_review`，不能写 transparent PNG 或 approved。
+- 待验证：用户是否认可该阿里候选图进入 frame review / 抠图测试 / 后续单图复探。
+
+## 本轮下一个目标
+
+用户人审阿里单图候选；若认可风格，再决定是否进入 frame review / 抠图测试 / 第二张受控探针。
 
 ## 本轮完成
 

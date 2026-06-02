@@ -1,14 +1,59 @@
 # 当前任务
 
-当前任务：`alibaba_image_env_setup`。
+当前任务：`alibaba_image_contract_and_watermark_free_sticker_probe`。
 
-当前目标：为阿里图片 API 建立本地 `.env` 填写入口，等待用户手动填写 `DASHSCOPE_API_KEY`。
+当前目标：使用本地 `.env` 中的 `DASHSCOPE_API_KEY`，通过阿里 DashScope `qwen-image-2.0-pro` 生成 1 张 `paper_sound_tag` 无水印贴纸候选。
 
-当前状态：`alibaba_image_env_created_pending_user_key`。
+当前状态：`watermark_free_single_candidate_generated_pending_user_review`。
 
-下一状态：`alibaba_image_contract_probe_pending_user_key`。
+下一状态：`user_review_alibaba_single_candidate`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜阿里图片 API 契约解析与单图探针
+
+- task_type: `alibaba_image_contract_and_watermark_free_sticker_probe`
+- true_goal: 用阿里图片模型生成 1 张无水印 `paper_sound_tag` 贴纸候选，验证阿里路线是否适合后续贴纸候选。
+- selected_provider: `alibaba_dashscope`
+- preferred_model: `qwen-image-2.0-pro`
+- selected_model: `qwen-image-2.0-pro`
+- endpoint: `https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation`
+- auth_method: `HTTP Bearer DASHSCOPE_API_KEY`
+- api_call_status: `succeeded_after_user_retry_instruction`
+- first_attempt_status: `blocked_quota_free_tier_only`
+- final_attempt_http_status: `200`
+- generation_request_count_after_user_retry_instruction: `1`
+- generation_count: `1`
+- output_status: `local_ignored_only`
+- output_path: `tmp/无水印贴纸候选_watermark_free_sticker_candidates/阿里无水印纸感拟声标签测试_alibaba_watermark_free_paper_sound_tag_probe_01.png`
+- image_format: `PNG`
+- image_size: `1024x1024`
+- has_alpha: `false`
+- transparent_background_status: `clean_cutout_source_pending_user_review`
+- watermark_check: `pass`
+- generated_label_check: `pass`
+- logo_brand_mark_check: `pass`
+- candidate_status: `watermark_free_single_candidate_generated_pending_user_review`
+- report_file: `项目资料_docs/视频能力实验室_video_capability_lab/37_阿里图片Provider探针报告_alibaba_image_provider_probe_report.md`
+- contract_file: `项目资料_docs/视频能力实验室_video_capability_lab/38_阿里图片API契约解析_alibaba_image_api_contract.md`
+
+已确认：本轮已读取阿里官方文档，确认 `qwen-image-2.0-pro` 是推荐模型，HTTP 同步接口为 `POST /api/v1/services/aigc/multimodal-generation/generation`。
+
+已确认：`.env` 中 `DASHSCOPE_API_KEY` 存在，但没有打印 key；`.env` 是 ignored 本地密钥文件，未提交。
+
+已确认：本轮只调用阿里一个 provider；用户修正额度状态后，Codex 按最新指令重新发起 1 次图片生成请求，未调用 zhipu、MiniMax 或第二个 provider。
+
+已确认：阿里 API 最终返回 `http_status=200`，并返回 1 张 PNG 图片 URL；Codex 已下载到 ignored 本地 `tmp/` 目录。
+
+已确认：图片为 `PNG 1024x1024 RGB`，没有 alpha 透明通道；视觉自检未发现明显水印、`AI生成` 标识、logo 或 brand mark。
+
+部分成立：图片背景不是透明背景，但贴纸主体边缘清楚，当前记为 `clean_cutout_source_pending_user_review`，必须等待用户人审。
+
+已确认：本轮未修改 Remotion，未 render，未接入视频，未提交图片、`tmp`、`.env` 或 runtime assets。
+
+待验证：用户是否认可该阿里单图候选进入后续 frame review 或抠图处理；不能直接接入 Remotion。
+
+不得声明：`Alibaba no-watermark provider verified`、`sticker asset approved`、`sticker asset pack completed`、`video fixed`、`visual language passed`、`Remotion integration completed`、`vlog director capability verified`。
 
 ## 本轮新增｜阿里图片 API env 配置
 

@@ -335,6 +335,94 @@ blocked_if：如果下一轮 `.env` 没有 `DASHSCOPE_API_KEY`，必须写 `bloc
 
 待验证：阿里图片 API 是否支持 no watermark、no generated label、no logo / brand mark、transparent PNG 或 clean cutout source。
 
+## 本轮新增｜阿里图片 API 契约与单图探针结果
+
+### route_decision
+
+```yaml
+task_type: alibaba_image_contract_and_watermark_free_sticker_probe
+true_goal: 用阿里图片模型生成 1 张无水印 paper_sound_tag 贴纸候选
+selected_provider: alibaba_dashscope
+preferred_model: qwen-image-2.0-pro
+selected_model: qwen-image-2.0-pro
+endpoint: https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation
+allowed_actions:
+  - 读取 ignored `.env` 中 DASHSCOPE_API_KEY 是否存在，不打印 key
+  - 读取阿里官方文档解析 Qwen-Image 文生图契约
+  - 只调用阿里一个 provider
+  - 按用户最新指令重新发起 1 次图片生成请求
+  - 只保存 1 张候选图到 ignored tmp 目录
+  - 更新策略配置、37 探针报告、38 契约报告、current_task、bridge、latest
+forbidden_actions:
+  - 调用 zhipu、MiniMax 或第二个 provider
+  - 批量生成
+  - 修改 Remotion 源码或数据
+  - render 视频
+  - 提交 `.env`、图片、视频、音频、`dist`、`tmp` 或 runtime assets
+expected_validation:
+  - workspace_identity_check
+  - env_ignored_check
+  - dashscope_key_present_sanitized_check
+  - official_contract_resolution
+  - one_alibaba_provider_only
+  - one_candidate_saved_after_user_retry_instruction
+  - image_format_size_alpha_check
+  - visual_self_check_for_watermark_generated_label_logo
+  - python3 -m json.tool 配置_configs/图片生成策略_image_generation_policy.json
+  - git diff --check
+  - no_env_staged
+  - no_tmp_or_image_staged
+  - staged_secret_scan
+  - commit_push_remote_head
+```
+
+### alibaba_contract_resolution
+
+```yaml
+text_to_image_supported: true
+endpoint: https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation
+model: qwen-image-2.0-pro
+auth_method: HTTP Bearer DASHSCOPE_API_KEY
+request_fields:
+  - model
+  - input.messages[0].role
+  - input.messages[0].content[0].text
+  - parameters.negative_prompt
+  - parameters.prompt_extend
+  - parameters.watermark
+  - parameters.size
+  - parameters.n
+response_image_field:
+  - output.choices[0].message.content[0].image
+supports_transparent_background: unknown
+supports_no_watermark: true_by_parameter_watermark_false_pending_output_review
+source:
+  - https://help.aliyun.com/zh/model-studio/text-to-image
+  - https://help.aliyun.com/zh/model-studio/qwen-image-api
+confidence: high_for_contract_medium_for_output_quality
+```
+
+### alibaba_probe_result
+
+- 当前状态：`watermark_free_single_candidate_generated_pending_user_review`。
+- output_path: `tmp/无水印贴纸候选_watermark_free_sticker_candidates/阿里无水印纸感拟声标签测试_alibaba_watermark_free_paper_sound_tag_probe_01.png`。
+- image_format: `PNG`。
+- image_size: `1024x1024`。
+- has_alpha: `false`。
+- transparent_background_status: `clean_cutout_source_pending_user_review`。
+- watermark_check: `pass`。
+- generated_label_check: `pass`。
+- logo_brand_mark_check: `pass`。
+- candidate_status: `watermark_free_single_candidate_generated_pending_user_review`。
+
+已确认：图片只保存在 ignored 本地 `tmp/` 目录，不提交 Git。
+
+已确认：本轮未修改 Remotion，未 render，未接入视频。
+
+部分成立：候选未见明显水印 / `AI生成` / logo / brand mark，但不是 transparent PNG。
+
+待验证：用户人审该候选是否接受；下一轮不能直接接 Remotion，必须先用户人审或 frame review。
+
 ## 本轮新增｜Remotion 多组件能力证明 demo 桥接
 
 ### route_decision
