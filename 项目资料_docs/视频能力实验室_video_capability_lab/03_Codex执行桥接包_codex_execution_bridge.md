@@ -268,6 +268,19 @@ confidence: high_for_contract_low_for_watermark_quality
 - 当前状态：`blocked_minimax_api_call_failed_invalid_api_key_after_rerun`。
 - 下一个目标：更换为 MiniMax official API Platform 可用 key，或改走下一个未被策略禁用的无水印图片 provider。
 
+### minimax_new_key_probe_result
+
+- 已确认：本轮任务为 `minimax_new_key_watermark_free_sticker_probe`。
+- 已确认：本轮复用固定契约：endpoint `https://api.minimax.io/v1/image_generation`，model `image-01`，auth `Authorization: Bearer <API_key>`，requires_group_id `false`。
+- 已确认：`.env.example` 曾出现疑似真实 MiniMax key，已在不打印 key 的情况下清空模板，并将 key 保持在 ignored `.env`。
+- 已确认：`.env` 中 MiniMax key 存在，但 key 未打印，`.env` 未提交。
+- 已确认：本轮只调用 MiniMax，只发起 1 次图片生成请求。
+- 已确认：MiniMax API 对新 key 仍返回 `base_resp.status_code=2049` / `status_msg=invalid api key`。
+- 已确认：本轮未生成图片，无法判断 watermark、generated label、logo、brand mark 或透明背景。
+- 已确认：新 key 失败响应保存在 ignored `tmp/无水印贴纸候选_watermark_free_sticker_candidates/MiniMax新Key请求失败_minimax_new_key_request_failed.json`，不得提交。
+- 当前状态：`blocked_minimax_api_call_failed_invalid_api_key_after_new_key`。
+- 下一个目标：回到 MiniMax 控制台确认该 key 是否真的是 API Platform 的 API key，不是网页端、Token Plan 或其他产品线 key；若仍不可用，改走下一个未被策略禁用的无水印图片 provider。
+
 ## 本轮新增｜Remotion 多组件能力证明 demo 桥接
 
 ### route_decision
