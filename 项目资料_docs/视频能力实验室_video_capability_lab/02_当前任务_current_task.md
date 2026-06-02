@@ -1,14 +1,39 @@
 # 当前任务
 
-当前任务：`sticker_user_review_reference_style_replan`。
+当前任务：`reference_video_sticker_anchor_audit`。
 
-当前目标：把用户对阿里单图候选的最新人审反馈落库，并将贴纸主路线从 `paper_sound_tag / API generated image` 重判为 `hand_drawn_reaction_sticker_system（手绘反应贴纸系统）`。
+当前目标：从唯一对标视频中审计贴纸如何绑定视频主体、动作、物件和留白，避免把贴纸固化成固定组件模板。
 
-当前状态：`alibaba_candidate_user_review_style_mismatch_not_remotion_ready`。
+当前状态：`reference_video_sticker_anchor_audit_completed_no_asset_generated`。
 
-下一目标：`remotion_svg_reaction_sticker_probe`。
+下一目标：`video_anchor_driven_sticker_system_spec_before_remotion_probe`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜对标视频贴纸锚点审计
+
+- task_type: `reference_video_sticker_anchor_audit`
+- selected_reference_video: `素材/vlog 参考/新参考+解析/v2700fgi0000d85e6c7og65uq46kpmu0.MP4`
+- selected_reference_id: `new_ref_06`
+- selected_candidate_id: `candidate_08`
+- selected_route: `video_anchor_driven_sticker_system`
+- new_report_file: `项目资料_docs/视频能力实验室_video_capability_lab/40_对标视频贴纸锚点审计_reference_sticker_anchor_audit.md`
+- previous_next_goal: `remotion_svg_reaction_sticker_probe`
+- revised_next_goal: `video_anchor_driven_sticker_system_spec_before_remotion_probe`
+- api_call_allowed_this_round: `false`
+- sticker_image_generation_allowed_this_round: `false`
+- remotion_edit_allowed_this_round: `false`
+- render_allowed_this_round: `false`
+
+已确认：本轮从 12 条本地参考视频候选里选择 `candidate_08 / new_ref_06` 作为主对标视频，因为它最连续地展示了动物、饮品、冰淇淋、瓶身、票据、玩具车等不同主体上的贴纸锚点。
+
+已确认：贴纸主路线应从固定的 `hand_drawn_reaction_sticker_system` 收敛为更上层的 `video_anchor_driven_sticker_system`：先判断镜头里的主体、动作、物件和留白，再决定贴纸形态、位置和功能。
+
+部分成立：`black_white_reaction_mark` 与 `yellow_attention_burst` 仍是可用结果，但不能作为未来所有镜头的固定两类组件。
+
+已确认：本轮没有生成贴纸、没有调用图片 API、没有修改 Remotion、没有 render、没有提交视频/图片/音频/tmp/runtime assets。
+
+下一个目标：先建立目标样片的 `sticker_anchor_event_table`，再进入原创 SVG / Remotion vector 小范围 probe。
 
 ## 本轮新增｜贴纸人审反馈与参考风格重判
 

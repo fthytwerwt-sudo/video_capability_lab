@@ -1667,3 +1667,57 @@ expected_validation:
 - 下一轮不得继续 API 图片抽卡作为主线。
 - 下一轮不得把 `paper_sound_tag（纸感拟声标签）` 继续作为唯一优先 sticker 目标。
 - 下一轮即使进入 Remotion probe，也只能验证组件，不得写成当前视频已修好或视觉语言已通过。
+
+## 本轮新增｜对标视频贴纸锚点审计桥接
+
+### route_decision
+
+```yaml
+task_type: reference_video_sticker_anchor_audit
+true_goal: 从唯一对标视频中审计贴纸如何绑定视频主体、动作、物件和留白，避免把贴纸固化成固定组件模板
+selected_reference_video: 素材/vlog 参考/新参考+解析/v2700fgi0000d85e6c7og65uq46kpmu0.MP4
+selected_reference_id: new_ref_06
+selected_candidate_id: candidate_08
+selected_route: video_anchor_driven_sticker_system
+previous_next_goal: remotion_svg_reaction_sticker_probe
+revised_next_goal: video_anchor_driven_sticker_system_spec_before_remotion_probe
+api_call_allowed_this_round: false
+asset_generation_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+render_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+new_report_file: 项目资料_docs/视频能力实验室_video_capability_lab/40_对标视频贴纸锚点审计_reference_sticker_anchor_audit.md
+updated_files:
+  - 项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/40_对标视频贴纸锚点审计_reference_sticker_anchor_audit.md
+  - 执行日志_codex_log/最新摘要_latest.md
+expected_validation:
+  - workspace_identity_check
+  - selected_reference_video_probe
+  - report_required_terms_grep
+  - no_api_or_generated_asset_this_round
+  - remotion_diff_guard
+  - no_env_or_media_staged
+  - git_diff_check
+  - path_limited_stage
+  - commit_push_remote_head
+```
+
+### anchor_audit_result
+
+- 已确认：主对标视频为 `candidate_08 / new_ref_06`。
+- 已确认：该视频连续出现动物、饮品、冰淇淋、瓶身、票据、玩具车等不同主体上的贴纸锚点。
+- 已确认：贴纸不应被理解成固定 `black_white_reaction_mark` / `yellow_attention_burst` 两类模板。
+- 部分成立：黑白反应标记和黄色注意力爆点仍可作为 event-derived result，但必须由镜头锚点决定。
+- 已确认：新的上层路线为 `video_anchor_driven_sticker_system（视频锚点驱动贴纸系统）`。
+
+### next_execution_gate
+
+- 下一轮目标：`video_anchor_driven_sticker_system_spec_before_remotion_probe`。
+- 下一轮必须先建立目标样片的 `sticker_anchor_event_table`。
+- 每个 sticker event 必须写 `shot_id`、`timecode`、`anchor_target`、`anchor_reason`、`sticker_role`、`shape_derived_from_event`、`placement_relation` 和 `copy_risk`。
+- 禁止直接把所有镜头套用两类固定贴纸组件。
+- 禁止复制第三方贴纸原图、平台 UI、原字体、原文案、包装或账号信息。
+- 进入 Remotion probe 后必须抽 start / mid / exit frames 做 frame-level review。

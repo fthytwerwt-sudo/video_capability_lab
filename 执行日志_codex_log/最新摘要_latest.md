@@ -12,6 +12,17 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜对标视频贴纸锚点审计
+
+- 已确认：本轮任务为 `reference_video_sticker_anchor_audit`。
+- 已确认：主对标视频收敛为 `candidate_08 / new_ref_06`，路径是 `素材/vlog 参考/新参考+解析/v2700fgi0000d85e6c7og65uq46kpmu0.MP4`。
+- 已确认：`video-metadata-probe` 通过，技术事实为 `25.911995s / 720x1280 / 60fps / h264 / AAC stereo / decodable=true`。
+- 已确认：本轮新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/40_对标视频贴纸锚点审计_reference_sticker_anchor_audit.md`。
+- 已确认：贴纸主路线从固定 `hand_drawn_reaction_sticker_system` 上提为 `video_anchor_driven_sticker_system`，即先判断镜头主体、动作、物件和留白，再决定贴纸形态、位置和功能。
+- 部分成立：`black_white_reaction_mark` 与 `yellow_attention_burst` 仍可作为结果，但不能作为所有镜头固定模板。
+- 已确认：本轮没有生成贴纸、没有调用图片 API、没有修改 Remotion、没有 render、没有提交视频/图片/音频/tmp/runtime assets。
+- 下一个目标：`video_anchor_driven_sticker_system_spec_before_remotion_probe`，先建立目标样片的 `sticker_anchor_event_table`，再进入原创 SVG / Remotion vector 小范围 probe。
+
 ## 本轮新增｜贴纸人审反馈与参考风格重判
 
 - 已确认：用户人审阿里单图候选后反馈：`我们要的是贴纸，这个是对标视频上面的，我们要的也是类似这种。`
@@ -51,9 +62,9 @@
 - 部分成立：当前只可写 `clean_cutout_source_pending_user_review`，不能写 transparent PNG 或 approved。
 - 已确认：用户人审认为该阿里候选图风格方向不匹配，不进入 Remotion，也不作为当前贴纸资产通过。
 
-## 本轮下一个目标
+## 上一轮下一个目标（已被本轮锚点审计重判覆盖）
 
-执行 `remotion_svg_reaction_sticker_probe（Remotion SVG 反应贴纸组件探针）`，优先做原创手绘反应标记和黄色注意力爆点，不继续 API 图片抽卡。
+上一轮建议直接执行 `remotion_svg_reaction_sticker_probe（Remotion SVG 反应贴纸组件探针）`；本轮已重判为先执行 `video_anchor_driven_sticker_system_spec_before_remotion_probe`，避免把贴纸固化成两个固定组件。
 
 ## 本轮完成
 
