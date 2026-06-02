@@ -1,14 +1,40 @@
 # 当前任务
 
-当前任务：`sticker_visual_gap_audit`。
+当前任务：`universal_sticker_visual_language_mechanism_completion`。
 
-当前目标：对比 18 秒候选视频和对标视频，审计贴纸视觉语言差距，判断下一轮应回到哪一层修正。
+当前目标：把贴纸视觉语言从单片差距审计升级为后续所有 vlog / odd / 对标样片可复用的通用机制、流程、判断标准和失败反馈路由。
 
-当前状态：`18s_candidate_sticker_gap_audit_completed_pending_gpt_review`。
+当前状态：`universal_sticker_visual_language_mechanism_completed_pending_gpt_review`。
 
-下一目标：`gpt_review_18s_candidate_sticker_gap_audit`。
+下一目标：`gpt_review_universal_sticker_visual_language_mechanism`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜通用贴纸视觉语言机制补全
+
+- task_type: `universal_sticker_visual_language_mechanism_completion`
+- source_gap_audit: `项目资料_docs/视频能力实验室_video_capability_lab/43_十八秒候选与对标贴纸差距审计_18s_candidate_reference_sticker_gap_audit.md`
+- source_anchor_audit: `项目资料_docs/视频能力实验室_video_capability_lab/40_对标视频贴纸锚点审计_reference_sticker_anchor_audit.md`
+- source_event_system: `项目资料_docs/视频能力实验室_video_capability_lab/41_目标样片贴纸锚点事件表与执行机制_target_sample_sticker_anchor_event_system.md`
+- new_mechanism_file: `项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md`
+- mechanism_status: `universal_sticker_visual_language_mechanism_completed_pending_probe_validation`
+- current_status: `universal_sticker_visual_language_mechanism_completed_pending_gpt_review`
+- next_goal: `gpt_review_universal_sticker_visual_language_mechanism`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- api_call_allowed_this_round: `false`
+- remotion_edit_allowed_this_round: `false`
+- render_allowed_this_round: `false`
+- asset_generation_allowed_this_round: `false`
+
+已确认：用户本轮要求不是继续修 18 秒候选、不是继续做单个风格板、不是继续做某个候选贴纸，而是沉淀以后所有片子都能复用的贴纸视觉语言机制。
+
+已确认：`43` 的失败层已上升为 `44` 的通用机制：`shape_layer`、`stroke_layer`、`visual_material_feel`、`placement / integration`、`human_feel` 分别被补为形状语法、描边系统、材质融合、比例距离 / 附属关系和人感验收闸门。
+
+已确认：`44` 已补齐 `sticker_attachment_relation`、`shape_grammar`、`stroke_outline_system`、`scale_distance_rule`、`reaction_motion_signature`、`material_compositing_rule`、`style_sheet_acceptance_gate`、`execution_flow`、`judgement_standards` 和 `failure_feedback_routing`。
+
+已确认：本轮没有修改 Remotion，没有 render，没有调用图片 / 视频 / 音频 API，没有生成贴纸图或风格板图片，没有提交视频、图片、音频、抽帧、`tmp/`、`dist/` 或 runtime assets。
+
+待验证：`44` 需 GPT / 用户回审；回审后才允许进入 `sticker_attachment_relation_style_sheet_probe（贴纸附属关系风格板探针）`，再根据风格板结果判断是否进入小范围 Remotion probe。
 
 ## 本轮新增｜18 秒候选与对标贴纸差距审计
 

@@ -83,6 +83,112 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜通用贴纸视觉语言机制补全桥接
+
+### route_decision
+
+```yaml
+task_type: universal_sticker_visual_language_mechanism_completion
+true_goal: 把 43 的贴纸视觉语言失败层补成后续所有 vlog / odd / 对标视频可复用的通用机制、流程、判断标准和失败反馈路由
+source_gap_audit: 项目资料_docs/视频能力实验室_video_capability_lab/43_十八秒候选与对标贴纸差距审计_18s_candidate_reference_sticker_gap_audit.md
+source_anchor_audit: 项目资料_docs/视频能力实验室_video_capability_lab/40_对标视频贴纸锚点审计_reference_sticker_anchor_audit.md
+source_event_system: 项目资料_docs/视频能力实验室_video_capability_lab/41_目标样片贴纸锚点事件表与执行机制_target_sample_sticker_anchor_event_system.md
+new_mechanism_file: 项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md
+content_status: universal_sticker_visual_language_mechanism_completed_pending_gpt_review
+mechanism_status: universal_sticker_visual_language_mechanism_completed_pending_probe_validation
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+api_call_allowed_this_round: false
+asset_generation_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+render_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+updated_files:
+  - 项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/31_对标视觉语言到资产规格_reference_visual_language_to_asset_spec.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/43_十八秒候选与对标贴纸差距审计_18s_candidate_reference_sticker_gap_audit.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md
+  - 执行日志_codex_log/最新摘要_latest.md
+expected_validation:
+  - workspace_identity_check
+  - required_files_read
+  - source_failure_layers_confirmed
+  - mechanism_sections_required_terms_grep
+  - no_api_call
+  - no_remotion_edit
+  - no_render
+  - no_env_or_runtime_assets_staged
+  - bridge_next_goal_check
+  - latest_next_goal_check
+  - git_diff_check
+  - path_limited_stage
+  - commit_push_remote_head
+```
+
+### locked_anchors
+
+- 已确认：本轮不是继续修 18 秒候选视频。
+- 已确认：本轮不是生成贴纸、生成风格板、render 或 API 调用。
+- 已确认：`40` 已把贴纸路线从固定组件上提为 `video_anchor_driven_sticker_system`。
+- 已确认：`41` 已证明单片事件表能把 `sticker_needed=true/false` 拆开，但仍不等于通用视觉语言过线。
+- 已确认：`43` 已确认主失败层为 `shape_layer`、`stroke_layer`、`visual_material_feel`、`placement / integration` 和 `human_feel`。
+- 已确认：`44` 的定位是补齐从 `video_anchor` 到可回审贴纸视觉语言之间的中间层机制。
+
+### mechanism_sections
+
+`44` 必须作为后续 sticker task 的通用机制入口，已覆盖：
+
+1. `mechanism_positioning`
+2. `core_principle`
+3. `execution_flow`
+4. `sticker_attachment_relation`
+5. `shape_grammar`
+6. `stroke_outline_system`
+7. `scale_distance_rule`
+8. `reaction_motion_signature`
+9. `material_compositing_rule`
+10. `style_sheet_acceptance_gate`
+11. `judgement_standards`
+12. `failure_feedback_routing`
+13. `next_execution_bridge`
+14. `do_not_claim`
+
+### failure_feedback_routing
+
+- `fail_no_anchor`: 回到镜头事件表，或写 `sticker_needed=false`。
+- `fail_wrong_attachment_relation`: 回到附属关系判断。
+- `fail_shape_not_event_derived`: 回到形状语法。
+- `fail_stroke_too_thin_or_ui_like`: 回到描边系统。
+- `fail_scale_distance_floaty`: 回到比例距离规则。
+- `fail_motion_parameter_like`: 回到反应动效签名。
+- `fail_material_flat_or_svg_like`: 回到材质融合规则。
+- `fail_style_sheet_not_selectable`: 重做风格板，不进 Remotion。
+- `fail_remotion_frame_review`: 回到单个 event，不重写全机制。
+- `fail_user_review_style_mismatch`: 回到 reference audit + style sheet。
+- `fail_copy_reference_asset`: 抽象机制重画，禁止复刻。
+- `fail_visual_clutter`: 减少贴纸或写 `sticker_needed=false`。
+
+### next_execution_bridge
+
+下一轮目标：
+
+`gpt_review_universal_sticker_visual_language_mechanism`
+
+回审通过后，才允许进入：
+
+`sticker_attachment_relation_style_sheet_probe（贴纸附属关系风格板探针）`
+
+下一轮探针必须选 3 个代表性候选镜头，每个做 2-3 个方案，并按：
+
+```text
+attachment_relation -> shape_grammar -> stroke_outline -> scale_distance -> motion_signature -> material_compositing -> acceptance_gate
+```
+
+输出。
+
+不得直接重改 18 秒候选，不得直接进入 Remotion 正片修复，不得继续用固定箭头 / 圈 / 波浪线 / 标签模板替代贴纸视觉语言。
+
 ## 本轮新增｜18 秒候选与对标贴纸差距审计桥接
 
 ### route_decision

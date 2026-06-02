@@ -206,3 +206,5 @@
 3. 已确认：不得复制第三方截图里的贴纸原图，只能抽象其视觉机制、形状关系、颜色关系、使用位置和动效功能。
 4. 已确认：任何 API 输出仍只能作为候选素材，不能绕过 frame review 或用户人审。
 5. 待验证：`remotion_svg_reaction_sticker_probe` 是否能在实际 frame review 中比纸签图更接近对标视频观感。
+
+通用贴纸视觉语言机制见 `44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md`。

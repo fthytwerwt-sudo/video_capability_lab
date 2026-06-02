@@ -196,3 +196,18 @@
 - next_goal: `gpt_review_18s_candidate_sticker_gap_audit`
 - recommended_next_route: `sticker_style_sheet_probe`
 - blocked_reason: `none`
+
+## K. universal_mechanism_upgrade_addendum（通用机制升级补充）
+
+- addendum_type: `universal_mechanism_upgrade_addendum`
+- upgraded_mechanism_file: `项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md`
+- upgraded_status: `sticker_gap_audit_promoted_to_universal_mechanism`
+- next_goal: `gpt_review_universal_sticker_visual_language_mechanism`
+
+已确认：本报告的差距诊断已经上升为 `44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md` 的通用机制。
+
+已确认：下一轮不得只在 18 秒候选里盲目调参，不得只改颜色、坐标、线宽或动画参数。
+
+已确认：后续 sticker task 必须先经过 `video_anchor -> attachment_relation -> shape_grammar -> stroke_outline -> scale_distance -> reaction_motion -> material_compositing -> style_sheet_acceptance_gate`，再决定是否进入 Remotion 小范围 probe。
+
+待验证：`44` 仍需 GPT / 用户回审；回审通过后才允许进入 `sticker_attachment_relation_style_sheet_probe（贴纸附属关系风格板探针）`。

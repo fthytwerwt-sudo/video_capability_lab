@@ -12,6 +12,22 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜通用贴纸视觉语言机制补全
+
+- 已确认：用户本轮要求不围绕单个 18 秒候选视频、单个风格板或单个贴纸候选，而是把贴纸视觉语言补成后续所有 vlog / odd / 对标样片可复用的机制系统。
+- 已确认：本轮任务为 `universal_sticker_visual_language_mechanism_completion`。
+- 已确认：新增通用机制文件为 `项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md`。
+- 已确认：`44` 把 `43` 的失败层升级成通用中间层：`shape_layer` 对应 `shape_grammar`，`stroke_layer` 对应 `stroke_outline_system`，`visual_material_feel` 对应 `material_compositing_rule`，`placement / integration` 对应 `sticker_attachment_relation` + `scale_distance_rule`，`human_feel` 对应 `style_sheet_acceptance_gate` + `judgement_standards`。
+- 已确认：`44` 已补齐六个关键中间层：`shape_grammar`、`stroke_outline_system`、`scale_distance_rule`、`reaction_motion_signature`、`material_compositing_rule`、`style_sheet_acceptance_gate`。
+- 已确认：`44` 同时包含 `execution_flow`、`sticker_attachment_relation`、`judgement_standards`、`failure_feedback_routing`、`next_execution_bridge` 和 `do_not_claim`。
+- 已确认：本轮没有修改 Remotion，没有 render，没有调用图片 / 视频 / 音频 API，没有生成贴纸图或风格板图片，没有提交视频、图片、音频、抽帧、`tmp/`、`dist/` 或 runtime assets。
+- 当前状态：`universal_sticker_visual_language_mechanism_completed_pending_gpt_review`。
+- mechanism_status: `universal_sticker_visual_language_mechanism_completed_pending_probe_validation`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`gpt_review_universal_sticker_visual_language_mechanism`。
+- 回审通过后的执行桥接：`sticker_attachment_relation_style_sheet_probe（贴纸附属关系风格板探针）`，先做 3 个代表性候选镜头的 2-3 个静态方案，不直接重改视频。
+- 待验证：`44` 仍需 GPT / 用户回审和后续风格板探针验证；不得把机制文件存在写成贴纸系统或 vlog director capability 已验证。
+
 ## 本轮新增｜18 秒候选与对标贴纸差距审计
 
 - 已确认：用户人审反馈为：`我看了贴纸，没得啊，和之前比就是锚点更清晰了，但是还是和对标视频的差距很大啊。`
