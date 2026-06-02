@@ -29,6 +29,36 @@
       "allowed_for_sticker_candidate": false,
       "allowed_for_connection_test": true,
       "requires_reverification_before_sticker_candidate": true
+    },
+    "minimax_image_01": {
+      "provider": "minimax",
+      "model": "image-01",
+      "status": "contract_resolved_api_call_failed_invalid_api_key",
+      "contract_status": "resolved_from_official_docs",
+      "endpoint": "https://api.minimax.io/v1/image_generation",
+      "auth_method": "HTTP Bearer API_key",
+      "requires_group_id": false,
+      "request_fields": [
+        "model",
+        "prompt",
+        "aspect_ratio",
+        "response_format",
+        "n",
+        "prompt_optimizer"
+      ],
+      "response_image_fields": [
+        "data.image_base64",
+        "data.image_urls"
+      ],
+      "last_probe_status": "blocked_minimax_api_call_failed_invalid_api_key",
+      "last_probe_report": "项目资料_docs/视频能力实验室_video_capability_lab/34_无水印Provider探针报告_watermark_free_provider_probe_report.md",
+      "contract_report": "项目资料_docs/视频能力实验室_video_capability_lab/35_MiniMax图片API契约解析_minimax_image_api_contract.md",
+      "last_api_error": "base_resp.status_code=2049; status_msg=invalid api key",
+      "allowed_for_sticker_candidate": false,
+      "allowed_for_connection_test": false,
+      "requires_valid_key_before_sticker_candidate_probe": true,
+      "candidate_probe_status": "not_generated_api_key_invalid",
+      "watermark_quality_judgement": "not_applicable_no_image_generated"
     }
   },
   "next_provider_requirements": {

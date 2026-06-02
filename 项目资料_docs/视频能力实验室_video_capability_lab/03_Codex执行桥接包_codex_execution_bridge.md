@@ -180,6 +180,82 @@ expected_validation:
 - 待验证：下一轮使用用户指定真实 BGM，还是从现有 `01.MP4` / `02.MP4` 提取音频。
 - 待验证：下一轮是否允许提交 JSON / PNG review artifacts，或只提交 Markdown 检测报告。
 
+## 本轮新增｜MiniMax 图片 API 契约解析与无水印贴纸探针
+
+### route_decision
+
+```yaml
+task_type: minimax_image_contract_and_watermark_free_sticker_probe
+true_goal: 用户只填写 MiniMax API key，由 Codex 自动查明 MiniMax 静态图片生成契约并执行 1 次 paper_sound_tag 单图探针
+allowed_actions:
+  - 读取 `.env` 中 MiniMax key / group_id / model 是否存在，但不得打印真实值
+  - 读取 MiniMax official docs 确认静态图片生成 endpoint / model / request fields / response fields
+  - 只调用 MiniMax 一个 provider
+  - 只发起 1 次图片生成请求
+  - 输出运行结果到 ignored `tmp/无水印贴纸候选_watermark_free_sticker_candidates/`
+  - 更新策略配置、34 探针报告、35 契约报告、current_task、bridge、latest
+forbidden_actions:
+  - 调用 zhipu 或第二个 provider
+  - 批量生成
+  - 修改 Remotion 源码或数据
+  - render 视频
+  - 提交 `.env`、图片、视频、音频、`dist`、`tmp` 或 runtime assets
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+selected_provider: minimax
+resolved_model: image-01
+endpoint: https://api.minimax.io/v1/image_generation
+expected_validation:
+  - workspace_identity_check
+  - env_ignored_check
+  - minimax_key_present_sanitized_check
+  - official_contract_resolution
+  - one_minimax_api_request_only
+  - python3 -m json.tool 配置_configs/图片生成策略_image_generation_policy.json
+  - git diff --check
+  - no_env_staged
+  - no_tmp_or_image_staged
+  - staged_secret_scan
+  - commit_push_remote_head
+```
+
+### minimax_contract_resolution
+
+```yaml
+static_image_generation_supported: true
+endpoint: https://api.minimax.io/v1/image_generation
+model: image-01
+auth_method: HTTP Bearer API_key
+requires_group_id: false
+request_fields:
+  - model
+  - prompt
+  - aspect_ratio
+  - response_format
+  - n
+  - prompt_optimizer
+response_image_field:
+  - data.image_base64
+  - data.image_urls
+supports_transparent_background: not_documented
+supports_no_watermark: not_documented_must_verify_by_output
+source:
+  - https://platform.minimax.io/docs/guides/image-generation
+  - https://platform.minimax.io/docs/api-reference/image-generation-t2i
+  - https://platform.minimax.io/docs/api-reference/api-overview
+confidence: high_for_contract_low_for_watermark_quality
+```
+
+### minimax_probe_result
+
+- 已确认：本轮已解析 MiniMax official docs，没有要求用户继续补模型名。
+- 已确认：本轮只发起 1 次 MiniMax 图片生成请求。
+- 已确认：API 返回 `base_resp.status_code=2049` / `status_msg=invalid api key`。
+- 已确认：本轮未生成图片，因此不能判断 no watermark / no generated label / no logo / transparent background。
+- 已确认：失败响应只保存在 ignored `tmp/无水印贴纸候选_watermark_free_sticker_candidates/`，不得提交。
+- 当前状态：`blocked_minimax_api_call_failed_invalid_api_key`。
+- 下一个目标：更换或修正 MiniMax official API Platform 可用 key 后，重跑 1 次单图探针。
+
 ## 本轮新增｜Remotion 多组件能力证明 demo 桥接
 
 ### route_decision

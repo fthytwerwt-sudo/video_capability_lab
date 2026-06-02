@@ -459,3 +459,19 @@
 ## 下一个目标
 
 进入 `watermark_free_provider_probe（无水印 provider 探针）`。在 provider / model 通过 no watermark、no generated label、no logo / brand mark、transparent PNG 或 clean cutout source 检查前，不允许批量生成贴纸候选或接入 Remotion。
+
+## 本轮新增｜MiniMax 图片 API 契约解析与单图探针 blocked
+
+- 已确认：本轮执行路径为 `/Users/fan/Documents/vlog、odd/video_capability_lab`。
+- 已确认：当前 GitHub 仓库为 `fthytwerwt-sudo/video_capability_lab`，分支为 `main`。
+- 已确认：用户本轮真实目标是只填写 MiniMax API key，由 Codex 自动查明 MiniMax 静态图片生成 endpoint / model / request fields / response image field。
+- 已确认：MiniMax official docs 已确认静态图片生成 endpoint 为 `https://api.minimax.io/v1/image_generation`，模型为 `image-01`，鉴权为 `HTTP Bearer API_key`。
+- 已确认：MiniMax 图片 API 文档未要求 `MINIMAX_GROUP_ID`。
+- 已确认：本轮只调用 MiniMax，一个 provider，一次图片生成请求。
+- 已确认：本轮 API 返回 `base_resp.status_code=2049` / `status_msg=invalid api key`，未生成图片。
+- 已确认：本轮未调用 zhipu，未调用第二个 provider，未批量生成，未修改 Remotion，未 render。
+- 已确认：`.env` 和 `tmp/` 均为 ignored；`.env`、失败响应和运行产物未提交。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/34_无水印Provider探针报告_watermark_free_provider_probe_report.md`。
+- 已确认：新增契约解析为 `项目资料_docs/视频能力实验室_video_capability_lab/35_MiniMax图片API契约解析_minimax_image_api_contract.md`。
+- 当前状态：`blocked_minimax_api_call_failed_invalid_api_key`。
+- 待验证：更换或修正 MiniMax official API Platform 可用 key 后，才能重跑单图候选并判断 no watermark / no generated label / no logo / transparent or clean cutout source。

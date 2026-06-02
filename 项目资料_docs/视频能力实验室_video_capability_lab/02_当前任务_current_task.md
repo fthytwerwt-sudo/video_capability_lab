@@ -1,14 +1,39 @@
 # 当前任务
 
-当前任务：`watermark_free_image_policy_config`。
+当前任务：`minimax_image_contract_and_watermark_free_sticker_probe`。
 
-当前目标：把无水印 / 无生成标识升级为未来贴纸候选图片的硬门槛，并降级 `zhipu + glm-image` 为连通性测试路线。
+当前目标：先解析 MiniMax 静态图片生成 API 契约，再用 1 次 MiniMax 请求验证是否能生成无水印 `paper_sound_tag` 贴纸候选。
 
-当前状态：`watermark_policy_config_updated_no_new_asset`。
+当前状态：`blocked_minimax_api_call_failed_invalid_api_key`。
 
-下一状态：`watermark_free_provider_probe_pending`。
+下一状态：`minimax_valid_key_reprobe_pending`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜MiniMax 图片契约解析与单图探针
+
+- task_type: `minimax_image_contract_and_watermark_free_sticker_probe`
+- true_goal: 用户只填写 MiniMax API key，Codex 自动查清静态图片生成模型、endpoint、请求字段和返回字段，并只生成 1 张无水印贴纸候选。
+- selected_provider: `minimax`
+- resolved_model: `image-01`
+- endpoint: `https://api.minimax.io/v1/image_generation`
+- auth_method: `HTTP Bearer API_key`
+- group_id_required: `false`
+- api_call_status: `failed`
+- blocked_status: `blocked_minimax_api_call_failed_invalid_api_key`
+- generation_count: `0`
+- report_file: `项目资料_docs/视频能力实验室_video_capability_lab/34_无水印Provider探针报告_watermark_free_provider_probe_report.md`
+- contract_file: `项目资料_docs/视频能力实验室_video_capability_lab/35_MiniMax图片API契约解析_minimax_image_api_contract.md`
+
+已确认：MiniMax 官方文档已确认静态图片生成 endpoint 和模型 `image-01`，Codex 没有让用户继续补模型名。
+
+已确认：本轮只发起 1 次 MiniMax 图片生成请求，API 返回 `base_resp.status_code=2049` / `invalid api key`，因此未生成图片。
+
+已确认：本轮没有调用 zhipu，没有调用第二个 provider，没有批量生成，没有修改 Remotion，没有 render。
+
+已确认：`.env` 和 `tmp/` 均为 ignored；`.env`、失败响应和运行产物不得提交。
+
+待验证：更换或修正 MiniMax official API Platform 可用 key 后，才能重新执行单图候选并判断 no watermark / no generated label / no logo / transparent or clean cutout source。
 
 ## 本轮输入
 
