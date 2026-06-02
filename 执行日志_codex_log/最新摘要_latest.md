@@ -12,6 +12,22 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜18 秒锚点贴纸审片候选
+
+- 已确认：本轮任务为 `remotion_18s_anchor_sticker_review_candidate`。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/42_十八秒锚点贴纸正片候选报告_18s_anchor_sticker_candidate_report.md`。
+- 已确认：新增 Remotion composition 为 `十八秒锚点贴纸候选-18s-anchor-sticker-candidate`，source 文件为 `remotion/组合_compositions/十八秒锚点贴纸候选_18s_anchor_sticker_candidate.tsx`。
+- 已确认：新增数据文件为 `remotion/数据_data/十八秒锚点贴纸事件_18s_anchor_sticker_events.ts`，其中每个镜头标注 `stickerPolicy`，每个贴纸保留 `sourceShotId`、`anchorTarget` 和 start / mid / exit review seconds。
+- 已确认：本地候选已 render 到 `dist/十八秒锚点贴纸候选_18s_anchor_sticker_candidate/十八秒锚点贴纸候选_18s_anchor_sticker_candidate.mp4`，该路径是 ignored runtime，不提交。
+- 已确认：技术元数据为 `1080x1920 / 30fps / h264 / AAC stereo / 18.000000s video stream / 18.048000s audio+container`，完整解码通过。
+- 已确认：本轮包含 4 个来自 `41` 的贴纸事件：`shot_01_panda_open_arrow`、`shot_03_bamboo_hide_circle`、`shot_04_sand_trace_wave`、`shot_05_panda_bite_tag`。
+- 已确认：本轮包含多个 no-sticker shots，不为了凑数量硬贴。
+- 部分成立：Codex 本地 frame review 已生成 12 张 start / mid / exit 帧和 contact sheet，并修复首次发现的 `shot_04` / `shot_05` exit 跨镜头问题。
+- 已确认：本轮未调用任何图片 / 视频 / 音频 API，未生成第三方贴纸图，未提交视频、图片、音频、抽帧、`tmp/`、`dist/`、runtime assets 或 `.env`。
+- 当前状态：`18s_anchor_sticker_review_candidate_rendered_pending_user_review`。
+- 待验证：视觉语言通过、贴纸机制通过、vlog director capability verified、precise beat sync 均不得声明成立。
+- 下一个目标：用户 / GPT 回审 18 秒候选视频和 start / mid / exit contact sheet。
+
 ## 本轮新增｜目标样片贴纸锚点事件表与执行机制
 
 - 已确认：用户纠偏为“贴纸不是每个视频都一样，而是根据视频锚点来”。

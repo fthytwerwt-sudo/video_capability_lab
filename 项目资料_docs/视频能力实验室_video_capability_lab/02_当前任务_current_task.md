@@ -1,14 +1,39 @@
 # 当前任务
 
-当前任务：`video_anchor_driven_sticker_system_spec_before_remotion_probe`。
+当前任务：`remotion_18s_anchor_sticker_review_candidate`。
 
-当前目标：为目标样片建立 `sticker_anchor_event_table（贴纸锚点事件表）`，并补齐进入 Remotion probe 前的视频锚点驱动贴纸机制。
+当前目标：基于 `41` 的视频锚点贴纸事件表，生成 18 秒本地 Remotion 审片候选，并输出每个贴纸 start / mid / exit frame review。
 
-当前状态：`target_sample_sticker_anchor_event_system_completed_pending_gpt_review`。
+当前状态：`18s_anchor_sticker_review_candidate_rendered_pending_user_review`。
 
-下一目标：`gpt_review_target_sample_sticker_anchor_event_system`。
+下一目标：`user_gpt_review_18s_anchor_sticker_candidate`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜18 秒锚点贴纸审片候选
+
+- task_type: `remotion_18s_anchor_sticker_review_candidate`
+- source_event_system: `项目资料_docs/视频能力实验室_video_capability_lab/41_目标样片贴纸锚点事件表与执行机制_target_sample_sticker_anchor_event_system.md`
+- new_report_file: `项目资料_docs/视频能力实验室_video_capability_lab/42_十八秒锚点贴纸正片候选报告_18s_anchor_sticker_candidate_report.md`
+- composition_id: `十八秒锚点贴纸候选-18s-anchor-sticker-candidate`
+- local_candidate_path: `dist/十八秒锚点贴纸候选_18s_anchor_sticker_candidate/十八秒锚点贴纸候选_18s_anchor_sticker_candidate.mp4`
+- local_frame_review_sheet: `tmp/十八秒锚点贴纸候选_frame_review_18s_anchor_sticker_candidate/十八秒锚点贴纸候选_start_mid_exit_sheet.jpg`
+- current_status: `18s_anchor_sticker_review_candidate_rendered_pending_user_review`
+- api_call_allowed_this_round: `false`
+- image_generation_allowed_this_round: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+
+已确认：本轮已生成本地 18 秒 Remotion 候选，技术元数据为 `1080x1920 / 30fps / h264 / AAC stereo / 18.000000s video stream / 18.048000s audio+container`，完整解码通过。
+
+已确认：本轮使用 4 个来自 `41` 的 `sticker_needed=true` 事件：`shot_01_panda_open_arrow`、`shot_03_bamboo_hide_circle`、`shot_04_sand_trace_wave`、`shot_05_panda_bite_tag`。
+
+已确认：本轮包含多个 no-sticker shots，包括 `sand_trace_opening_no_sticker`、`mist_people_wide_no_sticker`、`cloud_tide_open_no_sticker`、`mist_walkaway_no_sticker` 和 `panda_end_reprise_hold`，不为凑数量硬塞贴纸。
+
+已确认：本轮未调用任何图片 / 视频 / 音频 API，未生成第三方贴纸图，未提交视频、图片、音频、抽帧、`tmp/`、`dist/`、runtime assets 或 `.env`。
+
+部分成立：Codex 本地 frame review 显示 4 个贴纸事件均有 start / mid / exit 帧，且二次修正后 `shot_04` / `shot_05` 不再跨入下一镜头；但贴纸是否自然、是否像对标视频语气标点，仍需用户 / GPT 人审。
+
+待验证：视觉语言通过、贴纸机制通过、vlog director capability、precise beat sync 均不得声明成立。
 
 ## 本轮新增｜目标样片贴纸锚点事件表与执行机制
 

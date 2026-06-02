@@ -4,6 +4,7 @@ import { CapabilityDemo } from "./组合_compositions/能力证明Demo_capabilit
 import { AestheticRetargetDemo } from "./组合_compositions/审美重定Demo_aesthetic_retarget_demo";
 import { NewReferenceRebuildDemo } from "./组合_compositions/新素材参考重做Demo_new_reference_rebuild_demo";
 import { ThirtySecondReferenceSample } from "./组合_compositions/三十秒对标样片_30s_reference_sample";
+import { EighteenSecondAnchorStickerCandidate } from "./组合_compositions/十八秒锚点贴纸候选_18s_anchor_sticker_candidate";
 
 const RemotionRoot: React.FC = () => {
   return (
@@ -36,6 +37,14 @@ const RemotionRoot: React.FC = () => {
         id="三十秒对标样片-30s-reference-sample"
         component={ThirtySecondReferenceSample}
         durationInFrames={900}
+        fps={30}
+        height={1920}
+        width={1080}
+      />
+      <Composition
+        id="十八秒锚点贴纸候选-18s-anchor-sticker-candidate"
+        component={EighteenSecondAnchorStickerCandidate}
+        durationInFrames={540}
         fps={30}
         height={1920}
         width={1080}

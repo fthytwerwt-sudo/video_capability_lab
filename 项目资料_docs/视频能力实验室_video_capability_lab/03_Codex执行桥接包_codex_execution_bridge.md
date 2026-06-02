@@ -83,6 +83,57 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜18 秒锚点贴纸候选桥接
+
+### route_decision
+
+```yaml
+task_type: remotion_18s_anchor_sticker_review_candidate
+allowed_actions:
+  - 修改 Remotion source / data / composition
+  - 使用已有本地素材和 BGM runtime 文件
+  - 本地 render 18 秒候选
+  - 抽取每个 sticker event 的 start / mid / exit review frames
+  - 输出 42 报告并更新 02 / 03 / latest
+forbidden_actions:
+  - 调用图片 / 视频 / 音频 API provider
+  - 生成或接入第三方贴纸图
+  - 提交视频、图片、音频、抽帧、tmp、dist、runtime assets 或 .env
+  - 声明 publish-ready、visual language passed、sticker mechanism verified、vlog director capability verified 或 precise beat sync
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+expected_validation:
+  - npx remotion compositions remotion/Root.tsx
+  - npx remotion render remotion/Root.tsx 十八秒锚点贴纸候选-18s-anchor-sticker-candidate ...
+  - ffprobe output metadata
+  - ffmpeg decode check
+  - sticker start/mid/exit frame review
+  - git diff --check
+  - path-limited stage
+  - commit_push_remote_head
+```
+
+### outputs
+
+| artifact | path | status |
+|---|---|---|
+| report | `项目资料_docs/视频能力实验室_video_capability_lab/42_十八秒锚点贴纸正片候选报告_18s_anchor_sticker_candidate_report.md` | committed source |
+| composition | `remotion/组合_compositions/十八秒锚点贴纸候选_18s_anchor_sticker_candidate.tsx` | committed source |
+| data | `remotion/数据_data/十八秒锚点贴纸事件_18s_anchor_sticker_events.ts` | committed source |
+| local candidate | `dist/十八秒锚点贴纸候选_18s_anchor_sticker_candidate/十八秒锚点贴纸候选_18s_anchor_sticker_candidate.mp4` | ignored runtime, not committed |
+| frame sheet | `tmp/十八秒锚点贴纸候选_frame_review_18s_anchor_sticker_candidate/十八秒锚点贴纸候选_start_mid_exit_sheet.jpg` | ignored runtime, not committed |
+
+### current_status
+
+- 已确认：本轮本地 render 候选技术验证通过，视频流 `18.000000s`，音频 / container `18.048000s`，AAC stereo，完整解码通过。
+- 已确认：候选包含 `41` 中 4 个 `sticker_needed=true` 事件，并包含多个 no-sticker shots。
+- 部分成立：Codex 本地 frame review 已发现并修复贴纸 exit 跨镜头问题；最终审美仍需用户 / GPT 人审。
+- 待验证：不得升级为 `visual_language_passed`、`sticker_system_verified`、`publish_candidate_ready` 或 `vlog_director_capability_verified`。
+
+### next_goal
+
+下一个目标：用户 / GPT 回审本地 18 秒候选视频和 start / mid / exit contact sheet，再按失败类型回到单个 sticker event、shape / placement、BGM review 或判断层。
+
 ## 本轮新增｜reference_analysis 到 component_probe 桥接
 
 ### route_decision
