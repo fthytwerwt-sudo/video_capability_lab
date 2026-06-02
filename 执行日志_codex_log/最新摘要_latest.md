@@ -12,6 +12,23 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜选定贴纸方案小范围 Remotion 探针
+
+- 已确认：本轮任务为 `selected_sticker_options_small_scope_remotion_probe`。
+- 已确认：用户从 `45` 风格板偏好的 4 个方案为 `shot_05_option_A`、`shot_03_option_A`、`shot_03_option_B`、`shot_01_option_B`。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/46_选定贴纸方案小范围Remotion探针_selected_sticker_options_small_scope_remotion_probe.md`。
+- 已确认：新增小范围 Remotion probe composition 为 `remotion/组合_compositions/选定贴纸方案小范围探针_selected_sticker_options_probe.tsx`，数据文件为 `remotion/数据_data/选定贴纸方案小范围探针_selected_sticker_options_probe.ts`。
+- 已确认：本轮从无旧候选贴纸的 source clips 抽取 3 张 source frames 到 ignored `tmp/选定贴纸方案小范围探针_selected_sticker_options_probe/source_frames/`。
+- 已确认：本轮用 `npx remotion still` 输出 4 个方案的 start / mid / exit 共 `12` 张 still frames 到 ignored `tmp/选定贴纸方案小范围探针_selected_sticker_options_probe/frames/`。
+- 已确认：本轮生成回审图到 ignored `tmp/选定贴纸方案小范围探针_selected_sticker_options_probe/选定贴纸方案_start_mid_exit_review_sheet.jpg`，该图片不提交 Git。
+- 已确认：`shot_03_option_A` 和 `shot_03_option_B` 使用同一 source frame，但在独立 segment 中显示，没有叠加。
+- 当前状态：`selected_sticker_options_probe_rendered_pending_gpt_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`gpt_user_review_selected_sticker_options_small_scope_remotion_probe`。
+- 部分成立：Codex 自评最值得先回审的是 `shot_05_option_A`，但这只是 candidate_best_option，不是 selected / approved。
+- 已确认：本轮没有修改 18 秒正片时间线，没有 render 18 秒正片，没有调用图片 / 视频 / 音频 API，没有提交视频、图片、音频、抽帧、`tmp/`、`dist/` 或 runtime assets。
+- 待验证：仍等待 GPT / 用户回审；不得声明贴纸通过、视觉语言通过、视频已修好、Remotion completed、sticker system verified 或 vlog director capability verified。
+
 ## 本轮新增｜贴纸附属关系风格板探针
 
 - 已确认：本轮任务为 `sticker_attachment_relation_style_sheet_probe`。

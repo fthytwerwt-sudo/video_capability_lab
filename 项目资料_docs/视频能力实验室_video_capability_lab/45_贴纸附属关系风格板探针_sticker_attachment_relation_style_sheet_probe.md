@@ -113,3 +113,20 @@ GPT / 用户回审时只判断 5 件事：
 `small_scope_remotion_probe_for_selected_sticker_attachment_relation`
 
 下一轮仍不得写成完整视频修复或贴纸系统验证通过。
+
+## I. user_preferred_options_for_small_scope_probe（用户偏好方案进入小范围探针）
+
+- user_preferred_options_status（用户偏好方案状态）: `user_preferred_options_pending_small_scope_remotion_probe`
+- probe_execution_status（探针执行状态）: `selected_sticker_options_probe_rendered_pending_gpt_user_review`
+- next_probe_file（下一探针文件）: `项目资料_docs/视频能力实验室_video_capability_lab/46_选定贴纸方案小范围Remotion探针_selected_sticker_options_small_scope_remotion_probe.md`
+- review_sheet_output_path（回审图输出路径）: `tmp/选定贴纸方案小范围探针_selected_sticker_options_probe/选定贴纸方案_start_mid_exit_review_sheet.jpg`
+- gpt_user_review_required（是否需要 GPT / 用户回审）: `true`
+
+| user_preferred_option | source_event_id | attachment_relation | shape_grammar | note |
+|---|---|---|---|---|
+| `shot_05_option_A` | `shot_05_panda_bite_tag` | `contact_point_attached` | `contact_spark` | 优先验证咬竹接触点是否能替代矩形纸签。 |
+| `shot_03_option_A` | `shot_03_bamboo_hide_circle` | `reveal_boundary_attached` | `half_ring_peek_mark` | 与 `shot_03_option_B` 做 A/B，独立显示，不叠加。 |
+| `shot_03_option_B` | `shot_03_bamboo_hide_circle` | `edge_attached` | `short_stroke_cluster` | 与 `shot_03_option_A` 做 A/B，独立显示，不叠加。 |
+| `shot_01_option_B` | `shot_01_panda_open_arrow` | `contact_point_attached` | `contact_spark` | 验证触点反应是否能替代标准箭头。 |
+
+说明：以上是用户偏好进入小范围 Remotion still probe 的方案清单，不是贴纸通过、视觉语言通过、视频修好或 publish-ready。

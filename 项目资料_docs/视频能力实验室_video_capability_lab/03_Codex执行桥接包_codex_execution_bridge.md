@@ -2185,3 +2185,82 @@ expected_validation:
 ### forbidden_claims
 
 不得把本轮写成 `sticker passed`、`visual language passed`、`video fixed`、`Remotion completed`、`sticker system verified`、`vlog director capability verified` 或 `publish_candidate_ready`。
+
+## 本轮新增｜选定贴纸方案小范围 Remotion 探针桥接
+
+### route_decision
+
+```yaml
+task_type: selected_sticker_options_small_scope_remotion_probe
+true_goal: 将用户从 45 风格板中偏好的 4 个方案做成小范围 Remotion still probe，用 start/mid/exit 回审图判断是否值得进入更小范围 motion / anchor 微调
+source_mechanism_file: 项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md
+source_style_sheet_probe: 项目资料_docs/视频能力实验室_video_capability_lab/45_贴纸附属关系风格板探针_sticker_attachment_relation_style_sheet_probe.md
+new_report_file: 项目资料_docs/视频能力实验室_video_capability_lab/46_选定贴纸方案小范围Remotion探针_selected_sticker_options_small_scope_remotion_probe.md
+remotion_probe_composition: remotion/组合_compositions/选定贴纸方案小范围探针_selected_sticker_options_probe.tsx
+remotion_probe_data: remotion/数据_data/选定贴纸方案小范围探针_selected_sticker_options_probe.ts
+review_sheet_script: 脚本_scripts/生成选定贴纸方案回审图_generate_selected_sticker_options_review_sheet.py
+review_sheet_output: tmp/选定贴纸方案小范围探针_selected_sticker_options_probe/选定贴纸方案_start_mid_exit_review_sheet.jpg
+content_status: selected_sticker_options_probe_rendered_pending_gpt_user_review
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+api_call_allowed_this_round: false
+full_18s_render_allowed_this_round: false
+runtime_asset_commit_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+created_files:
+  - 项目资料_docs/视频能力实验室_video_capability_lab/46_选定贴纸方案小范围Remotion探针_selected_sticker_options_small_scope_remotion_probe.md
+  - remotion/组合_compositions/选定贴纸方案小范围探针_selected_sticker_options_probe.tsx
+  - remotion/数据_data/选定贴纸方案小范围探针_selected_sticker_options_probe.ts
+  - 脚本_scripts/生成选定贴纸方案回审图_generate_selected_sticker_options_review_sheet.py
+updated_files:
+  - 项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/45_贴纸附属关系风格板探针_sticker_attachment_relation_style_sheet_probe.md
+  - 执行日志_codex_log/最新摘要_latest.md
+expected_validation:
+  - workspace_identity_check
+  - required_files_read
+  - candidate_video_read_check
+  - source_clip_frame_extract_check
+  - remotion_composition_check
+  - still_render_check
+  - review_sheet_generation_check
+  - no_api_call
+  - no_full_18s_render
+  - no_18s_timeline_edit
+  - no_env_or_runtime_assets_staged
+  - git_diff_check
+  - path_limited_stage
+  - commit_push_remote_head
+```
+
+### selected_options
+
+| style_option_id | source_event_id | attachment_relation | shape_grammar | probe_note |
+|---|---|---|---|---|
+| `shot_05_option_A` | `shot_05_panda_bite_tag` | `contact_point_attached` | `contact_spark` | 当前 candidate_best_option，先看咬竹触点是否成立。 |
+| `shot_03_option_A` | `shot_03_bamboo_hide_circle` | `reveal_boundary_attached` | `half_ring_peek_mark` | 与 `shot_03_option_B` 做 A/B，独立显示。 |
+| `shot_03_option_B` | `shot_03_bamboo_hide_circle` | `edge_attached` | `short_stroke_cluster` | 与 `shot_03_option_A` 做 A/B，独立显示。 |
+| `shot_01_option_B` | `shot_01_panda_open_arrow` | `contact_point_attached` | `contact_spark` | 看触点反应是否替代标准箭头。 |
+
+### still_probe_outputs
+
+- source_frame_output_dir: `tmp/选定贴纸方案小范围探针_selected_sticker_options_probe/source_frames/`
+- still_frame_output_dir: `tmp/选定贴纸方案小范围探针_selected_sticker_options_probe/frames/`
+- still_frames_count: `12`
+- review_sheet_output: `tmp/选定贴纸方案小范围探针_selected_sticker_options_probe/选定贴纸方案_start_mid_exit_review_sheet.jpg`
+- committed_runtime_assets: `false`
+
+### next_goal
+
+`gpt_user_review_selected_sticker_options_small_scope_remotion_probe`
+
+### next_remotion_entry_gate
+
+只有 GPT / 用户明确选出至少 1 个方案，并说明它为什么一眼能附属于对应视频事件，下一轮才允许进入更小范围的 `motion / anchor placement` 微调。
+
+下一轮仍不得直接重改 18 秒正片，不得把 A/B 两个 `shot_03` 方案叠加，不得把 still probe 写成贴纸系统或视频修复已经完成。
+
+### forbidden_claims
+
+不得把本轮写成 `sticker passed`、`visual language passed`、`video fixed`、`Remotion completed`、`sticker system verified`、`vlog director capability verified` 或 `publish_candidate_ready`。

@@ -1,14 +1,43 @@
 # 当前任务
 
-当前任务：`sticker_attachment_relation_style_sheet_probe`。
+当前任务：`selected_sticker_options_small_scope_remotion_probe`。
 
-当前目标：基于 `44` 生成 3 个代表性候选镜头的静态贴纸附属关系风格板，让 GPT / 用户先判断哪种 `attachment_relation + shape_grammar + stroke_outline + material_compositing + human_feel` 更接近对标视频。
+当前目标：基于用户从 `45` 风格板中偏好的 4 个方案，生成小范围 Remotion still probe 和 start / mid / exit 回审图，让 GPT / 用户判断哪些方案值得进入更小范围 motion / anchor 微调。
 
-当前状态：`sticker_attachment_relation_style_sheet_generated_pending_gpt_user_review`。
+当前状态：`selected_sticker_options_probe_rendered_pending_gpt_user_review`。
 
-下一目标：`gpt_user_review_sticker_attachment_relation_style_sheet`。
+下一目标：`gpt_user_review_selected_sticker_options_small_scope_remotion_probe`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜选定贴纸方案小范围 Remotion 探针
+
+- task_type: `selected_sticker_options_small_scope_remotion_probe`
+- source_mechanism_file: `项目资料_docs/视频能力实验室_video_capability_lab/44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md`
+- source_style_sheet_probe: `项目资料_docs/视频能力实验室_video_capability_lab/45_贴纸附属关系风格板探针_sticker_attachment_relation_style_sheet_probe.md`
+- new_report_file: `项目资料_docs/视频能力实验室_video_capability_lab/46_选定贴纸方案小范围Remotion探针_selected_sticker_options_small_scope_remotion_probe.md`
+- remotion_probe_composition: `remotion/组合_compositions/选定贴纸方案小范围探针_selected_sticker_options_probe.tsx`
+- remotion_probe_data: `remotion/数据_data/选定贴纸方案小范围探针_selected_sticker_options_probe.ts`
+- review_sheet_script: `脚本_scripts/生成选定贴纸方案回审图_generate_selected_sticker_options_review_sheet.py`
+- review_sheet_output: `tmp/选定贴纸方案小范围探针_selected_sticker_options_probe/选定贴纸方案_start_mid_exit_review_sheet.jpg`
+- selected_options: `shot_05_option_A`, `shot_03_option_A`, `shot_03_option_B`, `shot_01_option_B`
+- still_frames_count: `12`
+- current_status: `selected_sticker_options_probe_rendered_pending_gpt_user_review`
+- next_goal: `gpt_user_review_selected_sticker_options_small_scope_remotion_probe`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- api_call_allowed_this_round: `false`
+- full_18s_render_allowed_this_round: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+
+已确认：本轮只新增小范围 Remotion probe 文件和报告，未修改 18 秒正片时间线，未 render 18 秒正片，未调用图片 / 视频 / 音频 API。
+
+已确认：本轮从无旧候选贴纸的 source clips 抽取 `shot_01`、`shot_03`、`shot_05` 三张 source frames 到 ignored `tmp/`；`shot_03_option_A` 和 `shot_03_option_B` 使用同一 source frame，但独立 segment 显示，未叠加。
+
+已确认：本轮输出 4 个方案的 start / mid / exit 共 `12` 张 still frames，并生成一张回审图；图片、抽帧、`tmp/` 产物均不提交 Git。
+
+部分成立：Codex 自评 `shot_05_option_A` 最值得先回审，但这只是 candidate_best_option，不是 selected / approved。
+
+待验证：仍需 GPT / 用户回审；不得声明贴纸通过、视觉语言通过、视频已修好、Remotion completed、sticker system verified、publish-ready 或 vlog director capability verified。
 
 ## 本轮新增｜贴纸附属关系风格板探针
 
