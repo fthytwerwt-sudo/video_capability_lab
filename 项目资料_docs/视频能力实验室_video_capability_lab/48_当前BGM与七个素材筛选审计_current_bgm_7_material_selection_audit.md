@@ -137,3 +137,15 @@ bgm_driven_material_sequence_plan（BGM 驱动素材顺序方案）
 ```
 
 待验证：下一轮仍只能产出候选剪辑结构和片段建议；进入 Remotion / render 前必须继续补 `visual_selection_table`、`video_event_table` 和人工回审结果。
+
+## feedback_loop_upgrade_link（闭环补强链接）
+
+- upgrade_file: `项目资料_docs/视频能力实验室_video_capability_lab/49_BGM驱动素材筛选闭环补强_bgm_material_selection_feedback_loop_upgrade.md`
+- upgrade_status: `bgm_material_selection_feedback_loop_completed_pending_gpt_user_review`
+- current_audit_rule: 当前 7 素材审计仍需按照 `49` 的 `BGM_mood_confirmation_gate` 和 `pre_edit_output_package` 回审。
+- required_before_sequence_plan:
+  - `BGM_style_card`
+  - `material_role_table`
+  - `sequence_candidate`
+  - `failure_routing_map`
+- do_not_skip: 不得直接进入剪辑、Remotion 或 render；不得把本审计中的候选顺序写成最终剪辑方案。

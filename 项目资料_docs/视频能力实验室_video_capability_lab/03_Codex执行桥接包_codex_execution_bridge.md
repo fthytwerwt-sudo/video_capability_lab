@@ -83,6 +83,83 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜BGM 素材筛选反馈闭环补强桥接
+
+### route_decision
+
+```yaml
+task_type: bgm_material_selection_feedback_loop_upgrade
+true_goal: 把 BGM 驱动素材筛选从开剪前检查表升级成可复用闭环，补齐 BGM 情绪确认、开剪前固定输出包和剪后反馈回写
+source_mechanism_file: 项目资料_docs/视频能力实验室_video_capability_lab/47_通用BGM风格驱动素材筛选机制_universal_bgm_style_driven_material_selection_system.md
+source_current_audit_file: 项目资料_docs/视频能力实验室_video_capability_lab/48_当前BGM与七个素材筛选审计_current_bgm_7_material_selection_audit.md
+created_file: 项目资料_docs/视频能力实验室_video_capability_lab/49_BGM驱动素材筛选闭环补强_bgm_material_selection_feedback_loop_upgrade.md
+upgraded_mechanism:
+  - BGM_mood_confirmation_gate
+  - pre_edit_output_package
+  - post_edit_feedback_to_selection_loop
+  - state_update_rules
+  - judgement_standards_upgrade
+  - failure_feedback_routing_upgrade
+updated_files:
+  - 项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/47_通用BGM风格驱动素材筛选机制_universal_bgm_style_driven_material_selection_system.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/48_当前BGM与七个素材筛选审计_current_bgm_7_material_selection_audit.md
+  - 执行日志_codex_log/最新摘要_latest.md
+current_status: bgm_material_selection_feedback_loop_completed_pending_gpt_user_review
+next_goal: gpt_user_review_current_bgm_7_material_selection_audit
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+api_call_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+render_allowed_this_round: false
+runtime_asset_commit_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### BGM_mood_confirmation_gate
+
+`49` 要求 BGM 情绪、风格和段落结构在影响素材选择时必须过 gate。`rough_audio_feature_based_not_human_listening_confirmed` 只能进入候选审计或 GPT / 用户回审，不得写成 `human_listening_confirmed`。
+
+### pre_edit_output_package
+
+每次开剪前必须产出：
+
+1. `BGM_style_card`
+2. `material_role_table`
+3. `sequence_candidate`
+4. `failure_routing_map`
+
+缺任一项不得进入 Remotion / render。
+
+### post_edit_feedback_to_selection_loop
+
+剪后反馈必须回写到 BGM、素材、顺序、结构或人工听感层字段；不能只写“下次注意”，也不能只改时间线不改原因。
+
+### forbidden_claims
+
+- 不得声明 `BGM precise beat sync confirmed`
+- 不得声明 `material selection approved`
+- 不得声明 `video ready to edit`
+- 不得声明 `feedback loop verified`
+- 不得声明 `vlog director capability verified`
+
+### next_execution_bridge
+
+下一个目标：
+
+```text
+gpt_user_review_current_bgm_7_material_selection_audit
+```
+
+回审通过后，才允许进入：
+
+```text
+bgm_driven_material_sequence_plan（BGM 驱动素材顺序方案）
+```
+
+但下一轮必须产出 `BGM_style_card`、`material_role_table`、`sequence_candidate`、`failure_routing_map`，不得直接进入 Remotion / render。
+
 ## 本轮新增｜通用 BGM 风格驱动素材筛选机制桥接
 
 ### route_decision

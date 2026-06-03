@@ -12,6 +12,21 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜BGM 驱动素材筛选闭环补强
+
+- 已确认：本轮任务为 `bgm_material_selection_feedback_loop_upgrade`。
+- 已确认：本轮不是剪辑、不是 render、不是 Remotion 实现、不是 API 调用。
+- 已确认：本轮新建闭环补强文件为 `项目资料_docs/视频能力实验室_video_capability_lab/49_BGM驱动素材筛选闭环补强_bgm_material_selection_feedback_loop_upgrade.md`。
+- 已确认：`49` 把 BGM 驱动素材筛选从“开剪前检查表”补成闭环：BGM 分析、情绪确认、素材功能表、候选顺序、GPT / 用户回审、剪后反馈回写和下一轮字段更新。
+- 已确认：`49` 补齐 `BGM_mood_confirmation_gate（BGM 情绪确认闸门）`，明确 rough audio feature 不等于人工听感确认。
+- 已确认：`49` 补齐 `pre_edit_output_package（开剪前固定输出包）`，要求每次开剪前产出 `BGM_style_card`、`material_role_table`、`sequence_candidate`、`failure_routing_map`。
+- 已确认：`49` 补齐 `post_edit_feedback_to_selection_loop（剪后反馈回流到素材筛选）`，要求剪后反馈回写到 BGM / 素材 / 顺序 / 结构 / 人工听感层字段。
+- 已确认：`47` 和 `48` 末尾已追加 `feedback_loop_upgrade_link（闭环补强链接）`；下次开剪前必须同时读取 `47 + 49`。
+- 当前状态：`bgm_material_selection_feedback_loop_completed_pending_gpt_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`gpt_user_review_current_bgm_7_material_selection_audit`。
+- 待验证：GPT / 用户仍需回审 `48` 和 `49`；不得声明 BGM 精准卡点已确认、素材选择已最终通过、视频已可剪、闭环已验证或 vlog director capability verified。
+
 ## 本轮新增｜通用 BGM 风格驱动素材筛选机制与 7 素材审计
 
 - 已确认：用户新增 7 个素材，并要求 Codex 先按 BGM 风格帮助筛选素材片段，而不是直接生成视频。

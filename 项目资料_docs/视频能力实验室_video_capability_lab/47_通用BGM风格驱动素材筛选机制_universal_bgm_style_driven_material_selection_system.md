@@ -155,3 +155,14 @@ bgm_driven_material_sequence_plan（BGM 驱动素材顺序方案）
 - 素材选择已最终通过
 - 视频已可剪
 - vlog director capability verified
+
+## feedback_loop_upgrade_link（闭环补强链接）
+
+- upgrade_file: `项目资料_docs/视频能力实验室_video_capability_lab/49_BGM驱动素材筛选闭环补强_bgm_material_selection_feedback_loop_upgrade.md`
+- upgrade_status: `bgm_material_selection_feedback_loop_completed_pending_gpt_user_review`
+- 49 补齐的三项：
+  - `BGM_mood_confirmation_gate（BGM 情绪确认闸门）`
+  - `pre_edit_output_package（开剪前固定输出包）`
+  - `post_edit_feedback_to_selection_loop（剪后反馈回流到素材筛选）`
+- reading_rule: 下次开剪前必须同时读取 `47 + 49`；`47` 提供通用筛选字段和判断标准，`49` 提供 mood gate、固定输出包和剪后反馈回写闭环。
+- do_not_skip: 不得只读 `47` 就直接进入 `bgm_driven_material_sequence_plan`、Remotion 或 render。

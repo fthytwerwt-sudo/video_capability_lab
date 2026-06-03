@@ -1,14 +1,42 @@
 # 当前任务
 
-当前任务：`universal_bgm_style_driven_material_selection_system`。
+当前任务：`bgm_material_selection_feedback_loop_upgrade`。
 
-当前目标：把“根据 BGM 风格挑选素材片段”沉淀成每期视频开剪前必须执行的通用机制，并用用户刚放入的 7 个素材做当前案例审计。
+当前目标：把 BGM 风格驱动素材筛选从“开剪前检查表”升级成可复用闭环，补齐 BGM 情绪确认闸门、开剪前固定输出包和剪后反馈回流机制。
 
-当前状态：`bgm_style_material_selection_mechanism_and_current_audit_completed_pending_gpt_user_review`。
+当前状态：`bgm_material_selection_feedback_loop_completed_pending_gpt_user_review`。
 
 下一目标：`gpt_user_review_current_bgm_7_material_selection_audit`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜BGM 驱动素材筛选闭环补强
+
+- task_type: `bgm_material_selection_feedback_loop_upgrade`
+- source_mechanism_file: `项目资料_docs/视频能力实验室_video_capability_lab/47_通用BGM风格驱动素材筛选机制_universal_bgm_style_driven_material_selection_system.md`
+- source_current_audit_file: `项目资料_docs/视频能力实验室_video_capability_lab/48_当前BGM与七个素材筛选审计_current_bgm_7_material_selection_audit.md`
+- new_upgrade_file: `项目资料_docs/视频能力实验室_video_capability_lab/49_BGM驱动素材筛选闭环补强_bgm_material_selection_feedback_loop_upgrade.md`
+- upgraded_mechanism:
+  - `BGM_mood_confirmation_gate（BGM 情绪确认闸门）`
+  - `pre_edit_output_package（开剪前固定输出包）`
+  - `post_edit_feedback_to_selection_loop（剪后反馈回流到素材筛选）`
+  - `state_update_rules（状态更新规则）`
+  - `failure_feedback_routing_upgrade（失败反馈路由补强）`
+- current_status: `bgm_material_selection_feedback_loop_completed_pending_gpt_user_review`
+- next_goal: `gpt_user_review_current_bgm_7_material_selection_audit`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- api_call_allowed_this_round: `false`
+- remotion_edit_allowed_this_round: `false`
+- render_allowed_this_round: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+
+已确认：本轮不是剪辑任务、不是 Remotion 实现任务、不是 render 任务、不是 API 任务；本轮只补机制闭环。
+
+已确认：`49` 定义完整闭环：BGM analysis -> mood gate -> material inventory -> role assignment -> candidate sequence -> GPT / user review -> edit allowed -> post-edit review -> feedback routing -> field write-back -> next iteration。
+
+已确认：`47` 和 `48` 末尾已追加 `feedback_loop_upgrade_link（闭环补强链接）`；下次开剪前必须同时读取 `47 + 49`，当前 `48` 仍需按 `49` 的 mood gate 和 fixed output package 回审。
+
+待验证：`49` 仍需 GPT / 用户回审；不得声明 BGM 精准卡点已确认、素材选择已最终通过、视频已可剪、闭环已验证或 vlog director capability verified。
 
 ## 本轮新增｜通用 BGM 风格驱动素材筛选机制与当前 7 素材审计
 
