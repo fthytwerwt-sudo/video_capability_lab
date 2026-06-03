@@ -83,6 +83,89 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜完整正片候选全流程重剪桥接
+
+### route_decision
+
+```yaml
+task_type: full_video_candidate_complete_flow_recut_render
+user_instruction: 用户要求正片、全部重新剪辑、完全按整个项目流程走；不再接受只有 BGM + 素材拼接的候选。
+gate_file: 项目资料_docs/视频能力实验室_video_capability_lab/51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md
+report_file: 项目资料_docs/视频能力实验室_video_capability_lab/52_完整正片候选全流程重剪报告_full_video_candidate_complete_flow_recut_report.md
+remotion_composition: remotion/组合_compositions/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.tsx
+remotion_data: remotion/数据_data/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.ts
+review_pack_script: 脚本_scripts/生成完整正片候选审片包_generate_full_video_candidate_review_pack.py
+output_video_path: dist/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.mp4
+review_pack_path: tmp/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut_review_pack/
+output_metadata: 18.048000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true
+content_status: full_video_candidate_rendered_pending_user_review
+next_goal: user_review_full_video_candidate_complete_flow_recut
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+api_call_allowed_this_round: false
+image_video_audio_generation_api_called: false
+runtime_asset_commit_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### full_video_candidate_required_modules
+
+1. `BGM_style_and_audio`
+2. `material_selection`
+3. `sequence_structure`
+4. `pacing_and_rhythm`
+5. `captions_or_text_layer`
+6. `stickers_or_visual_punctuation`
+7. `motion_effects_and_transitions`
+8. `composition_and_crop`
+9. `audio_mix`
+10. `export_and_technical_validation`
+11. `review_pack`
+12. `failure_feedback_routing`
+
+### full_video_candidate_completion_matrix_summary
+
+| module | status |
+|---|---|
+| `BGM_style_and_audio` | `included_partial` |
+| `material_selection` | `included_partial` |
+| `sequence_structure` | `included` |
+| `pacing_and_rhythm` | `included_partial` |
+| `captions_or_text_layer` | `included_partial` |
+| `stickers_or_visual_punctuation` | `included_partial` |
+| `motion_effects_and_transitions` | `included` |
+| `composition_and_crop` | `included_partial` |
+| `audio_mix` | `included_partial` |
+| `export_and_technical_validation` | `included` |
+| `review_pack` | `included` |
+| `failure_feedback_routing` | `included` |
+
+### internal_decision_summary
+
+- `BGM_style_card`: 继续使用当前 BGM；判断为 rough audio feature candidate，不写人工听感确认。
+- `material_role_table`: 扫描当前 14 个可用素材；选用 `M03/M04/M05/M06/M07/M08/M09/M11`，`M14` 不沿用 50 的沙纹开头。
+- `sequence_candidate_used`: `gym identity -> gym space -> main action -> machine texture -> action reprise -> drink breath -> sky reset -> shadow outro -> gym reprise -> shadow close`。
+- `caption_text_plan`: 4 条极简原创文本层，均为 `draft_text_pending_user_review`。
+- `sticker_visual_punctuation_plan`: 3 个视觉标点：动作触点火花、器械短笔触、呼吸段边缘线。
+
+### failure_routing_summary
+
+用户若反馈不像正片，优先回到 `full_video_candidate_completion_matrix + sequence_structure`；若 BGM 不搭，回到 `BGM_mood_confirmation_gate`；若贴纸不自然，回到 `44 / 45 / 46`；若字幕不好，回到 `caption_text_plan`；若素材不像一条片，回到 `material_role_table + sequence_candidate`。
+
+### forbidden_claims
+
+- 不得声明 BGM 精准卡点已确认。
+- 不得声明素材选择已最终通过。
+- 不得声明视频已发布。
+- 不得声明正片已由用户批准。
+- 不得声明贴纸机制已验证。
+- 不得声明 `vlog` 视频导演能力已验证。
+- 不得把技术验证通过写成人审通过。
+
+### next_goal
+
+`user_review_full_video_candidate_complete_flow_recut`
+
 ## 本轮新增｜正片候选完整交付闸门桥接
 
 ### route_decision

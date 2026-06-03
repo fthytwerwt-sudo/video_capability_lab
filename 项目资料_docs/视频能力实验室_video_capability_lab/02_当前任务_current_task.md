@@ -1,14 +1,51 @@
 # 当前任务
 
-当前任务：`full_video_candidate_delivery_gate_mechanism`。
+当前任务：`full_video_candidate_complete_flow_recut_render`。
 
-当前目标：建立 `full_video_candidate_delivery_gate（正片候选完整交付闸门）`，防止 GPT / Codex 在用户说“正片 / 成片 / 发布候选 / 最终视频”时把任务降级成 BGM、素材、贴纸、剪辑或风格板等单一模块。
+当前目标：按 `51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md` 重新剪辑一版 18 秒完整正片候选视频，包含 BGM、素材筛选、剪辑结构、字幕 / 文本层、贴纸 / 视觉标点、动效 / 转场、音频混合、导出验证、审片包和失败回路。
 
-当前状态：`full_video_candidate_delivery_gate_completed_pending_gpt_user_review`。
+当前状态：`full_video_candidate_rendered_pending_user_review`。
 
-下一目标：`gpt_user_review_full_video_candidate_delivery_gate`。
+下一目标：`user_review_full_video_candidate_complete_flow_recut`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜完整正片候选全流程重剪
+
+- task_type: `full_video_candidate_complete_flow_recut_render`
+- user_instruction: 用户要求正片、全部重新剪辑、完全按整个项目流程走；不得再只做 BGM + 素材拼接。
+- gate_file: `项目资料_docs/视频能力实验室_video_capability_lab/51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md`
+- new_report_file: `项目资料_docs/视频能力实验室_video_capability_lab/52_完整正片候选全流程重剪报告_full_video_candidate_complete_flow_recut_report.md`
+- remotion_composition: `remotion/组合_compositions/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.tsx`
+- remotion_data: `remotion/数据_data/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.ts`
+- review_pack_script: `脚本_scripts/生成完整正片候选审片包_generate_full_video_candidate_review_pack.py`
+- output_video_path: `dist/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.mp4`
+- review_pack_path: `tmp/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut_review_pack/`
+- output_video_metadata: `18.048000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`
+- full_video_candidate_completion_matrix_status: `12 modules present; no missing_blocked required module`
+- captions_or_text_layer: `included_partial`
+- stickers_or_visual_punctuation: `included_partial`
+- motion_effects_and_transitions: `included`
+- review_pack: `included`
+- failure_feedback_routing: `included`
+- current_status: `full_video_candidate_rendered_pending_user_review`
+- next_goal: `user_review_full_video_candidate_complete_flow_recut`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- api_call_allowed_this_round: `false`
+- image_video_audio_generation_api_called: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+
+已确认：本轮读取并执行 `51` 的正片候选完整交付闸门；`50` 只作为上版缺项事实和素材风险参考，不作为本轮最终时间线。
+
+已确认：本轮扫描 `素材/剪辑素材/剪辑/` 下全部 14 个视频素材，并重新建立 `gym identity -> gym space -> main action -> machine texture -> action reprise -> drink breath -> sky reset -> shadow outro -> gym reprise -> shadow close` 时间线，不直接复用 `50` 的沙纹开头顺序。
+
+已确认：本轮输出视频包含 4 条极简原创文本层，状态均为 `draft_text_pending_user_review`；包含 3 个原创视觉标点事件：动作触点火花、器械短笔触、呼吸段边缘线。
+
+已确认：审片包已生成到 ignored `tmp/`，包含 start / mid / end、字幕帧、贴纸 / 视觉标点帧和 contact sheet；视频、图片、抽帧、`tmp/`、`dist/` 均不提交 Git。
+
+已确认：技术验证通过，但这只是本地技术验证与完整模块交付检查，不代表用户人审、内容审美或能力验证通过。
+
+待验证：用户需要审看本地 18 秒完整正片候选视频，并判断 BGM、开头、中段、呼吸点、结尾、字幕、贴纸 / 视觉标点和素材取舍是否成立。
 
 ## 本轮新增｜正片候选完整交付闸门
 

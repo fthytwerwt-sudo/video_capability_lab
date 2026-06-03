@@ -12,6 +12,25 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜完整正片候选全流程重剪
+
+- 已确认：本轮任务为 `full_video_candidate_complete_flow_recut_render`。
+- 已确认：用户要求正片、全部重新剪辑、完全按整个项目流程走；本轮不能再只做 BGM + 素材拼接。
+- 已确认：本轮按 `51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md` 执行完整交付闸门。
+- 已确认：本轮必须包含字幕 / 文本层和贴纸 / 视觉标点，且已经写入 `52_完整正片候选全流程重剪报告_full_video_candidate_complete_flow_recut_report.md` 的完整性矩阵。
+- 已确认：本轮新建 Remotion composition：`remotion/组合_compositions/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.tsx`。
+- 已确认：本轮新建 Remotion data：`remotion/数据_data/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.ts`。
+- 已确认：本轮新建审片包脚本：`脚本_scripts/生成完整正片候选审片包_generate_full_video_candidate_review_pack.py`。
+- 已确认：本地输出视频路径为 `dist/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.mp4`。
+- 已确认：输出视频技术验证为 `18.048000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+- 已确认：审片包路径为 `tmp/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut_review_pack/`，包含 9 张审片帧、contact sheet 和 manifest。
+- 已确认：本轮没有调用图片 / 视频 / 音频生成 API，没有调用外部音乐识别 API。
+- 已确认：视频、图片、音频、抽帧、`tmp/`、`dist/` 均是 runtime assets，不提交 Git。
+- 当前状态：`full_video_candidate_rendered_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`user_review_full_video_candidate_complete_flow_recut`。
+- 待验证：用户仍需审看本地完整正片候选；不得把技术验证和完整模块检查写成人审或审美通过。
+
 ## 本轮新增｜正片候选完整交付闸门
 
 - 已确认：本轮任务为 `full_video_candidate_delivery_gate_mechanism`。
