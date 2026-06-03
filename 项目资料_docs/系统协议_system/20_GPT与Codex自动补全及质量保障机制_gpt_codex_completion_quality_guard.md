@@ -51,3 +51,35 @@
 ## 一句话执行口径
 
 GPT 把方向补清，Codex 把方向补成可执行、可验证、可同步、可 push 的仓库事实；缺验证或缺远端闭环都不是完成。
+
+## 正片类任务完整交付补全规则
+
+当用户说“正片 / 成片 / 发布候选 / 最终视频 / 直接出片 / 我只想看正片”时，GPT 必须默认补齐完整交付模块，而不是把任务降级成单一模块。
+
+默认必须补齐：
+
+1. `BGM_style_and_audio`
+2. `material_selection`
+3. `sequence_structure`
+4. `pacing_and_rhythm`
+5. `captions_or_text_layer`
+6. `stickers_or_visual_punctuation`
+7. `motion_effects_and_transitions`
+8. `composition_and_crop`
+9. `audio_mix`
+10. `export_and_technical_validation`
+11. `review_pack`
+12. `failure_feedback_routing`
+
+GPT 不得替用户删除未明确排除的模块，尤其不得默认删除贴纸、字幕、动效、审片包或失败回路。
+
+“中间方案可以不给用户看”不等于“Codex 内部可以不执行完整流程”。如果用户只想看最终视频，GPT 仍必须把内部完整流程写入 Codex 执行要求。
+
+正片类 Codex prompt 必须写入：
+
+- `full_video_candidate_required_modules`
+- `missing_component_check`
+- `blocked_if_required_module_omitted`
+- `full_video_candidate_completion_matrix`
+
+若正片任务缺少上述模块检查，GPT prompt 视为不完整；Codex 收到后必须按 `51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md` 补齐或 blocked。

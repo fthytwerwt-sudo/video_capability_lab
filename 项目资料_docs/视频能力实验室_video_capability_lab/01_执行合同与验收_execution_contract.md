@@ -57,3 +57,24 @@
 ## 每轮必须 push 规则
 
 已确认：每一轮 Codex 任务执行完，必须 push 到仓库。若产生仓库改动，只有 commit、push、remote HEAD 验证都完成后，才允许在最终回报写 `completed`。
+
+## 正片候选验收口径
+
+正片候选不是单一模块 probe，也不是只要视频文件存在就算完成。
+
+当用户要求“正片 / 成片 / 发布候选 / 最终视频 / 直接出片”时，验收至少检查：
+
+- BGM
+- 素材
+- 剪辑结构
+- 贴纸 / 视觉标点
+- 字幕 / 文本层
+- 动效 / 转场
+- 音频
+- 导出
+- 审片包
+- 失败回路
+
+缺少任一当前项目已确认必需模块，且用户没有明确排除时，不得写 `completed`，只能写对应 `blocked_required_*_missing` 或输出包含该模块的候选。
+
+正片候选仍不是 `publish-ready`；必须等待用户审片，能力状态仍保持 `vlog_director_capability_still_pending_multi_case_validation`。

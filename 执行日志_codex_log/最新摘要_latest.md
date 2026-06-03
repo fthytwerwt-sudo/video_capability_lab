@@ -12,6 +12,24 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜正片候选完整交付闸门
+
+- 已确认：本轮任务为 `full_video_candidate_delivery_gate_mechanism`。
+- 已确认：用户指出“正片 / 成片 / 发布候选 / 最终视频 / 我只想看正片”必须默认等于完整发布候选体验。
+- 已确认：GPT 不能替用户决定“不要贴纸 / 不要字幕 / 不要动效 / 不要审片包”；只有用户明确排除时，才允许局部化。
+- 已确认：Codex 不能因为 prompt 没写某项，就默认省略项目已确认的重要模块。
+- 已确认：上一轮 `50_BGM驱动全素材18秒正片风格候选报告_bgm_driven_all_materials_18s_final_style_candidate_report.md` 缺贴纸 / 视觉标点，根因是 GPT prompt 没有把贴纸写成硬要求，也缺少正片完整交付闸门。
+- 已确认：本轮新建 `项目资料_docs/视频能力实验室_video_capability_lab/51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md`。
+- 已确认：`51` 定义 `full_video_candidate = BGM + material selection + edit structure + pacing + captions + stickers + motion/effects + transitions + audio mix + export + review pack + failure routing`。
+- 已确认：`51` 定义 `full_video_candidate_completion_matrix（正片候选完整性矩阵）`，每次正片候选报告必须逐项说明 included、partial、missing、skipped 或 not applicable。
+- 已确认：正片缺贴纸 / 视觉标点且用户未明确排除时，不得写 completed，只能补齐或写 `blocked_required_sticker_or_visual_punctuation_missing`。
+- 已确认：系统协议 `20 / 21 / 22` 已追加正片类任务完整交付补全、不可降级和真实意图默认完整交付规则。
+- 已确认：`01_执行合同与验收_execution_contract.md` 和 `04_检查标准与完成定义_check_standards.md` 已追加正片候选验收口径和完成定义。
+- 当前状态：`full_video_candidate_delivery_gate_completed_pending_gpt_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`gpt_user_review_full_video_candidate_delivery_gate`。
+- 待验证：该闸门仍需 GPT / 用户回审，并在后续正片候选任务中按矩阵执行后验证；不得声明 `full video delivery mechanism verified`、`publish-ready`、`video_fixed` 或 `vlog_director_capability_verified`。
+
 ## 本轮新增｜BGM 驱动全素材 18 秒正片风格候选
 
 - 已确认：本轮任务为 `bgm_driven_all_materials_18s_final_style_candidate_render`。

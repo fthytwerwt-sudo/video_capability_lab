@@ -83,3 +83,33 @@
 ## 能力 probe 状态检查
 
 能力 probe 未验证不得写成已成立。能力地图中的初始状态必须全部是 `待验证`，不得出现 `已确认可用` 或 `已验证成立`。
+
+## full_video_candidate_done_definition
+
+正片候选完成前必须检查 `51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md`。
+
+每个正片候选报告必须包含：
+
+- `full_video_candidate_completion_matrix`
+- `blocked_if_required_module_omitted`
+- `failure_feedback_routing`
+- 用户明确跳过模块记录
+- 禁止声明清单
+
+如果任一必需模块被静默省略，不得写 `completed`。
+
+禁止使用以下缺项理由：
+
+- `silently_omitted`
+- `not_in_prompt_so_skipped`
+- prompt 没写所以没做
+- Codex 自行判断不需要
+
+缺项时必须写：
+
+- `missing_blocked`
+- 对应 `blocked_required_*_missing`
+- `route_back_to`
+- `required_fix`
+
+正片候选完整性检查通过，也不等于 `publish-ready`、`video_fixed` 或 `vlog_director_capability_verified`；仍需用户审片。

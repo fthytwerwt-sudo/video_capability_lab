@@ -83,6 +83,81 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜正片候选完整交付闸门桥接
+
+### route_decision
+
+```yaml
+task_type: full_video_candidate_delivery_gate_mechanism
+user_feedback: 用户指出“正片 / 成片 / 发布候选 / 最终视频”默认等于完整发布候选体验，GPT / Codex 不能因为 prompt 没写某项就省略项目已确认的重要模块。
+source_problem: 50 输出了 BGM + 素材候选，但缺少贴纸 / 视觉标点；该问题来自正片完整交付定义、缺项检查、GPT prompt 闸门和 Codex 执行前 checklist 缺失。
+created_file: 项目资料_docs/视频能力实验室_video_capability_lab/51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md
+updated_protocols:
+  - 项目资料_docs/系统协议_system/20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md
+  - 项目资料_docs/系统协议_system/21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md
+  - 项目资料_docs/系统协议_system/22_真实意图澄清闸门机制_true_intent_clarification_gate.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/01_执行合同与验收_execution_contract.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/04_检查标准与完成定义_check_standards.md
+content_status: full_video_candidate_delivery_gate_completed_pending_gpt_user_review
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+api_call_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+render_allowed_this_round: false
+runtime_asset_commit_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### full_video_candidate_definition
+
+```text
+full_video_candidate = BGM + material selection + edit structure + pacing + captions + stickers + motion/effects + transitions + audio mix + export + review pack + failure routing
+```
+
+正片候选不是 `publish-ready`，也不是用户已批准发布。正片候选必须包含项目当前已确认应出现的模块；模块缺输入或能力时必须 blocked 或显式标缺项。
+
+### required_modules
+
+1. `BGM_style_and_audio`
+2. `material_selection`
+3. `sequence_structure`
+4. `pacing_and_rhythm`
+5. `captions_or_text_layer`
+6. `stickers_or_visual_punctuation`
+7. `motion_effects_and_transitions`
+8. `composition_and_crop`
+9. `audio_mix`
+10. `export_and_technical_validation`
+11. `review_pack`
+12. `failure_feedback_routing`
+
+### partial_task_exception
+
+只有用户明确说“只看 BGM / 只看素材 / 只看贴纸 / 不要贴纸 / 不要字幕 / 不要动效 / 只做机制 / 只做 probe / 只做审计 / 不要生成视频”等，才允许降级为局部任务。
+
+### next_execution_rule
+
+下一轮正片类任务必须：
+
+1. 先读取 `51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md`。
+2. 输出 `full_video_candidate_completion_matrix`。
+3. 使用 `included / included_partial / missing_blocked / skipped_by_user_explicit_request / not_applicable_with_reason` 五类状态。
+4. 禁止 `silently_omitted` 和 `not_in_prompt_so_skipped`。
+5. 正片缺贴纸 / 视觉标点且用户未明确排除时，必须补齐或写 `blocked_required_sticker_or_visual_punctuation_missing`。
+
+### forbidden_claims
+
+- 不得声明 `full video delivery mechanism verified`
+- 不得声明 `publish-ready`
+- 不得声明 `final approved`
+- 不得声明 `video fixed`
+- 不得声明 `vlog director capability verified`
+- 不得在必需模块缺失时写 `completed`
+
+### next_goal
+
+`gpt_user_review_full_video_candidate_delivery_gate`
+
 ## 本轮新增｜BGM 驱动全素材 18 秒正片风格候选桥接
 
 ### route_decision

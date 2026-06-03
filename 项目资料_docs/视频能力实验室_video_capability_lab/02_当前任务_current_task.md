@@ -1,14 +1,47 @@
 # 当前任务
 
-当前任务：`bgm_driven_all_materials_18s_final_style_candidate_render`。
+当前任务：`full_video_candidate_delivery_gate_mechanism`。
 
-当前目标：按用户本轮 P0 指令，不先交付方案包，直接使用当前仓库 BGM 和 `素材/剪辑素材/剪辑/` 下所有可用素材，生成一版本地 18 秒正片风格候选视频和审片包。
+当前目标：建立 `full_video_candidate_delivery_gate（正片候选完整交付闸门）`，防止 GPT / Codex 在用户说“正片 / 成片 / 发布候选 / 最终视频”时把任务降级成 BGM、素材、贴纸、剪辑或风格板等单一模块。
 
-当前状态：`18s_final_style_candidate_rendered_pending_user_review`。
+当前状态：`full_video_candidate_delivery_gate_completed_pending_gpt_user_review`。
 
-下一目标：`user_review_18s_final_style_candidate`。
+下一目标：`gpt_user_review_full_video_candidate_delivery_gate`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜正片候选完整交付闸门
+
+- task_type: `full_video_candidate_delivery_gate_mechanism`
+- user_feedback: 用户指出以后凡说“正片 / 成片 / 发布候选 / 最终视频”，默认含义是完整发布候选体验，不允许 GPT 或 Codex 因 prompt 未写某项就省略项目已确认的重要模块。
+- source_problem: 上一轮 `50_BGM驱动全素材18秒正片风格候选报告_bgm_driven_all_materials_18s_final_style_candidate_report.md` 产出了 BGM + 素材的 18 秒候选，但缺少贴纸 / 视觉标点模块；根因不是单纯 Codex 执行错误，而是正片完整交付定义和缺项阻断未机制化。
+- new_gate_file: `项目资料_docs/视频能力实验室_video_capability_lab/51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md`
+- updated_protocols:
+  - `项目资料_docs/系统协议_system/20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md`
+  - `项目资料_docs/系统协议_system/21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md`
+  - `项目资料_docs/系统协议_system/22_真实意图澄清闸门机制_true_intent_clarification_gate.md`
+- updated_acceptance_files:
+  - `项目资料_docs/视频能力实验室_video_capability_lab/01_执行合同与验收_execution_contract.md`
+  - `项目资料_docs/视频能力实验室_video_capability_lab/04_检查标准与完成定义_check_standards.md`
+- current_status: `full_video_candidate_delivery_gate_completed_pending_gpt_user_review`
+- next_goal: `gpt_user_review_full_video_candidate_delivery_gate`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- api_call_allowed_this_round: `false`
+- remotion_edit_allowed_this_round: `false`
+- render_allowed_this_round: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+
+已确认：本轮不是修视频、不是 render、不是重新生成贴纸、不是继续剪辑；本轮只补机制。
+
+已确认：`51` 定义了正片候选默认含义：`BGM + material selection + edit structure + pacing + captions + stickers + motion/effects + transitions + audio mix + export + review pack + failure routing`。
+
+已确认：只有用户明确说“只看某部分 / 不要某模块 / 只做机制 / 只做 probe / 不要生成视频”等，才允许降级为局部任务。
+
+已确认：下一轮如果再做正片，默认必须读取 `51`，并输出 `full_video_candidate_completion_matrix（正片候选完整性矩阵）`。
+
+已确认：如果用户说正片，但视频缺少贴纸 / 视觉标点，且用户没有明确说不要贴纸，则不得写 `completed`，只能补入贴纸模块或写 `blocked_required_sticker_or_visual_punctuation_missing`。
+
+待验证：本机制仍需 GPT / 用户回审；不得声明 `full video delivery mechanism verified`、`publish-ready`、`video fixed` 或 `vlog director capability verified`。
 
 ## 本轮新增｜BGM 驱动全素材 18 秒正片风格候选
 
