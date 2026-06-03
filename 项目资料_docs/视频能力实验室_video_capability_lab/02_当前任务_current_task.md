@@ -1,14 +1,40 @@
 # 当前任务
 
-当前任务：`selected_sticker_options_small_scope_remotion_probe`。
+当前任务：`universal_bgm_style_driven_material_selection_system`。
 
-当前目标：基于用户从 `45` 风格板中偏好的 4 个方案，生成小范围 Remotion still probe 和 start / mid / exit 回审图，让 GPT / 用户判断哪些方案值得进入更小范围 motion / anchor 微调。
+当前目标：把“根据 BGM 风格挑选素材片段”沉淀成每期视频开剪前必须执行的通用机制，并用用户刚放入的 7 个素材做当前案例审计。
 
-当前状态：`selected_sticker_options_probe_rendered_pending_gpt_user_review`。
+当前状态：`bgm_style_material_selection_mechanism_and_current_audit_completed_pending_gpt_user_review`。
 
-下一目标：`gpt_user_review_selected_sticker_options_small_scope_remotion_probe`。
+下一目标：`gpt_user_review_current_bgm_7_material_selection_audit`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜通用 BGM 风格驱动素材筛选机制与当前 7 素材审计
+
+- task_type: `universal_bgm_style_driven_material_selection_system`
+- current_bgm_path: `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`
+- material_pool_path: `素材/剪辑素材/剪辑`
+- new_materials_count: `7`
+- new_mechanism_file: `项目资料_docs/视频能力实验室_video_capability_lab/47_通用BGM风格驱动素材筛选机制_universal_bgm_style_driven_material_selection_system.md`
+- current_audit_file: `项目资料_docs/视频能力实验室_video_capability_lab/48_当前BGM与七个素材筛选审计_current_bgm_7_material_selection_audit.md`
+- current_status: `bgm_style_material_selection_mechanism_and_current_audit_completed_pending_gpt_user_review`
+- next_goal: `gpt_user_review_current_bgm_7_material_selection_audit`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- api_call_allowed_this_round: `false`
+- remotion_edit_allowed_this_round: `false`
+- render_allowed_this_round: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+
+已确认：本轮目标不是生成视频、不是 render、不是修改 Remotion 正片、不是继续贴纸任务，而是补齐 BGM 风格驱动素材筛选机制和当前 7 素材审计。
+
+已确认：`素材/剪辑素材/剪辑` 下共有 14 个视频文件，其中 2026-06-03 20:06:08 到 21:49:48 修改的文件正好 7 个，和用户输入“新加了 7 个素材”吻合，本轮审计使用这 7 个作为当前素材。
+
+已确认：当前 BGM 为 `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`；技术验证通过，`25.400000s / 720x960 / 30fps / hevc / AAC stereo / decodable=true`。
+
+部分成立：BGM 粗分析只基于 `ffprobe`、`ffmpeg`、`librosa`、waveform、RMS、onset 和 contact sheet，不是人工听感确认，也不是精准卡点确认。
+
+待验证：`48` 的素材选择审计仍需 GPT / 用户回审；不得声明素材选择已最终通过、视频已可剪、BGM 精准卡点已确认或 vlog director capability verified。
 
 ## 本轮新增｜选定贴纸方案小范围 Remotion 探针
 

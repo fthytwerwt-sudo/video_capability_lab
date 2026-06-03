@@ -12,6 +12,22 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜通用 BGM 风格驱动素材筛选机制与 7 素材审计
+
+- 已确认：用户新增 7 个素材，并要求 Codex 先按 BGM 风格帮助筛选素材片段，而不是直接生成视频。
+- 已确认：本轮任务为 `universal_bgm_style_driven_material_selection_system`。
+- 已确认：本轮新增通用机制文件为 `项目资料_docs/视频能力实验室_video_capability_lab/47_通用BGM风格驱动素材筛选机制_universal_bgm_style_driven_material_selection_system.md`。
+- 已确认：本轮新增当前案例审计文件为 `项目资料_docs/视频能力实验室_video_capability_lab/48_当前BGM与七个素材筛选审计_current_bgm_7_material_selection_audit.md`。
+- 已确认：当前 BGM 为 `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`，技术验证通过：`25.400000s / 720x960 / 30fps / hevc / AAC stereo / decodable=true`。
+- 已确认：`素材/剪辑素材/剪辑` 下共有 14 个视频文件，其中 2026-06-03 20:06:08 到 21:49:48 修改的文件正好 7 个，和用户输入“新加了 7 个素材”吻合，本轮以这 7 个作为当前审计对象。
+- 已确认：7 个新增素材均可读取、可解码、有音轨；本轮只把该结论写成 `technical_validation=passed`，不写成内容通过。
+- 部分成立：本轮已用 `ffprobe`、`ffmpeg`、`librosa`、waveform、RMS、onset 和 contact sheet 做 BGM / 素材粗审；该审计不是人工听感确认，也不是素材语义终审。
+- 已确认：本轮没有生成视频、没有 render、没有修改 Remotion 正片、没有调用图片 / 视频 / 音频 API、没有提交视频、图片、音频、抽帧、`tmp/`、`dist/` 或 runtime assets。
+- 当前状态：`bgm_style_material_selection_mechanism_and_current_audit_completed_pending_gpt_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`gpt_user_review_current_bgm_7_material_selection_audit`。
+- 待验证：GPT / 用户需要回审 `48` 的素材选择审计；不得声明素材选择已最终通过、视频已可剪、BGM 精准卡点已确认或 vlog director capability verified。
+
 ## 本轮新增｜选定贴纸方案小范围 Remotion 探针
 
 - 已确认：本轮任务为 `selected_sticker_options_small_scope_remotion_probe`。

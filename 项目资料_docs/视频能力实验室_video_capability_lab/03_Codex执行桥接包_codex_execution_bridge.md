@@ -83,6 +83,77 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜通用 BGM 风格驱动素材筛选机制桥接
+
+### route_decision
+
+```yaml
+task_type: universal_bgm_style_driven_material_selection_system
+true_goal: 把“根据 BGM 风格挑选素材片段”沉淀成每期视频开剪前必须执行的通用机制，并用用户刚放入的 7 个素材做当前案例审计
+bgm_path: 素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV
+material_pool_path: 素材/剪辑素材/剪辑
+materials_count: 7
+created_files:
+  - 项目资料_docs/视频能力实验室_video_capability_lab/47_通用BGM风格驱动素材筛选机制_universal_bgm_style_driven_material_selection_system.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/48_当前BGM与七个素材筛选审计_current_bgm_7_material_selection_audit.md
+updated_files:
+  - 项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md
+  - 项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md
+  - 执行日志_codex_log/最新摘要_latest.md
+current_status: bgm_style_material_selection_mechanism_and_current_audit_completed_pending_gpt_user_review
+next_goal: gpt_user_review_current_bgm_7_material_selection_audit
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+api_call_allowed_this_round: false
+remotion_edit_allowed_this_round: false
+render_allowed_this_round: false
+runtime_asset_commit_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### audit_inputs
+
+| input | path | status |
+|---|---|---|
+| current_bgm | `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV` | `technical_validation=passed` |
+| current_material_pool | `素材/剪辑素材/剪辑` | `14 total files / 7 files identified by 2026-06-03 mtime group` |
+| bgm_related_docs | `codex_source/12_bgm_beat_execution.md` + marker script + audio toolchain report | `read` |
+
+### forbidden_claims
+
+- 不得声明 `BGM precise beat sync confirmed`
+- 不得声明 `material selection approved`
+- 不得声明 `video ready to edit`
+- 不得声明 `Remotion render completed`
+- 不得声明 `vlog director capability verified`
+
+### failure_feedback_routing summary
+
+- `fail_bgm_style_unclear`: 回到 BGM 分析或人工听感确认。
+- `fail_material_semantics_unclear`: 回到素材 contact sheet / 用户确认。
+- `fail_energy_mismatch`: 回到 BGM section map 或素材排序。
+- `fail_motion_mismatch`: 回到 material motion tag。
+- `fail_visual_density_mismatch`: 回到画面密度选择。
+- `fail_edit_structure_flat`: 回到片段功能分配，不是直接加贴纸。
+- `fail_bgm_cut_not_feel_right`: 回到 BGM marker / 人工复听。
+- `fail_material_overused`: 回到素材筛选和时长分配。
+- `fail_wrong_opening_material`: 回到 BGM intro mood 和开场功能。
+- `fail_no_breath_point`: 回到 BGM breath points 和留白素材。
+
+### next_execution_bridge
+
+下一个目标：
+
+```text
+gpt_user_review_current_bgm_7_material_selection_audit
+```
+
+回审通过后，才允许进入：
+
+```text
+bgm_driven_material_sequence_plan（BGM 驱动素材顺序方案）
+```
+
 ## 本轮新增｜通用贴纸视觉语言机制补全桥接
 
 ### route_decision
