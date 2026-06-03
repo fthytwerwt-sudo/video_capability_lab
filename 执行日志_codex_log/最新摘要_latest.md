@@ -12,6 +12,23 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜解析资产全量索引与参考视觉语言判断路由器
+
+- 已确认：本轮任务为 `reference_analysis_asset_inventory_and_visual_language_migration_router_build`。
+- 已确认：用户要求扩大范围，不是围绕当前某条片子修复，也不是只迁移 GPT 点名文件，而是全量读取 / 盘点此前所有参考视频解析、对标审计、贴纸审计、字幕审计、视觉语言报告、风格判断、样片回审和机制文件。
+- 已确认：本轮目标是建立“参考解析资产 -> 视觉语言能力库 -> 判断路由器”，让后续字幕 / 贴纸 / 视觉标点执行前必须先查库、选型、写来源、过闸门。
+- 已确认：本轮全量索引范围为 `项目资料_docs/**/*.md` + `codex_source/*.md`，排除 GPT Project 同步包、`tmp/`、`dist/`；共索引 `69` 个 Markdown 文件。
+- 已确认：新建 `项目资料_docs/视频能力实验室_video_capability_lab/54_解析资产全量索引_analysis_asset_inventory.md`，逐项标明是否进入迁移库、迁移原因和抽取目标。
+- 已确认：新建 `项目资料_docs/视频能力实验室_video_capability_lab/55_参考视觉语言迁移库_reference_visual_language_migration_library.md`，沉淀 sticker type、attachment relation、shape drawing logic、caption visual language、caption / sticker relation、bad pattern、template fallback 和 do-not-copy 边界。
+- 已确认：新建 `项目资料_docs/视频能力实验室_video_capability_lab/56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md`，定义后续每个镜头的 caption / sticker / visual punctuation / neither 判断顺序、输入字段、输出字段和失败回路。
+- 已确认：`02_当前任务_current_task.md`、`03_Codex执行桥接包_codex_execution_bridge.md`、`04_检查标准与完成定义_check_standards.md` 和 `codex_source/01_execution_rules.md` 已更新，后续相关任务必须读取 `54 / 55 / 56`。
+- 已确认：后续任务如果只能套模板、说不清来源、说不清画面锚点、形状不能从事件长出，必须标 `template_fallback=true`；成片候选不得继续推进。
+- 已确认：本轮没有修当前片子、没有重剪、没有修改 Remotion 时间线、没有 render、没有调用图片 / 视频 / 音频生成 API、没有生成贴纸资产图、没有提交视频 / 图片 / 音频 / 抽帧 / `tmp/` / `dist/` / runtime assets。
+- 当前状态：`reference_analysis_asset_inventory_and_visual_language_router_completed_pending_gpt_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`gpt_user_review_visual_language_migration_router_then_future_caption_sticker_tasks_must_use_it`。
+- 待验证：用户 / GPT 需回审 `54 / 55 / 56`；后续真实执行任务仍需证明路由器被调用并有效。
+
 ## 本轮新增｜新参考字幕贴纸差异审计与多样化规格
 
 - 已确认：本轮任务为 `new_reference_caption_sticker_diversity_audit`。

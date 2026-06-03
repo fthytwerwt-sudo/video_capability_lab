@@ -83,6 +83,81 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜解析资产全量索引与参考视觉语言判断路由器桥接
+
+### route_decision
+
+```yaml
+task_type: reference_analysis_asset_inventory_and_visual_language_migration_router_build
+user_instruction: 用户要求扩大范围，先全量盘点此前所有参考视频解析、对标审计、贴纸审计、字幕审计、视觉语言报告、风格判断、样片回审和机制文件，再迁移为后续可复用能力库与判断路由器。
+source_inventory: 项目资料_docs/视频能力实验室_video_capability_lab/54_解析资产全量索引_analysis_asset_inventory.md
+migration_library: 项目资料_docs/视频能力实验室_video_capability_lab/55_参考视觉语言迁移库_reference_visual_language_migration_library.md
+decision_router: 项目资料_docs/视频能力实验室_video_capability_lab/56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md
+analysis_inventory_count: 69
+content_status: reference_analysis_asset_inventory_and_visual_language_router_completed_pending_gpt_user_review
+next_goal: gpt_user_review_visual_language_migration_router_then_future_caption_sticker_tasks_must_use_it
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+remotion_timeline_changed_this_round: false
+video_rendered_this_round: false
+generation_api_called_this_round: false
+runtime_asset_commit_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### full_inventory_summary
+
+| item | value |
+|---|---|
+| `inventory_scope` | `项目资料_docs/**/*.md` + `codex_source/*.md`，排除 GPT Project 同步包、`tmp/`、`dist/` |
+| `inventory_count` | `69` |
+| `direct_visual_language_sources` | `09 / 11 / 16 / 21-23 / 25-31 / 39-45 / 53` |
+| `api_asset_safety_sources` | `32-38` |
+| `execution_boundary_sources` | `01-04 / 08 / 10 / 12-15 / 18 / 20 / 24 / 46-52 / codex_source / 系统协议` |
+| `skipped_from_inventory` | `0` |
+
+### migration_library_summary
+
+- `55` 已沉淀 `sticker_type_library`：typography-led、hand-drawn hybrid、contact flash、motion trail、edge strokes、surface micro mark、negative space breath line、caption relation micro mark、object personification、reveal peek、transition edge、no sticker 等类型。
+- `55` 已沉淀 `attachment_relation_library`：edge、contact point、motion direction、surface、object personification、reveal boundary、negative space、caption relation、scene edge、typography anchor。
+- `55` 已沉淀 `shape_drawing_logic_library`：形状必须从 visual event -> anchor target -> attachment relation -> shape family 推导，不能只换模板颜色或尺寸。
+- `55` 已沉淀 `caption_visual_language_library`：hero keyword、attached phrase、whisper caption、poster title stack、hand-drawn reaction word、utility micro caption、no caption。
+- `55` 已沉淀 `caption_sticker_relation_library`：caption leads、sticker leads、shared anchor split roles、caption only、sticker only、neither。
+
+### decision_router_summary
+
+- 后续字幕 / 贴纸 / 视觉标点任务必须先读取 `54 / 55 / 56`。
+- 每个镜头必须提供 `shot_id`、`time_range`、`visual_event`、`primary_subject`、`action_or_state`、`composition_and_safe_area`、`background_density`、`reference_rule_links`、`copy_risk_items`。
+- 每个视觉语言输出必须写 `analysis_asset_ids`、`reference_rule_links`、`caption_decision`、`sticker_or_visual_punctuation_decision`、`conflict_resolution`、`template_fallback`、`failure_route`。
+- 如果只能套模板、说不清来源、说不清锚点、形状不能从事件长出，必须标 `template_fallback=true`。
+- `template_fallback=true` 时，机制报告可记录问题；style sheet 只能做问题板；小范围 Remotion probe 或成片候选必须 blocked 或回退补规则。
+
+### future_required_outputs
+
+```yaml
+migration_library_used:
+decision_router_used:
+analysis_asset_ids:
+reference_rule_link:
+caption_visual_language_decision:
+sticker_visual_language_decision:
+caption_sticker_relation:
+template_fallback:
+copy_risk_check:
+failure_route:
+```
+
+### forbidden_actions_and_claims
+
+- 禁止把参考视频本身写成本项目素材资产。
+- 禁止复制第三方贴纸原图、平台 UI、品牌资产、原字体、原文案、包装、账号信息。
+- 禁止把“文件已建好”写成字幕、贴纸或视觉语言已经多案例验证。
+- 禁止在没有读取 `54 / 55 / 56` 的情况下执行后续字幕 / 贴纸 / 视觉标点任务。
+
+### next_goal
+
+`gpt_user_review_visual_language_migration_router_then_future_caption_sticker_tasks_must_use_it`
+
 ## 本轮新增｜新参考字幕贴纸差异审计与多样化规格桥接
 
 ### route_decision

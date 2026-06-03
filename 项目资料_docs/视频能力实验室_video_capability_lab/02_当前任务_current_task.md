@@ -1,14 +1,45 @@
 # 当前任务
 
-当前任务：`new_reference_caption_sticker_diversity_audit`。
+当前任务：`reference_analysis_asset_inventory_and_visual_language_migration_router_build`。
 
-当前目标：基于用户指定的两个新参考视频，审计当前完整正片候选字幕和贴纸 / 视觉标点为什么显得单一，并输出下一版可执行的字幕、贴纸、动效和材质多样化规格。
+当前目标：全量盘点此前参考视频解析、对标审计、贴纸审计、字幕审计、视觉语言报告、风格判断、样片回审和机制文件，并迁移为可复用的参考视觉语言能力库与字幕 / 贴纸 / 视觉标点判断路由器。
 
-当前状态：`reference_caption_sticker_diversity_audit_completed_pending_next_recut_spec_review`。
+当前状态：`reference_analysis_asset_inventory_and_visual_language_router_completed_pending_gpt_user_review`。
 
-下一目标：`user_review_new_reference_caption_sticker_diversity_audit_then_execute_caption_sticker_diversity_layer_recut`。
+下一目标：`gpt_user_review_visual_language_migration_router_then_future_caption_sticker_tasks_must_use_it`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜解析资产全量索引与参考视觉语言判断路由器
+
+- task_type: `reference_analysis_asset_inventory_and_visual_language_migration_router_build`
+- user_instruction: 用户要求扩大范围，不只迁移 GPT 点名文件，也不是修当前片子，而是让 Codex 把此前所有解析过的参考 / 样片 / 贴纸 / 字幕 / 风格 / 机制文件先看一次，迁移成后续可持续调用的能力库和判断路由器。
+- source_inventory: `项目资料_docs/视频能力实验室_video_capability_lab/54_解析资产全量索引_analysis_asset_inventory.md`
+- migration_library: `项目资料_docs/视频能力实验室_video_capability_lab/55_参考视觉语言迁移库_reference_visual_language_migration_library.md`
+- decision_router: `项目资料_docs/视频能力实验室_video_capability_lab/56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md`
+- inventory_scope: `项目资料_docs/**/*.md` + `codex_source/*.md`，排除 GPT Project 同步包、`tmp/`、`dist/`
+- analysis_inventory_count: `69`
+- direct_visual_language_sources: `09 / 11 / 16 / 21-23 / 25-31 / 39-45 / 53`
+- boundary_sources: `01-04 / 08 / 10 / 12-15 / 18 / 20 / 24 / 32-38 / 46-52 / codex_source / 系统协议`
+- current_status: `reference_analysis_asset_inventory_and_visual_language_router_completed_pending_gpt_user_review`
+- next_goal: `gpt_user_review_visual_language_migration_router_then_future_caption_sticker_tasks_must_use_it`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- remotion_timeline_changed_this_round: `false`
+- video_rendered_this_round: `false`
+- generation_api_called_this_round: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+
+已确认：本轮没有修当前片子、没有重剪、没有修改 Remotion 时间线、没有 render、没有调用图片 / 视频 / 音频生成 API、没有生成贴纸资产图。
+
+已确认：`54` 建立 69 个 Markdown 文件的全量索引，并逐项标明是否进入迁移库、迁移原因和抽取目标。
+
+已确认：`55` 将旧解析资产迁移为 sticker type library、attachment relation library、shape drawing logic、caption visual language、caption / sticker relation、bad pattern library 和 template fallback rule。
+
+已确认：`56` 建立后续执行前判断顺序：先查 `54 / 55 / 56`，再判断 copy risk、事件清晰度、caption 需要、sticker / visual punctuation 需要、二者冲突、template fallback 和输出许可。
+
+已确认：后续字幕 / 贴纸 / 视觉标点任务如果只能套模板、说不清来源、说不清锚点或形状来源，必须标 `template_fallback=true`，不得进入成片候选。
+
+待验证：用户 / GPT 需回审 `54 / 55 / 56`；后续真实执行任务仍需证明路由器被调用并有效。
 
 ## 本轮新增｜新参考字幕贴纸差异审计与多样化规格
 

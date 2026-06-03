@@ -113,3 +113,49 @@
 - `required_fix`
 
 正片候选完整性检查通过，也不等于 `publish-ready`、`video_fixed` 或 `vlog_director_capability_verified`；仍需用户审片。
+
+## reference_visual_language_migration_done_definition
+
+涉及参考视频解析、对标审计、字幕、贴纸、视觉标点、风格判断、样片回审或 vlog / odd 正片候选前，必须检查：
+
+1. 是否读取 `54_解析资产全量索引_analysis_asset_inventory.md`。
+2. 是否读取 `55_参考视觉语言迁移库_reference_visual_language_migration_library.md`。
+3. 是否读取 `56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md`。
+4. 是否写明 `analysis_asset_ids`。
+5. 是否写明 `reference_rule_link`。
+6. 是否写明 `migration_library_used`。
+7. 是否写明 `decision_router_used`。
+8. 是否写明字幕 / 贴纸 / 视觉标点的选择理由。
+9. 是否写明 `caption_sticker_relation`。
+10. 是否写明 `copy_risk_check`。
+11. 是否写明 `template_fallback`。
+12. 是否写明失败回退层。
+
+通过标准：
+
+| check | pass |
+|---|---|
+| `inventory_used` | 后续任务能指出来源资产 ID，而不是只说“参考之前”。 |
+| `library_used` | 能引用贴纸类型、附属关系、形状逻辑、字幕视觉类型或字幕贴纸关系。 |
+| `router_used` | 每个镜头 / 事件经过 caption、sticker、visual punctuation、neither 的路由判断。 |
+| `source_traceability` | 每个视觉语言决策都有 `reference_rule_link`。 |
+| `template_fallback_gate` | 若只能套模板，必须标 `template_fallback=true`，不得进入成片候选。 |
+| `copy_boundary` | 只迁移功能、关系和规则，不复制第三方资产、平台 UI、品牌、原字体、原文案。 |
+
+失败时必须写：
+
+- `blocked_reference_visual_language_preflight_missing`
+- `blocked_decision_router_not_used`
+- `blocked_template_fallback`
+- `blocked_copy_risk`
+- `route_back_to: 54/55/56`
+
+不得把以下情况写成通过：
+
+- 只有字幕数量增加，但没有 caption type、锚点、位置、层级和来源规则。
+- 只有贴纸数量增加，但没有 attachment relation、shape grammar、stroke/material 和来源规则。
+- 只做 Remotion 组件或 SVG 形状展示，没有视频事件和参考规则来源。
+- 只说“按参考风格”，但没有 `analysis_asset_ids` 和 `reference_rule_link`。
+- 技术 probe、静态风格板或局部 render 成功，就写成视觉语言已经通过。
+
+本完成定义只证明迁移库和路由器文件已建立；后续真实任务仍需调用、输出审片包、接受用户 / GPT 回审。

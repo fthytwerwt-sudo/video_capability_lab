@@ -127,3 +127,82 @@ commit_push_status:
   remote_head_verified:
   status:
 ```
+
+## 参考视觉语言迁移库与判断路由器规则
+
+后续任何任务只要涉及以下内容，必须先读取并使用 `54 / 55 / 56`：
+
+- 参考视频解析
+- 对标审计
+- 字幕
+- 贴纸
+- 视觉标点
+- 视觉语言
+- 样片回审
+- style sheet
+- Remotion 贴纸 probe
+- vlog / odd 正片候选
+
+必读文件：
+
+1. `项目资料_docs/视频能力实验室_video_capability_lab/54_解析资产全量索引_analysis_asset_inventory.md`
+2. `项目资料_docs/视频能力实验室_video_capability_lab/55_参考视觉语言迁移库_reference_visual_language_migration_library.md`
+3. `项目资料_docs/视频能力实验室_video_capability_lab/56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md`
+
+执行前必须输出：
+
+```yaml
+visual_language_preflight:
+  source_inventory_read:
+  migration_library_read:
+  decision_router_read:
+  analysis_asset_ids:
+  reference_rule_links:
+  migration_library_used:
+  decision_router_used:
+  template_fallback:
+  copy_risk_check:
+```
+
+如果缺少上述读取或字段，必须输出：
+
+```yaml
+blocked_reason: blocked_reference_visual_language_preflight_missing
+route_back_to: 54/55/56
+```
+
+后续报告必须包含：
+
+```yaml
+migration_library_used:
+decision_router_used:
+analysis_asset_ids:
+reference_rule_link:
+caption_visual_language_decision:
+sticker_visual_language_decision:
+caption_sticker_relation:
+template_fallback:
+copy_risk_check:
+failure_route:
+```
+
+`template_fallback=true` 的定义：
+
+- 只能说“套模板 / 用组件 / 按之前风格”，但说不出来源资产。
+- 说不出当前镜头的 `visual_event`、`anchor_target` 或 `attachment_relation`。
+- 形状不是从画面事件长出来，只是换色、放大、换坐标。
+- 字幕和贴纸没有分工，只是重复说明。
+- 视觉形态接近参考原贴纸、原字体、原文案、平台 UI 或品牌资产。
+
+`template_fallback=true` 时：
+
+- 机制报告可以记录 fallback 问题。
+- style sheet 只能作为问题板或对照板。
+- 小范围 Remotion probe、正片候选、完整候选报告不得继续推进，必须 blocked 或回到规则补全。
+
+禁止行为：
+
+- 不得因为已存在组件库，就绕过 `54 / 55 / 56`。
+- 不得把参考视频路径写成本项目素材资产。
+- 不得复制第三方贴纸、平台 UI、品牌资产、原字体、原文案、包装或账号信息。
+- 不得用数量、多样化、换颜色代替来源规则和镜头锚点。
