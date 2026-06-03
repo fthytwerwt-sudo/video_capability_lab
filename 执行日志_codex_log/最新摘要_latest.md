@@ -12,6 +12,25 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜BGM 驱动全素材 18 秒正片风格候选
+
+- 已确认：本轮任务为 `bgm_driven_all_materials_18s_final_style_candidate_render`。
+- 已确认：用户本轮不想先看方案包，只想看最终导出的本地正片候选。
+- 已确认：本轮内部执行 BGM-素材筛选闭环，但不把 `BGM_style_card`、`material_role_table`、`sequence_candidate` 和 `failure_routing_map` 作为用户前置确认。
+- 已确认：本轮使用当前可用素材池 `素材/剪辑素材/剪辑/` 下全部 14 个视频素材做扫描，不只限新增 7 个素材。
+- 已确认：本轮实际采用 9 个素材进入时间线，5 个素材降级为 backup / not used，原因写入 `50` 报告。
+- 已确认：当前 BGM 为 `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`。
+- 已确认：本地候选视频已生成到 `dist/BGM驱动全素材18秒正片风格候选_bgm_driven_all_materials_18s_final_style_candidate/BGM驱动全素材18秒正片风格候选_bgm_driven_all_materials_18s_final_style_candidate.mp4`。
+- 已确认：输出视频技术验证通过：`18.000000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+- 已确认：审片包已生成到 `tmp/BGM驱动全素材18秒正片风格候选_bgm_driven_all_materials_18s_review_pack/`，包含 start / mid / end 和关键切点帧及 contact sheet。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/50_BGM驱动全素材18秒正片风格候选报告_bgm_driven_all_materials_18s_final_style_candidate_report.md`。
+- 已确认：新增复跑脚本为 `脚本_scripts/生成BGM驱动全素材18秒候选审片包_generate_bgm_driven_all_materials_18s_review_pack.py`。
+- 已确认：本轮未调用图片 / 视频 / 音频生成 API，未调用外部音乐识别 API，未提交视频、图片、音频、抽帧、`tmp/`、`dist/` 或 runtime assets。
+- 当前状态：`18s_final_style_candidate_rendered_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`user_review_18s_final_style_candidate`。
+- 待验证：用户仍需审片；不得声明 `publish_ready`、`video_approved`、`material_selection_approved`、`bgm_precise_sync_passed` 或 `vlog_director_capability_verified`。
+
 ## 本轮新增｜BGM 驱动素材筛选闭环补强
 
 - 已确认：本轮任务为 `bgm_material_selection_feedback_loop_upgrade`。

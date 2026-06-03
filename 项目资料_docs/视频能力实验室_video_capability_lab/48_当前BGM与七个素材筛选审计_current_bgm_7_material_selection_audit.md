@@ -149,3 +149,12 @@ bgm_driven_material_sequence_plan（BGM 驱动素材顺序方案）
   - `sequence_candidate`
   - `failure_routing_map`
 - do_not_skip: 不得直接进入剪辑、Remotion 或 render；不得把本审计中的候选顺序写成最终剪辑方案。
+
+## direct_render_execution_link（本轮直接出片执行链接）
+
+- execution_report: `项目资料_docs/视频能力实验室_video_capability_lab/50_BGM驱动全素材18秒正片风格候选报告_bgm_driven_all_materials_18s_final_style_candidate_report.md`
+- execution_task_type: `bgm_driven_all_materials_18s_final_style_candidate_render`
+- execution_status: `18s_final_style_candidate_rendered_pending_user_review`
+- material_scope_change: 本轮不只限本文件审计的新增 7 个素材，而是扫描 `素材/剪辑素材/剪辑/` 下全部 14 个当前可用视频素材。
+- audit_fact_preserved: 本文件原 7 素材审计事实不重写；`50` 是用户 P0 覆盖后的直接本地候选执行记录。
+- do_not_claim: 不得把本轮 render 写成素材选择最终通过、BGM 精准卡点确认或能力已验证。

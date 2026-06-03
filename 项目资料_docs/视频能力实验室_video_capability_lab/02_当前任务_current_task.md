@@ -1,14 +1,43 @@
 # 当前任务
 
-当前任务：`bgm_material_selection_feedback_loop_upgrade`。
+当前任务：`bgm_driven_all_materials_18s_final_style_candidate_render`。
 
-当前目标：把 BGM 风格驱动素材筛选从“开剪前检查表”升级成可复用闭环，补齐 BGM 情绪确认闸门、开剪前固定输出包和剪后反馈回流机制。
+当前目标：按用户本轮 P0 指令，不先交付方案包，直接使用当前仓库 BGM 和 `素材/剪辑素材/剪辑/` 下所有可用素材，生成一版本地 18 秒正片风格候选视频和审片包。
 
-当前状态：`bgm_material_selection_feedback_loop_completed_pending_gpt_user_review`。
+当前状态：`18s_final_style_candidate_rendered_pending_user_review`。
 
-下一目标：`gpt_user_review_current_bgm_7_material_selection_audit`。
+下一目标：`user_review_18s_final_style_candidate`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜BGM 驱动全素材 18 秒正片风格候选
+
+- task_type: `bgm_driven_all_materials_18s_final_style_candidate_render`
+- user_instruction: 用户不想先看方案包，只想看最终导出的本地正片候选。
+- bgm_path: `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`
+- material_pool_path: `素材/剪辑素材/剪辑/`
+- scanned_materials_count: `14`
+- selected_materials_count: `9`
+- backup_materials_count: `5`
+- new_report_file: `项目资料_docs/视频能力实验室_video_capability_lab/50_BGM驱动全素材18秒正片风格候选报告_bgm_driven_all_materials_18s_final_style_candidate_report.md`
+- render_script: `脚本_scripts/生成BGM驱动全素材18秒候选审片包_generate_bgm_driven_all_materials_18s_review_pack.py`
+- output_video_path: `dist/BGM驱动全素材18秒正片风格候选_bgm_driven_all_materials_18s_final_style_candidate/BGM驱动全素材18秒正片风格候选_bgm_driven_all_materials_18s_final_style_candidate.mp4`
+- review_pack_path: `tmp/BGM驱动全素材18秒正片风格候选_bgm_driven_all_materials_18s_review_pack/`
+- output_video_metadata: `18.000000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`
+- current_status: `18s_final_style_candidate_rendered_pending_user_review`
+- next_goal: `user_review_18s_final_style_candidate`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- api_call_allowed_this_round: `false`
+- render_allowed_this_round: `true`
+- runtime_asset_commit_allowed_this_round: `false`
+
+已确认：本轮内部执行 `47 + 49` 的 BGM-素材筛选闭环，但根据用户 P0 指令不把方案包作为前置确认。
+
+已确认：本轮扫描当前可用素材池 `素材/剪辑素材/剪辑/` 下全部 14 个视频素材，不只限新增 7 个素材；实际采用 9 个素材，剩余 5 个作为备选 / 未使用素材记录在 `50`。
+
+已确认：本轮已生成本地 18 秒候选视频和审片包；视频、图片、抽帧、`tmp/`、`dist/` 均属于 runtime assets，不提交 Git。
+
+待验证：用户仍需审看本地视频；不得声明 `publish_ready`、`video_approved`、`material_selection_approved`、`bgm_precise_sync_passed` 或 `vlog_director_capability_verified`。
 
 ## 本轮新增｜BGM 驱动素材筛选闭环补强
 

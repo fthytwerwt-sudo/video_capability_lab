@@ -321,3 +321,13 @@ bgm_driven_material_sequence_plan（BGM 驱动素材顺序方案）
 - 视频已可剪
 - 闭环已验证
 - vlog director capability verified
+
+## direct_render_execution_link（本轮直接出片执行链接）
+
+- execution_report: `项目资料_docs/视频能力实验室_video_capability_lab/50_BGM驱动全素材18秒正片风格候选报告_bgm_driven_all_materials_18s_final_style_candidate_report.md`
+- execution_task_type: `bgm_driven_all_materials_18s_final_style_candidate_render`
+- execution_status: `18s_final_style_candidate_rendered_pending_user_review`
+- user_p0_override: 用户本轮明确不想先看方案包，只想看本地 18 秒正片风格候选。
+- loop_usage: 本轮内部执行 `BGM_style_card`、`material_role_table`、`sequence_candidate`、`failure_routing_map`，并将结果写入 `50`，但不作为前置用户确认交付。
+- feedback_target: 用户审片反馈回来后，必须按本文件 `post_edit_feedback_to_selection_loop` 和 `state_update_rules` 回写到 BGM、素材、顺序、结构或人工听感层。
+- do_not_claim: 本轮 render 不等于闭环已验证，不等于素材选择已最终通过，也不等于 vlog director capability verified。

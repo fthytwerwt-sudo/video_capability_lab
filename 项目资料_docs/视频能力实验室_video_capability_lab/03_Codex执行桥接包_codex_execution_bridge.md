@@ -83,6 +83,66 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜BGM 驱动全素材 18 秒正片风格候选桥接
+
+### route_decision
+
+```yaml
+task_type: bgm_driven_all_materials_18s_final_style_candidate_render
+user_instruction: 用户不想先看方案包，只想看最终导出的本地正片候选；素材范围是当前所有可用素材，不只限新增 7 个。
+bgm_path: 素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV
+material_pool: 素材/剪辑素材/剪辑/
+material_pool_scan:
+  scanned_count: 14
+  selected_count: 9
+  backup_count: 5
+output_video_path: dist/BGM驱动全素材18秒正片风格候选_bgm_driven_all_materials_18s_final_style_candidate/BGM驱动全素材18秒正片风格候选_bgm_driven_all_materials_18s_final_style_candidate.mp4
+review_pack_path: tmp/BGM驱动全素材18秒正片风格候选_bgm_driven_all_materials_18s_review_pack/
+report_file: 项目资料_docs/视频能力实验室_video_capability_lab/50_BGM驱动全素材18秒正片风格候选报告_bgm_driven_all_materials_18s_final_style_candidate_report.md
+render_script: 脚本_scripts/生成BGM驱动全素材18秒候选审片包_generate_bgm_driven_all_materials_18s_review_pack.py
+output_metadata: 18.000000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true
+current_status: 18s_final_style_candidate_rendered_pending_user_review
+next_goal: user_review_18s_final_style_candidate
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+api_call_allowed_this_round: false
+runtime_asset_commit_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### internal_decision_summary
+
+- `BGM_style_card`: 使用当前 BGM 的 rough audio feature 和 `47 / 49` 机制进行内部判断；confidence 仍为 `rough_audio_feature_based_not_human_listening_confirmed`。
+- `material_role_table`: 扫描 `素材/剪辑素材/剪辑/` 全部 14 个素材，选用 9 个进入 18 秒时间线，5 个降级为 backup / not used。
+- `sequence_candidate_used`: `sand texture -> gym identity -> gym space -> gym action -> machine texture -> drink breath -> sky breath -> shadow outro`。
+- `failure_routing_summary`: 如果用户反馈不顺，优先回到 `BGM_mood_confirmation_gate`、`material_role_table`、`sequence_candidate` 和 `failure_routing_map`，不得只改时间线。
+
+### forbidden_claims
+
+- 不得声明 `publish_ready`
+- 不得声明 `video_approved`
+- 不得声明 `material_selection_approved`
+- 不得声明 `bgm_precise_sync_passed`
+- 不得声明 `vlog_director_capability_verified`
+
+### next_execution_bridge
+
+下一个目标：
+
+```text
+user_review_18s_final_style_candidate
+```
+
+用户审片时优先确认：
+
+1. BGM 和画面是否搭。
+2. 开头是否抓人。
+3. 中段是否推进。
+4. 是否有呼吸点。
+5. 结尾是否自然。
+6. 哪个素材不该用。
+7. 哪个素材应该多用或少用。
+
 ## 本轮新增｜BGM 素材筛选反馈闭环补强桥接
 
 ### route_decision
