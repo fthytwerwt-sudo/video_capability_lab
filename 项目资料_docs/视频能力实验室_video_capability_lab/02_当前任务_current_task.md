@@ -1,14 +1,44 @@
 # 当前任务
 
-当前任务：`full_video_candidate_complete_flow_recut_render`。
+当前任务：`new_reference_caption_sticker_diversity_audit`。
 
-当前目标：按 `51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md` 重新剪辑一版 18 秒完整正片候选视频，包含 BGM、素材筛选、剪辑结构、字幕 / 文本层、贴纸 / 视觉标点、动效 / 转场、音频混合、导出验证、审片包和失败回路。
+当前目标：基于用户指定的两个新参考视频，审计当前完整正片候选字幕和贴纸 / 视觉标点为什么显得单一，并输出下一版可执行的字幕、贴纸、动效和材质多样化规格。
 
-当前状态：`full_video_candidate_rendered_pending_user_review`。
+当前状态：`reference_caption_sticker_diversity_audit_completed_pending_next_recut_spec_review`。
 
-下一目标：`user_review_full_video_candidate_complete_flow_recut`。
+下一目标：`user_review_new_reference_caption_sticker_diversity_audit_then_execute_caption_sticker_diversity_layer_recut`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜新参考字幕贴纸差异审计与多样化规格
+
+- task_type: `new_reference_caption_sticker_diversity_audit`
+- user_feedback: 用户看完当前完整正片候选后，认为字幕和贴纸 / 视觉标点仍显单一，需要读取 `素材/vlog 参考/新参考+解析/` 下两个指定参考视频做差异审计。
+- reference_01: `素材/vlog 参考/新参考+解析/v2800fgi0000d7vgprvog65ilgo3p13g.MP4`
+- reference_02: `素材/vlog 参考/新参考+解析/v2800fgi0000d86nsmfog65i1p2oj750.MP4`
+- current_candidate_video: `dist/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.mp4`
+- source_current_report: `项目资料_docs/视频能力实验室_video_capability_lab/52_完整正片候选全流程重剪报告_full_video_candidate_complete_flow_recut_report.md`
+- new_report_file: `项目资料_docs/视频能力实验室_video_capability_lab/53_新参考字幕贴纸差异审计与多样化规格_new_reference_caption_sticker_diversity_audit.md`
+- audit_artifacts_path: `tmp/新参考字幕贴纸差异审计_new_reference_caption_sticker_diversity_audit/`
+- current_status: `reference_caption_sticker_diversity_audit_completed_pending_next_recut_spec_review`
+- next_goal: `user_review_new_reference_caption_sticker_diversity_audit_then_execute_caption_sticker_diversity_layer_recut`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- remotion_timeline_changed_this_round: `false`
+- video_rendered_this_round: `false`
+- generation_api_called_this_round: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+
+已确认：两个用户指定参考视频均存在并通过技术探测：`reference_01=35.176780s / 720x960 / 60fps / h264 / AAC stereo / decodable=true`，`reference_02=25.749002s / 720x960 / 60fps / h264 / AAC stereo / decodable=true`。
+
+已确认：当前完整正片候选视频存在并通过技术探测：`18.048000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+
+已确认：本轮抽取参考 1、参考 2 和当前候选的 1fps 审计帧，并生成 3 张 contact sheet；这些均位于 ignored `tmp/`，不提交 Git。
+
+已确认：当前候选单一感的核心根因不是“完全没有字幕 / 贴纸”，而是 `reference_not_loaded`、`caption_style_not_extracted`、`sticker_event_library_too_thin`、`attachment_relation_not_diverse`、`shape_grammar_too_repetitive` 和 `material_compositing_too_flat`。
+
+已确认：本轮只做审计和下一版规格，不直接重剪、不修改 Remotion 正片时间线、不 render 新视频、不调用图片 / 视频 / 音频生成 API。
+
+待验证：用户需回审 `53`，确认下一版更偏 `reference_01 typography-led`、`reference_02 hand-drawn hybrid`，还是混合路线。
 
 ## 本轮新增｜完整正片候选全流程重剪
 

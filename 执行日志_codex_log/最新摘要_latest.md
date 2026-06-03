@@ -12,6 +12,24 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜新参考字幕贴纸差异审计与多样化规格
+
+- 已确认：本轮任务为 `new_reference_caption_sticker_diversity_audit`。
+- 已确认：用户看完当前完整正片候选后，反馈字幕和贴纸 / 视觉标点仍显单一；本轮目标是先审计原因和参考差异，不直接重剪整片。
+- 已确认：两个指定参考视频均已找到：`素材/vlog 参考/新参考+解析/v2800fgi0000d7vgprvog65ilgo3p13g.MP4` 和 `素材/vlog 参考/新参考+解析/v2800fgi0000d86nsmfog65i1p2oj750.MP4`。
+- 已确认：两个参考视频均通过技术探测：`reference_01=35.176780s / 720x960 / 60fps / h264 / AAC stereo / decodable=true`，`reference_02=25.749002s / 720x960 / 60fps / h264 / AAC stereo / decodable=true`。
+- 已确认：当前完整正片候选视频仍存在并通过技术探测：`18.048000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+- 已确认：本轮读取 `44_通用贴纸视觉语言机制_universal_sticker_visual_language_system.md`、`51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md` 和 `52_完整正片候选全流程重剪报告_full_video_candidate_complete_flow_recut_report.md`。
+- 已确认：本轮生成 `53_新参考字幕贴纸差异审计与多样化规格_new_reference_caption_sticker_diversity_audit.md`，说明当前单一感来自 `reference_not_loaded`、`caption_style_not_extracted`、`sticker_event_library_too_thin`、`attachment_relation_not_diverse`、`shape_grammar_too_repetitive`、`material_compositing_too_flat` 等层。
+- 已确认：参考 1 更偏 `typography_driven_visual_punctuation`；参考 2 更偏 `hand_drawn_caption_plus_sticker_hybrid`；下一版不能只“多加几个贴纸”，必须重建字幕和贴纸共同组成的视觉语言层。
+- 已确认：本轮抽帧和 contact sheet 输出到 ignored `tmp/新参考字幕贴纸差异审计_new_reference_caption_sticker_diversity_audit/`，不提交 Git。
+- 已确认：本轮未修改 Remotion 正片时间线，未 render 新视频，未调用图片 / 视频 / 音频生成 API，未提交视频、图片、音频、抽帧、`tmp/`、`dist/` 或 runtime assets。
+- 当前状态：`reference_caption_sticker_diversity_audit_completed_pending_next_recut_spec_review`。
+- current_candidate_status_remains: `full_video_candidate_rendered_pending_user_review`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`user_review_new_reference_caption_sticker_diversity_audit_then_execute_caption_sticker_diversity_layer_recut`。
+- 待验证：用户需确认下一版更偏参考 1 的大字视觉节奏、参考 2 的手绘字幕 / 贴纸混合，还是混合路线。
+
 ## 本轮新增｜完整正片候选全流程重剪
 
 - 已确认：本轮任务为 `full_video_candidate_complete_flow_recut_render`。

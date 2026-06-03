@@ -83,6 +83,71 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜新参考字幕贴纸差异审计与多样化规格桥接
+
+### route_decision
+
+```yaml
+task_type: new_reference_caption_sticker_diversity_audit
+user_feedback: 用户认为当前完整正片候选里的字幕和贴纸 / 视觉标点仍显单一，要求基于两个新参考视频审计差异并输出下一版规格。
+reference_01: 素材/vlog 参考/新参考+解析/v2800fgi0000d7vgprvog65ilgo3p13g.MP4
+reference_02: 素材/vlog 参考/新参考+解析/v2800fgi0000d86nsmfog65i1p2oj750.MP4
+current_candidate_video: dist/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.mp4
+source_current_report: 项目资料_docs/视频能力实验室_video_capability_lab/52_完整正片候选全流程重剪报告_full_video_candidate_complete_flow_recut_report.md
+new_report_file: 项目资料_docs/视频能力实验室_video_capability_lab/53_新参考字幕贴纸差异审计与多样化规格_new_reference_caption_sticker_diversity_audit.md
+audit_artifacts_path: tmp/新参考字幕贴纸差异审计_new_reference_caption_sticker_diversity_audit/
+content_status: reference_caption_sticker_diversity_audit_completed_pending_next_recut_spec_review
+current_candidate_status_remains: full_video_candidate_rendered_pending_user_review
+next_goal: user_review_new_reference_caption_sticker_diversity_audit_then_execute_caption_sticker_diversity_layer_recut
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+remotion_timeline_changed_this_round: false
+video_rendered_this_round: false
+generation_api_called_this_round: false
+runtime_asset_commit_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### reference_video_validation
+
+| input | path | status |
+|---|---|---|
+| `reference_01` | `素材/vlog 参考/新参考+解析/v2800fgi0000d7vgprvog65ilgo3p13g.MP4` | `35.176780s / 720x960 / 60fps / h264 / AAC stereo / decodable=true` |
+| `reference_02` | `素材/vlog 参考/新参考+解析/v2800fgi0000d86nsmfog65i1p2oj750.MP4` | `25.749002s / 720x960 / 60fps / h264 / AAC stereo / decodable=true` |
+| `current_candidate` | `dist/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.mp4` | `18.048000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true` |
+
+### audit_artifacts
+
+| artifact | path | status |
+|---|---|---|
+| `reference_01_1fps_frames` | `tmp/新参考字幕贴纸差异审计_new_reference_caption_sticker_diversity_audit/reference_01_frames/` | `runtime only; not committed` |
+| `reference_02_1fps_frames` | `tmp/新参考字幕贴纸差异审计_new_reference_caption_sticker_diversity_audit/reference_02_frames/` | `runtime only; not committed` |
+| `current_candidate_1fps_frames` | `tmp/新参考字幕贴纸差异审计_new_reference_caption_sticker_diversity_audit/current_candidate_frames/` | `runtime only; not committed` |
+| `contact_sheets` | `tmp/新参考字幕贴纸差异审计_new_reference_caption_sticker_diversity_audit/contact_sheets/` | `runtime only; not committed` |
+
+### main_findings
+
+- 已确认：当前候选并非完全缺字幕 / 贴纸，而是字幕和视觉标点都停留在 `included_partial`，缺少参考驱动的密度、层级、位置变化和锚点变化。
+- 已确认：`reference_01` 更偏 `typography_driven_visual_punctuation`，字幕高频变化、位置变化和大中小层级本身承担视觉节奏。
+- 已确认：`reference_02` 更偏 `hand_drawn_caption_plus_sticker_hybrid`，手写粗描边文字、粉色小标点、物件 / 人物 / 城市锚点混合出现。
+- 已确认：当前根因包括 `reference_not_loaded`、`caption_style_not_extracted`、`sticker_event_library_too_thin`、`attachment_relation_not_diverse`、`shape_grammar_too_repetitive`、`motion_signature_too_parameter_like`、`material_compositing_too_flat` 和 `human_feel_missing`。
+
+### next_recut_spec
+
+- 下一版字幕建议从 4 条扩展为 `6-8` 个事件，并增加 `hero_keyword`、`attached_phrase`、`whisper_caption` 三类层级。
+- 下一版贴纸 / 视觉标点建议从 3 个扩展为 `5-7` 个候选事件，但必须逐个写清 `anchor_target`、`attachment_relation`、`shape_grammar`、`caption_relation` 和 `copy_risk_check`。
+- 下一版优先改 `remotion/数据_data/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.ts` 与 `remotion/组合_compositions/完整正片候选全流程重剪_full_video_candidate_complete_flow_recut.tsx` 的字幕 / 贴纸视觉语言层；是否连同素材结构重剪，待用户回审 `53` 后决定。
+
+### forbidden_actions_and_claims
+
+- 禁止复制参考视频里的第三方贴纸原图、平台 UI、品牌资产、原字体、原文案、活动物料或可识别素材。
+- 禁止把技术探测通过写成人审通过。
+- 禁止把本轮审计写成当前视频已经修复或能力已经成立。
+
+### next_goal
+
+`user_review_new_reference_caption_sticker_diversity_audit_then_execute_caption_sticker_diversity_layer_recut`
+
 ## 本轮新增｜完整正片候选全流程重剪桥接
 
 ### route_decision
