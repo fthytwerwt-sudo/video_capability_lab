@@ -12,6 +12,30 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜Remotion 插件与视觉前处理工具链补强
+
+- 已确认：本轮任务为 `visual_toolchain_foundation_upgrade`。
+- 已确认：本轮目标是补齐 Remotion plugin layer、visual preprocessing protocol layer 和 real visual tool adapter layer；不是生成完整正片，不是重剪当前视频，不是证明视频导演能力已成立。
+- 已确认：本轮以项目 `package.json`、`package-lock.json`、`node_modules`、`npm ls` 和 import smoke test 为依赖事实源；Codex 插件环境不等于本项目已安装依赖。
+- 已确认：当前 Remotion 版本为 `4.0.469`，本轮新增并锁定 `@remotion/paths@4.0.469`、`@remotion/motion-blur@4.0.469`、`@remotion/effects@4.0.469`。
+- 已确认：新增协议文件 `项目资料_docs/视频能力实验室_video_capability_lab/61_视觉前处理数据协议_visual_preprocessing_data_protocol.md`，定义 `anchor_map.json`、`motion_track.json`、`mask_plan.json` 和 `visual_scorecard.json` 的用途、字段和 JSON schema。
+- 已确认：新增工具链补强报告 `项目资料_docs/视频能力实验室_video_capability_lab/62_Remotion插件与视觉工具链补强报告_remotion_plugin_and_visual_toolchain_upgrade_report.md`。
+- 已确认：新增 Remotion 插件冒烟探针 data / composition，并在 `remotion/Root.tsx` 注册 `视觉工具链插件冒烟探针-visual-toolchain-plugin-smoke-probe`。
+- 已确认：新增视觉前处理驱动字幕贴纸探针 data / composition，并在 `remotion/Root.tsx` 注册 `视觉前处理驱动字幕贴纸探针-visual-preprocessing-driven-caption-sticker-probe`。
+- 已确认：新增脚本目录 `脚本_scripts/视觉前处理_visual_preprocessing/`，包含 OpenCV anchor / motion / mask / scorecard、MediaPipe landmarks、SAM2 adapter/env probe、环境检查和审片包脚本。
+- 已确认：SAM2 本轮只做 adapter 和环境探测，不下载 checkpoints，不 clone 外部仓库，不安装大型 CUDA / torch 依赖；无权重时必须写 `interface_ready_weights_missing`。
+- 已确认：两个 Remotion 2-4 秒 probe 已 render 成功；第一次 effects render 遇到 WebGL2 context 问题后，按 Remotion 错误提示用 `--gl=angle` 复跑通过。
+- 已确认：两个 probe 均通过 `ffprobe` 元数据检查和 `ffmpeg` decode check，均为 `h264 / 1080x1920 / 30fps / stream_duration=3.000000 / format_duration=3.050667`。
+- 已确认：OpenCV probe 已输出 `anchor_map.json`、`motion_track.json`、`mask_plan.json`、`visual_scorecard.json`、edge preview、motion mask preview 和 `opencv_probe_report.json` 到 ignored `tmp/视觉前处理探针_visual_preprocessing_probe/`。
+- 部分成立：MediaPipe 已安装并可导入，当前 `mediapipe 0.10.35` 暴露 `tasks` API，不含旧 `solutions`，本轮无本地 `.task/.tflite` 模型；probe 输出 `no_landmark_detected.json`，未伪造关键点。
+- 已确认：SAM2 adapter 和环境探测已建立；当前无 torch / torchvision，无本地权重，状态为 `interface_ready_weights_missing`，未下载模型权重。
+- 已确认：审片包已生成到 ignored `tmp/视觉工具链补强审片包_visual_toolchain_upgrade_review_pack/`，包含两条 probe 关键帧、contact sheet 和 runtime JSON manifest。
+- 当前状态：`visual_toolchain_foundation_upgrade_completed_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`use_visual_preprocessing_protocol_on_caption_sticker_fix_v2`。
+- 待验证：用户仍需审看本轮工具链补强审片包；commit、push 和 remote HEAD readback 由最终 Codex 回报给出。
+- 禁止声明：不得声明 `publish-ready`、`video_fixed`、`vlog_director_capability_verified`、`SAM2 segmentation verified`、OpenCV / MediaPipe 稳定解决所有视频，或本轮已生成完整正片。
+
 ## 本轮新增｜字幕贴纸 2-4 秒微段修正版
 
 - 已确认：本轮任务为 `caption_sticker_2_4s_fix_v2_micro_probe`。

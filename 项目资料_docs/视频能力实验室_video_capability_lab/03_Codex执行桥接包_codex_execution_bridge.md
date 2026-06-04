@@ -83,6 +83,119 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜Remotion 插件与视觉前处理工具链补强桥接
+
+### route_decision
+
+```yaml
+task_type: visual_toolchain_foundation_upgrade
+route_decision: install_plugins_build_protocol_build_probe_not_full_video
+user_instruction: 补齐 Remotion plugin layer、visual preprocessing protocol layer 和 real visual tool adapter layer。
+protocol_file: 项目资料_docs/视频能力实验室_video_capability_lab/61_视觉前处理数据协议_visual_preprocessing_data_protocol.md
+upgrade_report_file: 项目资料_docs/视频能力实验室_video_capability_lab/62_Remotion插件与视觉工具链补强报告_remotion_plugin_and_visual_toolchain_upgrade_report.md
+remotion_plugin_smoke_data: remotion/数据_data/视觉工具链插件冒烟探针_visual_toolchain_plugin_smoke_probe.ts
+remotion_plugin_smoke_composition: remotion/组合_compositions/视觉工具链插件冒烟探针_visual_toolchain_plugin_smoke_probe.tsx
+remotion_plugin_smoke_composition_id: 视觉工具链插件冒烟探针-visual-toolchain-plugin-smoke-probe
+visual_preprocessing_probe_data: remotion/数据_data/视觉前处理驱动字幕贴纸探针_visual_preprocessing_driven_caption_sticker_probe.ts
+visual_preprocessing_probe_composition: remotion/组合_compositions/视觉前处理驱动字幕贴纸探针_visual_preprocessing_driven_caption_sticker_probe.tsx
+visual_preprocessing_probe_composition_id: 视觉前处理驱动字幕贴纸探针-visual-preprocessing-driven-caption-sticker-probe
+visual_preprocessing_scripts_dir: 脚本_scripts/视觉前处理_visual_preprocessing/
+runtime_probe_output_dir: tmp/视觉前处理探针_visual_preprocessing_probe/
+review_pack_path: tmp/视觉工具链补强审片包_visual_toolchain_upgrade_review_pack/
+content_status: visual_toolchain_foundation_upgrade_completed_pending_user_review
+next_goal: use_visual_preprocessing_protocol_on_caption_sticker_fix_v2
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+generation_api_called_this_round: false
+runtime_asset_commit_allowed_this_round: false
+full_video_rendered_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### dependency_boundary
+
+```yaml
+package_json_is_source_of_truth: true
+codex_plugin_environment_is_not_project_dependency_fact: true
+remotion_version_alignment_required: true
+current_target_remotion_version: 4.0.469
+new_remotion_plugins:
+  - @remotion/paths@4.0.469
+  - @remotion/motion-blur@4.0.469
+  - @remotion/effects@4.0.469
+blocked_if_family_upgrade_required_without_user_confirm: true
+```
+
+### visual_preprocessing_contract
+
+```yaml
+required_runtime_json:
+  - anchor_map.json
+  - motion_track.json
+  - mask_plan.json
+  - visual_scorecard.json
+runtime_json_commit_allowed: false
+remotion_must_read_visual_preprocessing_data_or_sample: true
+review_status_required_before_full_video: pending_user_review_or_approved_explicitly
+```
+
+### validation_summary
+
+```yaml
+remotion_plugin_smoke_probe:
+  render_status: passed_with_gl_angle
+  output: dist/视觉工具链插件冒烟探针_visual_toolchain_plugin_smoke_probe/视觉工具链插件冒烟探针_visual_toolchain_plugin_smoke_probe.mp4
+visual_preprocessing_driven_probe:
+  render_status: passed_with_gl_angle
+  output: dist/视觉前处理驱动字幕贴纸探针_visual_preprocessing_driven_caption_sticker_probe/视觉前处理驱动字幕贴纸探针_visual_preprocessing_driven_caption_sticker_probe.mp4
+opencv_probe:
+  status: opencv_probe_completed
+  outputs:
+    - tmp/视觉前处理探针_visual_preprocessing_probe/anchor_map.json
+    - tmp/视觉前处理探针_visual_preprocessing_probe/motion_track.json
+    - tmp/视觉前处理探针_visual_preprocessing_probe/mask_plan.json
+    - tmp/视觉前处理探针_visual_preprocessing_probe/visual_scorecard.json
+    - tmp/视觉前处理探针_visual_preprocessing_probe/opencv_probe_report.json
+mediapipe_probe:
+  status: no_landmark_detected
+  reason: mediapipe_tasks_only_no_legacy_solutions_and_no_local_task_model
+sam2_probe:
+  status: interface_ready_weights_missing
+review_pack:
+  status: generated
+  path: tmp/视觉工具链补强审片包_visual_toolchain_upgrade_review_pack/
+```
+
+### real_visual_tool_adapter_boundary
+
+```yaml
+opencv:
+  purpose: edges_optical_flow_feature_track_simple_motion
+  claim_boundary: probe_success_not_stable_visual_understanding
+mediapipe:
+  purpose: pose_hand_body_landmark_probe
+  no_landmark_rule: output_no_landmark_detected_do_not_fake
+sam2:
+  purpose: future_subject_object_mask_adapter
+  this_round: environment_probe_and_interface_only
+  forbidden_this_round:
+    - download_checkpoints
+    - git_clone_facebookresearch_sam2
+    - install_large_cuda_or_torch_stack_without_blocked_user_confirm
+  expected_status_without_weights: interface_ready_weights_missing
+```
+
+### forbidden_actions_and_claims
+
+- 禁止重新生成完整 18 秒正片。
+- 禁止调用外部图片 / 视频 / 音频生成 API。
+- 禁止提交 `dist/`、`tmp/`、视频、图片、音频、抽帧、模型权重或 runtime JSON。
+- 禁止 `git add .`。
+- 禁止写 `publish-ready`。
+- 禁止写 `video_fixed`。
+- 禁止写 `vlog director capability verified`。
+- 禁止写 `SAM2 segmentation verified`。
+
 ## 本轮新增｜字幕贴纸 2-4 秒微段修正版桥接
 
 ### route_decision

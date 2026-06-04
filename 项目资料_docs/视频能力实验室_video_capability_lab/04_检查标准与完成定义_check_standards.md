@@ -160,6 +160,55 @@
 
 本完成定义只证明迁移库和路由器文件已建立；后续真实任务仍需调用、输出审片包、接受用户 / GPT 回审。
 
+## visual_preprocessing_toolchain_done_definition
+
+涉及字幕、贴纸、视觉标点、画面锚点、运动跟踪、遮罩计划、OpenCV、MediaPipe 或 SAM2 接入时，必须检查：
+
+1. 是否读取 `61_视觉前处理数据协议_visual_preprocessing_data_protocol.md`。
+2. 是否安装或确认 Remotion plugin layer，并以 `package.json` / `package-lock.json` / `node_modules` / `npm ls` 为准。
+3. 是否保持 Remotion 插件版本与当前 `remotion` 版本一致；需要升级全家桶时必须 blocked。
+4. 是否生成或读取 `anchor_map.json`、`motion_track.json`、`mask_plan.json` 和 `visual_scorecard.json`。
+5. 是否把 runtime JSON、预览帧、视频、图片、音频、抽帧、模型权重留在 ignored `tmp/` / `dist/`，不提交 Git。
+6. 是否有 Remotion 2-4 秒 probe 读取视觉前处理 sample 或 runtime 数据。
+7. 是否用 `@remotion/paths` 证明路径处理，用 `@remotion/motion-blur` 证明拖影 / 动态模糊入口，用 `@remotion/effects` 证明材质效果入口。
+8. 是否运行 OpenCV 最小 probe，并把结果写成边缘 / 光流 / 特征点信号，而不是稳定视觉理解。
+9. 是否运行 MediaPipe 最小 probe；检测不到关键点时必须输出 `no_landmark_detected`，不得伪造。
+10. 是否只建立 SAM2 adapter 与环境探测；无权重时必须写 `interface_ready_weights_missing`，不得声明 segmentation verified。
+11. 是否生成审片包并等待用户 / GPT 回审。
+
+通过标准：
+
+| check | pass |
+|---|---|
+| `dependency_source_of_truth` | 依赖以项目 `package.json` / lockfile / `npm ls` 为准，不以 Codex 插件环境为准。 |
+| `remotion_plugin_layer_ready` | 三个 Remotion 插件 exact version 安装、import smoke test 和 Remotion probe render 均通过。 |
+| `visual_protocol_ready` | `61` 已定义四类 JSON 的用途、字段和 schema。 |
+| `opencv_probe_ready` | OpenCV 能输出 edge preview、motion / feature track JSON 和 probe report。 |
+| `mediapipe_probe_ready_or_empty` | MediaPipe 输出关键点 JSON 或明确 `no_landmark_detected`。 |
+| `sam2_interface_ready` | SAM2 adapter 和 env probe 存在；未下载权重时状态为 `interface_ready_weights_missing`。 |
+| `review_pack_ready` | 审片包存在，且只作为工具链回审输入。 |
+| `runtime_assets_not_committed` | `tmp/`、`dist/`、视频、图片、音频、抽帧、模型权重未提交 Git。 |
+
+失败时必须写：
+
+- `blocked_wrong_workspace_or_remote`
+- `blocked_remotion_plugin_version_not_available`
+- `blocked_need_user_confirm_remotion_family_upgrade`
+- `blocked_python_env_not_safe`
+- `blocked_opencv_install_failed`
+- `blocked_mediapipe_python_version_unsupported`
+- `blocked_sam2_requires_weights_or_heavy_cuda_dependency`
+- `blocked_remotion_render_failed`
+- `blocked_review_pack_generation_failed`
+- `blocked_push_failed`
+
+不得把以下情况写成通过：
+
+- npm 包安装成功，就声明视频能力已验证。
+- OpenCV / MediaPipe 导入成功，就声明视觉理解能力稳定成立。
+- SAM2 adapter 存在但没有权重，就声明分割能力已验证。
+- Remotion 2-4 秒 probe render 成功，就声明 `publish-ready`、`video_fixed`、`vlog_director_capability_verified`。
+
 ## caption_sticker_visual_review_loop_done_definition
 
 涉及字幕、贴纸、视觉标点的回审问题时，尤其当用户反馈“总差一点”“像口号”“像组件”“不贴画面”“动效像参数动画”时，必须读取并执行：

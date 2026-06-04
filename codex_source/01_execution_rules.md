@@ -207,6 +207,94 @@ failure_route:
 - 不得复制第三方贴纸、平台 UI、品牌资产、原字体、原文案、包装或账号信息。
 - 不得用数量、多样化、换颜色代替来源规则和镜头锚点。
 
+## 视觉前处理与真实视觉工具接入规则
+
+后续任何任务只要涉及以下内容，必须先读取并使用 `61`：
+
+- 画面锚点
+- 运动跟踪
+- 遮罩计划
+- 视觉判分
+- 字幕 / 贴纸 / 视觉标点贴住画面
+- OpenCV
+- MediaPipe
+- SAM2
+- 数据驱动 Remotion probe
+
+必读文件：
+
+```text
+项目资料_docs/视频能力实验室_video_capability_lab/61_视觉前处理数据协议_visual_preprocessing_data_protocol.md
+```
+
+执行前必须输出：
+
+```yaml
+visual_preprocessing_preflight:
+  protocol_read:
+  anchor_map_available_or_sample_used:
+  motion_track_available_or_sample_used:
+  mask_plan_available_or_sample_used:
+  visual_scorecard_available_or_sample_used:
+  runtime_assets_commit_allowed: false
+  sam2_weights_download_allowed: false
+```
+
+Remotion plugin layer 规则：
+
+```yaml
+dependency_source_of_truth:
+  - package.json
+  - package-lock.json
+  - node_modules
+  - npm ls
+not_source_of_truth:
+  - Codex plugin environment
+version_alignment_required: true
+blocked_if_exact_or_compatible_version_unavailable: true
+blocked_if_remotion_family_upgrade_required_without_user_confirm: true
+```
+
+真实视觉工具接入规则：
+
+```yaml
+opencv:
+  allowed_use: edges_optical_flow_feature_points_simple_motion_tracking
+  claim_boundary: probe_success_not_stable_visual_understanding
+mediapipe:
+  allowed_use: pose_hand_body_landmark_probe
+  no_detection_rule: write_no_landmark_detected_do_not_fake
+sam2:
+  allowed_use_this_round: adapter_and_environment_probe_only
+  forbidden_without_user_permission:
+    - download_checkpoints
+    - git_clone_external_sam2_repo
+    - install_large_cuda_or_torch_dependency
+  no_weights_status: interface_ready_weights_missing
+```
+
+阻断条件：
+
+```yaml
+blocked_reason:
+  - blocked_remotion_plugin_version_not_available
+  - blocked_need_user_confirm_remotion_family_upgrade
+  - blocked_python_env_not_safe
+  - blocked_opencv_install_failed
+  - blocked_mediapipe_python_version_unsupported
+  - blocked_sam2_requires_weights_or_heavy_cuda_dependency
+  - blocked_visual_preprocessing_protocol_missing
+  - blocked_review_pack_generation_failed
+```
+
+禁止声明：
+
+- 不得把插件安装成功写成视频能力已验证。
+- 不得把 OpenCV / MediaPipe probe 成功写成视觉理解能力稳定成立。
+- 不得把 SAM2 adapter 存在写成 segmentation verified。
+- 不得把 2-4 秒工具链 probe 写成 `publish-ready`、`video_fixed` 或 `vlog_director_capability_verified`。
+- 不得提交 `tmp/`、`dist/`、视频、图片、音频、抽帧、runtime JSON、模型权重或 `.env`。
+
 ## 字幕贴纸视觉回审闭环规则
 
 后续任何任务只要出现以下反馈或风险，必须在 `54 / 55 / 56` 之外继续读取并使用 `59`：

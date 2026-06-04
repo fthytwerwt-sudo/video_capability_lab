@@ -23,7 +23,10 @@
   "homepage": "https://github.com/fthytwerwt-sudo/video_capability_lab#readme",
   "dependencies": {
     "@remotion/cli": "4.0.469",
+    "@remotion/effects": "4.0.469",
     "@remotion/media-utils": "4.0.469",
+    "@remotion/motion-blur": "4.0.469",
+    "@remotion/paths": "4.0.469",
     "@remotion/renderer": "4.0.469",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
