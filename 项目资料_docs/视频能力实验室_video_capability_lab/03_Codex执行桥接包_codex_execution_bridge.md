@@ -83,6 +83,106 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜参考视觉语言路由 18 秒正片候选桥接
+
+### route_decision
+
+```yaml
+task_type: 18s_visual_language_routed_full_candidate_render
+user_instruction: 直接再做一个 18 秒的正片，素材用现有所有的素材，Codex 自己匹配，BGM 还是用同样的。
+route_decision: full_video_candidate_direct_render
+gate_file: 项目资料_docs/视频能力实验室_video_capability_lab/51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md
+source_inventory: 项目资料_docs/视频能力实验室_video_capability_lab/54_解析资产全量索引_analysis_asset_inventory.md
+migration_library: 项目资料_docs/视频能力实验室_video_capability_lab/55_参考视觉语言迁移库_reference_visual_language_migration_library.md
+decision_router: 项目资料_docs/视频能力实验室_video_capability_lab/56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md
+report_file: 项目资料_docs/视频能力实验室_video_capability_lab/57_参考视觉语言路由18秒正片候选报告_18s_visual_language_routed_full_candidate_report.md
+remotion_composition: remotion/组合_compositions/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate.tsx
+remotion_data: remotion/数据_data/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate.ts
+remotion_root_registration: remotion/Root.tsx
+composition_id: 参考视觉语言路由18秒正片候选-18s-visual-language-routed-full-candidate
+review_pack_script: 脚本_scripts/生成参考视觉语言路由18秒正片候选审片包_generate_18s_visual_language_routed_full_candidate_review_pack.py
+output_video_path: dist/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate.mp4
+review_pack_path: tmp/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate_review_pack/
+output_metadata: 18.048000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true
+content_status: 18s_visual_language_routed_full_candidate_rendered_pending_user_review
+next_goal: user_review_18s_visual_language_routed_full_candidate
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+generation_api_called_this_round: false
+runtime_asset_commit_allowed_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### visual_language_preflight
+
+```yaml
+source_inventory_read: true
+migration_library_read: true
+decision_router_read: true
+analysis_asset_ids: [2, 5, 6, 7, 17, 21, 22, 23, 25, 27, 29, 35, 37, 50, 53, 57, 58, 59]
+reference_rule_links:
+  - 54:F.extraction_contract
+  - 55:D.sticker_type_library
+  - 55:E.attachment_relation_library
+  - 55:F.shape_drawing_logic_library
+  - 55:G.stroke_material_motion_library
+  - 55:H.caption_visual_language_library
+  - 55:I.caption_sticker_relation_library
+  - 56:E.caption_router
+  - 56:F.sticker_visual_punctuation_router
+  - 56:G.caption_sticker_conflict_resolver
+  - 56:J.template_fallback_gate
+migration_library_used: true
+decision_router_used: true
+template_fallback: false
+copy_risk_check: M07 杯身品牌风险经审片包检查后已移出最终时间线；不复制参考视频素材、第三方贴纸、平台 UI、品牌包装、原字体或原文案。
+```
+
+### material_selection_summary
+
+| field | value |
+|---|---|
+| `bgm_used` | `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV` |
+| `material_pool` | `素材/剪辑素材/剪辑/` |
+| `material_pool_scanned` | `14` |
+| `selected_materials` | `M03 / M04 / M05 / M06 / M08 / M09 / M10 / M11 / M13 / M14` |
+| `backup_materials` | `M01 / M02` |
+| `rejected_materials` | `M07 / M12` |
+| `selection_boundary` | 不平均塞素材；每个入选素材服务 opening / identity / action / texture / breath / reset / close 的段落功能。 |
+
+### caption_and_sticker_summary
+
+- caption_events: `7`
+- caption_types: `hero_keyword / attached_phrase / hand_drawn_reaction_word / whisper_caption`
+- sticker_visual_punctuation_candidates: `7`
+- rendered_stickers_or_visual_punctuation: `6`
+- no_layer_or_blocked_candidates: `1`
+- attachment_relations_covered: `edge_attached / caption_relation_attached / contact_point_attached / motion_direction_attached / negative_space_attached`
+- all_items_include_required_fields: `analysis_asset_ids / reference_rule_links / migration_library_used / decision_router_used / caption_visual_language_decision / sticker_visual_language_decision / caption_sticker_relation / template_fallback=false / copy_risk_check`
+
+### validation_summary
+
+| validation | result |
+|---|---|
+| Remotion composition check | `passed` |
+| Remotion render | `passed` |
+| video metadata probe | `18.048000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true` |
+| ffmpeg decode check | `passed` |
+| review pack generation | `passed; 42 evidence frames + contact sheet + manifest + evidence map` |
+| visual sanity check | `M07 杯身文字片段不在最终 contact sheet；未见硬黑帧问题` |
+
+### forbidden_actions_and_claims
+
+- 禁止提交 `dist/`、`tmp/`、视频、图片、音频、抽帧、原始素材或参考视频。
+- 禁止写 `publish-ready`。
+- 禁止写 `video_fixed`。
+- 禁止写 `vlog director capability verified`。
+- 技术验证通过不等于用户审片通过。
+
+### next_goal
+
+`user_review_18s_visual_language_routed_full_candidate`
+
 ## 本轮新增｜解析资产全量索引与参考视觉语言判断路由器桥接
 
 ### route_decision

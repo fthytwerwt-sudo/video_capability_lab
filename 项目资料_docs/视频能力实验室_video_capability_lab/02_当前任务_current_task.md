@@ -1,14 +1,58 @@
 # 当前任务
 
-当前任务：`reference_analysis_asset_inventory_and_visual_language_migration_router_build`。
+当前任务：`18s_visual_language_routed_full_candidate_render`。
 
-当前目标：全量盘点此前参考视频解析、对标审计、贴纸审计、字幕审计、视觉语言报告、风格判断、样片回审和机制文件，并迁移为可复用的参考视觉语言能力库与字幕 / 贴纸 / 视觉标点判断路由器。
+当前目标：直接重新生成一版新的 18 秒完整正片候选视频，使用当前仓库现有全部剪辑素材作为素材池，由 Codex 自行扫描、筛选、匹配和排序；BGM 沿用上一轮同一个 BGM；字幕 / 贴纸 / 视觉标点必须使用 `54 / 55 / 56`。
 
-当前状态：`reference_analysis_asset_inventory_and_visual_language_router_completed_pending_gpt_user_review`。
+当前状态：`18s_visual_language_routed_full_candidate_rendered_pending_user_review`。
 
-下一目标：`gpt_user_review_visual_language_migration_router_then_future_caption_sticker_tasks_must_use_it`。
+下一目标：`user_review_18s_visual_language_routed_full_candidate`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜参考视觉语言路由 18 秒正片候选
+
+- task_type: `18s_visual_language_routed_full_candidate_render`
+- user_instruction: 用户明确要求“直接再做一个 18 秒的正片，素材用现有所有的素材，codex 自己匹配，BGM 还是用同样的。”
+- gate_file: `项目资料_docs/视频能力实验室_video_capability_lab/51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md`
+- source_inventory: `项目资料_docs/视频能力实验室_video_capability_lab/54_解析资产全量索引_analysis_asset_inventory.md`
+- migration_library: `项目资料_docs/视频能力实验室_video_capability_lab/55_参考视觉语言迁移库_reference_visual_language_migration_library.md`
+- decision_router: `项目资料_docs/视频能力实验室_video_capability_lab/56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md`
+- new_report_file: `项目资料_docs/视频能力实验室_video_capability_lab/57_参考视觉语言路由18秒正片候选报告_18s_visual_language_routed_full_candidate_report.md`
+- remotion_composition: `remotion/组合_compositions/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate.tsx`
+- remotion_data: `remotion/数据_data/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate.ts`
+- remotion_composition_id: `参考视觉语言路由18秒正片候选-18s-visual-language-routed-full-candidate`
+- review_pack_script: `脚本_scripts/生成参考视觉语言路由18秒正片候选审片包_generate_18s_visual_language_routed_full_candidate_review_pack.py`
+- output_video_path: `dist/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate.mp4`
+- review_pack_path: `tmp/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate_review_pack/`
+- output_video_metadata: `18.048000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`
+- material_pool_scanned: `14`
+- selected_materials: `M03 / M04 / M05 / M06 / M08 / M09 / M10 / M11 / M13 / M14`
+- backup_materials: `M01 / M02`
+- rejected_materials: `M07 / M12`
+- visual_language_preflight: `passed`
+- migration_library_used: `true`
+- decision_router_used: `true`
+- template_fallback: `false`
+- current_status: `18s_visual_language_routed_full_candidate_rendered_pending_user_review`
+- next_goal: `user_review_18s_visual_language_routed_full_candidate`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- generation_api_called_this_round: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+
+已确认：本轮不是继续补机制、不是只修字幕 / 贴纸局部；本轮已重新建立 18 秒正片候选时间线并 render 新视频。
+
+已确认：本轮使用同一个 BGM：`素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`。
+
+已确认：本轮扫描 `素材/剪辑素材/剪辑/` 下全部 14 个可用视频素材，并逐项记录 selected / backup / rejected 与原因；`M07` 因杯身文字 copy risk 在最终审片包检查后移出时间线。
+
+已确认：字幕计划包含 7 个 caption events；贴纸 / 视觉标点计划包含 7 个候选事件，其中 6 个实际渲染、1 个通过 no-layer 规则不渲染。所有事件均写入 `analysis_asset_ids`、`reference_rule_links`、`copy_risk_check`、`template_fallback=false`。
+
+已确认：本轮未调用图片 / 视频 / 音频生成 API，未生成新贴纸图片资产，未复制参考视频素材、第三方贴纸、平台 UI、品牌资产、原字体或原文案。
+
+已确认：本轮输出视频技术验证通过，审片包已生成到 ignored `tmp/`；视频、图片、音频、抽帧、`tmp/`、`dist/` 均不提交 Git。
+
+待验证：用户仍需审看本地 18 秒完整正片候选；不得声明 `publish-ready`、`video_fixed`、`vlog director capability verified` 或用户审美通过。
 
 ## 本轮新增｜解析资产全量索引与参考视觉语言判断路由器
 

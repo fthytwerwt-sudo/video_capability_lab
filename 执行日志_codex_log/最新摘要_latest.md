@@ -12,6 +12,31 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜参考视觉语言路由 18 秒正片候选
+
+- 已确认：本轮任务为 `18s_visual_language_routed_full_candidate_render`。
+- 已确认：用户最新指令是直接做一条新的 18 秒正片候选，不再继续补机制，也不是只修字幕 / 贴纸局部。
+- 已确认：本轮沿用同一个 BGM：`素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`。
+- 已确认：本轮扫描 `素材/剪辑素材/剪辑/` 下全部 14 个现有视频素材，全部可读、可解码，并逐项写入 selected / backup / rejected 原因。
+- 已确认：本轮由 Codex 自行筛选和排序素材，不平均塞素材；最终选用 `M03 / M04 / M05 / M06 / M08 / M09 / M10 / M11 / M13 / M14`。
+- 已确认：`M07` 杯身文字在审片包视觉检查中被判定 brand/copy risk 偏高，已移出最终时间线；`M12` 因儿童/人群/活动语境风险不进入成片。
+- 已确认：本轮按 `51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md` 执行，包含 BGM、素材筛选、剪辑结构、节奏、字幕 / 文本层、贴纸 / 视觉标点、动效 / 转场、构图 / 裁切、音频混合、导出验证、审片包和失败回路。
+- 已确认：本轮读取并使用 `54_解析资产全量索引_analysis_asset_inventory.md`、`55_参考视觉语言迁移库_reference_visual_language_migration_library.md`、`56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md`。
+- 已确认：visual_language_preflight 已输出，`migration_library_used=true`、`decision_router_used=true`、`template_fallback=false`。
+- 已确认：本轮字幕计划包含 7 个 caption events；贴纸 / 视觉标点计划包含 7 个候选事件，其中 6 个实际渲染、1 个通过 no-layer 规则不渲染。
+- 已确认：每个字幕 / 贴纸 / 视觉标点输出项均写入 `analysis_asset_ids`、`reference_rule_links`、`copy_risk_check`、`template_fallback=false`；没有复制参考视频素材、第三方贴纸、平台 UI、品牌资产、原字体或原文案。
+- 已确认：新增 Remotion data：`remotion/数据_data/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate.ts`。
+- 已确认：新增 Remotion composition：`remotion/组合_compositions/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate.tsx`，并在 `remotion/Root.tsx` 注册 composition id `参考视觉语言路由18秒正片候选-18s-visual-language-routed-full-candidate`。
+- 已确认：本地输出视频路径为 `dist/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate.mp4`。
+- 已确认：输出视频技术验证通过：`18.048000s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+- 已确认：审片包已生成到 `tmp/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate_review_pack/`，包含 42 张证据帧、contact sheet、manifest 和 caption / sticker evidence map。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/57_参考视觉语言路由18秒正片候选报告_18s_visual_language_routed_full_candidate_report.md`。
+- 已确认：本轮未调用图片 / 视频 / 音频生成 API，未生成新贴纸图片资产，未提交视频、图片、音频、抽帧、`tmp/`、`dist/` 或 runtime assets。
+- 当前状态：`18s_visual_language_routed_full_candidate_rendered_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`user_review_18s_visual_language_routed_full_candidate`。
+- 待验证：用户仍需审看本地 18 秒完整正片候选；不得声明 `publish-ready`、`video_fixed`、`vlog director capability verified` 或用户审美通过。
+
 ## 本轮新增｜解析资产全量索引与参考视觉语言判断路由器
 
 - 已确认：本轮任务为 `reference_analysis_asset_inventory_and_visual_language_migration_router_build`。
