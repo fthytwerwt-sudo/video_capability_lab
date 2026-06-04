@@ -159,3 +159,57 @@
 - 技术 probe、静态风格板或局部 render 成功，就写成视觉语言已经通过。
 
 本完成定义只证明迁移库和路由器文件已建立；后续真实任务仍需调用、输出审片包、接受用户 / GPT 回审。
+
+## caption_sticker_visual_review_loop_done_definition
+
+涉及字幕、贴纸、视觉标点的回审问题时，尤其当用户反馈“总差一点”“像口号”“像组件”“不贴画面”“动效像参数动画”时，必须读取并执行：
+
+`59_字幕贴纸视觉回审闭环_caption_sticker_visual_review_loop.md`
+
+每个修正任务必须检查：
+
+1. 是否先看帧，再修字幕贴纸，而不是先改 Remotion 参数。
+2. 是否输出 `frame_review_loop` 证据，包含 original / previous probe / new probe 的 start、mid、exit 或关键事件帧。
+3. 是否完成 `visual_scorecard`，并覆盖 5 个问题：
+   - `caption_relation_problem`
+   - `sticker_generic_component_problem`
+   - `anchor_declaration_problem`
+   - `occlusion_material_problem`
+   - `motion_event_problem`
+4. 是否输出 `caption_sticker_fix_spec`，写清 caption 怎么改、sticker 怎么改、为什么更像动作事件反应。
+5. 是否指出真实画面锚点，例如可见边缘、接触点、表面、遮挡边界、运动方向，而不是只写 x/y 坐标。
+6. 是否说明材质、遮挡和动效如何降低浮层感。
+7. 是否生成 2-4 秒微段和 before/after 或 before/v1/v2 审片包。
+8. 是否保持 `template_fallback=false` 和 `copy_risk_check=passed_with_user_review_pending`。
+9. 是否明确最终状态仍为 `pending_user_review`。
+
+通过标准：
+
+| check | pass |
+|---|---|
+| `frame_review_loop_used` | 修正依据来自已抽取帧的可见画面证据。 |
+| `visual_scorecard_complete` | 5 个问题逐项打分并写明修正尝试。 |
+| `fix_spec_complete` | caption / sticker / conflict / fallback 均有明确修正规格。 |
+| `anchor_real` | 锚点指向画面中可被审片包验证的结构或事件。 |
+| `not_quantity_patch` | 没有用增加贴纸数量、换颜色或换坐标替代修正。 |
+| `micro_probe_gate` | 字幕贴纸没过 2-4 秒微段前，不直接扩到 18 秒全片。 |
+
+失败时必须写：
+
+- `blocked_caption_sticker_frame_review_missing`
+- `blocked_visual_scorecard_missing`
+- `blocked_caption_sticker_fix_spec_missing`
+- `blocked_anchor_declaration_only`
+- `blocked_template_or_coordinate_only_fix`
+- `route_back_to: 54/55/56/59`
+
+不得把以下情况写成通过：
+
+- 字幕只变大、变粗或居中，但仍像口号。
+- 贴纸只是通用 burst / tick / line 组件换坐标。
+- 锚点只有固定坐标，没有帧级画面证据。
+- 遮挡只靠 opacity、drop shadow 或颜色降低。
+- 动效只调 spring / easing 参数，没有动作接触、受力或切镜依据。
+- 技术 render 成功，就声明字幕贴纸审美通过。
+
+本完成定义只证明“修正尝试已按机制执行并可供审片”，不证明 `publish-ready`、`video_fixed`、`full video candidate completed` 或 `vlog director capability verified`。

@@ -206,3 +206,73 @@ failure_route:
 - 不得把参考视频路径写成本项目素材资产。
 - 不得复制第三方贴纸、平台 UI、品牌资产、原字体、原文案、包装或账号信息。
 - 不得用数量、多样化、换颜色代替来源规则和镜头锚点。
+
+## 字幕贴纸视觉回审闭环规则
+
+后续任何任务只要出现以下反馈或风险，必须在 `54 / 55 / 56` 之外继续读取并使用 `59`：
+
+- 字幕像大字口号，不像动作反应。
+- 贴纸像通用组件，不像这一帧专属反应。
+- 锚点只是文档声明，不是真正贴住画面。
+- 遮挡和材质只是模拟，不够融入画面。
+- 动效像参数动画，不像动作事件带出来的运动。
+- 用户反馈“总差一点”“像组件”“像口号”“不贴画面”。
+
+必读文件：
+
+```text
+项目资料_docs/视频能力实验室_video_capability_lab/59_字幕贴纸视觉回审闭环_caption_sticker_visual_review_loop.md
+```
+
+执行前必须输出：
+
+```yaml
+mechanism_used:
+  caption_sticker_visual_review_loop_read: true
+  visual_scorecard_completed: true
+  caption_sticker_fix_spec_completed: true
+  micro_probe_before_full_render_2_4s_checked: true
+```
+
+每次修正必须输出：
+
+```yaml
+visual_scorecard:
+  caption_relation_problem:
+  sticker_generic_component_problem:
+  anchor_declaration_problem:
+  occlusion_material_problem:
+  motion_event_problem:
+caption_sticker_fix_spec:
+  frame_evidence:
+  caption_fix:
+  sticker_fix:
+  conflict_resolution:
+  template_fallback: false
+  copy_risk_check:
+```
+
+阻断条件：
+
+```yaml
+blocked_reason:
+  - blocked_caption_sticker_frame_review_missing
+  - blocked_visual_scorecard_missing
+  - blocked_caption_sticker_fix_spec_missing
+  - blocked_anchor_declaration_only
+  - blocked_template_or_coordinate_only_fix
+route_back_to: 54/55/56/59
+```
+
+禁止把以下行为写成修正：
+
+- 只增加贴纸数量。
+- 只换颜色。
+- 只换坐标。
+- 只加描边或阴影。
+- 只把 caption 改成更大字。
+- 只调 spring / easing 参数，但不绑定动作接触、受力或切镜。
+
+字幕 / 贴纸 / 视觉标点没有通过 2-4 秒微段回审前，不得直接扩到整条 18 秒正片。
+
+2-4 秒微段技术验证通过后，状态仍必须是 `pending_user_review`；不得声明 `publish-ready`、`video_fixed`、`full video candidate completed` 或 `vlog director capability verified`。

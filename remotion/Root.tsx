@@ -7,6 +7,7 @@ import { ThirtySecondReferenceSample } from "./组合_compositions/三十秒对�
 import { EighteenSecondAnchorStickerCandidate } from "./组合_compositions/十八秒锚点贴纸候选_18s_anchor_sticker_candidate";
 import { VisualLanguageRoutedFullCandidate18s } from "./组合_compositions/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate";
 import { CaptionStickerMicroProbe2To4s } from "./组合_compositions/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe";
+import { CaptionStickerFixV2MicroProbe } from "./组合_compositions/字幕贴纸2到4秒微段修正版_caption_sticker_2_4s_fix_v2";
 
 const RemotionRoot: React.FC = () => {
   return (
@@ -62,6 +63,14 @@ const RemotionRoot: React.FC = () => {
       <Composition
         id="字幕贴纸2到4秒微段精修探针-caption-sticker-2-4s-micro-probe"
         component={CaptionStickerMicroProbe2To4s}
+        durationInFrames={90}
+        fps={30}
+        height={1920}
+        width={1080}
+      />
+      <Composition
+        id="字幕贴纸2到4秒微段修正版-caption-sticker-2-4s-fix-v2"
+        component={CaptionStickerFixV2MicroProbe}
         durationInFrames={90}
         fps={30}
         height={1920}

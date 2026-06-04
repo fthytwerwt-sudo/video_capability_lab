@@ -83,6 +83,140 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜字幕贴纸 2-4 秒微段修正版桥接
+
+### route_decision
+
+```yaml
+task_type: caption_sticker_2_4s_fix_v2_micro_probe
+route_decision: mechanism_plus_2_4s_fix_v2_micro_probe_not_full_video_candidate
+user_instruction: 基于 58 报告，解决字幕和贴纸“总差一点”的 5 个问题；只做机制入库、2-4 秒修正微段和 before/v1/v2 审片包。
+source_report: 项目资料_docs/视频能力实验室_video_capability_lab/58_字幕贴纸2到4秒微段精修探针报告_caption_sticker_2_4s_micro_probe_report.md
+mechanism_file: 项目资料_docs/视频能力实验室_video_capability_lab/59_字幕贴纸视觉回审闭环_caption_sticker_visual_review_loop.md
+report_file: 项目资料_docs/视频能力实验室_video_capability_lab/60_字幕贴纸2到4秒微段修正版报告_caption_sticker_2_4s_fix_v2_report.md
+remotion_data: remotion/数据_data/字幕贴纸2到4秒微段修正版_caption_sticker_2_4s_fix_v2.ts
+remotion_composition: remotion/组合_compositions/字幕贴纸2到4秒微段修正版_caption_sticker_2_4s_fix_v2.tsx
+remotion_root_registration: remotion/Root.tsx
+composition_id: 字幕贴纸2到4秒微段修正版-caption-sticker-2-4s-fix-v2
+review_pack_script: 脚本_scripts/生成字幕贴纸2到4秒微段修正版审片包_generate_caption_sticker_2_4s_fix_v2_review_pack.py
+v2_video_path: dist/字幕贴纸2到4秒微段修正版_caption_sticker_2_4s_fix_v2/字幕贴纸2到4秒微段修正版_caption_sticker_2_4s_fix_v2.mp4
+review_pack_path: tmp/字幕贴纸2到4秒微段修正版_caption_sticker_2_4s_fix_v2_review_pack/
+output_metadata: 3.050667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true
+content_status: caption_sticker_2_4s_fix_v2_micro_probe_rendered_pending_user_review
+next_goal: user_review_caption_sticker_2_4s_fix_v2_micro_probe
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+generation_api_called_this_round: false
+runtime_asset_commit_allowed_this_round: false
+this_is_partial_probe_not_full_video_candidate: true
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### mechanism_written
+
+```yaml
+caption_sticker_visual_review_loop:
+  file: 项目资料_docs/视频能力实验室_video_capability_lab/59_字幕贴纸视觉回审闭环_caption_sticker_visual_review_loop.md
+  includes_frame_review_loop: true
+  includes_visual_scorecard: true
+  includes_caption_sticker_fix_spec: true
+  includes_2_4s_micro_probe_gate: true
+  rule: 字幕贴纸没过 2-4 秒微段回审前，不允许直接扩到整条 18 秒正片。
+```
+
+### selected_micro_window
+
+```yaml
+time_range: 3.15-6.15s
+duration: 3.00s
+source_segment: seg_04_main_action_push -> seg_05_metal_texture_cut
+source_material: M03 + M06
+source_time_range: M03 0.35-2.25s -> M06 0.70-1.80s
+frame_evidence: 原 18s、v1、v2 均抽取接触窗口对应帧；锚点指向右侧机器立柱圆孔、下方横杆和 M06 金属线条。
+```
+
+### visual_language_preflight
+
+```yaml
+source_inventory_read: true
+migration_library_read: true
+decision_router_read: true
+visual_review_loop_read: true
+analysis_asset_ids: [6, 7, 27, 29, 35, 37, 40, 41, 44, 49, 50, 53, 57, 59]
+reference_rule_links:
+  - 54:F.extraction_contract
+  - 55:D.sticker_type_02
+  - 55:D.sticker_type_03
+  - 55:D.sticker_type_05
+  - 55:E.attach_01
+  - 55:E.attach_02
+  - 55:E.attach_03
+  - 55:F.shape_01
+  - 55:F.shape_02
+  - 55:F.shape_03
+  - 55:G.stroke_material_motion_library
+  - 55:H.caption_05
+  - 55:I.cs_relation_03
+  - 56:E.caption_branch_05_hand_drawn_reaction_word
+  - 56:F.sticker_branch_03_contact
+  - 56:F.sticker_branch_05_edge
+  - 56:G.caption_sticker_conflict_resolver
+  - 56:J.template_fallback_gate
+  - 59:B.frame_review_loop
+  - 59:C.visual_scorecard
+  - 59:D.caption_sticker_fix_spec
+  - 59:E.micro_probe_before_full_render_2_4s
+migration_library_used: true
+decision_router_used: true
+caption_sticker_visual_review_loop_used: true
+template_fallback: false
+copy_risk_check: 原创拟声短字和原创 SVG/CSS 擦痕；不复制参考视频素材、第三方贴纸、平台 UI、品牌资产、原字体或原文案。
+```
+
+### five_problems_fixed_attempt
+
+| problem | v2 attempt | status |
+|---|---|---|
+| `caption_relation_problem` | 大字口号降为接触窗口的小型拟声 `咔`。 | `attempted_pending_user_review` |
+| `sticker_generic_component_problem` | burst 改为沿机器圆孔和横杆边缘的 rub mark / scuff。 | `attempted_pending_user_review` |
+| `anchor_declaration_problem` | 锚点绑定可见圆孔、横杆、金属纹理线条，并输出 before/v1/v2 证据帧。 | `attempted_pending_user_review` |
+| `occlusion_material_problem` | 高亮浮层改为低饱和灰白擦痕、暗边和局部机器色遮罩。 | `attempted_pending_user_review` |
+| `motion_event_problem` | spring pop 改为接触 scratch、受力 compress、切镜 absorb。 | `attempted_pending_user_review` |
+
+### review_pack_summary
+
+- original 18s candidate frames: `included`
+- v1 micro probe frames: `included`
+- v2 fix frames: `included`
+- before/v1/v2 contact sheet: `included`
+- visual_scorecard.json: `included`
+- fix_spec.json: `included`
+
+### validation_summary
+
+| validation | result |
+|---|---|
+| Remotion composition check | `passed` |
+| Remotion render | `passed` |
+| video metadata probe | `3.050667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true` |
+| ffmpeg decode check | `passed` |
+| review pack generation | `passed; original/v1/v2 frames + contact sheets + visual_scorecard + fix_spec` |
+| visual sanity check | `before/v1/v2 contact sheet opened; technical only, user aesthetic review still required` |
+
+### forbidden_actions_and_claims
+
+- 禁止重新生成 18 秒完整正片。
+- 禁止提交 `dist/`、`tmp/`、视频、图片、音频、抽帧、原始素材或参考视频。
+- 禁止写 `publish-ready`。
+- 禁止写 `video_fixed`。
+- 禁止写 `full video candidate completed`。
+- 禁止写 `vlog director capability verified`。
+- 禁止把技术验证写成用户审美通过。
+
+### next_goal
+
+`user_review_caption_sticker_2_4s_fix_v2_micro_probe`
+
 ## 本轮新增｜字幕贴纸 2-4 秒微段精修探针桥接
 
 ### route_decision

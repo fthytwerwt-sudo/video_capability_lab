@@ -12,6 +12,28 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜字幕贴纸 2-4 秒微段修正版
+
+- 已确认：本轮任务为 `caption_sticker_2_4s_fix_v2_micro_probe`。
+- 已确认：本轮基于 `58_字幕贴纸2到4秒微段精修探针报告_caption_sticker_2_4s_micro_probe_report.md` 继续修正 5 个“总差一点”问题，不重新生成 18 秒完整正片，不增加贴纸数量，不声明能力证明。
+- 已确认：本轮新增机制文件 `项目资料_docs/视频能力实验室_video_capability_lab/59_字幕贴纸视觉回审闭环_caption_sticker_visual_review_loop.md`，写入 `frame_review_loop`、`visual_scorecard`、`caption_sticker_fix_spec` 和 `micro_probe_before_full_render_2_4s`。
+- 已确认：后续字幕 / 贴纸 / 视觉标点如果出现“像口号、像组件、锚点不贴画面、材质浮、动效像参数动画”，必须先走 `59`；字幕贴纸没过 2-4 秒微段回审前，不允许直接扩到整条 18 秒正片。
+- 已确认：本轮继续读取并使用 `54_解析资产全量索引_analysis_asset_inventory.md`、`55_参考视觉语言迁移库_reference_visual_language_migration_library.md`、`56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md`，并额外使用 `59`。
+- 已确认：v2 继续选取当前候选 `3.15-6.15s` 窗口，来源为 `seg_04_main_action_push -> seg_05_metal_texture_cut`，素材为 `M03 + M06`，BGM 仍沿用 `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`。
+- 已确认：v2 修正把 v1 大字“顶一下”降权为接触窗口的小型拟声 `咔`；把通用感更强的 pressure burst / tail / residual 改为贴机器圆孔、横杆边缘和 M06 金属纹理的 rub mark / scuff / absorb smear。
+- 已确认：v2 每个字幕 / 贴纸 / 视觉标点事件均写入 `analysis_asset_ids`、`reference_rule_links`、`caption_visual_language_decision`、`sticker_visual_language_decision`、`caption_sticker_relation`、`copy_risk_check` 和 `template_fallback=false`。
+- 已确认：新增 Remotion data：`remotion/数据_data/字幕贴纸2到4秒微段修正版_caption_sticker_2_4s_fix_v2.ts`。
+- 已确认：新增 Remotion composition：`remotion/组合_compositions/字幕贴纸2到4秒微段修正版_caption_sticker_2_4s_fix_v2.tsx`，并在 `remotion/Root.tsx` 注册 composition id `字幕贴纸2到4秒微段修正版-caption-sticker-2-4s-fix-v2`。
+- 已确认：本地输出视频路径为 `dist/字幕贴纸2到4秒微段修正版_caption_sticker_2_4s_fix_v2/字幕贴纸2到4秒微段修正版_caption_sticker_2_4s_fix_v2.mp4`。
+- 已确认：输出视频技术验证通过：`3.050667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+- 已确认：审片包已生成到 `tmp/字幕贴纸2到4秒微段修正版_caption_sticker_2_4s_fix_v2_review_pack/`，包含原 18 秒候选对应帧、v1 微段帧、v2 修正版帧、before/v1/v2 contact sheet、`visual_scorecard.json` 和 `fix_spec.json`。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/60_字幕贴纸2到4秒微段修正版报告_caption_sticker_2_4s_fix_v2_report.md`。
+- 已确认：本轮未调用图片 / 视频 / 音频生成 API，未生成新贴纸图片资产，未提交视频、图片、音频、抽帧、`tmp/`、`dist/` 或 runtime assets。
+- 当前状态：`caption_sticker_2_4s_fix_v2_micro_probe_rendered_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`user_review_caption_sticker_2_4s_fix_v2_micro_probe`。
+- 待验证：用户仍需审看本地 v2 微段，判断 `咔`、pin rub、bar scuff 和 texture absorb 是否真正比 v1 更像动作事件带出的帧内反应；不得声明 `publish-ready`、`video_fixed`、`full video candidate completed`、`vlog director capability verified` 或用户审美通过。
+
 ## 本轮新增｜字幕贴纸 2-4 秒微段精修探针
 
 - 已确认：本轮任务为 `caption_sticker_2_4s_micro_probe`。
