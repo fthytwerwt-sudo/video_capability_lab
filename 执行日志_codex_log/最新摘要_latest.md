@@ -12,6 +12,29 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜字幕贴纸 2-4 秒微段精修探针
+
+- 已确认：本轮任务为 `caption_sticker_2_4s_micro_probe`。
+- 已确认：本轮按附件最新任务执行，不重做整条 18 秒正片，不增加贴纸数量，不声明能力证明，只做 2-4 秒 caption / sticker / visual punctuation 微段精修探针。
+- 已确认：当前候选视频为 `dist/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate.mp4`。
+- 已确认：本轮选取当前候选 `3.15-6.15s` 窗口，来源为 `seg_04_main_action_push -> seg_05_metal_texture_cut`，素材为 `M03 + M06`。
+- 已确认：选取原因是该窗口同时包含动作接触、原 `caption_03_action_push`、原 `sticker_03_action_contact_flash` 和金属纹理出口，最适合检查“贴纸是否像组件、caption 是否像浮层”的差一点问题。
+- 已确认：本轮继续使用同一个 BGM：`素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`。
+- 已确认：本轮读取并使用 `54_解析资产全量索引_analysis_asset_inventory.md`、`55_参考视觉语言迁移库_reference_visual_language_migration_library.md`、`56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md`。
+- 已确认：visual_language_preflight 已输出，`migration_library_used=true`、`decision_router_used=true`、`template_fallback=false`。
+- 已确认：本轮新增 before audit、micro fix spec、caption plan、sticker / visual punctuation plan、caption_sticker_conflict_resolution 和 failure routing。
+- 已确认：新增 Remotion data：`remotion/数据_data/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe.ts`。
+- 已确认：新增 Remotion composition：`remotion/组合_compositions/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe.tsx`，并在 `remotion/Root.tsx` 注册 composition id `字幕贴纸2到4秒微段精修探针-caption-sticker-2-4s-micro-probe`。
+- 已确认：本地输出视频路径为 `dist/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe.mp4`。
+- 已确认：输出视频技术验证通过：`3.050667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+- 已确认：审片包已生成到 `tmp/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe_review_pack/`，包含 before/after 帧、before contact sheet、after contact sheet、before/after comparison contact sheet、manifest 和 caption / sticker evidence map。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/58_字幕贴纸2到4秒微段精修探针报告_caption_sticker_2_4s_micro_probe_report.md`。
+- 已确认：本轮未调用图片 / 视频 / 音频生成 API，未生成新贴纸图片资产，未提交视频、图片、音频、抽帧、`tmp/`、`dist/` 或 runtime assets。
+- 当前状态：`caption_sticker_2_4s_micro_probe_rendered_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`user_review_caption_sticker_2_4s_micro_probe`。
+- 待验证：用户仍需审看本地 3 秒微段探针；不得声明 `publish-ready`、`video_fixed`、`vlog director capability verified`、18 秒正片已重做或用户审美通过。
+
 ## 本轮新增｜参考视觉语言路由 18 秒正片候选
 
 - 已确认：本轮任务为 `18s_visual_language_routed_full_candidate_render`。

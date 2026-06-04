@@ -83,6 +83,109 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜字幕贴纸 2-4 秒微段精修探针桥接
+
+### route_decision
+
+```yaml
+task_type: caption_sticker_2_4s_micro_probe
+route_decision: partial_visual_language_micro_probe_not_full_video_candidate
+user_instruction: 针对当前候选“差一点”的字幕 / 贴纸 / 视觉标点问题，只做 2-4 秒局部微段精修探针，不重做整条 18 秒。
+current_candidate_video: dist/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate.mp4
+source_report: 项目资料_docs/视频能力实验室_video_capability_lab/57_参考视觉语言路由18秒正片候选报告_18s_visual_language_routed_full_candidate_report.md
+report_file: 项目资料_docs/视频能力实验室_video_capability_lab/58_字幕贴纸2到4秒微段精修探针报告_caption_sticker_2_4s_micro_probe_report.md
+remotion_data: remotion/数据_data/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe.ts
+remotion_composition: remotion/组合_compositions/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe.tsx
+remotion_root_registration: remotion/Root.tsx
+composition_id: 字幕贴纸2到4秒微段精修探针-caption-sticker-2-4s-micro-probe
+review_pack_script: 脚本_scripts/生成字幕贴纸2到4秒微段精修探针审片包_generate_caption_sticker_2_4s_micro_probe_review_pack.py
+output_video_path: dist/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe.mp4
+review_pack_path: tmp/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe_review_pack/
+output_metadata: 3.050667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true
+content_status: caption_sticker_2_4s_micro_probe_rendered_pending_user_review
+next_goal: user_review_caption_sticker_2_4s_micro_probe
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+generation_api_called_this_round: false
+runtime_asset_commit_allowed_this_round: false
+this_is_partial_probe_not_full_video_candidate: true
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### selected_micro_window
+
+```yaml
+time_range: 3.15-6.15s
+duration: 3.00s
+source_segment: seg_04_main_action_push -> seg_05_metal_texture_cut
+source_material: M03 + M06
+source_time_range: M03 0.35-2.25s -> M06 0.70-1.80s
+selection_reason: 同时包含动作接触、原 contact flash、大字 caption 和金属纹理过渡，最能暴露当前视觉标点是否仍像可替换 Remotion 组件。
+```
+
+### visual_language_preflight
+
+```yaml
+source_inventory_read: true
+migration_library_read: true
+decision_router_read: true
+analysis_asset_ids: [6, 7, 27, 29, 35, 37, 40, 41, 44, 50, 53, 57, 59]
+reference_rule_links:
+  - 54:F.extraction_contract
+  - 55:D.sticker_type_02
+  - 55:D.sticker_type_03
+  - 55:E.attach_02
+  - 55:E.attach_08
+  - 55:F.shape_02
+  - 55:F.shape_08
+  - 55:G.stroke_material_motion_library
+  - 55:H.caption_01
+  - 55:I.caption_sticker_relation_library
+  - 56:E.caption_branch_01_hero_keyword
+  - 56:E.caption_branch_02_attached_phrase
+  - 56:F.sticker_branch_02_hand_drawn_hybrid
+  - 56:F.sticker_branch_03_contact
+  - 56:G.caption_sticker_conflict_resolver
+  - 56:J.template_fallback_gate
+migration_library_used: true
+decision_router_used: true
+template_fallback: false
+copy_risk_check: 原创短句和原创 SVG/CSS 形状；不复制参考视频素材、第三方贴纸、平台 UI、品牌资产、原字体或原文案。
+```
+
+### micro_probe_summary
+
+- before_audit: `current_caption_problem / current_sticker_problem / current_attachment_problem / current_shape_problem / current_material_compositing_problem / current_motion_problem / current_human_feel_problem`
+- caption_event: `micro_caption_01_contact_reaction`
+- caption_text: `顶一下`
+- sticker_events: `micro_sticker_01_contact_pressure_burst / micro_sticker_02_caption_tail_tick / micro_sticker_03_texture_residual_drag`
+- caption_sticker_relation: `sticker_leads_caption_supports`
+- template_fallback: `false`
+- copy_risk_check: `passed_with_user_review_pending`
+
+### validation_summary
+
+| validation | result |
+|---|---|
+| Remotion composition check | `passed` |
+| Remotion render | `passed` |
+| video metadata probe | `3.050667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true` |
+| ffmpeg decode check | `passed` |
+| review pack generation | `passed; before/after frames + contact sheets + manifest + evidence map` |
+| visual sanity check | `before_after_contact_sheet opened; technical only, user aesthetic review still required` |
+
+### forbidden_actions_and_claims
+
+- 禁止提交 `dist/`、`tmp/`、视频、图片、音频、抽帧、原始素材或参考视频。
+- 禁止写 `publish-ready`。
+- 禁止写 `video_fixed`。
+- 禁止写 `vlog director capability verified`。
+- 禁止把该 3 秒探针写成 18 秒完整正片候选。
+
+### next_goal
+
+`user_review_caption_sticker_2_4s_micro_probe`
+
 ## 本轮新增｜参考视觉语言路由 18 秒正片候选桥接
 
 ### route_decision

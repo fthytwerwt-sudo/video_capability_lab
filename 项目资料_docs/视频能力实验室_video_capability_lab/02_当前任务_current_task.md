@@ -1,14 +1,58 @@
 # 当前任务
 
-当前任务：`18s_visual_language_routed_full_candidate_render`。
+当前任务：`caption_sticker_2_4s_micro_probe`。
 
-当前目标：直接重新生成一版新的 18 秒完整正片候选视频，使用当前仓库现有全部剪辑素材作为素材池，由 Codex 自行扫描、筛选、匹配和排序；BGM 沿用上一轮同一个 BGM；字幕 / 贴纸 / 视觉标点必须使用 `54 / 55 / 56`。
+当前目标：针对当前 18 秒正片候选中 caption / sticker / visual punctuation “差一点”的视觉语言问题，选取 1 个 2-4 秒窗口做局部微段精修探针，输出 before audit、micro fix spec、Remotion 微段视频、审片包和报告。
 
-当前状态：`18s_visual_language_routed_full_candidate_rendered_pending_user_review`。
+当前状态：`caption_sticker_2_4s_micro_probe_rendered_pending_user_review`。
 
-下一目标：`user_review_18s_visual_language_routed_full_candidate`。
+下一目标：`user_review_caption_sticker_2_4s_micro_probe`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜字幕贴纸 2-4 秒微段精修探针
+
+- task_type: `caption_sticker_2_4s_micro_probe`
+- route_decision: `partial_visual_language_micro_probe_not_full_video_candidate`
+- current_candidate_video: `dist/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate/参考视觉语言路由18秒正片候选_18s_visual_language_routed_full_candidate.mp4`
+- source_report: `项目资料_docs/视频能力实验室_video_capability_lab/57_参考视觉语言路由18秒正片候选报告_18s_visual_language_routed_full_candidate_report.md`
+- new_report_file: `项目资料_docs/视频能力实验室_video_capability_lab/58_字幕贴纸2到4秒微段精修探针报告_caption_sticker_2_4s_micro_probe_report.md`
+- remotion_data: `remotion/数据_data/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe.ts`
+- remotion_composition: `remotion/组合_compositions/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe.tsx`
+- remotion_composition_id: `字幕贴纸2到4秒微段精修探针-caption-sticker-2-4s-micro-probe`
+- review_pack_script: `脚本_scripts/生成字幕贴纸2到4秒微段精修探针审片包_generate_caption_sticker_2_4s_micro_probe_review_pack.py`
+- output_video_path: `dist/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe.mp4`
+- review_pack_path: `tmp/字幕贴纸2到4秒微段精修探针_caption_sticker_2_4s_micro_probe_review_pack/`
+- selected_micro_window: `3.15-6.15s`
+- duration: `3.050667s`
+- source_segment: `seg_04_main_action_push -> seg_05_metal_texture_cut`
+- source_material: `M03 + M06`
+- bgm_used: `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`
+- output_video_metadata: `3.050667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`
+- visual_language_preflight: `passed`
+- migration_library_used: `true`
+- decision_router_used: `true`
+- template_fallback: `false`
+- current_status: `caption_sticker_2_4s_micro_probe_rendered_pending_user_review`
+- next_goal: `user_review_caption_sticker_2_4s_micro_probe`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- generation_api_called_this_round: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+- this_is_partial_probe_not_full_video_candidate: `true`
+
+已确认：本轮按附件最新任务执行局部 2-4 秒微段精修探针，不是重新生成 18 秒完整正片，不是增加贴纸数量，也不是能力证明。
+
+已确认：本轮读取并使用 `54_解析资产全量索引_analysis_asset_inventory.md`、`55_参考视觉语言迁移库_reference_visual_language_migration_library.md`、`56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md`。
+
+已确认：本轮选取 `3.15-6.15s`，因为该窗口同时包含动作接触、原 `caption_03_action_push`、原 `sticker_03_action_contact_flash` 和 M06 金属纹理出口，最适合检查“贴纸是否像组件、caption 是否像浮层”的差一点问题。
+
+已确认：本轮新增 caption 事件 `micro_caption_01_contact_reaction` 和 3 个 sticker / visual punctuation 事件，所有事件均写入 `analysis_asset_ids`、`reference_rule_links`、`copy_risk_check`、`template_fallback=false`。
+
+已确认：本轮未调用图片 / 视频 / 音频生成 API，未生成新贴纸图片资产，未复制参考视频素材、第三方贴纸、平台 UI、品牌资产、原字体或原文案。
+
+已确认：本轮输出 3 秒本地微段探针视频并生成 before/after 审片包；视频、图片、音频、抽帧、`tmp/`、`dist/` 均不提交 Git。
+
+待验证：用户仍需审看微段探针，判断新 caption / pressure burst / caption tail / residual drag 是否比原版更自然；不得声明 `publish-ready`、`video_fixed`、`vlog director capability verified` 或用户审美通过。
 
 ## 本轮新增｜参考视觉语言路由 18 秒正片候选
 
