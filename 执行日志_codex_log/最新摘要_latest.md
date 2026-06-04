@@ -12,6 +12,27 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜阿里图像资产工厂最小验证
+
+- 已确认：本轮任务为 `ali_image_asset_factory_minimal_probe`。
+- 已确认：本轮目标是验证阿里图像生成 API 是否真实可用，并生成 1 个 `sticker_candidate（贴纸候选）` 和 1 个 `font_card_candidate（字体牌候选）`，不是生成视频，不是完整正片，不是 Codex 自己画 SVG。
+- 已确认：本轮检查到 `.env` 存在，且阿里相关 key name 包含 `DASHSCOPE_API_KEY / ALIBABA_IMAGE_ENDPOINT / ALIBABA_IMAGE_MODEL / IMAGE_API_PROVIDER`；没有打印任何 key value、token 或 secret。
+- 已确认：本轮新增最小阿里图像 API 脚本目录 `脚本_scripts/阿里图像资产工厂_ali_image_asset_factory/`，包含 connection check、candidate generation 和 manifest/contact sheet 三个脚本。
+- 已确认：API connection smoke test 通过，`http_status=200`，响应含 image URL；该 smoke 响应不保存为正式候选资产。
+- 已确认：本轮真实调用阿里 `alibaba_dashscope + qwen-image-2.0-pro`，生成并下载 2 张候选图。
+- 已确认：贴纸候选为 `ali_sticker_candidate_01`，路径为 `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/sticker_candidate_01.png`，元数据为 `PNG / 1024x1024 / RGB`。
+- 已确认：字体牌候选为 `ali_font_card_candidate_01`，文字目标为 `没感觉`，路径为 `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/font_card_candidate_01.png`，元数据为 `PNG / 1024x1024 / RGB`。
+- 部分成立：贴纸候选视觉自检为黄色无语 / 尴尬表情风格，字体牌候选视觉自检读作 `没感觉`；两者均未见明显 watermark、平台 UI、账号名或品牌标志。
+- 待验证：两张图片均无 alpha，`transparent_ready=false`，`background_removal_required=true`；仍需用户回审，不能直接写成可入 Remotion。
+- 已确认：本轮生成 runtime 目录 `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/`，包含 `asset_request.json`、`asset_manifest.json`、`review_contact_sheet.jpg`、两张候选 PNG 和脱敏 API 响应摘要。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/68_阿里图像资产工厂最小验证报告_ali_image_asset_factory_minimal_probe_report.md`。
+- 已确认：新增资产库元数据为 `项目资料_docs/视频能力实验室_video_capability_lab/69_贴纸与字体牌资产库_sticker_and_font_card_asset_library.md`。
+- 已确认：本轮没有生成视频，没有修改 Remotion，没有提交 `tmp/`、图片、审片图或 runtime JSON。
+- 当前状态：`ali_image_asset_factory_generated_1_sticker_1_font_card_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`user_review_ali_generated_sticker_and_font_card_candidates`。
+- 待验证：用户需要回审贴纸候选和字体牌候选；不得声明 `sticker approved`、`font card approved`、`sticker library completed`、`caption font system completed`、`video_fixed` 或 `vlog director capability verified`。
+
 ## 本轮新增｜视觉前处理驱动 8 秒字幕贴纸候选
 
 - 已确认：本轮任务为 `visual_preprocessing_driven_8s_caption_sticker_candidate`。

@@ -83,6 +83,130 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜阿里图像资产工厂最小验证桥接
+
+### route_decision
+
+```yaml
+task_type: ali_image_asset_factory_minimal_probe
+route_decision: api_connection_smoke_then_generate_1_sticker_1_font_card_candidate_not_video
+true_goal: 验证阿里图像生成 API 是否真实可用，并生成 1 个贴纸候选与 1 个字体牌候选作为用户回审输入。
+not_this_round:
+  - 生成 8 秒视频
+  - 生成完整正片
+  - Codex 自己画 SVG
+  - Remotion 接入
+  - 批量生成资产
+  - 宣称贴纸或字体牌已批准
+provider: alibaba_dashscope
+model: qwen-image-2.0-pro
+official_docs_checked:
+  - https://help.aliyun.com/zh/model-studio/text-to-image
+  - https://help.aliyun.com/zh/model-studio/qwen-image-api
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### impact_check
+
+```yaml
+workspace_guard: passed
+repo_root: /Users/fan/Documents/vlog、odd/video_capability_lab
+remote: https://github.com/fthytwerwt-sudo/video_capability_lab.git
+branch: main
+python_version: 3.9.6
+node_version: v25.6.1
+npm_version: 11.9.0
+env_file_exists: true
+env_keys_present:
+  - DASHSCOPE_API_KEY
+  - ALIBABA_IMAGE_ENDPOINT
+  - ALIBABA_IMAGE_MODEL
+  - IMAGE_API_PROVIDER
+secret_values_printed: false
+client_found_or_created: created_minimal_python_http_client
+existing_ali_smoke_test_found_before_this_round: false
+```
+
+### execution_outputs
+
+```yaml
+api_check_script: 脚本_scripts/阿里图像资产工厂_ali_image_asset_factory/检查阿里图像API连接_check_ali_image_api_connection.py
+generation_script: 脚本_scripts/阿里图像资产工厂_ali_image_asset_factory/生成阿里贴纸字体牌候选_generate_ali_sticker_font_card_candidates.py
+manifest_script: 脚本_scripts/阿里图像资产工厂_ali_image_asset_factory/整理阿里生成资产_manifest_ali_generated_assets.py
+report: 项目资料_docs/视频能力实验室_video_capability_lab/68_阿里图像资产工厂最小验证报告_ali_image_asset_factory_minimal_probe_report.md
+asset_library_metadata: 项目资料_docs/视频能力实验室_video_capability_lab/69_贴纸与字体牌资产库_sticker_and_font_card_asset_library.md
+runtime_output_dir: tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/
+asset_request: tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/asset_request.json
+asset_manifest: tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/asset_manifest.json
+review_contact_sheet: tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/review_contact_sheet.jpg
+api_response_sanitized: tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/api_response_sanitized.json
+runtime_assets_committed: false
+```
+
+### api_connection_status
+
+```yaml
+smoke_test_result: passed
+smoke_test_http_status: 200
+smoke_test_image_url_present: true
+smoke_test_generated_formal_asset: false
+api_key_env_name_used: DASHSCOPE_API_KEY
+key_value_printed: false
+```
+
+### generated_assets
+
+```yaml
+sticker_candidate:
+  asset_id: ali_sticker_candidate_01
+  asset_type: sticker_candidate
+  source_method: ali_image_api
+  local_path: tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/sticker_candidate_01.png
+  image_metadata: PNG / 1024x1024 / RGB
+  transparent_ready: false
+  background_removal_required: true
+  review_status: pending_user_review
+  approved_for_library: false
+  remotion_usage_status: not_used_yet
+font_card_candidate:
+  asset_id: ali_font_card_candidate_01
+  asset_type: font_card_candidate
+  source_method: ali_image_api
+  text: 没感觉
+  local_path: tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/font_card_candidate_01.png
+  image_metadata: PNG / 1024x1024 / RGB
+  text_accuracy_status: visual_self_check_passed_pending_user_review
+  transparent_ready: false
+  background_removal_required: true
+  review_status: pending_user_review
+  approved_for_library: false
+  remotion_usage_status: not_used_yet
+```
+
+### validation_summary
+
+```yaml
+api_connection_check: passed
+asset_generation_check: passed
+image_file_exists_check: passed
+image_metadata_check: passed
+contact_sheet_generation_check: passed
+visual_self_check:
+  sticker_candidate: yellow_awkward_reaction_face_no_visible_watermark_ui_brand_pending_user_review
+  font_card_candidate: text_reads_没感觉_no_visible_watermark_ui_brand_pending_user_review
+claim_boundary: pending_user_review_not_approved
+```
+
+### do_not_claim
+
+- 禁止声明 `sticker approved`。
+- 禁止声明 `font card approved`。
+- 禁止声明 `sticker library completed`。
+- 禁止声明 `caption font system completed`。
+- 禁止声明 `video_fixed`。
+- 禁止声明 `vlog director capability verified`。
+
 ## 本轮新增｜视觉前处理驱动 8 秒字幕贴纸候选桥接
 
 ### route_decision

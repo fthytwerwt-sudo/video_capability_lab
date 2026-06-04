@@ -1,14 +1,65 @@
 # 当前任务
 
-当前任务：`visual_preprocessing_driven_8s_caption_sticker_candidate`。
+当前任务：`ali_image_asset_factory_minimal_probe`。
 
-当前目标：直接生成 8 秒视觉前处理驱动字幕贴纸候选片，把 `anchor_map.json`、`motion_track.json`、`mask_plan.json` 和 `visual_scorecard.json` 接入 Remotion 字幕 / 贴纸 / 视觉标点渲染。
+当前目标：验证当前项目是否真实接通阿里图像生成 API，并在 API 可用前提下生成 1 个 `sticker_candidate（贴纸候选）` 和 1 个 `font_card_candidate（字体牌候选）`，配套生成资产需求单、资产清单和审片总览图。
 
-当前状态：`visual_preprocessing_driven_8s_caption_sticker_candidate_rendered_pending_user_review`。
+当前状态：`ali_image_asset_factory_generated_1_sticker_1_font_card_pending_user_review`。
 
-下一目标：`user_review_visual_preprocessing_driven_8s_caption_sticker_candidate`。
+下一目标：`user_review_ali_generated_sticker_and_font_card_candidates`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜阿里图像资产工厂最小验证
+
+- task_type: `ali_image_asset_factory_minimal_probe`
+- route_decision: `api_connection_smoke_then_generate_1_sticker_1_font_card_candidate_not_video`
+- provider: `alibaba_dashscope`
+- model: `qwen-image-2.0-pro`
+- api_connection_status: `passed`
+- smoke_test_script: `脚本_scripts/阿里图像资产工厂_ali_image_asset_factory/检查阿里图像API连接_check_ali_image_api_connection.py`
+- generation_script: `脚本_scripts/阿里图像资产工厂_ali_image_asset_factory/生成阿里贴纸字体牌候选_generate_ali_sticker_font_card_candidates.py`
+- manifest_script: `脚本_scripts/阿里图像资产工厂_ali_image_asset_factory/整理阿里生成资产_manifest_ali_generated_assets.py`
+- report_file: `项目资料_docs/视频能力实验室_video_capability_lab/68_阿里图像资产工厂最小验证报告_ali_image_asset_factory_minimal_probe_report.md`
+- asset_library_metadata_file: `项目资料_docs/视频能力实验室_video_capability_lab/69_贴纸与字体牌资产库_sticker_and_font_card_asset_library.md`
+- runtime_output_dir: `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/`
+- asset_request: `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/asset_request.json`
+- asset_manifest: `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/asset_manifest.json`
+- review_contact_sheet: `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/review_contact_sheet.jpg`
+- sticker_candidate:
+  - asset_id: `ali_sticker_candidate_01`
+  - local_path: `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/sticker_candidate_01.png`
+  - image_metadata: `PNG / 1024x1024 / RGB`
+  - transparent_ready: `false`
+  - background_removal_required: `true`
+  - review_status: `pending_user_review`
+  - approved_for_library: `false`
+- font_card_candidate:
+  - asset_id: `ali_font_card_candidate_01`
+  - text: `没感觉`
+  - local_path: `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/font_card_candidate_01.png`
+  - image_metadata: `PNG / 1024x1024 / RGB`
+  - text_accuracy_status: `visual_self_check_passed_pending_user_review`
+  - transparent_ready: `false`
+  - background_removal_required: `true`
+  - review_status: `pending_user_review`
+  - approved_for_library: `false`
+- current_status: `ali_image_asset_factory_generated_1_sticker_1_font_card_pending_user_review`
+- next_goal: `user_review_ali_generated_sticker_and_font_card_candidates`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- generation_api_called_this_round: `true`
+- runtime_asset_commit_allowed_this_round: `false`
+- full_video_rendered_this_round: `false`
+
+已确认：本轮真实调用阿里图像生成 API，smoke test 返回 `http_status=200`，两个候选资产也均返回 `http_status=200` 并保存到 ignored `tmp/`。
+
+已确认：本轮只生成 1 个贴纸候选和 1 个字体牌候选，不生成视频，不接入 Remotion，不提交图片、审片图、runtime JSON 或 `tmp/`。
+
+部分成立：贴纸候选为黄色无语 / 尴尬表情风格，字体牌候选视觉自检读作 `没感觉`；但二者均无 alpha，需标记 `background_removal_required=true`，且仍等待用户回审。
+
+待验证：用户需要回审贴纸形状、表情反应感、字体牌手写粗白质感和是否值得进入后续去背景 / Remotion 小范围调用。
+
+不得声明：`sticker approved`、`font card approved`、`sticker library completed`、`caption font system completed`、`video_fixed`、`vlog director capability verified`。
 
 ## 本轮新增｜视觉前处理驱动 8 秒字幕贴纸候选
 
