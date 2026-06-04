@@ -2,7 +2,7 @@
 
 ## status（状态）
 
-`asset_library_metadata_created_pending_user_review`
+`asset_library_metadata_updated_crop_pending_user_review`
 
 已确认：本文件只登记本轮阿里图像 API 生成的候选资产 metadata（元数据），不批准入库，不提交 runtime 图片，不声明 Remotion 可用。
 
@@ -26,6 +26,25 @@
 | runtime_asset_committed | `false` | `false` |
 | remotion_usage_status | `not_used_yet` | `not_used_yet` |
 
+## crop_metadata（裁剪元数据）
+
+| field | sticker_candidate | font_card_candidate |
+|---|---|---|
+| crop_probe | `ali_generated_asset_crop_probe` | `ali_generated_asset_crop_probe` |
+| cropped_asset_id | `ali_sticker_candidate_01_crop` | `ali_font_card_candidate_01_crop` |
+| cropped_path | `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/sticker_candidate_01_cropped.png` | `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/font_card_candidate_01_cropped.png` |
+| alpha_path | `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/sticker_candidate_01_alpha.png` | `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/font_card_candidate_01_alpha.png` |
+| crop_box | `[104, 104, 976, 963]` | `[25, 263, 999, 764]` |
+| cropped_size | `872x859` | `974x501` |
+| transparent_ready | `true` | `true` |
+| background_removal_required | `false` | `false` |
+| alpha_quality | `passed_pending_user_review` | `passed_pending_user_review` |
+| edge_quality | `safe_margin_preserved_pending_user_review` | `safe_margin_preserved_pending_user_review` |
+| shadow_preserved | `pending_user_review` | `pending_user_review` |
+| crop_review_status | `pending_user_review` | `pending_user_review` |
+| approved_for_video | `false` | `false` |
+| recommended_remotion_usage | `use_alpha_png_only_after_user_review` | `use_alpha_png_only_after_user_review` |
+
 ## review_package（回审包）
 
 | item | path | committed |
@@ -33,6 +52,9 @@
 | asset_request | `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/asset_request.json` | `false` |
 | asset_manifest | `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/asset_manifest.json` | `false` |
 | review_contact_sheet | `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/review_contact_sheet.jpg` | `false` |
+| crop_manifest | `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/crop_manifest.json` | `false` |
+| crop_quality_report | `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/crop_quality_report.json` | `false` |
+| crop_review_contact_sheet | `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/crop_review_contact_sheet.jpg` | `false` |
 
 ## approval_rule（批准规则）
 

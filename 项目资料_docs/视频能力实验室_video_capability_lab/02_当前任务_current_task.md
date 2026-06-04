@@ -1,14 +1,65 @@
 # 当前任务
 
-当前任务：`ali_image_asset_factory_minimal_probe`。
+当前任务：`ali_generated_asset_crop_probe`。
 
-当前目标：验证当前项目是否真实接通阿里图像生成 API，并在 API 可用前提下生成 1 个 `sticker_candidate（贴纸候选）` 和 1 个 `font_card_candidate（字体牌候选）`，配套生成资产需求单、资产清单和审片总览图。
+当前目标：把阿里图像 API 已生成的 2 个 runtime 候选产物裁剪成可供后续 Remotion 回审的贴纸 / 字牌候选资产，并尝试生成透明背景 alpha PNG。
 
-当前状态：`ali_image_asset_factory_generated_1_sticker_1_font_card_pending_user_review`。
+当前状态：`ali_generated_asset_crop_completed_pending_user_review`。
 
-下一目标：`user_review_ali_generated_sticker_and_font_card_candidates`。
+下一目标：`user_review_cropped_ali_assets_for_remotion_usage`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜阿里生成资产裁剪探针
+
+- task_type: `ali_generated_asset_crop_probe`
+- route_decision: `crop_existing_ali_runtime_assets_and_attempt_alpha_not_api_not_video`
+- source_assets:
+  - `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/sticker_candidate_01.png`
+  - `tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/font_card_candidate_01.png`
+- crop_script: `脚本_scripts/阿里图像资产工厂_ali_image_asset_factory/裁剪阿里生成资产_crop_ali_generated_assets.py`
+- crop_report: `项目资料_docs/视频能力实验室_video_capability_lab/70_阿里生成资产裁剪报告_ali_generated_asset_crop_report.md`
+- asset_library_metadata_file: `项目资料_docs/视频能力实验室_video_capability_lab/69_贴纸与字体牌资产库_sticker_and_font_card_asset_library.md`
+- runtime_output_dir: `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/`
+- crop_manifest: `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/crop_manifest.json`
+- crop_quality_report: `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/crop_quality_report.json`
+- crop_review_contact_sheet: `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/crop_review_contact_sheet.jpg`
+- sticker_candidate_crop:
+  - asset_id: `ali_sticker_candidate_01_crop`
+  - cropped_path: `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/sticker_candidate_01_cropped.png`
+  - alpha_path: `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/sticker_candidate_01_alpha.png`
+  - cropped_size: `872x859`
+  - transparent_ready: `true`
+  - background_removal_required: `false`
+  - alpha_quality: `passed_pending_user_review`
+  - review_status: `pending_user_review`
+  - approved_for_video: `false`
+- font_card_candidate_crop:
+  - asset_id: `ali_font_card_candidate_01_crop`
+  - cropped_path: `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/font_card_candidate_01_cropped.png`
+  - alpha_path: `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/font_card_candidate_01_alpha.png`
+  - cropped_size: `974x501`
+  - text_accuracy_status: `visual_self_check_passed_pending_user_review`
+  - transparent_ready: `true`
+  - background_removal_required: `false`
+  - alpha_quality: `passed_pending_user_review`
+  - review_status: `pending_user_review`
+  - approved_for_video: `false`
+- current_status: `ali_generated_asset_crop_completed_pending_user_review`
+- next_goal: `user_review_cropped_ali_assets_for_remotion_usage`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- api_called_this_round: `false`
+- new_image_generation_this_round: `false`
+- video_rendered_this_round: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+
+已确认：本轮只裁剪 / alpha 处理已有 2 张 runtime 图片，没有重新调用阿里 API，没有生成新图片，没有生成视频，没有修改原始候选图。
+
+部分成立：贴纸裁剪版和字体牌裁剪版均已生成，alpha PNG 均带真实 alpha 通道；脚本质量检查和审片总览图未见明显主体裁断。
+
+待验证：两张裁剪 / alpha 资产仍需用户回审，尤其是阴影、边缘和真实 Remotion 叠加效果；不得写成 `approved_for_video=true`。
+
+不得声明：`approved_for_video`、`sticker library completed`、`font card library completed`、`video_fixed`、`vlog director capability verified`。
 
 ## 本轮新增｜阿里图像资产工厂最小验证
 

@@ -12,6 +12,30 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜阿里生成资产裁剪探针
+
+- 已确认：本轮任务为 `ali_generated_asset_crop_probe`。
+- 已确认：本轮目标是把阿里图像 API 已生成的 2 个 runtime 候选图片裁剪成可供后续 Remotion 回审的贴纸 / 字牌候选资产。
+- 已确认：本轮没有调用阿里 API，没有生成新图片，没有生成视频，没有修改原始候选图。
+- 已确认：输入贴纸候选存在：`tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/sticker_candidate_01.png`，原始元数据为 `PNG / RGB / 1024x1024 / no alpha`。
+- 已确认：输入字体牌候选存在：`tmp/阿里图像资产工厂最小验证_ali_image_asset_factory_minimal_probe/font_card_candidate_01.png`，原始元数据为 `PNG / RGB / 1024x1024 / no alpha`。
+- 已确认：新增裁剪脚本为 `脚本_scripts/阿里图像资产工厂_ali_image_asset_factory/裁剪阿里生成资产_crop_ali_generated_assets.py`，使用 Pillow / OpenCV 做主体裁剪和 alpha 尝试。
+- 已确认：贴纸裁剪输出为 `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/sticker_candidate_01_cropped.png`，尺寸 `872x859`。
+- 已确认：贴纸 alpha 输出为 `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/sticker_candidate_01_alpha.png`，元数据为 `PNG / RGBA / alpha_range=0-255`。
+- 已确认：字体牌裁剪输出为 `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/font_card_candidate_01_cropped.png`，尺寸 `974x501`。
+- 已确认：字体牌 alpha 输出为 `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/font_card_candidate_01_alpha.png`，元数据为 `PNG / RGBA / alpha_range=0-255`。
+- 部分成立：脚本质量检查和审片总览图显示两张 alpha 均为 `transparent_ready=true`、`alpha_quality=passed_pending_user_review`，但这只代表裁剪 / alpha 探针通过，不代表允许进视频。
+- 已确认：裁剪清单为 `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/crop_manifest.json`。
+- 已确认：裁剪质量报告为 `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/crop_quality_report.json`。
+- 已确认：裁剪审片总览图为 `tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/crop_review_contact_sheet.jpg`。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/70_阿里生成资产裁剪报告_ali_generated_asset_crop_report.md`。
+- 已确认：`69_贴纸与字体牌资产库_sticker_and_font_card_asset_library.md` 已追加裁剪元数据，两个资产仍为 `pending_user_review`，`approved_for_video=false`。
+- 已确认：本轮不提交 `tmp/`、图片、审片图、runtime JSON、视频、音频或抽帧。
+- 当前状态：`ali_generated_asset_crop_completed_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`user_review_cropped_ali_assets_for_remotion_usage`。
+- 待验证：用户需要回审裁剪后贴纸 / 字牌在真实视频叠加前是否可用；不得声明 `approved_for_video`、`sticker library completed`、`font card library completed`、`video_fixed` 或 `vlog director capability verified`。
+
 ## 本轮新增｜阿里图像资产工厂最小验证
 
 - 已确认：本轮任务为 `ali_image_asset_factory_minimal_probe`。

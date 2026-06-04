@@ -83,6 +83,104 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜阿里生成资产裁剪探针桥接
+
+### route_decision
+
+```yaml
+task_type: ali_generated_asset_crop_probe
+route_decision: crop_existing_ali_runtime_assets_and_attempt_alpha_not_api_not_video
+true_goal: 把阿里图像 API 已生成的 2 个候选 runtime 图片裁剪成可供后续 Remotion 回审的贴纸 / 字牌候选资产。
+not_this_round:
+  - 调用阿里 API
+  - 生成新贴纸或新字牌
+  - 修改原始候选图
+  - 生成视频
+  - 批准资产入库或进视频
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### impact_check
+
+```yaml
+workspace_guard: passed
+repo_root: /Users/fan/Documents/vlog、odd/video_capability_lab
+remote: https://github.com/fthytwerwt-sudo/video_capability_lab.git
+branch: main
+python_version: 3.9.6
+pil_import: available
+cv2_import: available
+input_sticker_exists: true
+input_font_card_exists: true
+input_manifest_exists: true
+api_called_this_round: false
+```
+
+### execution_outputs
+
+```yaml
+crop_script: 脚本_scripts/阿里图像资产工厂_ali_image_asset_factory/裁剪阿里生成资产_crop_ali_generated_assets.py
+crop_report: 项目资料_docs/视频能力实验室_video_capability_lab/70_阿里生成资产裁剪报告_ali_generated_asset_crop_report.md
+asset_library_metadata: 项目资料_docs/视频能力实验室_video_capability_lab/69_贴纸与字体牌资产库_sticker_and_font_card_asset_library.md
+runtime_output_dir: tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/
+crop_manifest: tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/crop_manifest.json
+crop_quality_report: tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/crop_quality_report.json
+crop_review_contact_sheet: tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/crop_review_contact_sheet.jpg
+runtime_assets_committed: false
+```
+
+### crop_outputs
+
+```yaml
+sticker_candidate:
+  asset_id: ali_sticker_candidate_01_crop
+  source_asset_id: ali_sticker_candidate_01
+  cropped_path: tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/sticker_candidate_01_cropped.png
+  alpha_path: tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/sticker_candidate_01_alpha.png
+  cropped_size: 872x859
+  crop_box: [104, 104, 976, 963]
+  transparent_ready: true
+  background_removal_required: false
+  alpha_quality: passed_pending_user_review
+  edge_quality: safe_margin_preserved_pending_user_review
+  review_status: pending_user_review
+  approved_for_video: false
+font_card_candidate:
+  asset_id: ali_font_card_candidate_01_crop
+  source_asset_id: ali_font_card_candidate_01
+  cropped_path: tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/font_card_candidate_01_cropped.png
+  alpha_path: tmp/阿里图像资产裁剪_ali_image_asset_crop_probe/font_card_candidate_01_alpha.png
+  cropped_size: 974x501
+  crop_box: [25, 263, 999, 764]
+  text_accuracy_status: visual_self_check_passed_pending_user_review
+  transparent_ready: true
+  background_removal_required: false
+  alpha_quality: passed_pending_user_review
+  edge_quality: safe_margin_preserved_pending_user_review
+  review_status: pending_user_review
+  approved_for_video: false
+```
+
+### validation_summary
+
+```yaml
+python_script_run: passed
+image_file_exists_check: passed
+image_metadata_check: passed
+crop_manifest_check: passed
+contact_sheet_generation_check: passed
+claim_boundary: pending_user_review_not_approved_for_video
+```
+
+### do_not_claim
+
+- 禁止声明 `approved_for_video`。
+- 禁止声明 `sticker library completed`。
+- 禁止声明 `font card library completed`。
+- 禁止声明 `video_fixed`。
+- 禁止声明 `vlog director capability verified`。
+
 ## 本轮新增｜阿里图像资产工厂最小验证桥接
 
 ### route_decision
