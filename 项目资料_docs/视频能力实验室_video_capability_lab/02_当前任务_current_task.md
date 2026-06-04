@@ -1,14 +1,62 @@
 # 当前任务
 
-当前任务：`visual_toolchain_foundation_upgrade`。
+当前任务：`visual_preprocessing_driven_8s_caption_sticker_candidate`。
 
-当前目标：一次性补齐后续字幕 / 贴纸 / 视觉标点所需的 Remotion plugin layer、visual preprocessing protocol layer 和 real visual tool adapter layer。
+当前目标：直接生成 8 秒视觉前处理驱动字幕贴纸候选片，把 `anchor_map.json`、`motion_track.json`、`mask_plan.json` 和 `visual_scorecard.json` 接入 Remotion 字幕 / 贴纸 / 视觉标点渲染。
 
-当前状态：`visual_toolchain_foundation_upgrade_completed_pending_user_review`。
+当前状态：`visual_preprocessing_driven_8s_caption_sticker_candidate_rendered_pending_user_review`。
 
-下一目标：`use_visual_preprocessing_protocol_on_caption_sticker_fix_v2`。
+下一目标：`user_review_visual_preprocessing_driven_8s_caption_sticker_candidate`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜视觉前处理驱动 8 秒字幕贴纸候选
+
+- task_type: `visual_preprocessing_driven_8s_caption_sticker_candidate`
+- route_decision: `render_8s_candidate_using_visual_preprocessing_protocol_not_full_18s_video`
+- source_protocol: `项目资料_docs/视频能力实验室_video_capability_lab/61_视觉前处理数据协议_visual_preprocessing_data_protocol.md`
+- source_upgrade_report: `项目资料_docs/视频能力实验室_video_capability_lab/62_Remotion插件与视觉工具链补强报告_remotion_plugin_and_visual_toolchain_upgrade_report.md`
+- new_report_file: `项目资料_docs/视频能力实验室_video_capability_lab/63_视觉前处理驱动8秒字幕贴纸候选报告_visual_preprocessing_driven_8s_caption_sticker_candidate_report.md`
+- remotion_data: `remotion/数据_data/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate.ts`
+- remotion_composition: `remotion/组合_compositions/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate.tsx`
+- remotion_composition_id: `视觉前处理驱动8秒字幕贴纸候选-visual-preprocessing-driven-8s-caption-sticker-candidate`
+- review_pack_script: `脚本_scripts/生成视觉前处理驱动8秒字幕贴纸候选审片包_generate_visual_preprocessing_driven_8s_caption_sticker_candidate_review_pack.py`
+- output_video_path: `dist/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate.mp4`
+- review_pack_path: `tmp/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate_review_pack/`
+- runtime_preprocessing_dir: `tmp/视觉前处理驱动8秒候选_visual_preprocessing_driven_8s_candidate/`
+- selected_8s_materials: `M14 / M08 / M05 / M03 / M06 / M04`
+- bgm_used: `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`
+- output_video_metadata: `8.042667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`
+- anchor_map_used: `true`
+- motion_track_used: `true`
+- mask_plan_used: `true`
+- visual_scorecard_used: `true`
+- remotion_plugins_used: `@remotion/paths / @remotion/motion-blur / @remotion/effects`
+- opencv_runtime_signals: `2 anchors / 1 rightward motion track / 1 simulated mask plan`
+- mask_plan_simulated_occlusion_only: `true`
+- visual_scorecard_review_status: `pending_user_review`
+- template_fallback: `false`
+- current_status: `visual_preprocessing_driven_8s_caption_sticker_candidate_rendered_pending_user_review`
+- next_goal: `user_review_visual_preprocessing_driven_8s_caption_sticker_candidate`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- generation_api_called_this_round: `false`
+- runtime_asset_commit_allowed_this_round: `false`
+- this_is_2_4s_probe: `false`
+- this_is_full_18s_video: `false`
+
+已确认：本轮直接输出 8 秒本地候选片，不是 2-4 秒微段，不是 4 秒 probe，也不是完整 18 秒正片。
+
+已确认：本轮使用 `61` 的四张视觉前处理表作为 Remotion 字幕 / 贴纸 / 视觉标点输入；字幕和贴纸事件均写入 `anchor_from`、`motion_from` 或 `mask_from`。
+
+部分成立：OpenCV 运行时信号已能输出粗锚点、粗运动方向和粗遮罩计划，但 `anchor_confidence` 仍低于 `0.4`，必须保留人工帧审，不得写成稳定视觉理解能力成立。
+
+已确认：`mask_plan.simulated_occlusion_only=true`，本轮只做模拟遮挡，不声明真实遮挡通过。
+
+已确认：本轮使用 `@remotion/paths` 做路径长度 / 路径点 / 路径演变，使用 `@remotion/motion-blur` 的 `Trail` 做拖影，使用 `@remotion/effects` 的 `blur / dropShadow / noise / vignette` 做材质融合。
+
+已确认：8 秒候选视频技术验证通过，审片包已生成到 ignored `tmp/`；视频、图片、音频、抽帧、runtime JSON、`tmp/` 和 `dist/` 均不提交 Git。
+
+待验证：用户仍需审看 8 秒候选片和 contact sheet，判断字幕 / 贴纸是否真正比上一轮更贴住画面；不得声明 `publish-ready`、`video_fixed`、`full_video_candidate_completed` 或 `vlog_director_capability_verified`。
 
 ## 本轮新增｜Remotion 插件与视觉前处理工具链补强
 

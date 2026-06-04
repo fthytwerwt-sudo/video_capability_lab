@@ -83,6 +83,118 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜视觉前处理驱动 8 秒字幕贴纸候选桥接
+
+### route_decision
+
+```yaml
+task_type: visual_preprocessing_driven_8s_caption_sticker_candidate
+route_decision: render_8s_candidate_using_visual_preprocessing_protocol_not_full_18s_video
+user_instruction: 直接生成 8 秒视觉前处理驱动字幕贴纸候选片，不再停留在 2-4 秒 probe，也不生成完整 18 秒正片。
+source_protocol: 项目资料_docs/视频能力实验室_video_capability_lab/61_视觉前处理数据协议_visual_preprocessing_data_protocol.md
+source_upgrade_report: 项目资料_docs/视频能力实验室_video_capability_lab/62_Remotion插件与视觉工具链补强报告_remotion_plugin_and_visual_toolchain_upgrade_report.md
+report_file: 项目资料_docs/视频能力实验室_video_capability_lab/63_视觉前处理驱动8秒字幕贴纸候选报告_visual_preprocessing_driven_8s_caption_sticker_candidate_report.md
+remotion_data: remotion/数据_data/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate.ts
+remotion_composition: remotion/组合_compositions/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate.tsx
+remotion_root_registration: remotion/Root.tsx
+composition_id: 视觉前处理驱动8秒字幕贴纸候选-visual-preprocessing-driven-8s-caption-sticker-candidate
+review_pack_script: 脚本_scripts/生成视觉前处理驱动8秒字幕贴纸候选审片包_generate_visual_preprocessing_driven_8s_caption_sticker_candidate_review_pack.py
+video_path: dist/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate.mp4
+review_pack_path: tmp/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate_review_pack/
+runtime_preprocessing_dir: tmp/视觉前处理驱动8秒候选_visual_preprocessing_driven_8s_candidate/
+content_status: visual_preprocessing_driven_8s_caption_sticker_candidate_rendered_pending_user_review
+next_goal: user_review_visual_preprocessing_driven_8s_caption_sticker_candidate
+capability_status: vlog_director_capability_still_pending_multi_case_validation
+generation_api_called_this_round: false
+runtime_asset_commit_allowed_this_round: false
+full_18s_video_rendered_this_round: false
+repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+branch: main
+```
+
+### visual_preprocessing_inputs
+
+```yaml
+anchor_map:
+  runtime_file: tmp/视觉前处理驱动8秒候选_visual_preprocessing_driven_8s_candidate/anchor_map.json
+  anchor_count: 2
+  source_method: opencv
+  confidence_values: [0.367, 0.391]
+motion_track:
+  runtime_file: tmp/视觉前处理驱动8秒候选_visual_preprocessing_driven_8s_candidate/motion_track.json
+  track_count: 1
+  direction: right
+  confidence: 0.76
+mask_plan:
+  runtime_file: tmp/视觉前处理驱动8秒候选_visual_preprocessing_driven_8s_candidate/mask_plan.json
+  mask_count: 1
+  confidence: 0.72
+  simulated_occlusion_only: true
+visual_scorecard:
+  runtime_file: tmp/视觉前处理驱动8秒候选_visual_preprocessing_driven_8s_candidate/visual_scorecard.json
+  review_status: pending_user_review
+  required_fix:
+    - anchor_confidence_low_manual_frame_review_required
+runtime_json_commit_allowed: false
+```
+
+### selected_8s_structure
+
+```yaml
+duration_target: 8s
+duration_metadata: 8.042667s
+selected_materials:
+  - M14 opening_texture_identity 0.00-1.20s
+  - M08 scene_identity 1.20-2.55s
+  - M05 space_bridge 2.55-3.30s
+  - M03 action_contact 3.30-4.90s
+  - M06 machine_texture_reset 4.90-6.40s
+  - M04 return_machine_close 6.40-8.00s
+bgm_used: 素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV
+```
+
+### remotion_plugin_use
+
+```yaml
+@remotion/paths:
+  used_for:
+    - getLength
+    - getPointAtLength
+    - evolvePath
+    - interpolatePath
+@remotion/motion-blur:
+  used_for:
+    - Trail
+@remotion/effects:
+  used_for:
+    - blur
+    - dropShadow
+    - noise
+    - vignette
+```
+
+### validation_summary
+
+```yaml
+remotion_compositions_check: passed
+render_status: passed_with_gl_angle
+video_metadata: 8.042667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true
+review_pack:
+  status: generated
+  path: tmp/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate_review_pack/
+contact_sheet_sanity: nonblank_pending_user_visual_review
+runtime_assets_committed: false
+```
+
+### forbidden_actions_and_claims
+
+- 禁止把 8 秒候选写成完整 18 秒正片。
+- 禁止把技术 render 成功写成用户审美通过。
+- 禁止把 OpenCV 粗锚点写成稳定视觉理解能力。
+- 禁止把 `simulated_occlusion_only=true` 写成真实遮挡通过。
+- 禁止提交 `dist/`、`tmp/`、视频、图片、音频、抽帧、runtime JSON 或模型权重。
+- 禁止声明 `publish-ready`、`video_fixed`、`full_video_candidate_completed` 或 `vlog_director_capability_verified`。
+
 ## 本轮新增｜Remotion 插件与视觉前处理工具链补强桥接
 
 ### route_decision

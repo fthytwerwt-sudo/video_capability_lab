@@ -10,6 +10,7 @@ import { CaptionStickerMicroProbe2To4s } from "./组合_compositions/字幕贴�
 import { CaptionStickerFixV2MicroProbe } from "./组合_compositions/字幕贴纸2到4秒微段修正版_caption_sticker_2_4s_fix_v2";
 import { VisualToolchainPluginSmokeProbe } from "./组合_compositions/视觉工具链插件冒烟探针_visual_toolchain_plugin_smoke_probe";
 import { VisualPreprocessingDrivenCaptionStickerProbe } from "./组合_compositions/视觉前处理驱动字幕贴纸探针_visual_preprocessing_driven_caption_sticker_probe";
+import { VisualPreprocessingDriven8sCaptionStickerCandidate } from "./组合_compositions/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate";
 
 const RemotionRoot: React.FC = () => {
   return (
@@ -90,6 +91,14 @@ const RemotionRoot: React.FC = () => {
         id="视觉前处理驱动字幕贴纸探针-visual-preprocessing-driven-caption-sticker-probe"
         component={VisualPreprocessingDrivenCaptionStickerProbe}
         durationInFrames={90}
+        fps={30}
+        height={1920}
+        width={1080}
+      />
+      <Composition
+        id="视觉前处理驱动8秒字幕贴纸候选-visual-preprocessing-driven-8s-caption-sticker-candidate"
+        component={VisualPreprocessingDriven8sCaptionStickerCandidate}
+        durationInFrames={240}
         fps={30}
         height={1920}
         width={1080}

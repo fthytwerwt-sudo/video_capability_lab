@@ -295,6 +295,96 @@ blocked_reason:
 - 不得把 2-4 秒工具链 probe 写成 `publish-ready`、`video_fixed` 或 `vlog_director_capability_verified`。
 - 不得提交 `tmp/`、`dist/`、视频、图片、音频、抽帧、runtime JSON、模型权重或 `.env`。
 
+## 视觉前处理驱动 8 秒候选执行规则
+
+当用户要求基于视觉前处理协议生成 8 秒字幕 / 贴纸 / 视觉标点候选时，Codex 必须执行以下规则：
+
+必读文件：
+
+```text
+项目资料_docs/视频能力实验室_video_capability_lab/54_解析资产全量索引_analysis_asset_inventory.md
+项目资料_docs/视频能力实验室_video_capability_lab/55_参考视觉语言迁移库_reference_visual_language_migration_library.md
+项目资料_docs/视频能力实验室_video_capability_lab/56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md
+项目资料_docs/视频能力实验室_video_capability_lab/59_字幕贴纸视觉回审闭环_caption_sticker_visual_review_loop.md
+项目资料_docs/视频能力实验室_video_capability_lab/61_视觉前处理数据协议_visual_preprocessing_data_protocol.md
+项目资料_docs/视频能力实验室_video_capability_lab/62_Remotion插件与视觉工具链补强报告_remotion_plugin_and_visual_toolchain_upgrade_report.md
+```
+
+执行前必须输出：
+
+```yaml
+visual_preprocessing_driven_8s_preflight:
+  scope: 8s_candidate_not_2_4s_probe_not_full_18s_video
+  anchor_map_generated_or_read: true
+  motion_track_generated_or_read: true
+  mask_plan_generated_or_read: true
+  visual_scorecard_generated_or_read: true
+  remotion_plugins_available:
+    - @remotion/paths
+    - @remotion/motion-blur
+    - @remotion/effects
+  runtime_assets_commit_allowed: false
+  generation_api_called: false
+```
+
+输出必须包含：
+
+```yaml
+selected_8s_structure:
+  material_ids:
+  time_ranges:
+  bgm_used:
+caption_sticker_plan:
+  captions:
+    - caption_id
+    - text
+    - anchor_from
+    - template_fallback
+  stickers:
+    - sticker_id
+    - anchor_from
+    - motion_from
+    - mask_from
+    - template_fallback
+visual_scorecard:
+  review_status: pending_user_review
+review_pack:
+  path:
+  contact_sheet:
+  evidence_maps:
+```
+
+Remotion 使用要求：
+
+```yaml
+@remotion/paths:
+  required_use: path_length_or_point_or_evolution
+@remotion/motion-blur:
+  required_use: Trail_or_motion_blur_entry
+@remotion/effects:
+  required_use: blur_or_shadow_or_noise_or_vignette_material_entry
+```
+
+阻断条件：
+
+```yaml
+blocked_reason:
+  - blocked_visual_preprocessing_runtime_json_missing
+  - blocked_8s_candidate_render_failed
+  - blocked_8s_candidate_metadata_check_failed
+  - blocked_8s_review_pack_generation_failed
+  - blocked_template_fallback_or_anchor_binding_missing
+```
+
+禁止声明：
+
+- 不得把 8 秒候选写成完整 18 秒正片。
+- 不得把 `render_status=passed` 写成用户审美通过。
+- 不得把 OpenCV 粗锚点写成稳定视觉理解。
+- 不得把 `simulated_occlusion_only=true` 写成真实遮挡通过。
+- 不得声明 `publish-ready`、`video_fixed`、`full_video_candidate_completed` 或 `vlog_director_capability_verified`。
+- 不得提交 `tmp/`、`dist/`、视频、图片、音频、抽帧、runtime JSON 或模型权重。
+
 ## 字幕贴纸视觉回审闭环规则
 
 后续任何任务只要出现以下反馈或风险，必须在 `54 / 55 / 56` 之外继续读取并使用 `59`：

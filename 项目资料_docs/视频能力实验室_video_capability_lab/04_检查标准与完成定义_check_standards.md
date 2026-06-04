@@ -209,6 +209,49 @@
 - SAM2 adapter 存在但没有权重，就声明分割能力已验证。
 - Remotion 2-4 秒 probe render 成功，就声明 `publish-ready`、`video_fixed`、`vlog_director_capability_verified`。
 
+## visual_preprocessing_driven_8s_candidate_done_definition
+
+涉及“8 秒视觉前处理驱动字幕贴纸候选”时，必须同时检查 `54 / 55 / 56 / 59 / 61 / 62`，并满足以下条件：
+
+1. 是否明确本轮是 `8s_candidate`，不是 2-4 秒微段 probe，不是 4 秒 probe，也不是完整 18 秒正片。
+2. 是否真实生成或读取 `anchor_map.json`、`motion_track.json`、`mask_plan.json` 和 `visual_scorecard.json`。
+3. 是否至少使用 2 个可回审画面锚点、1 条运动方向 / 运动轨迹和 1 个遮罩计划。
+4. 是否在 Remotion data 或 composition 中把字幕 / 贴纸事件绑定到 `anchor_from`、`motion_from` 或 `mask_from`。
+5. 是否用 `@remotion/paths` 处理路径，用 `@remotion/motion-blur` 处理拖影 / 动态模糊入口，用 `@remotion/effects` 处理材质融合入口。
+6. 是否渲染 8 秒本地视频，并通过 `ffprobe` 元数据和 `ffmpeg` decode check。
+7. 是否生成审片包，包含关键帧、contact sheet、四张视觉前处理 runtime JSON 和证据 map。
+8. 是否保持 `template_fallback=false`，并写明 `analysis_asset_ids` / `reference_rule_links` 或对应来源机制。
+9. 是否明确 `visual_scorecard.review_status=pending_user_review`。
+10. 是否把 `tmp/`、`dist/`、视频、图片、音频、抽帧、runtime JSON 和模型权重排除在 Git 提交之外。
+
+通过标准：
+
+| check | pass |
+|---|---|
+| `eight_second_scope_locked` | 报告和 latest 均写明 8 秒候选，不冒充 18 秒正片。 |
+| `visual_preprocessing_data_used` | 四张 runtime 表被生成 / 读取，并进入 Remotion 字幕 / 贴纸计划。 |
+| `plugin_layer_applied` | 三个 Remotion 插件在 8 秒 composition 中有实际 API 使用。 |
+| `review_pack_ready` | 审片包含关键帧、contact sheet、manifest、evidence map 和 runtime JSON 副本。 |
+| `technical_validation_passed` | render、composition check、ffprobe 和 ffmpeg decode 均通过。 |
+| `claim_boundary_kept` | 仍为 `pending_user_review`，不声明发布、修好、能力验证或真实遮挡通过。 |
+
+失败时必须写：
+
+- `blocked_visual_preprocessing_runtime_json_missing`
+- `blocked_8s_candidate_render_failed`
+- `blocked_8s_candidate_metadata_check_failed`
+- `blocked_8s_review_pack_generation_failed`
+- `blocked_template_fallback_or_anchor_binding_missing`
+- `route_back_to: 54/55/56/59/61/62`
+
+不得把以下情况写成通过：
+
+- 只读取 sample JSON，没有把数据绑定到字幕 / 贴纸 / 视觉标点。
+- 只套旧 2-4 秒 probe，没有输出 8 秒候选。
+- 只渲染成功，但没有审片包和 evidence map。
+- `mask_plan.simulated_occlusion_only=true`，却声明真实遮挡通过。
+- `anchor_confidence` 较低时，省略人工回审要求。
+
 ## caption_sticker_visual_review_loop_done_definition
 
 涉及字幕、贴纸、视觉标点的回审问题时，尤其当用户反馈“总差一点”“像口号”“像组件”“不贴画面”“动效像参数动画”时，必须读取并执行：

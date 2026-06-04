@@ -12,6 +12,29 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜视觉前处理驱动 8 秒字幕贴纸候选
+
+- 已确认：本轮任务为 `visual_preprocessing_driven_8s_caption_sticker_candidate`。
+- 已确认：本轮目标是直接生成 8 秒视觉前处理驱动字幕贴纸候选片，把 `anchor_map.json`、`motion_track.json`、`mask_plan.json` 和 `visual_scorecard.json` 接入 Remotion 渲染，而不是继续停在 2-4 秒 probe。
+- 已确认：本轮不是完整 18 秒正片，不是重剪全片，不是发布候选，也不是能力证明。
+- 已确认：本轮继续读取并使用 `54_解析资产全量索引_analysis_asset_inventory.md`、`55_参考视觉语言迁移库_reference_visual_language_migration_library.md`、`56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md`、`59_字幕贴纸视觉回审闭环_caption_sticker_visual_review_loop.md`、`61_视觉前处理数据协议_visual_preprocessing_data_protocol.md` 和 `62_Remotion插件与视觉工具链补强报告_remotion_plugin_and_visual_toolchain_upgrade_report.md`。
+- 已确认：本轮生成 runtime 视觉前处理目录 `tmp/视觉前处理驱动8秒候选_visual_preprocessing_driven_8s_candidate/`，包含 `anchor_map.json`、`motion_track.json`、`mask_plan.json`、`visual_scorecard.json`、`visual_preprocessing_report.json`、OpenCV edge preview 和 motion mask preview。
+- 部分成立：OpenCV 输出 `2 anchors / 1 rightward motion track / 1 simulated mask plan`；`anchor_confidence=[0.367, 0.391]` 偏低，必须保留人工帧审，不得写成稳定视觉理解能力。
+- 已确认：`mask_plan.confidence=0.72` 且 `simulated_occlusion_only=true`，本轮只做模拟遮挡，不声明真实遮挡通过。
+- 已确认：本轮选取 8 秒结构为 `M14 / M08 / M05 / M03 / M06 / M04`，BGM 仍使用 `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`。
+- 已确认：新增 Remotion data：`remotion/数据_data/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate.ts`。
+- 已确认：新增 Remotion composition：`remotion/组合_compositions/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate.tsx`，并在 `remotion/Root.tsx` 注册 composition id `视觉前处理驱动8秒字幕贴纸候选-visual-preprocessing-driven-8s-caption-sticker-candidate`。
+- 已确认：本轮实际使用 `@remotion/paths` 的路径长度 / 路径点 / 路径演变，`@remotion/motion-blur` 的 `Trail`，以及 `@remotion/effects` 的 `blur / dropShadow / noise / vignette`。
+- 已确认：输出视频路径为 `dist/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate.mp4`。
+- 已确认：输出视频技术验证通过：`8.042667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+- 已确认：审片包已生成到 `tmp/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate_review_pack/`，包含 9 张证据帧、contact sheet、manifest、caption / sticker evidence map、visual preprocessing evidence map 和四张 runtime JSON 副本。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/63_视觉前处理驱动8秒字幕贴纸候选报告_visual_preprocessing_driven_8s_caption_sticker_candidate_report.md`。
+- 已确认：本轮未调用图片 / 视频 / 音频生成 API，未下载 SAM2 权重，未提交视频、图片、音频、抽帧、`tmp/`、`dist/`、runtime JSON 或模型权重。
+- 当前状态：`visual_preprocessing_driven_8s_caption_sticker_candidate_rendered_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`user_review_visual_preprocessing_driven_8s_caption_sticker_candidate`。
+- 待验证：用户仍需审看 8 秒候选片和审片包，判断字幕、贴纸、锚点、模拟遮挡和动作拖影是否真正比上一轮更贴住画面；不得声明 `publish-ready`、`video_fixed`、`full_video_candidate_completed`、`vlog_director_capability_verified` 或真实遮挡通过。
+
 ## 本轮新增｜Remotion 插件与视觉前处理工具链补强
 
 - 已确认：本轮任务为 `visual_toolchain_foundation_upgrade`。
