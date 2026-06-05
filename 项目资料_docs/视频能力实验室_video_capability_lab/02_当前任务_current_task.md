@@ -1,14 +1,64 @@
 # 当前任务
 
-当前任务：`full_video_candidate_pipeline_bgm_color_gate_mechanism_sync`。
+当前任务：`auto_visual_asset_need_detection_probe_remediation`。
 
-当前目标：把 BGM 情绪驱动自动调色纳入正片候选完整流程，使以后 Codex 出片时围绕整条片子执行完整 required modules，不因 prompt 未显式提到而省略颜色、字幕、贴纸、动效、导出、审片包或失败路由。
+当前目标：补齐自动视觉资产需求识别探针的未完成链路，确认 Codex 能否从旧候选视频自动识别出图需求，并完成不少于 5 张图像资产、alpha 透明处理、Remotion 贴入测试和审片包。
 
-当前状态：`full_video_candidate_pipeline_bgm_color_gate_mechanism_completed_pending_future_video_probe`。
+当前状态：`auto_visual_asset_need_detection_probe_remediated_pending_user_review`。
 
-下一目标：`run_future_full_video_candidate_with_required_modules_completion_matrix`。
+下一目标：`user_review_auto_detected_visual_assets_and_remotion_overlay`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜自动视觉资产需求识别探针补救
+
+- task_type: `auto_visual_asset_need_detection_probe_remediation`
+- route_decision: `resume_partial_auto_visual_asset_probe_complete_alpha_remotion_review_pack`
+- current_status: `auto_visual_asset_need_detection_probe_remediated_pending_user_review`
+- next_goal: `user_review_auto_detected_visual_assets_and_remotion_overlay`
+- source_video: `dist/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate.mp4`
+- visual_asset_need_plan: `tmp/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe/visual_asset_need_plan.json`
+- image_generation_manifest: `tmp/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe/image_generation_manifest.json`
+- alpha_crop_manifest: `tmp/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe/alpha_crop_manifest.json`
+- alpha_quality_report: `tmp/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe/alpha_quality_report.json`
+- remotion_placement_plan: `tmp/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe/remotion_placement_plan.json`
+- remotion_data: `remotion/数据_data/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe.ts`
+- remotion_composition: `remotion/组合_compositions/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe.tsx`
+- remotion_composition_id: `自动视觉资产需求识别探针-auto-visual-asset-need-detection-probe`
+- output_video_path: `dist/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe.mp4`
+- review_pack_path: `tmp/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe_review_pack/`
+- report_file: `项目资料_docs/视频能力实验室_video_capability_lab/71_自动视觉资产需求识别探针报告_auto_visual_asset_need_detection_probe_report.md`
+- total_visual_asset_needs: `6`
+- total_alpha_success: `6`
+- total_assets_consumed_by_remotion: `6`
+- generated_assets_note: `4_auto_probe_generated_assets_plus_2_supplemental_existing_ali_assets_due_provider_arrearage`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+
+已确认：
+- 本轮完成只读补救审计，先前链路缺少不少于 5 张生成资产、alpha、Remotion 贴入、审片包和 71 报告。
+- 本轮保留原自动识别计划，共 6 个视觉资产需求点。
+- `asset_need_01` 到 `asset_need_04` 复用本探针已有阿里生成资产。
+- `asset_need_05` 和 `asset_need_06` 补图调用阿里 API 时返回 `Arrearage`，已明确标记为既有阿里资产补位，不写成原需求生成成功。
+- 本轮生成 6 张 alpha PNG，并完成 Remotion 8 秒贴入测试。
+- 审片包已生成，包含 before / after、资产、alpha 和 placement evidence。
+
+部分成立：
+- Codex 能提出“哪里需要图”的候选判断，并把判断转成 Remotion 可消费的贴入计划。
+- 阿里资产工厂可复用既有 runtime 图进入 alpha / Remotion 链路；但本轮补图被 provider `Arrearage` 阻断。
+- Remotion 能消费 6 张 alpha 资产完成贴入测试。
+
+待验证：
+- 用户是否认可这些时间点、图像风格、字幕 / 字牌和贴入位置。
+- `asset_need_05` 和 `asset_need_06` 是否应废弃补位资产，并在 API 恢复后按原需求重生成。
+- 透明边缘、阴影和遮挡关系仍需人工审片判断。
+
+不得声明：
+- `approved_for_video`
+- `asset_library_completed`
+- `caption_font_system_completed`
+- `video_fixed`
+- `publish-ready`
+- `vlog_director_capability_verified`
 
 ## 本轮新增｜正片完整流程与 BGM 情绪调色总闸门
 

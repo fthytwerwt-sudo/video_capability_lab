@@ -12,6 +12,29 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜自动视觉资产需求识别探针补救
+
+- 已确认：本轮任务为 `auto_visual_asset_need_detection_probe_remediation`。
+- 已确认：本轮目标是补齐自动视觉资产需求识别探针未完成链路，不是正片，不是发布候选，不是资产库完成。
+- 已确认：源视频为 `dist/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate.mp4`。
+- 已确认：补救审计记录为 `tmp/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe/remediation_audit.json`，先前缺口包含少于 5 张生成资产、无 alpha、无 Remotion 贴入、无审片包和无 71 报告。
+- 已确认：自动识别计划保留 6 个资产需求点，记录在 `tmp/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe/visual_asset_need_plan.json`。
+- 已确认：`asset_need_01` 到 `asset_need_04` 使用本探针已有阿里生成资产；`asset_need_05` 和 `asset_need_06` 因阿里 provider 返回 `Arrearage`，使用既有阿里资产补位，仅用于 alpha / Remotion 链路验证。
+- 已确认：图像生成 manifest 为 `tmp/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe/image_generation_manifest.json`，总量为 6，其中 2 个标记为 supplemental existing Ali assets。
+- 已确认：本轮生成 6 张 alpha PNG，`alpha_quality_report` 为 `tmp/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe/alpha_quality_report.json`。
+- 已确认：新增 Remotion data：`remotion/数据_data/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe.ts`。
+- 已确认：新增 Remotion composition：`remotion/组合_compositions/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe.tsx`，并在 `remotion/Root.tsx` 注册 composition id `自动视觉资产需求识别探针-auto-visual-asset-need-detection-probe`。
+- 已确认：Remotion 测试片已渲染到 `dist/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe.mp4`。
+- 已确认：输出视频技术验证通过：`8.042667s format / 8.000000s video stream / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+- 已确认：审片包已生成到 `tmp/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe_review_pack/`，包含 before / after、asset、alpha、placement contact sheet 和 review manifest。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/71_自动视觉资产需求识别探针报告_auto_visual_asset_need_detection_probe_report.md`。
+- 当前状态：`auto_visual_asset_need_detection_probe_remediated_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`user_review_auto_detected_visual_assets_and_remotion_overlay`。
+- 部分成立：Codex 能提出“哪里需要图”的候选判断，并把判断变成 alpha / Remotion 贴入测试；但 API 补图因 `Arrearage` 未完全成立。
+- 待验证：用户仍需审看 6 个时间点、图像内容、字幕 / 字牌、alpha 边缘和贴入遮挡，尤其判断 2 个补位资产是否应废弃重生成。
+- 禁止声明：`approved_for_video`、`asset_library_completed`、`caption_font_system_completed`、`video_fixed`、`publish-ready`、`vlog_director_capability_verified`。
+
 ## 本轮新增｜正片完整流程与 BGM 情绪调色总闸门
 
 - 已确认：本轮任务为 `full_video_candidate_pipeline_bgm_color_gate_mechanism_sync`。
