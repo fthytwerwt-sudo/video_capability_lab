@@ -83,6 +83,76 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜正片完整流程与 BGM 情绪调色总闸门桥接
+
+```yaml
+route_decision:
+  task_type: full_video_candidate_pipeline_bgm_color_gate_mechanism_sync
+  true_goal: 将 BGM 情绪驱动自动调色纳入正片候选完整流程，使以后 Codex 出片时围绕整条片子完整执行，不省略必需模块。
+  route_decision: integrate_bgm_mood_driven_auto_color_grade_into_full_video_candidate_pipeline
+  not_this_round:
+    - generate_full_video
+    - call_external_api
+    - claim_capability_verified
+    - commit_runtime_assets
+  repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+  branch: main
+
+full_video_candidate_required_modules:
+  - project_guard
+  - input_inventory
+  - reference_and_style_anchor
+  - material_selection
+  - material_quality_check
+  - BGM_style_and_audio
+  - BGM_mood_analysis
+  - material_base_color_normalization
+  - BGM_mood_driven_color_grade
+  - sequence_structure
+  - pacing_and_rhythm
+  - captions_or_text_layer
+  - stickers_or_visual_punctuation
+  - motion_effects_and_transitions
+  - composition_and_crop
+  - subject_and_caption_readability_guard
+  - audio_mix
+  - export_and_technical_validation
+  - review_pack_and_machine_report
+  - failure_feedback_routing
+
+missing_component_check:
+  required: true
+
+blocked_if_required_module_omitted:
+  required: true
+
+full_video_candidate_completion_matrix:
+  required: true
+
+BGM_mood_driven_color_grade_required:
+  default: true_for_full_video_candidate
+
+human_review_role:
+  default: post_run_debug_only
+
+do_not_block_on_user_color_review:
+  default: true
+
+capability_status:
+  bgm_mood_driven_color_grade: pending_multi_case_validation
+  full_video_candidate_pipeline_gate: mechanism_ready_pending_real_candidate_validation
+  vlog_director_capability: still_pending_multi_case_validation
+```
+
+本轮桥接输出要求：
+
+- 正片类任务必须先读取 `51 / 71 / 72`。
+- 正片类任务必须输出 `full_video_candidate_completion_matrix`。
+- `BGM_mood_analysis`、`material_base_color_normalization`、`BGM_mood_driven_color_grade` 不得因为 prompt 未显式提到而省略。
+- `color_grade_profile` 必须被 Remotion / FFmpeg / 剪辑脚本读取；只生成配置但未读取时必须写 `blocked_color_grade_profile_not_read_by_pipeline`。
+- 人审只作为导出后复盘和失败定位，不作为每次调色前置阻断。
+- 不得声明 `bgm_mood_driven_color_grade_verified`、`full_video_candidate_pipeline_verified`、`publish-ready`、`video_fixed` 或 `vlog_director_capability_verified`。
+
 ## 本轮新增｜阿里生成资产裁剪探针桥接
 
 ### route_decision

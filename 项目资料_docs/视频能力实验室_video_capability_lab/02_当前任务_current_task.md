@@ -1,14 +1,54 @@
 # 当前任务
 
-当前任务：`ali_generated_asset_crop_probe`。
+当前任务：`full_video_candidate_pipeline_bgm_color_gate_mechanism_sync`。
 
-当前目标：把阿里图像 API 已生成的 2 个 runtime 候选产物裁剪成可供后续 Remotion 回审的贴纸 / 字牌候选资产，并尝试生成透明背景 alpha PNG。
+当前目标：把 BGM 情绪驱动自动调色纳入正片候选完整流程，使以后 Codex 出片时围绕整条片子执行完整 required modules，不因 prompt 未显式提到而省略颜色、字幕、贴纸、动效、导出、审片包或失败路由。
 
-当前状态：`ali_generated_asset_crop_completed_pending_user_review`。
+当前状态：`full_video_candidate_pipeline_bgm_color_gate_mechanism_completed_pending_future_video_probe`。
 
-下一目标：`user_review_cropped_ali_assets_for_remotion_usage`。
+下一目标：`run_future_full_video_candidate_with_required_modules_completion_matrix`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜正片完整流程与 BGM 情绪调色总闸门
+
+- task_type: `full_video_candidate_pipeline_bgm_color_gate_mechanism_sync`
+- route_decision: `integrate_bgm_mood_driven_auto_color_grade_into_full_video_candidate_pipeline`
+- current_status: `full_video_candidate_pipeline_bgm_color_gate_mechanism_completed_pending_future_video_probe`
+- next_goal: `run_future_full_video_candidate_with_required_modules_completion_matrix`
+- primary_gate_51: `项目资料_docs/视频能力实验室_video_capability_lab/51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md`
+- bgm_color_protocol_71: `项目资料_docs/视频能力实验室_video_capability_lab/71_BGM情绪驱动自动调色机制_bgm_mood_driven_auto_color_grade_protocol.md`
+- integrated_gate_72: `项目资料_docs/视频能力实验室_video_capability_lab/72_正片完整流程与BGM调色总闸门_full_video_pipeline_bgm_color_gate.md`
+- validator: `脚本_scripts/正片完整流程_full_video_pipeline/校验正片完整流程与BGM调色闸门_validate_full_video_pipeline_bgm_color_gate.py`
+- tests: `tests/test_正片完整流程与BGM调色闸门_full_video_pipeline_bgm_color_gate.py`
+- capability_status:
+  - bgm_mood_driven_color_grade: `pending_multi_case_validation`
+  - full_video_candidate_pipeline_gate: `mechanism_ready_pending_real_candidate_validation`
+  - vlog_director_capability: `still_pending_multi_case_validation`
+
+已确认：
+- 用户要求颜色机制和当前项目整体出片流程配合。
+- 用户要求以后 Codex 出片每个步骤都不能省略。
+- 用户要求 Codex 围绕整条片子按完整执行流程全部执行。
+- BGM 情绪驱动调色必须进入正片候选必需模块。
+- 人审只作为后置复盘，不作为每次调色前置阻断。
+- `51` 已从旧 12 模块口径补强为 20 个正片候选必需模块。
+- `71` 已建立 BGM 情绪判断到 color_grade_profile 的字段链路。
+- `72` 已建立正片完整流程与 BGM 调色总闸门，作为 `51` 的集成补强入口。
+
+部分成立：
+- 机制文件、校验脚本和 tests 已建立；通过验证只证明机制和检查层成立，不证明真实调色效果成立。
+
+待验证：
+- 该机制仍需未来真实正片候选验证。
+- BGM 情绪判断和自动调色仍需多 BGM、多素材、多风格样片验证。
+
+不得声明：
+- `bgm_mood_driven_color_grade_verified`
+- `full_video_candidate_pipeline_verified`
+- `publish-ready`
+- `video_fixed`
+- `vlog_director_capability_verified`
 
 ## 本轮新增｜阿里生成资产裁剪探针
 

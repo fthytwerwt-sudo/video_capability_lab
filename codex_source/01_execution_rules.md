@@ -128,6 +128,63 @@ commit_push_status:
   status:
 ```
 
+## 正片候选完整流程强制规则
+
+后续任何任务只要涉及：
+
+- 正片
+- 成片
+- 候选片
+- 完整视频
+- 最终视频
+- 直接出片
+- 用户要求围绕片子完整执行
+
+Codex 必须进入 full_video_candidate_pipeline。
+
+Codex 不得只根据用户提到的单个模块局部执行。
+
+除非用户明确声明 partial_probe，否则必须执行 full_video_candidate_required_modules。
+
+执行前必须读取：
+
+1. `项目资料_docs/视频能力实验室_video_capability_lab/51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md`
+2. `项目资料_docs/视频能力实验室_video_capability_lab/71_BGM情绪驱动自动调色机制_bgm_mood_driven_auto_color_grade_protocol.md`
+3. `项目资料_docs/视频能力实验室_video_capability_lab/72_正片完整流程与BGM调色总闸门_full_video_pipeline_bgm_color_gate.md`
+
+## BGM 情绪驱动调色必需模块规则
+
+正片候选默认必须执行：
+
+- `BGM_mood_analysis`
+- `material_base_color_normalization`
+- `BGM_mood_driven_color_grade`
+
+要求：
+
+1. BGM 情绪判断必须输出 mood_tag 和 confidence_score。
+2. 低置信度自动走 fallback_neutral_unify，不默认回问用户。
+3. 调色配置必须输出 color_grade_profile。
+4. color_grade_profile 必须被 Remotion / FFmpeg / 剪辑脚本读取。
+5. 只生成配置但没被流程读取，不得写 done。
+6. 不得把人审作为默认前置阻断。
+
+## 缺模块阻断规则
+
+如果 full_video_candidate_required_modules 任一模块缺失，且用户没有明确跳过，必须 blocked_required_module_missing。
+
+禁止写 completed。
+
+特别阻断：
+
+- 缺少 BGM 情绪调色模块时写 `blocked_bgm_mood_color_grade_missing`。
+- 只生成 color_grade_profile 但流程未读取时写 `blocked_color_grade_profile_not_read_by_pipeline`。
+- 缺少完成矩阵时写 `blocked_completion_matrix_missing`。
+
+## 回报矩阵规则
+
+每个正片候选必须输出 full_video_candidate_completion_matrix。
+
 ## 参考视觉语言迁移库与判断路由器规则
 
 后续任何任务只要涉及以下内容，必须先读取并使用 `54 / 55 / 56`：

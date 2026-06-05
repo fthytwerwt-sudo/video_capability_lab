@@ -114,6 +114,62 @@
 
 正片候选完整性检查通过，也不等于 `publish-ready`、`video_fixed` 或 `vlog_director_capability_verified`；仍需用户审片。
 
+## full_video_candidate_pipeline_bgm_color_done_definition
+
+涉及正片、成片、候选片、完整视频、直接出片时，必须检查：
+
+1. 是否进入 full_video_candidate_pipeline。
+2. 是否读取 `51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md`。
+3. 是否读取 `71_BGM情绪驱动自动调色机制_bgm_mood_driven_auto_color_grade_protocol.md`。
+4. 是否读取 `72_正片完整流程与BGM调色总闸门_full_video_pipeline_bgm_color_gate.md`。
+5. 是否输出 full_video_candidate_completion_matrix。
+6. 是否检查 full_video_candidate_required_modules。
+7. 是否包含 BGM_mood_analysis。
+8. 是否包含 BGM_mood_driven_color_grade。
+9. 是否包含 material_base_color_normalization。
+10. 是否包含 color_grade_profile。
+11. 是否确认 color_grade_profile 被流程读取。
+12. 是否包含 subject_and_caption_readability_guard。
+13. 是否包含 failure_feedback_routing。
+14. 是否没有把人审作为每次调色前置阻断。
+15. 是否没有声明能力已验证。
+16. 是否未提交 runtime assets。
+17. 是否 commit、push、remote HEAD verified。
+
+通过标准：
+
+| check | pass |
+|---|---|
+| full_pipeline_gate_used | 正片任务进入完整流程，而不是只执行用户提到的局部模块。 |
+| required_modules_complete | 所有必需模块都有 done / blocked / fallback_used / skipped_by_user 状态。 |
+| bgm_mood_to_color_grade_integrated | BGM 情绪判断生成 color_grade_profile，并进入流程。 |
+| material_base_normalization_first | 先统一素材基础颜色，再做音乐情绪调色。 |
+| profile_read_by_pipeline | color_grade_profile 被 Remotion / FFmpeg / 剪辑脚本读取。 |
+| no_pre_review_block | 不要求用户每次先审核调色。 |
+| failure_route_present | 失败能回到具体模块层，而不是随机改 prompt。 |
+| no_capability_overclaim | 不把机制存在写成能力已验证。 |
+
+失败时必须写：
+
+- `blocked_required_module_missing`
+- `blocked_bgm_mood_color_grade_missing`
+- `blocked_color_grade_profile_not_read_by_pipeline`
+- `blocked_completion_matrix_missing`
+- `blocked_failure_routing_missing`
+- `blocked_runtime_assets_staged`
+- `blocked_push_failed`
+
+不得把以下情况写成 completed：
+
+1. 只新增调色文档，没有接入正片完整流程。
+2. 只生成 color_grade_profile，但没有流程读取。
+3. 只执行用户提到的模块，跳过其他正片必需模块。
+4. 只输出 before / after 审片包，没有自动调色配置。
+5. 调色失败后要求用户每次判断。
+6. 没有 failure_feedback_routing。
+7. 本地完成但未 push。
+8. push 后未验证 remote HEAD。
+
 ## reference_visual_language_migration_done_definition
 
 涉及参考视频解析、对标审计、字幕、贴纸、视觉标点、风格判断、样片回审或 vlog / odd 正片候选前，必须检查：

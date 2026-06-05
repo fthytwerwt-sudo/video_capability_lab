@@ -12,6 +12,27 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜正片完整流程与 BGM 情绪调色总闸门
+
+- 已确认：本轮任务为 `full_video_candidate_pipeline_bgm_color_gate_mechanism_sync`。
+- 已确认：用户要求颜色机制和当前项目完整出片流程配合。
+- 已确认：以后正片候选不能只执行用户提到的局部模块，必须围绕整条片子跑完整流程。
+- 已确认：BGM 情绪驱动自动调色已纳入正片候选必需模块。
+- 已确认：人审只作为导出后复盘，不作为每次调色前置阻断。
+- 已确认：新增或更新 `full_video_candidate_execution_matrix`。
+- 已确认：新增或更新 `failure_feedback_routing`。
+- 已确认：`51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md` 已补强为 20 个正片候选必需模块。
+- 已确认：新增 `71_BGM情绪驱动自动调色机制_bgm_mood_driven_auto_color_grade_protocol.md`。
+- 已确认：新增 `72_正片完整流程与BGM调色总闸门_full_video_pipeline_bgm_color_gate.md`，作为 `51` 的 BGM 调色集成总入口。
+- 部分成立：机制文件、校验脚本、tests 已建立并通过。
+- 待验证：真实正片候选中 BGM 情绪判断、自动调色、完整流程执行效果仍需未来样片验证。
+- capability_status:
+  - bgm_mood_driven_color_grade: `pending_multi_case_validation`
+  - full_video_candidate_pipeline_gate: `mechanism_ready_pending_real_candidate_validation`
+  - vlog_director_capability: `still_pending_multi_case_validation`
+- 下一目标：`run_future_full_video_candidate_with_required_modules_completion_matrix`
+- 禁止声明：`publish-ready`、`video_fixed`、`vlog_director_capability_verified`、`auto_color_grade_verified`。
+
 ## 本轮新增｜阿里生成资产裁剪探针
 
 - 已确认：本轮任务为 `ali_generated_asset_crop_probe`。
