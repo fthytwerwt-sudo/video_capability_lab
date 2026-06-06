@@ -83,6 +83,48 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜阿里图像资产 18 秒正片候选桥接
+
+```yaml
+route_decision:
+  task_type: full_video_candidate
+  true_goal: 重新生成一条 18 秒正片候选，沿用上一版 18 秒素材与 BGM，保持 BGM beat_map、BGM timing、base color grade 不变；普通字幕用 Remotion text layer，关键字牌 / 贴纸 / 视觉反应字 / 视觉标点用 Alibaba image API 生成图像资产。
+  route_decision: external_image_asset_generation_video_fit_pipeline_to_18s_full_candidate
+  this_is_full_video_candidate_not_publish_ready: true
+  do_not_claim:
+    - publish_ready
+    - video_fixed
+    - vlog_director_capability_verified
+    - modify_55_56_59_61
+    - modify_bgm_beat_map
+    - modify_bgm_timing
+    - modify_base_color_grade
+    - modify_color_grade_profile
+    - commit_runtime_assets
+  repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+  github_repository: fthytwerwt-sudo/video_capability_lab
+  branch: main
+```
+
+本轮桥接输出：
+
+- report_file: `项目资料_docs/视频能力实验室_video_capability_lab/75_阿里图像资产18秒正片候选报告_ali_image_asset_18s_full_video_candidate_report.md`
+- remotion_data: `remotion/数据_data/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate.ts`
+- remotion_composition: `remotion/组合_compositions/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate.tsx`
+- remotion_composition_id: `阿里图像资产18秒正片候选-ali-image-asset-18s-full-video-candidate`
+- runtime_pack_script: `脚本_scripts/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate/生成阿里图像资产18秒正片候选运行包_generate_ali_image_asset_18s_full_candidate_runtime_pack.py`
+- review_pack_script: `脚本_scripts/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate/生成阿里图像资产18秒正片候选审片包_generate_ali_image_asset_18s_full_candidate_review_pack.py`
+- output_video_path: `dist/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate.mp4`
+- review_pack_path: `tmp/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate_review_pack/`
+
+后续接手要求：
+
+- 必须把 `technical_validation` 和 `content_validation` 分开。
+- `render_status=passed` 不得写成内容通过。
+- 本轮 API budget 已用满 `12/12`，不得在没有新预算确认时继续重试。
+- `asset_need_05_machine_motion_trail` 存在 `arrow_like_shape_risk_pending_user_review`，如用户不认可，回到 `73 asset_video_fit_check / motion_direction_attached`，不要只改坐标。
+- 本轮 runtime assets 只在 `tmp/` 和 `dist/`，不得提交图片、视频、音频、抽帧或 runtime JSON。
+
 ## 本轮新增｜外部图像资产流程对齐候选桥接
 
 ```yaml

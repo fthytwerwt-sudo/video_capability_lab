@@ -13,6 +13,7 @@ import { VisualPreprocessingDrivenCaptionStickerProbe } from "./组合_compositi
 import { VisualPreprocessingDriven8sCaptionStickerCandidate } from "./组合_compositions/视觉前处理驱动8秒字幕贴纸候选_visual_preprocessing_driven_8s_caption_sticker_candidate";
 import { AutoVisualAssetNeedDetectionProbe } from "./组合_compositions/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe";
 import { ExternalImageAssetPipelineAlignmentCandidate } from "./组合_compositions/外部图像资产流程对齐候选_external_image_asset_pipeline_alignment_candidate";
+import { AliImageAsset18sFullVideoCandidate } from "./组合_compositions/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate";
 
 const RemotionRoot: React.FC = () => {
   return (
@@ -117,6 +118,14 @@ const RemotionRoot: React.FC = () => {
         id="外部图像资产流程对齐候选-external-image-asset-pipeline-alignment-candidate"
         component={ExternalImageAssetPipelineAlignmentCandidate}
         durationInFrames={240}
+        fps={30}
+        height={1920}
+        width={1080}
+      />
+      <Composition
+        id="阿里图像资产18秒正片候选-ali-image-asset-18s-full-video-candidate"
+        component={AliImageAsset18sFullVideoCandidate}
+        durationInFrames={540}
         fps={30}
         height={1920}
         width={1080}

@@ -12,6 +12,34 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜阿里图像资产 18 秒正片候选
+
+- 已确认：本轮任务为 `ali_image_asset_18s_full_video_candidate`。
+- 已确认：本轮目标是重新生成一条 18 秒 `full_video_candidate（正片候选）`，不是 `publish-ready`，不是 `video_fixed`，不是 `vlog_director_capability_verified`。
+- 已确认：本轮必须写入 `this_is_full_video_candidate_not_publish_ready`。
+- 已确认：本轮沿用上一版 18 秒候选的素材池、素材选择、BGM 和大体剪辑结构。
+- 已确认：BGM 路径仍为 `素材/剪辑素材/BGM/copy_C23D419B-74B9-48BB-A971-F8D19ADE885F.MOV`。
+- 已确认：本轮未修改 BGM `beat_map`、BGM timing、base color grade 或 `color_grade_profile`。
+- 已确认：本轮未修改 `55_参考视觉语言迁移库_reference_visual_language_migration_library.md`、`56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md`、`59_字幕贴纸视觉回审闭环_caption_sticker_visual_review_loop.md`、`61_视觉前处理数据协议_visual_preprocessing_data_protocol.md`。
+- 已确认：普通字幕使用 Remotion text layer，不走 Alibaba image API。
+- 已确认：关键 font card、sticker、visual reaction word、visual punctuation 通过 Alibaba image API 生成或重生成，并通过 alpha crop 进入 Remotion 合成。
+- 已确认：API provider 为 `alibaba_dashscope`，model 为 `qwen-image-2.0-pro`。
+- 已确认：API 调用预算为 `max_image_api_calls=12`，实际调用 `actual_image_api_calls=12`，成功图像 `actual_success_images=8`，错字重试 `typo_retries_used=0`，预计成本 `estimated_cost_yuan=6.0`，provider arrearage 为 `false`。
+- 已确认：三张含中文 API 图文字检查通过：`先落地`、`推上去`、`缓一口`。
+- 已确认：新增 Remotion data：`remotion/数据_data/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate.ts`。
+- 已确认：新增 Remotion composition：`remotion/组合_compositions/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate.tsx`，并在 `remotion/Root.tsx` 注册 composition id `阿里图像资产18秒正片候选-ali-image-asset-18s-full-video-candidate`。
+- 已确认：输出视频路径为 `dist/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate.mp4`。
+- 已确认：输出视频技术验证通过：`18.048s format / 18.000s video stream / 1080x1920 / 30fps / 540 frames / h264 / AAC stereo / decodable=true`。
+- 已确认：审片包已生成到 `tmp/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate_review_pack/`，包含 before / after、asset、alpha contact sheet、`text_accuracy_report.json`、`asset_generation_spec.json`、`asset_video_fit_check.json`、`full_video_candidate_completion_matrix.json`、`machine_report.json`、`review_manifest.json` 和 readable report。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/75_阿里图像资产18秒正片候选报告_ali_image_asset_18s_full_video_candidate_report.md`。
+- 当前状态：`full_video_candidate_rendered_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`user_review_ali_image_asset_18s_full_video_candidate_and_review_pack`。
+- 部分成立：机器自检认为 8 个 API 资产可作为正片候选进入用户回审，但这不等于内容通过。
+- 待验证：用户仍需审看 18 秒候选片、审片包、资产生成规格、资产-视频匹配检查和机器自检报告。
+- 特别记录：`asset_need_05_machine_motion_trail` 生成图偏箭头感，已标记为 `arrow_like_shape_risk_pending_user_review`；若用户不认可，必须回到 `73 asset_video_fit_check / motion_direction_attached`，不得只改坐标。
+- 禁止声明：`publish-ready`、`video_fixed`、`vlog_director_capability_verified`、`BGM beat_map capability verified`、`base color grade capability verified`、`Alibaba image API unlimited generation capability verified`。
+
 ## 本轮新增｜外部图像资产流程对齐候选
 
 - 已确认：本轮任务为 `external_image_asset_pipeline_alignment_candidate`。
