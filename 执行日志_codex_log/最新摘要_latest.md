@@ -12,6 +12,31 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜外部图像资产流程对齐候选
+
+- 已确认：本轮任务为 `external_image_asset_pipeline_alignment_candidate`。
+- 已确认：本轮目标是补齐“外部图像资产生成判断与视频匹配流程”，不是正片，不是发布候选，不是 `video_fixed`。
+- 已确认：本轮必须写入 `this_is_partial_pipeline_alignment_candidate_not_full_video_candidate`。
+- 已确认：本轮保留 `55_参考视觉语言迁移库_reference_visual_language_migration_library.md`、`56_字幕贴纸视觉语言判断路由器_caption_sticker_visual_language_decision_router.md`、`59_字幕贴纸视觉回审闭环_caption_sticker_visual_review_loop.md`、`61_视觉前处理数据协议_visual_preprocessing_data_protocol.md` 原机制不变。
+- 已确认：本轮没有修改 BGM、`beat_map`、音乐卡点、基础调色或 `color_grade_profile`。
+- 已确认：本轮没有调用阿里 API，没有生成新图，只复用当前已有 6 个 alpha 资产。
+- 已确认：新增流程文件为 `项目资料_docs/视频能力实验室_video_capability_lab/73_外部图像资产生成判断与视频匹配流程_external_image_asset_generation_video_fit_pipeline.md`。
+- 已确认：新增候选报告为 `项目资料_docs/视频能力实验室_video_capability_lab/74_外部图像资产流程对齐候选报告_external_image_asset_pipeline_alignment_candidate_report.md`。
+- 已确认：新增 Remotion data 为 `remotion/数据_data/外部图像资产流程对齐候选_external_image_asset_pipeline_alignment_candidate.ts`。
+- 已确认：新增 Remotion composition 为 `remotion/组合_compositions/外部图像资产流程对齐候选_external_image_asset_pipeline_alignment_candidate.tsx`，并在 `remotion/Root.tsx` 注册 composition id `外部图像资产流程对齐候选-external-image-asset-pipeline-alignment-candidate`。
+- 已确认：新增机器自检脚本为 `脚本_scripts/外部图像资产流程_external_image_asset_pipeline/生成外部图像资产匹配自检_generate_external_image_asset_fit_check.py`。
+- 已确认：新增审片包脚本为 `脚本_scripts/外部图像资产流程_external_image_asset_pipeline/生成外部图像资产流程审片包_generate_external_image_asset_pipeline_review_pack.py`。
+- 已确认：Remotion 流程对齐候选已渲染到 `dist/外部图像资产流程对齐候选_external_image_asset_pipeline_alignment_candidate/外部图像资产流程对齐候选_external_image_asset_pipeline_alignment_candidate.mp4`。
+- 已确认：输出视频技术验证通过：`8.042667s format / 8.000000s video stream / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+- 已确认：审片包已生成到 `tmp/外部图像资产流程对齐候选_external_image_asset_pipeline_alignment_candidate_review_pack/`，包含 before / after、asset、alpha、video fit contact sheet、`asset_generation_spec.json`、`asset_video_fit_check.json`、`review_manifest.json` 和 readable report。
+- 当前状态：`external_image_asset_pipeline_alignment_candidate_rendered_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`user_review_external_image_asset_pipeline_alignment_candidate_and_machine_fit_report`。
+- 部分成立：外部图像资产链路已从视频事件锚点、视觉语言判断、资产规格、alpha、video fit check 接回 Remotion 8 秒流程对齐候选。
+- 待验证：用户 / GPT 仍需审看 01-04 的图像内容、形状、情绪、浮层感、遮挡关系和视频事件匹配。
+- 特别记录：`asset_need_05` 原需求为 `顺线`，实际补位文字为 `没感觉`；`asset_need_06` 原需求为 `线走这边`，实际补位文字为 `没感觉`。二者均为 `provider_arrearage_fallback_existing_ali_asset / text_semantic_mismatch_due_to_fallback_asset / chain_test_only_regenerate_required`，不得计入原需求生成成功。
+- 禁止声明：`full_video_candidate`、`approved_for_video`、`asset_library_completed`、`caption_font_system_completed`、`video_fixed`、`publish-ready`、`vlog_director_capability_verified`。
+
 ## 本轮新增｜自动视觉资产需求识别探针补救
 
 - 已确认：本轮任务为 `auto_visual_asset_need_detection_probe_remediation`。

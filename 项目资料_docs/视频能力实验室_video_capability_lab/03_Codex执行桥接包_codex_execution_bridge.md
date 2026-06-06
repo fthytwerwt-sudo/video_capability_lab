@@ -83,6 +83,48 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜外部图像资产流程对齐候选桥接
+
+```yaml
+route_decision:
+  task_type: external_image_asset_pipeline_alignment_candidate
+  true_goal: 在不改变原参考视觉语言机制、BGM beat_map 和基础调色的前提下，补齐外部图像资产生成判断与视频匹配流程，并用现有 6 个 alpha 资产跑一版流程对齐候选。
+  route_decision: connect_reference_visual_language_to_external_image_asset_generation_alpha_video_fit_remotion
+  this_is_partial_pipeline_alignment_candidate_not_full_video_candidate: true
+  not_this_round:
+    - full_video_candidate
+    - publish_ready
+    - call_ali_api
+    - generate_new_image
+    - modify_55_56_59_61
+    - modify_bgm_beat_map
+    - modify_base_color_grade
+    - commit_runtime_assets
+  repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+  branch: main
+```
+
+本轮桥接输出：
+
+- flow_file: `项目资料_docs/视频能力实验室_video_capability_lab/73_外部图像资产生成判断与视频匹配流程_external_image_asset_generation_video_fit_pipeline.md`
+- report_file: `项目资料_docs/视频能力实验室_video_capability_lab/74_外部图像资产流程对齐候选报告_external_image_asset_pipeline_alignment_candidate_report.md`
+- remotion_data: `remotion/数据_data/外部图像资产流程对齐候选_external_image_asset_pipeline_alignment_candidate.ts`
+- remotion_composition: `remotion/组合_compositions/外部图像资产流程对齐候选_external_image_asset_pipeline_alignment_candidate.tsx`
+- remotion_composition_id: `外部图像资产流程对齐候选-external-image-asset-pipeline-alignment-candidate`
+- fit_check_script: `脚本_scripts/外部图像资产流程_external_image_asset_pipeline/生成外部图像资产匹配自检_generate_external_image_asset_fit_check.py`
+- review_pack_script: `脚本_scripts/外部图像资产流程_external_image_asset_pipeline/生成外部图像资产流程审片包_generate_external_image_asset_pipeline_review_pack.py`
+- output_video_path: `dist/外部图像资产流程对齐候选_external_image_asset_pipeline_alignment_candidate/外部图像资产流程对齐候选_external_image_asset_pipeline_alignment_candidate.mp4`
+- review_pack_path: `tmp/外部图像资产流程对齐候选_external_image_asset_pipeline_alignment_candidate_review_pack/`
+
+后续接手要求：
+
+- 必须把 `technical_validation` 和 `content_validation` 分开。
+- `render_status=passed` 不得写成内容通过。
+- `asset_need_05` 和 `asset_need_06` 必须继续保持 `provider_arrearage_fallback_existing_ali_asset`，不得计入原需求生成成功。
+- `x / y` 只能作为 render implementation coordinate，不能当唯一视觉判断依据。
+- 若要把 05 / 06 变成语义通过，必须回到 `asset_generation_spec / ali_asset_request`，等待 provider 可用后按原需求重生成。
+- 若用户反馈 01-04 仍像浮层，必须回到 `video_event_anchor / shape_grammar / material_motion`，不得只改坐标或换颜色。
+
 ## 本轮新增｜正片完整流程与 BGM 情绪调色总闸门桥接
 
 ```yaml
