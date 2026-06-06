@@ -16,3 +16,4 @@
 | `20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md` | `项目资料_docs/系统协议_system/20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md` | GPT / Codex 补全和质量保障 | 否 |
 | `21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md` | `项目资料_docs/系统协议_system/21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md` | 方向型输入到可执行机制补全 | 否 |
 | `22_真实意图澄清闸门机制_true_intent_clarification_gate.md` | `项目资料_docs/系统协议_system/22_真实意图澄清闸门机制_true_intent_clarification_gate.md` | 真实意图澄清闸门和 Codex 下发前置条件 | 否 |
+| `23_五层需求确认与逻辑串联闸门机制_five_layer_requirement_alignment_gate.md` | `项目资料_docs/系统协议_system/23_五层需求确认与逻辑串联闸门机制_five_layer_requirement_alignment_gate.md` | 五层需求确认、逻辑串联和冲突提醒闸门 | 否 |
