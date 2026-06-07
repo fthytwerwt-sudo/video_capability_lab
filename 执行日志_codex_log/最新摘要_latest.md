@@ -12,6 +12,31 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜第二期 16 秒 vlog 验证候选
+
+- 已确认：本轮任务为 `new_material_vlog_pipeline_validation_candidate`。
+- 已确认：用户授权改用当前仓库内已存在路径 `素材/第二期/第二期素材` 和 `素材/第二期/第二期 BGM`。
+- 已确认：本轮没有继续使用旧缺失路径 `video_capability_lab-素材-第二期/素材-第二期/...` 或 `../video_capability_lab-素材-第二期/素材-第二期/...`。
+- 已确认：素材目录下 19 个视频素材均可读，BGM 目录下 1 个 BGM 文件可读。
+- 已确认：本轮目标时长为 16 秒，输出为新默认 vlog / odd 流程验证候选片，不是发布候选。
+- 已确认：本轮字幕、贴纸、字牌、视觉反应字和视觉标点均按用户明确要求跳过。
+- 已确认：本轮未调用 Alibaba image API，未调用外部生成 API。
+- 已确认：已生成 `input_inventory`、`material_inventory_report`、`material_selection_table`、`BGM_selection_report`、`BGM_mood_analysis`、`refined_beat_map`、`music_emotion_shot_plan`、`sequence_structure`、`material_base_color_normalization`、`color_grade_profile`、`profile_read_by_pipeline_report`、`review_pack` 和 `machine_report`。
+- 已确认：BGM mood 为 `soft_urban_walk_vlog`，调色配置为轻暖、略提亮、保留暗部轮廓，并启用 subject visibility guard。
+- 已确认：`color_grade_profile` 通过 Remotion render CLI `--props` 被真实读取；`profile_read_by_pipeline=true`。
+- 已确认：新增 Remotion data 为 `remotion/数据_data/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate.ts`。
+- 已确认：新增 Remotion composition 为 `remotion/组合_compositions/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate.tsx`，并在 `remotion/Root.tsx` 注册 composition id `第二期16秒vlog验证候选-second-episode-16s-vlog-validation-candidate`。
+- 已确认：输出视频路径为 `dist/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate.mp4`。
+- 已确认：输出视频技术验证通过：`16.042667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+- 已确认：审片包已生成到 `tmp/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate_review_pack/`，包含代表帧、调色前后对比、机器报告、profile 读取报告和 readable review report。
+- 已确认：新增报告为 `项目资料_docs/视频能力实验室_video_capability_lab/77_第二期16秒vlog验证候选报告_second_episode_16s_vlog_validation_candidate_report.md`。
+- 当前状态：`validation_candidate_rendered_pending_user_review`。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`user_review_second_episode_16s_vlog_validation_candidate_and_review_pack`。
+- 部分成立：本轮证明第二期素材路径、Remotion 渲染链路、profile 读取链路和技术导出闭环成立，但不代表内容审美通过。
+- 待验证：用户仍需审看 16 秒候选片和审片包，判断音乐、镜头、颜色和叙事是否过线。
+- 禁止声明：`publish-ready`、`video_fixed`、`vlog_director_capability_verified`、`BGM beat_map capability verified`、`BGM_mood_driven_color_grade_verified`。
+
 ## 本轮新增｜默认 vlog / odd 出片机制更新
 
 - 已确认：本轮任务为 `project_default_vlog_pipeline_policy_update`。

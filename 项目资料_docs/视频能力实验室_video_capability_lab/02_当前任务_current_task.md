@@ -1,14 +1,62 @@
 # 当前任务
 
-当前任务：`project_default_vlog_pipeline_policy_update`。
+当前任务：`new_material_vlog_pipeline_validation_candidate`。
 
-当前目标：重写 video_capability_lab 的默认 vlog / odd 正片候选出片机制，把默认主流程从“字幕 / 贴纸 / 字牌 / 视觉标点 / 阿里图像资产路线”改为“BGM 情绪驱动剪辑 + 精细音乐卡点 + 音乐情绪镜头选择 + vlog 叙事结构 + BGM 情绪调色”。
+当前目标：使用用户确认的仓库内第二期素材路径，生成一条 16 秒 vlog / odd 新默认流程验证候选片，验证 BGM 情绪、精细卡点、音乐情绪镜头选择、vlog 叙事结构和 BGM 情绪调色能否真实进入出片链路。
 
-当前状态：`project_default_vlog_pipeline_policy_updated_pending_future_validation`。
+当前状态：`validation_candidate_rendered_pending_user_review`。
 
-下一目标：`run_new_vlog_pipeline_validation_candidate_after_mechanism_update`。
+下一目标：`user_review_second_episode_16s_vlog_validation_candidate_and_review_pack`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜第二期 16 秒 vlog 验证候选
+
+- task_type: `new_material_vlog_pipeline_validation_candidate`
+- route_decision: `run_new_vlog_pipeline_validation_candidate_after_mechanism_update`
+- duration_target_sec: `16`
+- current_status: `validation_candidate_rendered_pending_user_review`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- material_root: `素材/第二期`
+- material_dir: `素材/第二期/第二期素材`
+- bgm_dir: `素材/第二期/第二期 BGM`
+- material_count: `19`
+- bgm_count: `1`
+- selected_material_count: `10`
+- selected_bgm: `素材/第二期/第二期 BGM/copy_608DDA69-0BA3-4B72-9053-5C7E402DC98C.MOV`
+- report_file: `项目资料_docs/视频能力实验室_video_capability_lab/77_第二期16秒vlog验证候选报告_second_episode_16s_vlog_validation_candidate_report.md`
+- remotion_data: `remotion/数据_data/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate.ts`
+- remotion_composition: `remotion/组合_compositions/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate.tsx`
+- remotion_composition_id: `第二期16秒vlog验证候选-second-episode-16s-vlog-validation-candidate`
+- output_video_path: `dist/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate.mp4`
+- review_pack_path: `tmp/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate_review_pack/`
+- profile_read_by_pipeline_report: `tmp/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate_review_pack/profile_read_by_pipeline_report.json`
+- machine_report: `tmp/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate_review_pack/machine_report.json`
+
+已确认：
+- 用户授权改用当前仓库内实际存在路径 `素材/第二期/第二期素材` 和 `素材/第二期/第二期 BGM`。
+- 不再使用旧缺失路径 `video_capability_lab-素材-第二期/素材-第二期/...` 或 `../video_capability_lab-素材-第二期/素材-第二期/...`。
+- 输入素材可读：19 个视频素材、1 个 BGM 文件均可 `ffprobe` / `ffmpeg` 读取。
+- 本轮默认跳过字幕、贴纸、字牌、视觉反应字和视觉标点。
+- 本轮未调用 Alibaba image API，未调用外部生成 API。
+- 本轮生成 `input_inventory`、`material_inventory_report`、`material_selection_table`、`BGM_selection_report`、`BGM_mood_analysis`、`refined_beat_map`、`music_emotion_shot_plan`、`sequence_structure`、`material_base_color_normalization`、`color_grade_profile`、`profile_read_by_pipeline_report`、`review_pack` 和 `machine_report`。
+- `color_grade_profile` 通过 Remotion render CLI `--props` 读取，并在 composition 中影响 CSS filter、温度叠层、暗部提升、高光回收、vignette 和 grain。
+- 输出视频技术验证通过：`16.042667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+
+部分成立：
+- 本轮完成的是第二期新素材流程验证候选和技术闭环，不代表 vlog 导演能力已验证。
+- 机器报告只能说明技术导出、链路读取和自检完成，不能替代用户审片。
+
+待验证：
+- 用户需要审看 16 秒候选片和审片包，判断音乐、镜头、颜色、叙事是否过线。
+- 若用户认为节奏机械、叙事平、夜景太暗或调色不明显，应按 `failure_feedback_routing` 回到对应模块重做。
+
+不得声明：
+- `publish-ready`
+- `video_fixed`
+- `vlog_director_capability_verified`
+- `BGM beat_map capability verified`
+- `BGM_mood_driven_color_grade_verified`
 
 ## 本轮新增｜默认 vlog / odd 出片机制更新
 

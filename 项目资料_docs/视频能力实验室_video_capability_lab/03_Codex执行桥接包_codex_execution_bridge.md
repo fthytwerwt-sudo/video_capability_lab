@@ -83,6 +83,82 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜第二期 16 秒 vlog 验证候选桥接
+
+```yaml
+route_decision:
+  task_type: new_material_vlog_pipeline_validation_candidate
+  true_goal: 使用用户确认的仓库内第二期素材路径，按新默认 vlog / odd 流程生成一条 16 秒验证候选片，验证音乐、镜头、颜色和叙事链路。
+  route_decision: run_new_vlog_pipeline_validation_candidate_after_mechanism_update
+  this_is_validation_candidate_not_publish_ready: true
+  duration_target_sec: 16
+  current_status: validation_candidate_rendered_pending_user_review
+  next_goal: user_review_second_episode_16s_vlog_validation_candidate_and_review_pack
+  repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+  github_repository: fthytwerwt-sudo/video_capability_lab
+  branch: main
+  capability_status: vlog_director_capability_still_pending_multi_case_validation
+  skipped_by_user_explicit:
+    - captions
+    - stickers
+    - font_cards
+    - visual_reaction_words
+    - visual_punctuation
+    - Alibaba image API
+  do_not_claim:
+    - publish-ready
+    - video_fixed
+    - vlog_director_capability_verified
+    - BGM beat_map capability verified
+    - BGM_mood_driven_color_grade_verified
+```
+
+本轮输入路径：
+
+- material_root: `素材/第二期`
+- material_dir: `素材/第二期/第二期素材`
+- bgm_dir: `素材/第二期/第二期 BGM`
+- old_missing_paths_not_used:
+  - `video_capability_lab-素材-第二期/素材-第二期/...`
+  - `../video_capability_lab-素材-第二期/素材-第二期/...`
+
+本轮桥接输出：
+
+- report_file: `项目资料_docs/视频能力实验室_video_capability_lab/77_第二期16秒vlog验证候选报告_second_episode_16s_vlog_validation_candidate_report.md`
+- remotion_data: `remotion/数据_data/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate.ts`
+- remotion_composition: `remotion/组合_compositions/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate.tsx`
+- remotion_composition_id: `第二期16秒vlog验证候选-second-episode-16s-vlog-validation-candidate`
+- review_pack_script: `脚本_scripts/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate/生成第二期16秒vlog验证候选审片包_generate_second_episode_16s_vlog_validation_candidate_review_pack.py`
+- output_video_path: `dist/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate.mp4`
+- review_pack_path: `tmp/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate_review_pack/`
+- profile_read_by_pipeline_report: `tmp/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate_review_pack/profile_read_by_pipeline_report.json`
+- machine_report: `tmp/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate_review_pack/machine_report.json`
+- render_local_asset_server: `python3 -m http.server 8124 --bind 127.0.0.1`
+
+本轮实际执行链路：
+
+- `input_inventory`: 已生成，记录 19 个视频素材和 1 个 BGM。
+- `material_inventory_report`: 已生成，输入素材均可 `ffprobe` / `ffmpeg` 读取。
+- `material_selection_table`: 已生成，选择 10 个镜头，不按素材顺序平铺。
+- `BGM_selection_report`: 已生成，BGM 目录单首直接使用。
+- `BGM_mood_analysis`: 已生成，`mood_tag=soft_urban_walk_vlog`，`confidence_score=0.74`。
+- `refined_beat_map`: 已生成，按 BGM 段落、能量和叙事功能标注。
+- `music_emotion_shot_plan`: 已生成，每个镜头都绑定音乐情绪、节奏点和叙事角色。
+- `sequence_structure`: 已生成，结构为 `hook -> atmosphere_build -> motion_progression -> emotion_or_rhythm_shift -> ending_aftertaste`。
+- `color_grade_profile`: 已生成，BGM 情绪调色不是只写建议。
+- `profile_read_by_pipeline_report`: 已生成，`profile_read_by_pipeline=true`。
+- `Remotion render`: 已完成，`--props=tmp/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate_review_pack/color_grade_profile.json` 被 render CLI 读取。
+- `review_pack` / `machine_report`: 已生成，状态为 `validation_candidate_rendered_pending_user_review`。
+
+后续接手要求：
+
+- 必须把 `technical_validation` 和 `content_validation` 分开。
+- `render_status=passed` 不得写成内容通过。
+- `profile_read_by_pipeline=false` 必须 blocked，不得绕过 BGM 情绪调色硬验收。
+- 若用户认为节奏机械，回到 `refined_beat_map + music_emotion_shot_plan`，不得靠字幕 / 贴纸补救。
+- 若用户认为叙事平，回到 `sequence_structure + material_selection`，不得把素材顺序平铺写成 vlog 叙事。
+- 本轮 runtime outputs 只在 `tmp/` 和 `dist/`，不得提交视频、图片、音频、抽帧或 runtime JSON。
+
 ## 本轮新增｜默认 vlog / odd 出片路由桥接
 
 ```yaml

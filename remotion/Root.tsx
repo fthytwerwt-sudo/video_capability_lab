@@ -14,6 +14,11 @@ import { VisualPreprocessingDriven8sCaptionStickerCandidate } from "./组合_com
 import { AutoVisualAssetNeedDetectionProbe } from "./组合_compositions/自动视觉资产需求识别探针_auto_visual_asset_need_detection_probe";
 import { ExternalImageAssetPipelineAlignmentCandidate } from "./组合_compositions/外部图像资产流程对齐候选_external_image_asset_pipeline_alignment_candidate";
 import { AliImageAsset18sFullVideoCandidate } from "./组合_compositions/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate";
+import { SecondEpisode16sVlogValidationCandidate } from "./组合_compositions/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate";
+import {
+  secondEpisode16sVlogCandidateComposition,
+  secondEpisodeDefaultColorGradeProfile,
+} from "./数据_data/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate";
 
 const RemotionRoot: React.FC = () => {
   return (
@@ -129,6 +134,15 @@ const RemotionRoot: React.FC = () => {
         fps={30}
         height={1920}
         width={1080}
+      />
+      <Composition
+        id={secondEpisode16sVlogCandidateComposition.id}
+        component={SecondEpisode16sVlogValidationCandidate}
+        durationInFrames={secondEpisode16sVlogCandidateComposition.durationInFrames}
+        fps={secondEpisode16sVlogCandidateComposition.fps}
+        height={secondEpisode16sVlogCandidateComposition.height}
+        width={secondEpisode16sVlogCandidateComposition.width}
+        defaultProps={secondEpisodeDefaultColorGradeProfile}
       />
     </>
   );
