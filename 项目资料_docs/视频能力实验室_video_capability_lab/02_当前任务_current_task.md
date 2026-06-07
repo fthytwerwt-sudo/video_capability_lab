@@ -1,14 +1,48 @@
 # 当前任务
 
-当前任务：`ali_image_asset_18s_full_video_candidate`。
+当前任务：`project_default_vlog_pipeline_policy_update`。
 
-当前目标：重新生成一条 18 秒 `full_video_candidate（正片候选）`，沿用上一版 18 秒候选素材与 BGM，保持 BGM `beat_map`、BGM timing 和 base color grade 不变；普通字幕使用 Remotion text layer，关键字牌 / 贴纸 / 视觉反应字 / 视觉标点使用 Alibaba image API 生成的 alpha PNG。
+当前目标：重写 video_capability_lab 的默认 vlog / odd 正片候选出片机制，把默认主流程从“字幕 / 贴纸 / 字牌 / 视觉标点 / 阿里图像资产路线”改为“BGM 情绪驱动剪辑 + 精细音乐卡点 + 音乐情绪镜头选择 + vlog 叙事结构 + BGM 情绪调色”。
 
-当前状态：`full_video_candidate_rendered_pending_user_review`。
+当前状态：`project_default_vlog_pipeline_policy_updated_pending_future_validation`。
 
-下一目标：`user_review_ali_image_asset_18s_full_video_candidate_and_review_pack`。
+下一目标：`run_new_vlog_pipeline_validation_candidate_after_mechanism_update`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜默认 vlog / odd 出片机制更新
+
+- task_type: `project_default_vlog_pipeline_policy_update`
+- route_decision: `rewrite_default_vlog_output_pipeline_from_caption_sticker_asset_route_to_bgm_color_story_director_route`
+- this_round_generates_video: `false`
+- this_round_updates_project_mechanism: `true`
+- current_video_role: `后续验证对象，不是本轮主目标`
+- next_goal: `run_new_vlog_pipeline_validation_candidate_after_mechanism_update`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- policy_source: `用户本轮 P0 确认`
+
+已确认：
+- 本轮只更新项目机制文件，不生成视频、不调用外部 API、不 render、不修当前 18 秒片子。
+- 贴纸、字幕、字牌、视觉反应字和视觉标点默认降级为 `optional_user_requested_module`。
+- Codex 后续默认不执行字幕、贴纸、字牌、视觉反应字、视觉标点；只有用户明确要求时才执行。
+- BGM 情绪判断、精细卡点、音乐情绪镜头计划、vlog 叙事结构和 BGM 情绪驱动调色成为默认主流程。
+- `color_grade_profile` 不能只生成配置；未来出片时必须被 Remotion / FFmpeg / 剪辑脚本真实读取并影响最终画面。
+- 当前 18 秒候选只是后续验证材料，不是本轮目标。
+
+部分成立：
+- 本轮完成的是项目默认机制更新，不是能力验证。
+- 旧字幕 / 贴纸机制文件仍可作为用户明确要求时的可选模块参考，不再作为 vlog / odd 默认正片主线。
+
+待验证：
+- 下一轮需要用新机制生成验证候选片，再由用户审片判断音乐、镜头、颜色、叙事是否过线。
+- `vlog_director_capability` 仍需多素材、多 BGM、多风格验证。
+
+不得声明：
+- `publish-ready`
+- `video_fixed`
+- `vlog_director_capability_verified`
+- `BGM beat_map capability verified`
+- `BGM_mood_driven_color_grade_verified`
 
 ## 本轮新增｜阿里图像资产 18 秒正片候选
 
@@ -632,6 +666,8 @@
 
 ## 本轮新增｜正片候选完整交付闸门
 
+历史状态：本段记录旧完整交付闸门建立过程。对当前 vlog / odd 默认路线，已被本轮 `project_default_vlog_pipeline_policy_update` 覆盖；字幕 / 贴纸 / 字牌 / 视觉反应字 / 视觉标点默认降级为 `optional_user_requested_module`。
+
 - task_type: `full_video_candidate_delivery_gate_mechanism`
 - user_feedback: 用户指出以后凡说“正片 / 成片 / 发布候选 / 最终视频”，默认含义是完整发布候选体验，不允许 GPT 或 Codex 因 prompt 未写某项就省略项目已确认的重要模块。
 - source_problem: 上一轮 `50_BGM驱动全素材18秒正片风格候选报告_bgm_driven_all_materials_18s_final_style_candidate_report.md` 产出了 BGM + 素材的 18 秒候选，但缺少贴纸 / 视觉标点模块；根因不是单纯 Codex 执行错误，而是正片完整交付定义和缺项阻断未机制化。
@@ -653,13 +689,13 @@
 
 已确认：本轮不是修视频、不是 render、不是重新生成贴纸、不是继续剪辑；本轮只补机制。
 
-已确认：`51` 定义了正片候选默认含义：`BGM + material selection + edit structure + pacing + captions + stickers + motion/effects + transitions + audio mix + export + review pack + failure routing`。
+已确认：旧版 `51` 曾定义正片候选默认含义包含 captions / stickers；当前新版 `51` 已改为 BGM 情绪、精细卡点、音乐情绪镜头、vlog 叙事、BGM 调色为默认主线，captions / stickers 仅在用户明确要求时执行。
 
 已确认：只有用户明确说“只看某部分 / 不要某模块 / 只做机制 / 只做 probe / 不要生成视频”等，才允许降级为局部任务。
 
 已确认：下一轮如果再做正片，默认必须读取 `51`，并输出 `full_video_candidate_completion_matrix（正片候选完整性矩阵）`。
 
-已确认：如果用户说正片，但视频缺少贴纸 / 视觉标点，且用户没有明确说不要贴纸，则不得写 `completed`，只能补入贴纸模块或写 `blocked_required_sticker_or_visual_punctuation_missing`。
+已确认：历史旧口径曾要求缺贴纸 / 视觉标点时 blocked；当前 vlog / odd 默认路线已改为只有用户明确要求贴纸 / 视觉标点但未执行时，才写 `blocked_user_requested_sticker_or_visual_punctuation_missing`。
 
 待验证：本机制仍需 GPT / 用户回审；不得声明 `full video delivery mechanism verified`、`publish-ready`、`video fixed` 或 `vlog director capability verified`。
 

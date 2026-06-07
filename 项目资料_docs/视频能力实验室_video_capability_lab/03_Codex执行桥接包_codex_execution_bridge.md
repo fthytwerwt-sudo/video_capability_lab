@@ -83,6 +83,89 @@ validation:
 next_goal:
 ```
 
+## 本轮新增｜默认 vlog / odd 出片路由桥接
+
+```yaml
+route_decision:
+  task_type: project_default_vlog_pipeline_policy_update
+  true_goal: 将 video_capability_lab 默认 vlog / odd 正片候选机制从字幕贴纸资产路线改为 BGM 情绪、音乐镜头、叙事结构和 BGM 调色主线。
+  route_decision: rewrite_default_vlog_output_pipeline_from_caption_sticker_asset_route_to_bgm_color_story_director_route
+  this_round_generates_video: false
+  this_round_updates_project_mechanism: true
+  next_goal: run_new_vlog_pipeline_validation_candidate_after_mechanism_update
+  repository: /Users/fan/Documents/vlog、odd/video_capability_lab
+  github_repository: fthytwerwt-sudo/video_capability_lab
+  branch: main
+  capability_status: vlog_director_capability_still_pending_multi_case_validation
+  not_this_round:
+    - generate_video
+    - render
+    - call_external_api
+    - fix_current_18s_video
+    - generate_subtitles
+    - generate_stickers
+    - generate_font_cards
+    - generate_visual_reaction_words
+    - generate_visual_punctuation
+    - claim_capability_verified
+    - commit_runtime_assets
+```
+
+后续 Codex 收到“出一条 vlog / odd 正片候选”时，默认进入以下流程：
+
+```yaml
+default_vlog_odd_pipeline:
+  required_default_modules:
+    - project_guard
+    - input_inventory
+    - reference_and_style_anchor
+    - material_selection
+    - material_quality_check
+    - BGM_style_and_audio
+    - BGM_mood_analysis
+    - refined_beat_map
+    - music_emotion_shot_plan
+    - material_base_color_normalization
+    - BGM_mood_driven_color_grade
+    - sequence_structure
+    - pacing_and_rhythm
+    - motion_effects_and_transitions
+    - composition_and_crop
+    - subject_visibility_guard
+    - audio_mix
+    - export_and_technical_validation
+    - review_pack_and_machine_report
+    - failure_feedback_routing
+  optional_user_requested_modules:
+    - captions_or_text_layer
+    - stickers_or_visual_punctuation
+    - font_card
+    - visual_reaction_word
+    - visual_punctuation
+    - Alibaba image asset generation
+```
+
+字幕、贴纸、字牌、视觉反应字、视觉标点和阿里图像资产生成默认均为 `optional_user_requested_module`。只有用户明确说“加字幕 / 加贴纸 / 加字牌 / 加视觉标点 / 走阿里图像资产”时，Codex 才把对应模块升级为 `required_this_round`。
+
+默认必须生成：
+
+- `bgm_mood_analysis`
+- `refined_beat_map`
+- `music_emotion_shot_plan`
+- `sequence_structure`
+- `color_grade_profile`
+- `profile_read_by_pipeline_report`
+- `full_video_candidate_completion_matrix`
+
+硬规则：
+
+- Codex 默认不知道 GPT 聊天新增信息，除非本轮输入给出或已写回仓库。
+- 本轮用户确认的新默认 vlog / odd 出片规则已写入项目事实文件。
+- 后续执行单必须以仓库机制为准；若旧系统泛规则仍写“字幕 / 贴纸默认必需”，对 vlog / odd 默认路线应按本节、`51` 和 `72` 的项目事实覆盖。
+- `color_grade_profile` 必须被 Remotion / FFmpeg / 剪辑脚本读取；`profile_read_by_pipeline=false` 时必须 `blocked_color_grade_profile_not_read_by_pipeline`。
+- 没有用户明确要求时，缺字幕 / 缺贴纸 / 缺字牌 / 缺视觉标点不得 blocked。
+- 本轮机制更新不得写成 `vlog_director_capability_verified`、`publish-ready` 或 `video_fixed`。
+
 ## 本轮新增｜阿里图像资产 18 秒正片候选桥接
 
 ```yaml
@@ -190,19 +273,27 @@ full_video_candidate_required_modules:
   - material_quality_check
   - BGM_style_and_audio
   - BGM_mood_analysis
+  - refined_beat_map
+  - music_emotion_shot_plan
   - material_base_color_normalization
   - BGM_mood_driven_color_grade
   - sequence_structure
   - pacing_and_rhythm
-  - captions_or_text_layer
-  - stickers_or_visual_punctuation
   - motion_effects_and_transitions
   - composition_and_crop
-  - subject_and_caption_readability_guard
+  - subject_visibility_guard
   - audio_mix
   - export_and_technical_validation
   - review_pack_and_machine_report
   - failure_feedback_routing
+
+optional_user_requested_modules:
+  - captions_or_text_layer
+  - stickers_or_visual_punctuation
+  - font_card
+  - visual_reaction_word
+  - visual_punctuation
+  - Alibaba image asset generation
 
 missing_component_check:
   required: true
@@ -232,8 +323,9 @@ capability_status:
 
 - 正片类任务必须先读取 `51 / 71 / 72`。
 - 正片类任务必须输出 `full_video_candidate_completion_matrix`。
-- `BGM_mood_analysis`、`material_base_color_normalization`、`BGM_mood_driven_color_grade` 不得因为 prompt 未显式提到而省略。
+- `BGM_mood_analysis`、`refined_beat_map`、`music_emotion_shot_plan`、`sequence_structure`、`material_base_color_normalization`、`BGM_mood_driven_color_grade` 不得因为 prompt 未显式提到而省略。
 - `color_grade_profile` 必须被 Remotion / FFmpeg / 剪辑脚本读取；只生成配置但未读取时必须写 `blocked_color_grade_profile_not_read_by_pipeline`。
+- 字幕、贴纸、字牌、视觉反应字、视觉标点和阿里图像资产生成默认可选；没有用户明确要求时，不得因缺失这些模块 blocked。
 - 人审只作为导出后复盘和失败定位，不作为每次调色前置阻断。
 - 不得声明 `bgm_mood_driven_color_grade_verified`、`full_video_candidate_pipeline_verified`、`publish-ready`、`video_fixed` 或 `vlog_director_capability_verified`。
 
@@ -1246,6 +1338,8 @@ branch: main
 
 ## 本轮新增｜正片候选完整交付闸门桥接
 
+历史状态：本段记录旧的完整交付闸门建立过程。对当前 vlog / odd 默认路线，已被本轮 `project_default_vlog_pipeline_policy_update`、本文件顶部“默认 vlog / odd 出片路由桥接”、`51` 和 `72` 覆盖。字幕 / 贴纸不再是默认必需模块，只在用户明确要求时升级为 `required_this_round`。
+
 ### route_decision
 
 ```yaml
@@ -1304,7 +1398,7 @@ full_video_candidate = BGM + material selection + edit structure + pacing + capt
 2. 输出 `full_video_candidate_completion_matrix`。
 3. 使用 `included / included_partial / missing_blocked / skipped_by_user_explicit_request / not_applicable_with_reason` 五类状态。
 4. 禁止 `silently_omitted` 和 `not_in_prompt_so_skipped`。
-5. 正片缺贴纸 / 视觉标点且用户未明确排除时，必须补齐或写 `blocked_required_sticker_or_visual_punctuation_missing`。
+5. 历史旧口径曾要求缺贴纸 / 视觉标点时 blocked；当前 vlog / odd 默认路线已改为：只有用户明确要求贴纸 / 视觉标点但未执行时，才写 `blocked_user_requested_sticker_or_visual_punctuation_missing`。
 
 ### forbidden_claims
 

@@ -12,6 +12,27 @@
 - 待验证：BGM beat_map 卡点管线。
 - 待验证：10-15 秒技术样片导出能力。
 
+## 本轮新增｜默认 vlog / odd 出片机制更新
+
+- 已确认：本轮任务为 `project_default_vlog_pipeline_policy_update`。
+- 已确认：本轮真实目标是更新未来所有 vlog / odd 正片候选的默认出片机制，不是修当前 18 秒片子。
+- 已确认：本轮只更新项目机制文件，不生成视频、不 render、不调用外部 API、不生成字幕、不生成贴纸、不创建发布候选。
+- 已确认：用户已确认贴纸和字幕默认降级；以后 Codex 默认不执行字幕、贴纸、字牌、视觉反应字和视觉标点。
+- 已确认：只有用户明确要求“加字幕 / 加贴纸 / 加字牌 / 加视觉标点”时，Codex 才执行这些模块。
+- 已确认：默认主流程改为 BGM 情绪驱动剪辑、精细音乐卡点、音乐情绪镜头选择、vlog 叙事结构和 BGM 情绪调色。
+- 已确认：调色采用 BGM 情绪驱动，不能只写调色建议，不能只生成 `color_grade_profile` 而最终视频不读取。
+- 已确认：未来出片时 `color_grade_profile` 必须被 Remotion / FFmpeg / 剪辑脚本真实读取并影响最终画面；`profile_read_by_pipeline=false` 必须 `blocked_color_grade_profile_not_read_by_pipeline`。
+- 已确认：音乐卡点升级为音乐情绪镜头选择；Codex 必须根据 BGM 的节奏、能量、情绪段落和起伏点判断每段应该出现什么镜头。
+- 已确认：vlog 叙事结构成为默认主流程，默认结构为“开场抓人 → 氛围建立 → 动作推进 → 情绪 / 节奏变化 → 收束”。
+- 已确认：`51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md` 已将字幕 / 贴纸默认必需口径降级为 `optional_user_requested_module`。
+- 已确认：`72_正片完整流程与BGM调色总闸门_full_video_pipeline_bgm_color_gate.md` 已写入 `BGM_mood_analysis`、`refined_beat_map`、`music_emotion_shot_plan`、`sequence_structure`、`BGM_mood_driven_color_grade` 和 `profile_read_by_pipeline` 硬规则。
+- 已确认：`02_当前任务_current_task.md`、`03_Codex执行桥接包_codex_execution_bridge.md`、`04_检查标准与完成定义_check_standards.md` 已同步新默认路线。
+- 部分成立：旧字幕 / 贴纸 / 阿里图像资产路线保留为历史记录和用户明确要求时的可选模块，不再是 vlog / odd 默认主线。
+- 待验证：下一轮需要用新机制生成一条验证候选片，并由用户审片判断音乐、镜头、颜色和叙事是否过线。
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- 下一目标：`run_new_vlog_pipeline_validation_candidate_after_mechanism_update`
+- 禁止声明：`publish-ready`、`video_fixed`、`vlog_director_capability_verified`、`BGM beat_map capability verified`、`BGM_mood_driven_color_grade_verified`。
+
 ## 本轮新增｜阿里图像资产 18 秒正片候选
 
 - 已确认：本轮任务为 `ali_image_asset_18s_full_video_candidate`。
@@ -327,6 +348,8 @@
 
 ## 本轮新增｜正片候选完整交付闸门
 
+历史状态：本段记录旧完整交付闸门建立过程。对当前 vlog / odd 默认路线，已被本轮 `project_default_vlog_pipeline_policy_update` 覆盖；字幕 / 贴纸 / 字牌 / 视觉反应字 / 视觉标点默认降级为 `optional_user_requested_module`。
+
 - 已确认：本轮任务为 `full_video_candidate_delivery_gate_mechanism`。
 - 已确认：用户指出“正片 / 成片 / 发布候选 / 最终视频 / 我只想看正片”必须默认等于完整发布候选体验。
 - 已确认：GPT 不能替用户决定“不要贴纸 / 不要字幕 / 不要动效 / 不要审片包”；只有用户明确排除时，才允许局部化。
@@ -335,7 +358,7 @@
 - 已确认：本轮新建 `项目资料_docs/视频能力实验室_video_capability_lab/51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md`。
 - 已确认：`51` 定义 `full_video_candidate = BGM + material selection + edit structure + pacing + captions + stickers + motion/effects + transitions + audio mix + export + review pack + failure routing`。
 - 已确认：`51` 定义 `full_video_candidate_completion_matrix（正片候选完整性矩阵）`，每次正片候选报告必须逐项说明 included、partial、missing、skipped 或 not applicable。
-- 已确认：正片缺贴纸 / 视觉标点且用户未明确排除时，不得写 completed，只能补齐或写 `blocked_required_sticker_or_visual_punctuation_missing`。
+- 已确认：历史旧口径曾要求缺贴纸 / 视觉标点时 blocked；当前 vlog / odd 默认路线已改为只有用户明确要求贴纸 / 视觉标点但未执行时，才写 `blocked_user_requested_sticker_or_visual_punctuation_missing`。
 - 已确认：系统协议 `20 / 21 / 22` 已追加正片类任务完整交付补全、不可降级和真实意图默认完整交付规则。
 - 已确认：`01_执行合同与验收_execution_contract.md` 和 `04_检查标准与完成定义_check_standards.md` 已追加正片候选验收口径和完成定义。
 - 当前状态：`full_video_candidate_delivery_gate_completed_pending_gpt_user_review`。

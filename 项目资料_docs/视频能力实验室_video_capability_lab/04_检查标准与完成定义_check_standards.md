@@ -84,9 +84,57 @@
 
 能力 probe 未验证不得写成已成立。能力地图中的初始状态必须全部是 `待验证`，不得出现 `已确认可用` 或 `已验证成立`。
 
+## vlog_default_output_pipeline_done_definition
+
+本完成定义用于检查 `project_default_vlog_pipeline_policy_update` 是否完成。
+
+通过标准：
+
+| check | pass |
+|---|---|
+| `captions_downgraded_by_default` | `captions_or_text_layer` 默认状态为 `optional_user_requested_module` 或 `skipped_by_default_unless_user_requested`。 |
+| `stickers_downgraded_by_default` | `stickers_or_visual_punctuation` 默认状态为 `optional_user_requested_module` 或 `skipped_by_default_unless_user_requested`。 |
+| `no_caption_sticker_default_block` | 用户没有明确要求字幕 / 贴纸时，缺字幕 / 缺贴纸不得 blocked。 |
+| `bgm_mood_analysis_required` | `BGM_mood_analysis` 是 vlog / odd 默认主模块。 |
+| `refined_beat_map_required` | `refined_beat_map` 是 vlog / odd 默认主模块。 |
+| `music_emotion_shot_plan_required` | `music_emotion_shot_plan` 是 vlog / odd 默认主模块。 |
+| `sequence_structure_required` | `sequence_structure` 使用“开场抓人 → 氛围建立 → 动作推进 → 情绪 / 节奏变化 → 收束”。 |
+| `bgm_mood_driven_color_grade_required` | `BGM_mood_driven_color_grade` 是默认主模块。 |
+| `profile_read_by_pipeline_hard_gate` | `color_grade_profile` 必须被 Remotion / FFmpeg / 剪辑脚本读取；`profile_read_by_pipeline=false` 必须 blocked。 |
+| `no_capability_overclaim` | 机制更新不得声明能力已验证、视频已修好或发布可用。 |
+| `future_user_review_required` | 下一轮验证片仍需用户审片。 |
+
+失败时必须写：
+
+- `blocked_caption_sticker_policy_not_downgraded`
+- `blocked_bgm_mood_analysis_missing_from_default_pipeline`
+- `blocked_refined_beat_map_missing_from_default_pipeline`
+- `blocked_music_emotion_shot_plan_missing_from_default_pipeline`
+- `blocked_sequence_structure_missing_from_default_pipeline`
+- `blocked_bgm_mood_color_grade_missing`
+- `blocked_color_grade_profile_not_read_by_pipeline`
+- `blocked_capability_overclaim`
+
+不得把以下情况写成 completed：
+
+1. 51 / 72 仍把 vlog / odd 字幕或贴纸写成默认必需模块。
+2. 只写 BGM 调色建议，没有要求流程真实读取 `color_grade_profile`。
+3. 只写 `beat_map`，没有音乐情绪镜头计划。
+4. 只写素材顺序，没有 vlog 叙事结构。
+5. 机制更新写成 `vlog_director_capability_verified`。
+6. 本轮生成了视频、render、调用外部 API 或提交 runtime assets。
+
+历史规则说明：
+
+- 旧贴纸 / 字幕机制可以保留为历史说明和用户明确要求时的可选模块。
+- 旧“贴纸 / 字幕默认必需”口径对 vlog / odd 默认路线已被本轮项目事实降权或替换。
+- 若系统泛规则仍有旧描述，后续可单独做系统层 cleanup；本轮项目默认路线以 `51 / 72 / 03 / latest` 为准。
+
 ## full_video_candidate_done_definition
 
 正片候选完成前必须检查 `51_正片候选完整交付闸门_full_video_candidate_delivery_gate.md`。
+
+对 vlog / odd 默认路线，必须优先执行 `vlog_default_output_pipeline_done_definition`。字幕 / 贴纸 / 字牌 / 视觉反应字 / 视觉标点只有在用户明确要求时才作为 `required_this_round` 检查；未明确要求时不得因为缺这些可选模块 blocked。
 
 每个正片候选报告必须包含：
 
@@ -125,16 +173,20 @@
 5. 是否输出 full_video_candidate_completion_matrix。
 6. 是否检查 full_video_candidate_required_modules。
 7. 是否包含 BGM_mood_analysis。
-8. 是否包含 BGM_mood_driven_color_grade。
-9. 是否包含 material_base_color_normalization。
-10. 是否包含 color_grade_profile。
-11. 是否确认 color_grade_profile 被流程读取。
-12. 是否包含 subject_and_caption_readability_guard。
-13. 是否包含 failure_feedback_routing。
-14. 是否没有把人审作为每次调色前置阻断。
-15. 是否没有声明能力已验证。
-16. 是否未提交 runtime assets。
-17. 是否 commit、push、remote HEAD verified。
+8. 是否包含 refined_beat_map。
+9. 是否包含 music_emotion_shot_plan。
+10. 是否包含 sequence_structure。
+11. 是否包含 BGM_mood_driven_color_grade。
+12. 是否包含 material_base_color_normalization。
+13. 是否包含 color_grade_profile。
+14. 是否确认 color_grade_profile 被流程读取。
+15. 是否包含 subject_visibility_guard。
+16. 是否没有把字幕 / 贴纸当作未请求时的默认阻断项。
+17. 是否包含 failure_feedback_routing。
+18. 是否没有把人审作为每次调色前置阻断。
+19. 是否没有声明能力已验证。
+20. 是否未提交 runtime assets。
+21. 是否 commit、push、remote HEAD verified。
 
 通过标准：
 
@@ -143,8 +195,12 @@
 | full_pipeline_gate_used | 正片任务进入完整流程，而不是只执行用户提到的局部模块。 |
 | required_modules_complete | 所有必需模块都有 done / blocked / fallback_used / skipped_by_user 状态。 |
 | bgm_mood_to_color_grade_integrated | BGM 情绪判断生成 color_grade_profile，并进入流程。 |
+| refined_beat_map_present | 精细卡点图包含节奏点、能量起伏、段落边界和呼吸点。 |
+| music_emotion_shot_plan_present | 每个镜头说明音乐情绪、节奏点、能量变化和段落功能。 |
+| sequence_structure_present | vlog 叙事结构服务“开场抓人 → 氛围建立 → 动作推进 → 情绪 / 节奏变化 → 收束”。 |
 | material_base_normalization_first | 先统一素材基础颜色，再做音乐情绪调色。 |
 | profile_read_by_pipeline | color_grade_profile 被 Remotion / FFmpeg / 剪辑脚本读取。 |
+| caption_sticker_optional_by_default | 用户未明确要求时，字幕 / 贴纸缺失不触发默认阻断。 |
 | no_pre_review_block | 不要求用户每次先审核调色。 |
 | failure_route_present | 失败能回到具体模块层，而不是随机改 prompt。 |
 | no_capability_overclaim | 不把机制存在写成能力已验证。 |
@@ -152,6 +208,8 @@
 失败时必须写：
 
 - `blocked_required_module_missing`
+- `blocked_refined_beat_map_missing`
+- `blocked_music_emotion_shot_plan_missing`
 - `blocked_bgm_mood_color_grade_missing`
 - `blocked_color_grade_profile_not_read_by_pipeline`
 - `blocked_completion_matrix_missing`
