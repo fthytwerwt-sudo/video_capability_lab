@@ -14,18 +14,25 @@
 
 1. GPT 先执行真实意图澄清闸门，补清用户真实目标、成功标准、失败标准和停止条件。
 
-当项目遇到问题、用户需求不清、执行方式改变或机制冲突时，GPT 必须先按 `23_五层需求确认与逻辑串联闸门机制_five_layer_requirement_alignment_gate.md` 做需求确认，再决定是否下发 Codex。
+当项目遇到问题、用户需求不清、执行方式改变或机制冲突时，GPT 必须先按 `23_五层需求确认与逻辑串联闸门机制_five_layer_requirement_alignment_gate.md` 做六层需求确认与实现设计闸门，再决定是否下发 Codex。
 
-2. GPT 补目标、边界、P0/P1/P2、验收和风险。
-3. Codex 补执行字段、输入输出、触发条件、判断流程、阻断条件、降级方案、验证脚本和 tests。
-4. Codex 本轮执行时做二次补全：发现缺口就在当前边界内补齐。
-5. 修改系统机制文件或 GPT Project 上传包相关文件后，必须运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py` 刷新 GPT Project 上传包，再运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py --check`。
-6. 修改仓库文件后必须验证、commit、push、远端 HEAD readback。
+2. GPT 补目标、边界、P0/P1/P2、实现设计、验收和风险。
+3. GPT 必须先补实现设计层，至少包含首选路线、fallback、能力边界、probe 要求和 blocked 条件。
+4. Codex 补执行字段、输入输出、触发条件、判断流程、阻断条件、降级方案、验证脚本和 tests。
+5. Codex 本轮执行时做二次补全：发现缺口就在当前边界内补齐，但不得自行决定核心实现路线。
+6. 修改系统机制文件或 GPT Project 上传包相关文件后，必须运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py` 刷新 GPT Project 上传包，再运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py --check`。
+7. 修改仓库文件后必须验证、commit、push、远端 HEAD readback。
 
 ## 质量保障清单
 
 - 有目标和边界。
 - 有用户真实目标、成功标准、失败标准和停止条件。
+- 有实现设计层。
+- 有首选实现路线。
+- 有 fallback。
+- 有能力状态：`已确认` / `部分成立` / `待验证`。
+- 有 probe / validation 决策。
+- 有 `blocked_need_implementation_design_layer` 条件。
 - 有输入字段和输出字段。
 - 有字段来源和缺字段处理。
 - 有触发条件和判断流程。
@@ -50,10 +57,14 @@
 - 上传包混入外部项目业务事实仍写可上传。
 - 本地验证通过但 push 失败仍写完成。
 - capability probe 未跑就写成能力成立。
+- 只有目标和流程，没有实现设计。
+- Codex 自行决定核心实现路线。
+- 没有 probe 就直接正片。
+- 把执行链路跑通写成能力成立。
 
 ## 一句话执行口径
 
-GPT 把方向补清，Codex 把方向补成可执行、可验证、可同步、可 push 的仓库事实；缺验证或缺远端闭环都不是完成。
+GPT 把方向和实现设计补清，Codex 按已锁定实现设计把任务补成可执行、可验证、可同步、可 push 的仓库事实；缺实现设计、缺验证或缺远端闭环都不是完成。
 
 ## 正片类任务完整交付补全规则
 

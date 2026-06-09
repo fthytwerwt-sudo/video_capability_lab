@@ -41,14 +41,15 @@
 5. `项目资料_docs/系统协议_system/20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md`
 6. `项目资料_docs/系统协议_system/21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md`
 7. `项目资料_docs/系统协议_system/22_真实意图澄清闸门机制_true_intent_clarification_gate.md`
-8. `项目资料_docs/视频能力实验室_video_capability_lab/00_项目总说明_project_brief.md`
-9. `项目资料_docs/视频能力实验室_video_capability_lab/01_执行合同与验收_execution_contract.md`
-10. `项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md`
-11. `项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md`
-12. `项目资料_docs/视频能力实验室_video_capability_lab/04_检查标准与完成定义_check_standards.md`
-13. `codex_source/00_codex_readme.md`
-14. `codex_source/01_execution_rules.md`
-15. `执行日志_codex_log/最新摘要_latest.md`
+8. `项目资料_docs/系统协议_system/23_五层需求确认与逻辑串联闸门机制_five_layer_requirement_alignment_gate.md`
+9. `项目资料_docs/视频能力实验室_video_capability_lab/00_项目总说明_project_brief.md`
+10. `项目资料_docs/视频能力实验室_video_capability_lab/01_执行合同与验收_execution_contract.md`
+11. `项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md`
+12. `项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md`
+13. `项目资料_docs/视频能力实验室_video_capability_lab/04_检查标准与完成定义_check_standards.md`
+14. `codex_source/00_codex_readme.md`
+15. `codex_source/01_execution_rules.md`
+16. `执行日志_codex_log/最新摘要_latest.md`
 
 ## GPT Project 上传包纪律
 
@@ -73,6 +74,14 @@ Codex 负责执行、落库、验证、commit 和 push；GPT 负责总控、复�
 已确认：GPT 必须先澄清用户真实目标、成功标准、失败标准和停止条件，再下发 Codex 执行单。
 
 已确认：若 Codex 收到的执行单缺少真实目标、验收标准或失败判定，必须 blocked 或回报缺口，不得猜。
+
+## 实现设计层闸门
+
+涉及视觉、卡片、动效、声音、剪辑、BGM、调色、自动化、脚本、工具路线、机制修改、正片候选或 Codex 执行的任务，GPT 必须先补 `实现设计层`。
+
+已确认：实现设计层必须包含首选实现路线、fallback、能力边界、probe 要求、Codex 自主范围、禁止猜测范围和 blocked 条件。
+
+已确认：Codex 不负责在执行中自行决定核心实现路线；执行单缺实现设计层、首选路线、fallback、能力边界或 probe 要求时，必须输出 `blocked_need_implementation_design_layer`。
 
 ## Codex 强制 push 规则
 

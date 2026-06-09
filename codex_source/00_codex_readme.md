@@ -8,13 +8,15 @@
 4. `项目资料_docs/系统协议_system/02_P0-P1-P2锚点与抗漂移机制_anchor_priority_anti_drift.md`
 5. `项目资料_docs/系统协议_system/20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md`
 6. `项目资料_docs/系统协议_system/21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md`
-7. `项目资料_docs/视频能力实验室_video_capability_lab/00_项目总说明_project_brief.md`
-8. `项目资料_docs/视频能力实验室_video_capability_lab/01_执行合同与验收_execution_contract.md`
-9. `项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md`
-10. `项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md`
-11. `项目资料_docs/视频能力实验室_video_capability_lab/04_检查标准与完成定义_check_standards.md`
-12. `codex_source/01_execution_rules.md`
-13. `执行日志_codex_log/最新摘要_latest.md`
+7. `项目资料_docs/系统协议_system/22_真实意图澄清闸门机制_true_intent_clarification_gate.md`
+8. `项目资料_docs/系统协议_system/23_五层需求确认与逻辑串联闸门机制_five_layer_requirement_alignment_gate.md`
+9. `项目资料_docs/视频能力实验室_video_capability_lab/00_项目总说明_project_brief.md`
+10. `项目资料_docs/视频能力实验室_video_capability_lab/01_执行合同与验收_execution_contract.md`
+11. `项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md`
+12. `项目资料_docs/视频能力实验室_video_capability_lab/03_Codex执行桥接包_codex_execution_bridge.md`
+13. `项目资料_docs/视频能力实验室_video_capability_lab/04_检查标准与完成定义_check_standards.md`
+14. `codex_source/01_execution_rules.md`
+15. `执行日志_codex_log/最新摘要_latest.md`
 
 ## 当前项目身份
 

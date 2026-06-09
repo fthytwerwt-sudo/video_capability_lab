@@ -15,15 +15,18 @@
 ## 默认动作
 
 1. 先执行真实意图澄清闸门，确认用户真实目标、成功标准、失败标准和停止条件。
-2. 再判断执行类型：`component_probe`、`technical_sample`、`reference_analysis`、`review_pack`、`mechanism_sync`、`toolchain_completion`。
-3. 为每类任务补齐输入字段、输出字段、字段来源、缺字段处理。
-4. 明确执行入口、复跑命令、验证方式、结果文件、失败判定。
-5. 没跑过真实 probe 的能力必须写 `待验证`。
-6. 若当前任务禁止生成视频或调用外部 API，只补执行合同和检查层。
-7. 外部项目 AGENTS 审计必须输出 `sync_scope_decision`，区分 `AGENTS_only`、`system_protocol`、`project_fact`、`upload_pack`、`do_not_sync`。
-8. 可迁移清单只包含协作机制；禁止迁移清单必须覆盖业务身份、当前任务、完成状态、素材路径、模型选择、指标路线、候选对象、业务验收结果。
-9. 需要长期生效的通用机制必须先抽象进 `项目资料_docs/系统协议_system/` 源文件，再通过同步脚本进入 GPT Project 上传包。
-10. `AGENTS.md`、latest 和项目事实目录只作为仓库接手入口或事实源，不得直接复制进 GPT Project 上传包。
+2. 方向型输入必须先补实现设计层，再判断是否下发 Codex。
+3. 先判断 route：`Remotion`、`FFmpeg`、`API`、脚本、人工素材选择或组合方案。
+4. 未验证能力必须先 probe，或显式标 `待验证`。
+5. 再判断执行类型：`component_probe`、`technical_sample`、`reference_analysis`、`review_pack`、`mechanism_sync`、`toolchain_completion`。
+6. 为每类任务补齐输入字段、输出字段、字段来源、缺字段处理。
+7. 明确执行入口、复跑命令、验证方式、结果文件、失败判定。
+8. 没跑过真实 probe 的能力必须写 `待验证`。
+9. 若当前任务禁止生成视频或调用外部 API，只补执行合同和检查层。
+10. 外部项目 AGENTS 审计必须输出 `sync_scope_decision`，区分 `AGENTS_only`、`system_protocol`、`project_fact`、`upload_pack`、`do_not_sync`。
+11. 可迁移清单只包含协作机制；禁止迁移清单必须覆盖业务身份、当前任务、完成状态、素材路径、模型选择、指标路线、候选对象、业务验收结果。
+12. 需要长期生效的通用机制必须先抽象进 `项目资料_docs/系统协议_system/` 源文件，再通过同步脚本进入 GPT Project 上传包。
+13. `AGENTS.md`、latest 和项目事实目录只作为仓库接手入口或事实源，不得直接复制进 GPT Project 上传包。
 
 ## 固定执行模板
 
@@ -33,9 +36,10 @@
 | `Context（上下文）` | 项目身份、事实来源、阶段 |
 | `Constraints（边界）` | 允许和禁止事项 |
 | `真实意图澄清` | 用户真实目标、成功标准、失败标准、停止条件 |
+| `Implementation design（实现设计层）` | 首选 route、fallback、能力边界、probe / validation 决策、Codex 自主范围、禁止猜测范围、blocked 条件 |
 | `Impact check（影响面检查）` | 仓库、dirty、依赖、风险 |
 | `Must read（必须读取）` | 入口、协议、项目事实、日志 |
-| `Execution steps（执行步骤）` | 可复跑步骤 |
+| `Execution steps（执行步骤）` | 可复跑步骤；不得承担实现设计职责 |
 | `Done when（完成标准）` | 可验证完成条件 |
 | `Blocked if（阻断条件）` | 必须停止的条件 |
 | `Output（最终回报格式）` | 状态、验证、commit/push |
@@ -45,17 +49,21 @@
 - 如果执行需要真实视频生成、真实 API、外部素材授权或大型依赖，本轮必须停止在合同层并标 `待验证`。
 - 如果方向会复刻平台 UI、Apple 真实 UI、第三方品牌资产或可识别素材，只能抽象成原创机制。
 - 如果缺少关键输入字段，输出待补清单，不编造。
+- 如果缺实现设计层、首选 route、fallback、能力边界、probe 要求或 blocked 条件，必须输出 `blocked_need_implementation_design_layer`，不得让 Execution steps 代替实现设计。
 
 ## 失败判定
 
 - 只有方向说明，没有字段契约。
+- 只有方向说明或执行步骤，没有实现设计层。
 - 只有字段表，没有执行入口、验证或完成定义。
 - 只有技术样片，没有复用能力判断。
 - 把 `technical_sample` 写成 `publish_candidate_ready`。
+- Execution steps 承担实现设计职责。
+- Codex 自行决定核心技术路线后直接执行。
 
 ## 一句话执行口径
 
-方向型输入是可执行化起点：必须补到字段、入口、验证、阻断和回审；未验证能力永远写 `待验证`。
+方向型输入是可执行化起点：必须先锁实现设计，再补字段、入口、验证、阻断和回审；未验证能力永远写 `待验证`。
 
 ## 正片类方向输入不可降级规则
 

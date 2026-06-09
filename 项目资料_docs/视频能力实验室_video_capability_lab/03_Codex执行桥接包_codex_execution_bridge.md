@@ -21,10 +21,11 @@
 5. `项目资料_docs/系统协议_system/20_GPT与Codex自动补全及质量保障机制_gpt_codex_completion_quality_guard.md`
 6. `项目资料_docs/系统协议_system/21_方向型输入到可执行机制补全协议_direction_to_execution_completion_protocol.md`
 7. `项目资料_docs/系统协议_system/22_真实意图澄清闸门机制_true_intent_clarification_gate.md`
-8. `项目资料_docs/视频能力实验室_video_capability_lab/00_项目总说明_project_brief.md`
-9. `项目资料_docs/视频能力实验室_video_capability_lab/01_执行合同与验收_execution_contract.md`
-10. `项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md`
-11. `执行日志_codex_log/最新摘要_latest.md`
+8. `项目资料_docs/系统协议_system/23_五层需求确认与逻辑串联闸门机制_five_layer_requirement_alignment_gate.md`
+9. `项目资料_docs/视频能力实验室_video_capability_lab/00_项目总说明_project_brief.md`
+10. `项目资料_docs/视频能力实验室_video_capability_lab/01_执行合同与验收_execution_contract.md`
+11. `项目资料_docs/视频能力实验室_video_capability_lab/02_当前任务_current_task.md`
+12. `执行日志_codex_log/最新摘要_latest.md`
 
 ## Codex 每轮必须输出
 
@@ -43,6 +44,7 @@ Goal（目标）
 Context（上下文）
 Constraints（边界）
 真实意图澄清
+Implementation design（实现设计层）
 Impact check（影响面检查）
 Must read（必须读取）
 文件命名要求
@@ -63,6 +65,9 @@ Output（最终回报格式）
 
 - GPT 必须在执行单中写明用户真实目标、成功标准和失败标准；缺失时 Codex 必须 blocked 或回报缺口，不得猜。
 - Codex 默认不知道 GPT 聊天新增信息，除非本轮输入给出或已写回仓库。
+- Codex 默认不知道 GPT 聊天里的实现设计，除非本轮输入给出或已写回仓库。
+- Codex 收到的执行单缺实现设计时不得猜。
+- 缺首选路线、fallback、能力边界或 probe 要求时，必须 `blocked_need_implementation_design_layer`。
 - Codex 每轮必须 push。
 - Codex 不能把本地完成写成远端完成。
 - Codex 不能把技术预览写成能力成立。

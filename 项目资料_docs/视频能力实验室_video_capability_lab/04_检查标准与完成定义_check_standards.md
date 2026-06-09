@@ -27,7 +27,7 @@
 ## 项目骨架完整性检查
 
 - `AGENTS.md` 存在。
-- `项目资料_docs/系统协议_system/` 下 10 个系统机制文件存在。
+- `项目资料_docs/系统协议_system/` 下系统机制文件存在，数量以 `脚本_scripts/sync_gpt_project_mechanism_pack.py` 的 `MECHANISM_FILES` 为准，当前为 11 个。
 - `项目资料_docs/视频能力实验室_video_capability_lab/` 下项目事实入口存在。
 - `codex_source/` 下 Codex 执行标准存在。
 - `执行日志_codex_log/最新摘要_latest.md` 存在。
@@ -35,7 +35,7 @@
 
 ## GPT Project 上传包检查
 
-- 上传包只包含 readme、manifest 和 10 个系统机制文件副本。
+- 上传包只包含 readme、manifest 和 `MECHANISM_FILES` 当前 11 个系统机制文件副本。
 - 上传清单所有“是否允许放项目事实”均为 `否`。
 - 不包含 `AGENTS.md`。
 - 不包含执行日志。
@@ -45,8 +45,39 @@
 ## Codex 执行文件检查
 
 - `codex_source/00_codex_readme.md` 定义读顺序。
-- `codex_source/01_execution_rules.md` 定义 push、状态、route_decision、validation、commit_push_status。
+- `codex_source/01_execution_rules.md` 定义 push、状态、route_decision、implementation_design、validation、commit_push_status。
 - Remotion / HyperFrames / BGM / reference / review_pack 边界均存在。
+
+## implementation_design_gate_done_definition
+
+本完成定义用于检查“实现设计层与六层需求确认机制同步”是否完成。
+
+通过标准：
+
+| check | pass |
+|---|---|
+| `six_layer_gate_updated` | 23 号机制内容已从五层升级为六层：目标层 / 机制层 / 实现设计层 / 流程层 / 判断标准层 / 反馈层。 |
+| `implementation_design_layer_present` | 实现设计层定义首选路线、fallback、能力边界、probe 要求、Codex 自主范围、禁止猜测范围和 blocked 条件。 |
+| `implementation_design_added_to_codex_prompt_template` | Codex 执行单固定结构在真实意图澄清后、Impact check 前加入 `Implementation design（实现设计层）`。 |
+| `blocked_need_implementation_design_layer_defined` | 缺实现设计层、首选路线、fallback、能力边界或 probe 要求时必须输出 `blocked_need_implementation_design_layer`。 |
+| `no_codex_core_route_guessing` | Codex 不得把 Execution steps 当成 Implementation design，不得自行决定核心技术路线后直接执行。 |
+| `system_pack_synced` | 已运行 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py` 和 `python3 脚本_scripts/sync_gpt_project_mechanism_pack.py --check`，输出 `GPT Project mechanism pack OK`。 |
+| `no_capability_overclaim` | 本轮机制同步不得声明视频已生成、render 已跑、API 已调用或视频能力已验证。 |
+
+失败时必须写：
+
+- `blocked_need_implementation_design_layer`
+- `blocked_gpt_project_pack_sync_failed`
+- `blocked_capability_overclaim`
+- `local_only_not_completed`
+
+不得把以下情况写成 completed：
+
+1. 只把五层改名成六层，但没有定义实现设计层。
+2. 只写目标和流程，没有首选实现路线、fallback、能力边界、probe 要求和 blocked 条件。
+3. Codex 执行模板仍缺 `Implementation design（实现设计层）`。
+4. GPT Project 上传包未刷新或 `--check` 未通过。
+5. 本轮机制同步被写成 Remotion、HyperFrames、BGM、API、render 或正片候选能力验证成功。
 
 ## 文件命名检查
 

@@ -1089,3 +1089,20 @@
 - 已确认：新 key 失败响应位于 ignored `tmp/无水印贴纸候选_watermark_free_sticker_candidates/`，不得提交。
 - 当前状态：`blocked_minimax_api_call_failed_invalid_api_key_after_new_key`。
 - 待验证：回到 MiniMax 控制台确认该 key 是否真的是 API Platform 的 API key，不是网页端、Token Plan 或其他产品线 key。
+
+## 本轮新增｜实现设计层与六层需求确认机制同步
+
+- 状态：`mechanism_sync`
+- 已确认：本轮没有生成视频。
+- 已确认：本轮没有 render。
+- 已确认：本轮没有调用 API。
+- 已确认：本轮没有验证视频能力。
+- 已确认：已将五层需求确认升级为六层：目标层 / 机制层 / 实现设计层 / 流程层 / 判断标准层 / 反馈层。
+- 已确认：实现设计层用于锁定首选路线、fallback、能力边界、probe 要求、Codex 自主范围、禁止猜测范围和 blocked 条件。
+- 已确认：缺实现设计层时必须 `blocked_need_implementation_design_layer`。
+- 已确认：本轮只同步 GPT / Codex 长期配合机制和 GPT Project 机制上传包，不迁移旧项目业务事实。
+- 当前状态：`implementation_design_layer_mechanism_synced_pending_remote_verification`
+
+## 下一个目标
+
+后续 GPT 下发视频、视觉、BGM、调色、动效、API、脚本或正片候选任务前，先输出实现设计层，再下发 Codex。

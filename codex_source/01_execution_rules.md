@@ -52,6 +52,30 @@ Codex 必须先在仓库内查找候选。若候选不唯一或不存在，必�
 
 工具安装成功、机制补齐、参考视频解析、synthetic test 通过，都不得写成 Remotion demo、BGM beat_map 或项目闭环能力成立。
 
+## 实现设计层闸门
+
+涉及视频、视觉、BGM、调色、动效、脚本、API、正片候选、机制修改或 Codex 执行的任务，`route_decision` 必须包含 `implementation_design`。
+
+`implementation_design` 必须至少说明：
+
+- 首选实现路线。
+- fallback 路线。
+- 能力状态：`已确认` / `部分成立` / `待验证`。
+- 是否需要 probe / validation。
+- Codex 可自主补全范围。
+- Codex 禁止猜测范围。
+- 缺失时的 blocked 条件。
+
+如果执行单缺 `implementation_design`、首选路线、fallback、能力边界、probe 要求或 blocked 条件，必须输出：
+
+```text
+blocked_need_implementation_design_layer
+```
+
+Codex 不得把 Execution steps 当成 Implementation design。
+
+Codex 不得自行决定核心技术路线后直接执行。
+
 ## 文件命名规则
 
 Codex 新建任何自定义文件或目录前，必须检查文件名是否为“中文 + 英文”。
@@ -109,6 +133,14 @@ route_decision:
   forbidden_actions:
   repository:
   branch:
+  implementation_design:
+    primary_route:
+    fallback_route:
+    capability_status:
+    probe_required:
+    allowed_codex_autonomy:
+    forbidden_codex_guessing:
+    blocked_if_missing:
   expected_validation:
 ```
 
