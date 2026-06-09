@@ -16,8 +16,8 @@ import { ExternalImageAssetPipelineAlignmentCandidate } from "./组合_compositi
 import { AliImageAsset18sFullVideoCandidate } from "./组合_compositions/阿里图像资产18秒正片候选_ali_image_asset_18s_full_video_candidate";
 import { SecondEpisode16sVlogValidationCandidate } from "./组合_compositions/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate";
 import {
+  secondEpisodeAdaptiveColorGradeProfile,
   secondEpisode16sVlogCandidateComposition,
-  secondEpisodeDefaultColorGradeProfile,
 } from "./数据_data/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate";
 
 const RemotionRoot: React.FC = () => {
@@ -142,7 +142,7 @@ const RemotionRoot: React.FC = () => {
         fps={secondEpisode16sVlogCandidateComposition.fps}
         height={secondEpisode16sVlogCandidateComposition.height}
         width={secondEpisode16sVlogCandidateComposition.width}
-        defaultProps={secondEpisodeDefaultColorGradeProfile}
+        defaultProps={secondEpisodeAdaptiveColorGradeProfile}
       />
     </>
   );

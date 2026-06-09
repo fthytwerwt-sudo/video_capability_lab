@@ -57,6 +57,30 @@ export type SecondEpisodeColorGradeProfile = {
   source_bgm_mood_tag: string;
   confidence_score: number;
   fallback_used: boolean;
+  fixed_preset_used?: boolean;
+  odd_used_as_fixed_preset?: boolean;
+  style_boundary?: string;
+  sections?: SecondEpisodeAdaptiveColorSection[];
+};
+
+export type SecondEpisodeAdaptiveColorSection = {
+  section_id: string;
+  music_section: string;
+  time_range: [number, number];
+  frame_range: [number, number];
+  brightness_adjust: number;
+  contrast_adjust: number;
+  saturation_adjust: number;
+  temperature_adjust: number;
+  tint_adjust: number;
+  shadow_lift: number;
+  highlight_rolloff: number;
+  vignette_strength: number;
+  grain_strength: number;
+  bgm_signal_source: string;
+  material_color_constraint: string;
+  section_color_intent: string;
+  reason: string;
 };
 
 export const secondEpisode16sVlogCandidateComposition = {
@@ -105,6 +129,143 @@ export const secondEpisodeDefaultColorGradeProfile: SecondEpisodeColorGradeProfi
   source_bgm_mood_tag: "soft_urban_walk_vlog",
   confidence_score: 0.74,
   fallback_used: false,
+};
+
+export const secondEpisodeAdaptiveColorGradeProfile: SecondEpisodeColorGradeProfile = {
+  brightness_adjust: 0.026,
+  contrast_adjust: 0.042,
+  saturation_adjust: 0.017,
+  temperature_adjust: 0.017,
+  tint_adjust: -0.006,
+  shadow_lift: 0.043,
+  highlight_rolloff: 0.088,
+  vignette_strength: 0.128,
+  grain_strength: 0.036,
+  ffmpeg_filter_candidate:
+    "fallback_route_only: eq/curves/colorbalance/lut3d with enable='between(t,start,end)' if Remotion CSS filter is too weak",
+  remotion_effect_candidate: {
+    apply_mode: "frame_selects_section_profile",
+    css_filter_fields: ["brightness_adjust", "contrast_adjust", "saturation_adjust"],
+    temperature_overlay_field: "temperature_adjust",
+    tint_field: "tint_adjust",
+    shadow_lift_field: "shadow_lift",
+    highlight_rolloff_field: "highlight_rolloff",
+    vignette_strength_field: "vignette_strength",
+    grain_strength_field: "grain_strength",
+  },
+  apply_scope: "per_music_section",
+  readability_guard_enabled: true,
+  subject_visibility_guard_enabled: true,
+  caption_readability_guard_enabled: false,
+  source_bgm_mood_tag: "soft_urban_walk_vlog",
+  confidence_score: 0.74,
+  fallback_used: false,
+  fixed_preset_used: false,
+  odd_used_as_fixed_preset: false,
+  style_boundary:
+    "odd/vlog is only a boundary: keep the private unusual diary feeling without turning it into one shared odd color preset.",
+  sections: [
+    {
+      section_id: "adaptive_section_01_0_3s",
+      music_section: "0-3s hook",
+      time_range: [0, 3],
+      frame_range: [0, 90],
+      brightness_adjust: 0.025,
+      contrast_adjust: 0.035,
+      saturation_adjust: 0.025,
+      temperature_adjust: 0.02,
+      tint_adjust: -0.004,
+      shadow_lift: 0.02,
+      highlight_rolloff: 0.06,
+      vignette_strength: 0.08,
+      grain_strength: 0.03,
+      bgm_signal_source: "BGM opens lightly before the energy fully spreads.",
+      material_color_constraint: "Food highlights and the white dog need protection; avoid strong warm wash.",
+      section_color_intent: "Slightly lift the opening while keeping daylight clean and readable.",
+      reason:
+        "The BGM has a light entry and the material is bright daytime detail, so the grade only nudges lift and contrast while guarding highlights.",
+    },
+    {
+      section_id: "adaptive_section_02_3_7s",
+      music_section: "3-7s atmosphere_build",
+      time_range: [3, 7],
+      frame_range: [90, 210],
+      brightness_adjust: 0.025,
+      contrast_adjust: 0.045,
+      saturation_adjust: 0.015,
+      temperature_adjust: 0.015,
+      tint_adjust: -0.006,
+      shadow_lift: 0.025,
+      highlight_rolloff: 0.06,
+      vignette_strength: 0.1,
+      grain_strength: 0.04,
+      bgm_signal_source: "BGM settles into a walking build with one shadow-texture accent.",
+      material_color_constraint: "Street daylight and shadow texture should stay neutral; shadow is lifted, not washed out.",
+      section_color_intent: "Keep the block neutral, add a little layer separation, and rescue shadows gently.",
+      reason:
+        "The music is steady rather than dramatic, so the grade increases structure but keeps color temperature close to source daylight.",
+    },
+    {
+      section_id: "adaptive_section_03_7_11s",
+      music_section: "7-11s motion_progression_and_shift",
+      time_range: [7, 11],
+      frame_range: [210, 330],
+      brightness_adjust: 0.015,
+      contrast_adjust: 0.075,
+      saturation_adjust: 0.045,
+      temperature_adjust: 0.04,
+      tint_adjust: -0.006,
+      shadow_lift: 0.035,
+      highlight_rolloff: 0.1,
+      vignette_strength: 0.12,
+      grain_strength: 0.05,
+      bgm_signal_source: "BGM energy rises as the walk moves from day motion into golden and night arrival.",
+      material_color_constraint: "Golden-hour warmth should remain separated from night signage; do not blow out store highlights.",
+      section_color_intent: "Preserve warm shift, increase color separation, and recover highlights.",
+      reason:
+        "The section is the strongest emotional lift, so contrast and saturation rise, but highlight rolloff protects signs and sunset edges.",
+    },
+    {
+      section_id: "adaptive_section_04_11_14s",
+      music_section: "11-14s night_motion",
+      time_range: [11, 14],
+      frame_range: [330, 420],
+      brightness_adjust: 0.045,
+      contrast_adjust: 0.035,
+      saturation_adjust: 0.02,
+      temperature_adjust: 0.015,
+      tint_adjust: -0.01,
+      shadow_lift: 0.075,
+      highlight_rolloff: 0.12,
+      vignette_strength: 0.14,
+      grain_strength: 0.035,
+      bgm_signal_source: "BGM keeps motion tension after the night turn, with more breath in the darker passage.",
+      material_color_constraint: "Night crossing needs subject visibility without flattening the dark street.",
+      section_color_intent: "Prioritize shadow lift, soften hard contrast, and keep night movement alive.",
+      reason:
+        "The music is still moving but the material is dark, so shadow lift and highlight control matter more than saturation.",
+    },
+    {
+      section_id: "adaptive_section_05_14_16s",
+      music_section: "14-16s ending_aftertaste",
+      time_range: [14, 16],
+      frame_range: [420, 480],
+      brightness_adjust: 0.02,
+      contrast_adjust: 0.02,
+      saturation_adjust: -0.02,
+      temperature_adjust: -0.005,
+      tint_adjust: -0.006,
+      shadow_lift: 0.06,
+      highlight_rolloff: 0.08,
+      vignette_strength: 0.2,
+      grain_strength: 0.025,
+      bgm_signal_source: "BGM fades into aftertaste and breath rather than another energy lift.",
+      material_color_constraint: "The personal shadow ending should not be made glossy or overly warm.",
+      section_color_intent: "Slightly lower saturation, settle the image, and add vignette breath for the ending.",
+      reason:
+        "The final musical release asks for restraint: less saturation, mild darkness recovery, and a stronger edge falloff for aftertaste.",
+    },
+  ],
 };
 
 export const secondEpisodeShots: SecondEpisodeShot[] = [

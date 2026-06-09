@@ -1,14 +1,60 @@
 # 当前任务
 
-当前任务：`new_material_vlog_pipeline_validation_candidate`。
+当前任务：`adaptive_color_grade_tool_execution_validation`。
 
-当前目标：使用用户确认的仓库内第二期素材路径，生成一条 16 秒 vlog / odd 新默认流程验证候选片，验证 BGM 情绪、精细卡点、音乐情绪镜头选择、vlog 叙事结构和 BGM 情绪调色能否真实进入出片链路。
+当前目标：基于当前第二期 16 秒 vlog 验证候选，把 `adaptive_color_grade_profile` 接入 Remotion 执行链路，验证工具能否按 BGM 音乐段落执行 `per_music_section` 调色，并生成 before / after 审片证据。
 
-当前状态：`validation_candidate_rendered_pending_user_review`。
+当前状态：`adaptive_color_grade_tool_execution_validation_completed_pending_user_review`。
 
-下一目标：`user_review_second_episode_16s_vlog_validation_candidate_and_review_pack`。
+下一目标：`user_review_second_episode_16s_music_section_adaptive_color_validation_and_review_pack`。
 
 能力状态：`vlog_director_capability_still_pending_multi_case_validation`。
+
+## 本轮新增｜第二期 16 秒音乐分段自适应调色验证
+
+- task_type: `adaptive_color_grade_tool_execution_validation`
+- route_decision: `remotion_only_per_music_section_adaptive_color_probe`
+- current_status: `adaptive_color_grade_tool_execution_validation_completed_pending_user_review`
+- capability_status: `vlog_director_capability_still_pending_multi_case_validation`
+- source_composition_id: `第二期16秒vlog验证候选-second-episode-16s-vlog-validation-candidate`
+- apply_scope: `per_music_section`
+- sections_count: `5`
+- fixed_preset_used: `false`
+- odd_used_as_fixed_preset: `false`
+- report_file: `项目资料_docs/视频能力实验室_video_capability_lab/78_第二期16秒音乐分段自适应调色验证报告_second_episode_16s_music_section_adaptive_color_validation_report.md`
+- remotion_data: `remotion/数据_data/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate.ts`
+- remotion_composition: `remotion/组合_compositions/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate.tsx`
+- review_pack_script: `脚本_scripts/第二期16秒音乐分段自适应调色_generate_second_episode_adaptive_color_review_pack.py`
+- output_video_path: `dist/第二期16秒音乐分段自适应调色验证_second_episode_16s_music_section_adaptive_color_validation/第二期16秒音乐分段自适应调色验证_second_episode_16s_music_section_adaptive_color_validation.mp4`
+- review_pack_path: `tmp/第二期16秒音乐分段自适应调色验证_second_episode_16s_music_section_adaptive_color_validation_review_pack/`
+- machine_report: `tmp/第二期16秒音乐分段自适应调色验证_second_episode_16s_music_section_adaptive_color_validation_review_pack/machine_report.json`
+- before_after_contact_sheet: `tmp/第二期16秒音乐分段自适应调色验证_second_episode_16s_music_section_adaptive_color_validation_review_pack/before_after_adaptive_color_contact_sheet.jpg`
+
+已确认：
+- `adaptive_color_grade_profile` 已写入可执行数据结构，`apply_scope=per_music_section`。
+- Remotion composition 已按当前 `frame` 选择音乐段落 section，并把 section 参数送入 CSS filter、氛围叠层、暗部提升、高光回收、vignette 和 grain。
+- Remotion render 已完成，输出视频技术验证通过：`16.042667s / 1080x1920 / 30fps / h264 / AAC stereo / decodable=true`。
+- review_pack 已生成 before / after contact sheet、代表帧、adaptive profile、profile read report、machine_report 和 readable review report。
+- machine_report 记录 `adaptive_color_profile_read_by_pipeline=true`、`apply_scope=per_music_section`、`sections_count=5`、`fixed_preset_used=false`、`odd_used_as_fixed_preset=false`、`render_status=passed`。
+- 机器均值检测到 before / after 可见变化：`mean_abs_luma_delta=3.22`、`mean_abs_saturation_delta=0.02006`。
+- 本轮未修改 BGM、镜头顺序、剪辑节奏、字幕、贴纸或字牌。
+
+部分成立：
+- 本轮验证的是工具执行链路，不代表用户审美通过。
+- 本轮走 Remotion-only route，`ffmpeg_consumption=false`；若用户觉得变化弱，下一轮应进入 FFmpeg / LUT probe。
+- `remotion_css_filter_ceiling_status=not_detected_by_machine_delta_only` 只代表机器均值未提示明显天花板，不等于专业调色能力已验证。
+
+待验证：
+- 用户需要审看 adaptive 视频和 before / after contact sheet，判断分段调色是否更好。
+- 若用户认为方向错，应回到 `BGM_mood_curve` 和 `section_color_intent` 重做，不得套固定风格模板。
+
+不得声明：
+- `publish-ready`
+- `video_fixed`
+- `color_grade_verified`
+- `BGM_mood_driven_color_grade_verified`
+- `vlog_director_capability_verified`
+- `odd_color_preset_ready`
 
 ## 本轮新增｜第二期 16 秒 vlog 验证候选
 

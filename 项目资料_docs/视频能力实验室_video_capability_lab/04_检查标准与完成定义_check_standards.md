@@ -115,6 +115,48 @@
 
 能力 probe 未验证不得写成已成立。能力地图中的初始状态必须全部是 `待验证`，不得出现 `已确认可用` 或 `已验证成立`。
 
+## adaptive_color_grade_tool_execution_validation_done_definition
+
+本完成定义用于检查 `adaptive_color_grade_tool_execution_validation` 是否完成。
+
+通过标准：
+
+| check | pass |
+|---|---|
+| `adaptive_profile_written` | `adaptive_color_grade_profile` 已写入可执行数据结构，并包含 `apply_scope=per_music_section`。 |
+| `no_fixed_preset` | `fixed_preset_used=false` 且 `odd_used_as_fixed_preset=false`。 |
+| `sections_present` | 至少存在按 BGM 段落定义的 `sections`，且每段有 time / frame range 和调色参数。 |
+| `remotion_frame_to_section_selector` | Remotion composition 能按当前 frame 选择 active section。 |
+| `section_profile_consumed` | active section 参数进入 CSS filter、氛围叠层、vignette 和 grain。 |
+| `render_passed` | adaptive version 已成功 render。 |
+| `review_pack_generated` | review_pack 包含 before / after contact sheet、representative frames、profile read report、machine_report 和 readable report。 |
+| `machine_report_required_fields` | machine_report 包含 `adaptive_color_profile_read_by_pipeline=true`、`apply_scope=per_music_section`、`fixed_preset_used=false`、`odd_used_as_fixed_preset=false`、`render_status=passed`。 |
+| `technical_validation_passed` | 输出视频可解码，分辨率 1080x1920，fps 30，有音频，时长接近 16 秒。 |
+| `runtime_assets_not_committed` | `dist/` 和 `tmp/` 的视频、图片、JSON 不进入 Git stage / commit。 |
+| `no_capability_overclaim` | 不得声明 `color_grade_verified`、`BGM_mood_driven_color_grade_verified` 或 `vlog_director_capability_verified`。 |
+| `user_review_required` | 最终状态必须是等待用户审片，而不是发布或审美通过。 |
+
+失败时必须写：
+
+- `blocked_missing_current_candidate_files`
+- `blocked_adaptive_profile_missing`
+- `blocked_remotion_per_section_profile_failed`
+- `blocked_render_failed`
+- `blocked_review_pack_generation_failed`
+- `blocked_fixed_color_preset_risk`
+- `blocked_odd_used_as_fixed_preset`
+- `blocked_runtime_asset_commit_risk`
+- `local_only_not_completed`
+
+不得把以下情况写成 completed：
+
+1. 只写 profile 文件，但 Remotion 没有读取。
+2. Remotion 仍然整片统一调色。
+3. 使用固定 preset 或把 `odd` 当成固定 LUT。
+4. render 成功但没有 before / after 对比证据。
+5. runtime assets 被提交进 Git。
+6. 没有 push 或没有 remote HEAD 验证。
+
 ## vlog_default_output_pipeline_done_definition
 
 本完成定义用于检查 `project_default_vlog_pipeline_policy_update` 是否完成。

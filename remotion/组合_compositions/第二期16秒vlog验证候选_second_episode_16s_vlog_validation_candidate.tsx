@@ -9,11 +9,12 @@ import {
   useVideoConfig,
 } from "remotion";
 import {
+  SecondEpisodeAdaptiveColorSection,
   SecondEpisodeColorGradeProfile,
   SecondEpisodeShot,
+  secondEpisodeAdaptiveColorGradeProfile,
   secondEpisode16sBgm,
   secondEpisode16sVlogCandidateComposition,
-  secondEpisodeDefaultColorGradeProfile,
   secondEpisodeShots,
 } from "../数据_data/第二期16秒vlog验证候选_second_episode_16s_vlog_validation_candidate";
 
@@ -51,6 +52,53 @@ const zoneBias: Record<SecondEpisodeShot["gradeZone"], { brightness: number; sat
   shadow_close: { brightness: 0.045, contrast: -0.025, saturation: -0.045 },
 };
 
+const sectionToProfile = (
+  profile: SecondEpisodeColorGradeProfile,
+  section: SecondEpisodeAdaptiveColorSection
+): SecondEpisodeColorGradeProfile => ({
+  ...profile,
+  brightness_adjust: section.brightness_adjust,
+  contrast_adjust: section.contrast_adjust,
+  saturation_adjust: section.saturation_adjust,
+  temperature_adjust: section.temperature_adjust,
+  tint_adjust: section.tint_adjust,
+  shadow_lift: section.shadow_lift,
+  highlight_rolloff: section.highlight_rolloff,
+  vignette_strength: section.vignette_strength,
+  grain_strength: section.grain_strength,
+});
+
+const selectColorProfileForFrame = (
+  profile: SecondEpisodeColorGradeProfile,
+  frame: number
+): SecondEpisodeColorGradeProfile => {
+  if (profile.apply_scope !== "per_music_section" || !profile.sections?.length) {
+    return profile;
+  }
+
+  const activeSection = profile.sections.find(
+    (section) => frame >= section.frame_range[0] && frame < section.frame_range[1]
+  );
+
+  if (activeSection) {
+    return sectionToProfile(profile, activeSection);
+  }
+
+  const nearestSection = profile.sections.reduce((nearest, section) => {
+    const distanceToNearest = Math.min(
+      Math.abs(frame - nearest.frame_range[0]),
+      Math.abs(frame - nearest.frame_range[1])
+    );
+    const distanceToSection = Math.min(
+      Math.abs(frame - section.frame_range[0]),
+      Math.abs(frame - section.frame_range[1])
+    );
+    return distanceToSection < distanceToNearest ? section : nearest;
+  });
+
+  return sectionToProfile(profile, nearestSection);
+};
+
 const cssFilter = (profile: SecondEpisodeColorGradeProfile, shot: SecondEpisodeShot) => {
   const bias = zoneBias[shot.gradeZone];
   const brightness = 1 + profile.brightness_adjust + profile.shadow_lift * 0.45 + bias.brightness;
@@ -85,6 +133,7 @@ const SceneLayer: React.FC<{
   );
   const scale = interpolate(local, [0, duration], [shot.scaleStart, shot.scaleEnd], clamp);
   const y = interpolate(local, [0, duration], [shot.yStart, shot.yEnd], clamp);
+  const activeProfile = selectColorProfileForFrame(profile, frame);
 
   return (
     <Sequence from={from} durationInFrames={duration + 2} premountFor={fps}>
@@ -95,7 +144,7 @@ const SceneLayer: React.FC<{
           startFrom={toFrame(shot.sourceStartSec, fps)}
           style={{
             ...fullVideo,
-            filter: cssFilter(profile, shot),
+            filter: cssFilter(activeProfile, shot),
             objectPosition: shot.objectPosition,
             transform: `scale(${scale}) translateY(${y}px)`,
           }}
@@ -108,11 +157,12 @@ const SceneLayer: React.FC<{
 const AtmosphereLayer: React.FC<{ profile: SecondEpisodeColorGradeProfile }> = ({ profile }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
-  const warmAlpha = Math.max(0, profile.temperature_adjust) * 0.82;
-  const shadowLift = profile.shadow_lift;
-  const highlight = profile.highlight_rolloff;
-  const vignette = profile.vignette_strength;
-  const grain = profile.grain_strength;
+  const activeProfile = selectColorProfileForFrame(profile, frame);
+  const warmAlpha = Math.max(0, activeProfile.temperature_adjust) * 0.82;
+  const shadowLift = activeProfile.shadow_lift;
+  const highlight = activeProfile.highlight_rolloff;
+  const vignette = activeProfile.vignette_strength;
+  const grain = activeProfile.grain_strength;
   const nightShade = interpolate(frame, [0, 240, 420, durationInFrames], [0, 0.03, 0.12, 0.22], clamp);
   const endingFade = interpolate(frame, [durationInFrames - 26, durationInFrames], [0, 0.42], clamp);
   const pulse = interpolate(Math.sin(frame / 21), [-1, 1], [0.015, 0.055]);
@@ -182,8 +232,9 @@ export const SecondEpisode16sVlogValidationCandidate: React.FC<SecondEpisodeColo
   props
 ) => {
   const profile = {
-    ...secondEpisodeDefaultColorGradeProfile,
+    ...secondEpisodeAdaptiveColorGradeProfile,
     ...props,
+    sections: props.sections ?? secondEpisodeAdaptiveColorGradeProfile.sections,
   };
 
   return (
